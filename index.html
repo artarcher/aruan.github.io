@@ -176,22 +176,38 @@
             margin-top: 0;
         }
 
-        /* Стили для мыслей и цитат */
-        .quote-category h3 {
-            font-size: 1rem;
-            margin-bottom: 10px;
+        /* Стили для карточек цитат */
+        .quote-card {
+            border-left: 2px solid #111111;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .quote-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .quote-card blockquote {
+            margin: 0;
+            font-style: italic;
+            line-height: 1.6;
+            color: #222222;
+        }
+
+        .quote-card footer {
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .quote-card .author {
+            font-weight: 600;
             color: #111111;
         }
 
-        .quote-category ul {
-            margin-bottom: 30px;
-            color: #222222;
-            line-height: 1.6;
-            padding-left: 20px;
-        }
-
-        .quote-category li {
-            margin-bottom: 10px;
+        .quote-card .source {
+            font-size: 0.85rem;
+            color: #666666;
+            margin-top: 2px;
         }
 
         /* ЧБ Галерея */
@@ -331,7 +347,8 @@
                         <span class="meta">Интеллект (по Гарднеру)</span>
                     </li>
                     <li>
-                        <span class="title">Жёсткий инкомпатибилизм, светский гуманизм, экзистенциализм, недвойственность</span>
+                        <span class="title">Жёсткий инкомпатибилизм, светский гуманизм, экзистенциализм,
+                            недвойственность</span>
                         <span class="meta">Мировоззрение и философские ориентиры</span>
                     </li>
                 </ul>
@@ -556,7 +573,8 @@
                         <span class="meta">Роберт Сапольски</span>
                     </li>
                     <li>
-                        <span class="title">Как рождаются эмоции. Революция в понимании мозга и управлении эмоциями</span>
+                        <span class="title">Как рождаются эмоции. Революция в понимании мозга и управлении
+                            эмоциями</span>
                         <span class="meta">Лиза Фельдман Барретт</span>
                     </li>
                     <li>
@@ -564,7 +582,8 @@
                         <span class="meta">Анил Сет</span>
                     </li>
                     <li>
-                        <span class="title">Чистый лист. Природа человека. Кто и почему отказывается признавать её сегодня</span>
+                        <span class="title">Чистый лист. Природа человека. Кто и почему отказывается признавать её
+                            сегодня</span>
                         <span class="meta">Стивен Пинкер</span>
                     </li>
                     <li>
@@ -643,21 +662,31 @@
             <section id="quotes">
                 <h2>Цитаты</h2>
 
-                <article class="quote-card"
-                    style="border-left: 2px solid #4a5568; padding-left: 20px;">
-                    <blockquote style="margin: 0; font-style: italic; line-height: 1.6;">
+                <article class="quote-card">
+                    <blockquote>
                         «Брат! я не уныл и не упал духом. Жизнь везде жизнь, жизнь в нас самих, а не во внешнем. Подле
                         меня будут люди, и быть человеком между людьми и остаться им навсегда, в каких бы то ни было
                         несчастьях, не уныть и не пасть — вот в чём жизнь, в чём задача её. Я сознал это. Эта идея вошла
                         в плоть и кровь мою.»
                     </blockquote>
-
-                    <footer style="margin-top: 12px; font-size: 0.9em; opacity: 0.8;">
-                        <div class="author" style="font-weight: 500;">Ф. М. Достоевский</div>
-                        <div class="source" style="font-size: 0.85em; opacity: 0.75;">
+                    <footer>
+                        <div class="author">Фёдор Достоевский</div>
+                        <div class="source">
                             Из письма М. М. Достоевскому<br>
                             22 декабря 1849. Петербург. Петропавловская крепость
                         </div>
+                    </footer>
+                </article>
+
+                <article class="quote-card">
+                    <blockquote>
+                        «Нам была дана заповедь: «Люби ближнего, как самого себя», — но если правильно понять эту
+                        заповедь, то можно прочесть в ней и обратное утверждение: «Ты обязан любить себя должным
+                        образом».»
+                    </blockquote>
+                    <footer>
+                        <div class="author">Сёрен Кьеркегор</div>
+                        <div class="source">Дела любви</div>
                     </footer>
                 </article>
             </section>
