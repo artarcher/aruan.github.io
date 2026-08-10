@@ -48,10 +48,21 @@
             margin: 0 0 10px 0;
         }
 
-        .profile-info p {
+        /* Стили для слогана-цитаты в профиле */
+        .profile-quote {
             font-size: 0.95rem;
             color: #666666;
             margin: 0 0 40px 0;
+            line-height: 1.5;
+        }
+
+        .quote-author {
+            display: block;
+            font-size: 0.8rem;
+            color: #999999;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         nav ul {
@@ -76,23 +87,6 @@
 
         nav a:hover {
             color: #111111;
-        }
-
-        /* Стили для слогана-цитаты в профиле */
-        .profile-quote {
-            font-size: 0.95rem;
-            color: #666666;
-            margin: 0 0 40px 0;
-            line-height: 1.5;
-        }
-
-        .quote-author {
-            display: block;
-            font-size: 0.8rem;
-            color: #999999;
-            margin-top: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         /* Правая панель (Контент) — скроллится */
@@ -136,7 +130,7 @@
         .about-text {
             font-size: 1.05rem;
             color: #222222;
-            margin: 0;
+            margin: 0 0 20px 0;
         }
 
         /* Списки контента */
@@ -172,7 +166,7 @@
             margin: 25px 0 15px 0;
         }
 
-        .sub-category:first-child {
+        h2+.sub-category {
             margin-top: 0;
         }
 
@@ -228,8 +222,7 @@
             filter: grayscale(0%);
         }
 
-        /* Ссылки (Контакты и Материалы) */
-        .links a,
+        /* Ссылки на материалы */
         .material-link {
             color: #111111;
             text-decoration: none;
@@ -237,9 +230,19 @@
             transition: opacity 0.2s ease;
         }
 
-        .links a:hover,
         .material-link:hover {
             opacity: 0.6;
+        }
+
+        /* Оформление списка инструкций в разделе "Материалы" */
+        main ol {
+            padding-left: 20px;
+            color: #333333;
+            font-size: 0.95rem;
+        }
+
+        main ol li {
+            margin-bottom: 10px;
         }
 
         /* Адаптивность для мобильных устройств */
@@ -597,6 +600,11 @@
                     <li>
                         <span class="title">Wanderlust: A History of Walking</span>
                         <span class="meta">Rebecca Solnit</span>
+                    </li>
+                    <li>
+                        <span class="title">Стили радикальной воли (Мышление против самого себя: размышления о
+                            Чоране)</span>
+                        <span class="meta">Сьюзен Зонтаг</span>
                     </li>
                 </ul>
             </section>
