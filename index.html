@@ -208,7 +208,14 @@
         .gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 20px;
+        }
+
+        /* Сброс внешних отступов по умолчанию для figure */
+        .gallery figure {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .gallery img {
@@ -216,10 +223,20 @@
             height: auto;
             filter: grayscale(100%);
             transition: filter 0.3s ease;
+            display: block;
         }
 
-        .gallery img:hover {
+        /* Проявление цвета при наведении на всю карточку figure */
+        .gallery figure:hover img {
             filter: grayscale(0%);
+        }
+
+        /* Стили подписи */
+        .gallery figcaption {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #666666;
+            line-height: 1.4;
         }
 
         /* Ссылки на материалы */
@@ -728,8 +745,15 @@
             <section id="visuals">
                 <h2>Моменты</h2>
                 <div class="gallery">
-                    <img src="https://picsum.photos/600/400?grayscale&random=1" alt="Момент 1">
-                    <img src="https://picsum.photos/600/400?grayscale&random=2" alt="Момент 2">
+                    <figure>
+                        <img src="images/moments/2023-07-14 17-27-44.jpeg" alt="Урочище Джилы-Су, 14 июля 2023 года">
+                        <figcaption>Урочище Джилы-Су, 14 июля 2023 года</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/moments/2024-07-07 11-01-24.jpeg"
+                            alt="Озеро Донгуз-Орун-Кёль, 7 июля 2024 года">
+                        <figcaption>Озеро Донгуз-Орун-Кёль, 7 июля 2024 года</figcaption>
+                    </figure>
                 </div>
             </section>
 
