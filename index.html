@@ -149,11 +149,29 @@
         .title {
             font-weight: 500;
             color: #111111;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Возрастная маркировка (ФЗ-436) */
+        .age-rating {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #999999;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            padding: 1px 5px;
+            margin-left: 8px;
+            line-height: 1.3;
+            user-select: none;
         }
 
         .meta {
             font-size: 0.9rem;
             color: #666666;
+            margin-top: 2px;
         }
 
         /* Подзаголовки для разделения внутри секций */
@@ -444,27 +462,27 @@
                 <div class="sub-category">Инди и Альтернатива</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Дружище</span>
+                        <span class="title">Дружище <span class="age-rating">16+</span></span>
                         <span class="meta">Bazlab</span>
                     </li>
                     <li>
-                        <span class="title">Проповедь</span>
+                        <span class="title">Проповедь <span class="age-rating">16+</span></span>
                         <span class="meta">Dj Мозенрад & Мисс Зиноби</span>
                     </li>
                     <li>
-                        <span class="title">Bite My Lip</span>
+                        <span class="title">Bite My Lip <span class="age-rating">16+</span></span>
                         <span class="meta">Kelly Boesch</span>
                     </li>
                     <li>
-                        <span class="title">Golden Age</span>
+                        <span class="title">Golden Age <span class="age-rating">12+</span></span>
                         <span class="meta">Chris Staples</span>
                     </li>
                     <li>
-                        <span class="title">Katie Queen of Tennessee</span>
+                        <span class="title">Katie Queen of Tennessee <span class="age-rating">12+</span></span>
                         <span class="meta">The Apache Relay</span>
                     </li>
                     <li>
-                        <span class="title">Always On My Mind</span>
+                        <span class="title">Always On My Mind <span class="age-rating">12+</span></span>
                         <span class="meta">Ane Brun</span>
                     </li>
                 </ul>
@@ -472,15 +490,15 @@
                 <div class="sub-category">Поп-музыка</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Chloe or Sam or Sophia or Marcus</span>
+                        <span class="title">Chloe or Sam or Sophia or Marcus <span class="age-rating">18+</span></span>
                         <span class="meta">Taylor Swift</span>
                     </li>
                     <li>
-                        <span class="title">Paper Rings</span>
+                        <span class="title">Paper Rings <span class="age-rating">12+</span></span>
                         <span class="meta">Taylor Swift</span>
                     </li>
                     <li>
-                        <span class="title">ME!</span>
+                        <span class="title">ME! <span class="age-rating">12+</span></span>
                         <span class="meta">Taylor Swift, Brendon Urie</span>
                     </li>
                 </ul>
@@ -488,11 +506,11 @@
                 <div class="sub-category">Русская рок- и поп-сцена</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">АВСТРАЛИЯ</span>
+                        <span class="title">АВСТРАЛИЯ <span class="age-rating">16+</span></span>
                         <span class="meta">Земфира</span>
                     </li>
                     <li>
-                        <span class="title">Питер - Владивосток</span>
+                        <span class="title">Питер - Владивосток <span class="age-rating">18+</span></span>
                         <span class="meta">просто Лера</span>
                     </li>
                 </ul>
@@ -500,27 +518,27 @@
                 <div class="sub-category">Электронная и атмосферная музыка</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Clocks</span>
+                        <span class="title">Clocks <span class="age-rating">12+</span></span>
                         <span class="meta">Lost Ways</span>
                     </li>
                     <li>
-                        <span class="title">Your Firefly, Pt. 2</span>
+                        <span class="title">Your Firefly, Pt. 2 <span class="age-rating">12+</span></span>
                         <span class="meta">Ben Cocks, Benjamin Ian Cocks</span>
                     </li>
                     <li>
-                        <span class="title">Elara</span>
+                        <span class="title">Elara <span class="age-rating">12+</span></span>
                         <span class="meta">Parra For Cuva</span>
                     </li>
                     <li>
-                        <span class="title">CRYING STAR</span>
+                        <span class="title">CRYING STAR <span class="age-rating">12+</span></span>
                         <span class="meta">YOHYOSAN</span>
                     </li>
                     <li>
-                        <span class="title">Wanderer</span>
+                        <span class="title">Wanderer <span class="age-rating">12+</span></span>
                         <span class="meta">Steven Gutheinz</span>
                     </li>
                     <li>
-                        <span class="title">MEMORIES</span>
+                        <span class="title">MEMORIES <span class="age-rating">12+</span></span>
                         <span class="meta">ROMANTICA</span>
                     </li>
                 </ul>
@@ -533,19 +551,19 @@
                 <div class="sub-category">Проза</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Мастер и Маргарита</span>
+                        <span class="title">Мастер и Маргарита <span class="age-rating">16+</span></span>
                         <span class="meta">Михаил Булгаков</span>
                     </li>
                     <li>
-                        <span class="title">Братья Карамазовы</span>
+                        <span class="title">Братья Карамазовы <span class="age-rating">16+</span></span>
                         <span class="meta">Фёдор Достоевский</span>
                     </li>
                     <li>
-                        <span class="title">Идиот</span>
+                        <span class="title">Идиот <span class="age-rating">16+</span></span>
                         <span class="meta">Фёдор Достоевский</span>
                     </li>
                     <li>
-                        <span class="title">Смерть Ивана Ильича</span>
+                        <span class="title">Смерть Ивана Ильича <span class="age-rating">12+</span></span>
                         <span class="meta">Лев Толстой</span>
                     </li>
                 </ul>
@@ -553,11 +571,11 @@
                 <div class="sub-category">Информатика и технологии</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Искусство программирования</span>
+                        <span class="title">Искусство программирования <span class="age-rating">16+</span></span>
                         <span class="meta">Дональд Кнут</span>
                     </li>
                     <li>
-                        <span class="title">Код. Тайный язык информатики</span>
+                        <span class="title">Код. Тайный язык информатики <span class="age-rating">16+</span></span>
                         <span class="meta">Чарльз Петцольд</span>
                     </li>
                 </ul>
@@ -565,11 +583,11 @@
                 <div class="sub-category">Философия и экзистенция</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Или-или</span>
+                        <span class="title">Или-или <span class="age-rating">16+</span></span>
                         <span class="meta">Сёрен Кьеркегор</span>
                     </li>
                     <li>
-                        <span class="title">Existential Physics: A Scientist's Guide to Life's Biggest Questions</span>
+                        <span class="title">Existential Physics: A Scientist's Guide to Life's Biggest Questions <span class="age-rating">16+</span></span>
                         <span class="meta">Sabine Hossenfelder</span>
                     </li>
                 </ul>
@@ -577,33 +595,33 @@
                 <div class="sub-category">Человек и разум</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Наука о мозге и миф о своем Я. Тоннель эго</span>
+                        <span class="title">Наука о мозге и миф о своем Я. Тоннель эго <span class="age-rating">16+</span></span>
                         <span class="meta">Томас Метцингер</span>
                     </li>
                     <li>
-                        <span class="title">Рождение разума: Как интеллект зарождается в людях и нейросетях</span>
+                        <span class="title">Рождение разума: Как интеллект зарождается в людях и нейросетях <span class="age-rating">16+</span></span>
                         <span class="meta">Джей Макклелланд, Гаурав Сури</span>
                     </li>
                     <li>
-                        <span class="title">Всё решено: Жизнь без свободы воли</span>
+                        <span class="title">Всё решено: Жизнь без свободы воли <span class="age-rating">16+</span></span>
                         <span class="meta">Роберт Сапольски</span>
                     </li>
                     <li>
                         <span class="title">Как рождаются эмоции. Революция в понимании мозга и управлении
-                            эмоциями</span>
+                            эмоциями <span class="age-rating">16+</span></span>
                         <span class="meta">Лиза Фельдман Барретт</span>
                     </li>
                     <li>
-                        <span class="title">Быть собой. Новая теория сознания</span>
+                        <span class="title">Быть собой. Новая теория сознания <span class="age-rating">16+</span></span>
                         <span class="meta">Анил Сет</span>
                     </li>
                     <li>
                         <span class="title">Чистый лист. Природа человека. Кто и почему отказывается признавать её
-                            сегодня</span>
+                            сегодня <span class="age-rating">16+</span></span>
                         <span class="meta">Стивен Пинкер</span>
                     </li>
                     <li>
-                        <span class="title">Истоки морали. В поисках человеческого у приматов</span>
+                        <span class="title">Истоки морали. В поисках человеческого у приматов <span class="age-rating">16+</span></span>
                         <span class="meta">Франс де Вааль</span>
                     </li>
                 </ul>
@@ -611,7 +629,7 @@
                 <div class="sub-category">Эссеистика</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Wanderlust: A History of Walking</span>
+                        <span class="title">Wanderlust: A History of Walking <span class="age-rating">16+</span></span>
                         <span class="meta">Rebecca Solnit</span>
                     </li>
                 </ul>
@@ -624,15 +642,15 @@
                 <div class="sub-category">Учительство и школа</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Учитель на замену</span>
+                        <span class="title">Учитель на замену <span class="age-rating">18+</span></span>
                         <span class="meta">Тони Кэй</span>
                     </li>
                     <li>
-                        <span class="title">Доживём до понедельника</span>
+                        <span class="title">Доживём до понедельника <span class="age-rating">12+</span></span>
                         <span class="meta">Станислав Ростоцкий</span>
                     </li>
                     <li>
-                        <span class="title">Учитель, обещавший море</span>
+                        <span class="title">Учитель, обещавший море <span class="age-rating">16+</span></span>
                         <span class="meta">Патрисия Фонт</span>
                     </li>
                 </ul>
@@ -640,15 +658,15 @@
                 <div class="sub-category">Анимация и притчи</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Маленький принц</span>
+                        <span class="title">Маленький принц <span class="age-rating">6+</span></span>
                         <span class="meta">Марк Осборн</span>
                     </li>
                     <li>
-                        <span class="title">Мальчик, Крот, Лис и Конь</span>
+                        <span class="title">Мальчик, Крот, Лис и Конь <span class="age-rating">6+</span></span>
                         <span class="meta">Питер Бэйнтон, Чарли Маккизи</span>
                     </li>
                     <li>
-                        <span class="title">Сказание о принцессе Кагуя</span>
+                        <span class="title">Сказание о принцессе Кагуя <span class="age-rating">12+</span></span>
                         <span class="meta">Исао Такахата</span>
                     </li>
                 </ul>
@@ -656,19 +674,19 @@
                 <div class="sub-category">Драма и поиск себя</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title">Вторая жизнь Уве</span>
+                        <span class="title">Вторая жизнь Уве <span class="age-rating">16+</span></span>
                         <span class="meta">Ханнес Холм</span>
                     </li>
                     <li>
-                        <span class="title">Боб Тревино поставил лайк</span>
+                        <span class="title">Боб Тревино поставил лайк <span class="age-rating">16+</span></span>
                         <span class="meta">Трейси Леймон</span>
                     </li>
                     <li>
-                        <span class="title">Лабиринт Фавна</span>
+                        <span class="title">Лабиринт Фавна <span class="age-rating">16+</span></span>
                         <span class="meta">Гильермо дель Торо</span>
                     </li>
                     <li>
-                        <span class="title">Ван Гог. С любовью, Винсент</span>
+                        <span class="title">Ван Гог. С любовью, Винсент <span class="age-rating">12+</span></span>
                         <span class="meta">Дорота Кобела, Хью Уэлшман</span>
                     </li>
                 </ul>
@@ -797,7 +815,6 @@
                         <span class="meta">XLSX &bull; Скачайте файл с данными</span>
                     </li>
                 </ul>
-            </section>
             </section>
 
         </main>
