@@ -1,4 +1,455 @@
-<!-- Раздел: Музыка -->
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Личный архив: книги, фильмы, музыка, мысли и ценностные ориентиры.">
+    <title>aruan</title>
+    <style>
+        /* Общие настройки и плавный скролл */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Главный контейнер-сетка */
+        .wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Левая панель (Навигация) — зафиксирована */
+        aside {
+            width: 250px;
+            position: fixed;
+            height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .profile-info h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin: 0 0 10px 0;
+        }
+
+        /* Стили для слогана-цитаты в профиле */
+        .profile-quote {
+            font-size: 0.95rem;
+            color: #666666;
+            margin: 0 0 40px 0;
+            line-height: 1.5;
+        }
+
+        .quote-author {
+            display: block;
+            font-size: 0.8rem;
+            color: #999999;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            margin-bottom: 12px;
+        }
+
+        nav a {
+            color: #666666;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: #111111;
+        }
+
+        /* Правая панель (Контент) — скроллится */
+        main {
+            margin-left: 320px;
+            flex: 1;
+            width: 100%;
+        }
+
+        section {
+            margin-bottom: 65px;
+            padding-top: 10px;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+        }
+
+        /* Дополнительная ссылка в заголовке */
+        .header-link {
+            font-size: 0.8rem;
+            font-weight: 400;
+            text-transform: lowercase;
+            float: right;
+            border-bottom: 1px solid #111111;
+            text-decoration: none;
+            color: #111111;
+        }
+
+        .header-link:hover {
+            opacity: 0.6;
+        }
+
+        /* Текстовый блок о себе */
+        .about-text {
+            font-size: 1.05rem;
+            color: #222222;
+            margin: 0 0 20px 0;
+        }
+
+        /* Списки контента */
+        .content-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .content-list li {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            font-weight: 500;
+            color: #111111;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Возрастная маркировка (ФЗ-436) */
+        .age-rating {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #999999;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            padding: 1px 5px;
+            margin-left: 8px;
+            line-height: 1.3;
+            user-select: none;
+        }
+
+        .meta {
+            font-size: 0.9rem;
+            color: #666666;
+            margin-top: 2px;
+        }
+
+        /* Подзаголовки для разделения внутри секций */
+        .sub-category {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #999999;
+            letter-spacing: 0.05em;
+            margin: 25px 0 15px 0;
+        }
+
+        h2+.sub-category {
+            margin-top: 0;
+        }
+
+        /* Стили для карточек цитат */
+        .quote-card {
+            border-left: 2px solid #111111;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .quote-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .quote-card blockquote {
+            margin: 0;
+            font-style: italic;
+            line-height: 1.6;
+            color: #222222;
+        }
+
+        .quote-card footer {
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .quote-card .author {
+            font-weight: 600;
+            color: #111111;
+        }
+
+        .quote-card .source {
+            font-size: 0.85rem;
+            color: #666666;
+            margin-top: 2px;
+        }
+
+        /* ЧБ Галерея */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* Сброс внешних отступов по умолчанию для figure */
+        .gallery figure {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+            display: block;
+        }
+
+        /* Проявление цвета при наведении на всю карточку figure */
+        .gallery figure:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* Стили подписи */
+        .gallery figcaption {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #666666;
+            line-height: 1.4;
+        }
+
+        /* Ссылки на материалы */
+        .material-link {
+            color: #111111;
+            text-decoration: none;
+            border-bottom: 1px solid #111111;
+            transition: opacity 0.2s ease;
+        }
+
+        .material-link:hover {
+            opacity: 0.6;
+        }
+
+        /* Оформление списка инструкций в разделе "Материалы" */
+        main ol {
+            padding-left: 20px;
+            color: #333333;
+            font-size: 0.95rem;
+        }
+
+        main ol li {
+            margin-bottom: 10px;
+        }
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .wrapper {
+                flex-direction: column;
+                padding: 40px 20px;
+            }
+
+            aside {
+                position: relative;
+                width: 100%;
+                height: auto;
+                margin-bottom: 40px;
+            }
+
+            nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            nav li {
+                margin-bottom: 0;
+            }
+
+            main {
+                margin-left: 0;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .header-link {
+                float: none;
+                display: block;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <!-- Левая колонка: Профиль и Меню -->
+        <aside>
+            <div class="profile-info">
+                <h1>aruan</h1>
+                <p class="profile-quote">
+                    Пока твоё сердце<br>
+                    Ещё откликается<br>
+                    На звёзды
+                    <span class="quote-author">Bazlab — Дружище</span>
+                </p>
+                <nav>
+                    <ul>
+                        <li><a href="#about">О себе</a></li>
+                        <li><a href="#people">Личности</a></li>
+                        <li><a href="#music">Музыка</a></li>
+                        <li><a href="#books">Книги</a></li>
+                        <li><a href="#cinema">Кино</a></li>
+                        <li><a href="#quotes">Цитаты</a></li>
+                        <li><a href="#visuals">Моменты</a></li>
+                        <li><a href="#tools">Инструменты</a></li>
+                        <li><a href="#materials">Материалы</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Правая колонка: Сам контент -->
+        <main>
+
+            <!-- Раздел: О себе -->
+            <section id="about">
+                <h2>О себе</h2>
+                <p class="about-text">Этот сайт задуман как личный архив: собрание книг, фильмов, музыки и мыслей.</p>
+
+                <ul class="content-list" style="margin-top: 20px;">
+                    <li>
+                        <span class="title">INFP</span>
+                        <span class="meta">MBTI</span>
+                    </li>
+                    <li>
+                        <span class="title">4w5 459 sx/sp</span>
+                        <span class="meta">Эннеаграмма</span>
+                    </li>
+                    <li>
+                        <span class="title">Отроверт</span>
+                        <span class="meta">Концепция Рами Камински</span>
+                    </li>
+                    <li>
+                        <span class="title">HSP (Высокая чувствительность)</span>
+                        <span class="meta">Особенность нервной системы</span>
+                    </li>
+                    <li>
+                        <span class="title">Бирюзовый</span>
+                        <span class="meta">Спиральная динамика</span>
+                    </li>
+                    <li>
+                        <span class="title">Экзистенциальный / Внутриличностный / Межличностный</span>
+                        <span class="meta">Интеллект (по Гарднеру)</span>
+                    </li>
+                    <li>
+                        <span class="title">Жёсткий инкомпатибилизм, светский гуманизм, экзистенциализм,
+                            недвойственность</span>
+                        <span class="meta">Мировоззрение и философские ориентиры</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Раздел: Личности -->
+            <section id="people">
+                <h2>Личности</h2>
+
+                <div class="sub-category">Реальные</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Сёрен Кьеркегор</span>
+                        <span class="meta">Датский философ, отец экзистенциализма</span>
+                    </li>
+                    <li>
+                        <span class="title">Эмиль Чоран</span>
+                        <span class="meta">Румынский и французский философ-эссеист</span>
+                    </li>
+                    <li>
+                        <span class="title">Франц Кафка</span>
+                        <span class="meta">Немецкоязычный писатель Праги, исследователь абсурда и одиночества</span>
+                    </li>
+                    <li>
+                        <span class="title">Винсент Ван Гог</span>
+                        <span class="meta">Нидерландский художник-постимпрессионист</span>
+                    </li>
+                </ul>
+
+                <div class="sub-category">Вымышленные</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Мальчик</span>
+                        <span class="meta">Чарли Маккизи, «Мальчик, Крот, Лис и Конь»</span>
+                    </li>
+                    <li>
+                        <span class="title">Маленький Принц</span>
+                        <span class="meta">Антуан де Сент-Экзюпери, «Маленький принц»</span>
+                    </li>
+                    <li>
+                        <span class="title">Офелия</span>
+                        <span class="meta">Гильермо дель Торо, «Лабиринт Фавна»</span>
+                    </li>
+                    <li>
+                        <span class="title">Мастер</span>
+                        <span class="meta">Михаил Булгаков, «Мастер и Маргарита»</span>
+                    </li>
+                    <li>
+                        <span class="title">Алиса</span>
+                        <span class="meta">Льюис Кэрролл, «Приключения Алисы в Стране чудес»</span>
+                    </li>
+                    <li>
+                        <span class="title">Анна</span>
+                        <span class="meta">Хиромаса Ёнэбаяси, «Воспоминания о Марни»</span>
+                    </li>
+                    <li>
+                        <span class="title">Князь Мышкин</span>
+                        <span class="meta">Фёдор Достоевский, «Идиот»</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Раздел: Музыка -->
             <section id="music">
                 <h2>Музыка <a
                         href="https://music.yandex.ru/playlists/3ba28253-1cea-ccd7-be57-26b04e64c551?utm_source=desktop&utm_medium=copy_link"
@@ -96,3 +547,284 @@
                     </li>
                 </ul>
             </section>
+
+            <!-- Раздел: Книги -->
+            <section id="books">
+                <h2>Книги</h2>
+
+                <div class="sub-category">Проза</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Мастер и Маргарита <span class="age-rating">16+</span></span>
+                        <span class="meta">Михаил Булгаков</span>
+                    </li>
+                    <li>
+                        <span class="title">Братья Карамазовы <span class="age-rating">16+</span></span>
+                        <span class="meta">Фёдор Достоевский</span>
+                    </li>
+                    <li>
+                        <span class="title">Идиот <span class="age-rating">16+</span></span>
+                        <span class="meta">Фёдор Достоевский</span>
+                    </li>
+                    <li>
+                        <span class="title">Смерть Ивана Ильича <span class="age-rating">12+</span></span>
+                        <span class="meta">Лев Толстой</span>
+                    </li>
+                </ul>
+
+                <div class="sub-category">Информатика и технологии</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Искусство программирования <span class="age-rating">16+</span></span>
+                        <span class="meta">Дональд Кнут</span>
+                    </li>
+                    <li>
+                        <span class="title">Код. Тайный язык информатики <span class="age-rating">16+</span></span>
+                        <span class="meta">Чарльз Петцольд</span>
+                    </li>
+                </ul>
+
+                <div class="sub-category">Философия и экзистенция</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Или-или <span class="age-rating">16+</span></span>
+                        <span class="meta">Сёрен Кьеркегор</span>
+                    </li>
+                    <li>
+                        <span class="title">Existential Physics: A Scientist's Guide to Life's Biggest Questions <span class="age-rating">16+</span></span>
+                        <span class="meta">Sabine Hossenfelder</span>
+                    </li>
+                </ul>
+
+                <div class="sub-category">Человек и разум</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Наука о мозге и миф о своем Я. Тоннель эго <span class="age-rating">16+</span></span>
+                        <span class="meta">Томас Метцингер</span>
+                    </li>
+                    <li>
+                        <span class="title">Рождение разума: Как интеллект зарождается в людях и нейросетях <span class="age-rating">16+</span></span>
+                        <span class="meta">Джей Макклелланд, Гаурав Сури</span>
+                    </li>
+                    <li>
+                        <span class="title">Всё решено: Жизнь без свободы воли <span class="age-rating">16+</span></span>
+                        <span class="meta">Роберт Сапольски</span>
+                    </li>
+                    <li>
+                        <span class="title">Как рождаются эмоции. Революция в понимании мозга и управлении
+                            эмоциями <span class="age-rating">16+</span></span>
+                        <span class="meta">Лиза Фельдман Барретт</span>
+                    </li>
+                    <li>
+                        <span class="title">Быть собой. Новая теория сознания <span class="age-rating">16+</span></span>
+                        <span class="meta">Анил Сет</span>
+                    </li>
+                    <li>
+                        <span class="title">Чистый лист. Природа человека. Кто и почему отказывается признавать её
+                            сегодня <span class="age-rating">16+</span></span>
+                        <span class="meta">Стивен Пинкер</span>
+                    </li>
+                    <li>
+                        <span class="title">Истоки морали. В поисках человеческого у приматов <span class="age-rating">16+</span></span>
+                        <span class="meta">Франс де Вааль</span>
+                    </li>
+                </ul>
+
+                <div class="sub-category">Эссеистика</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Wanderlust: A History of Walking <span class="age-rating">16+</span></span>
+                        <span class="meta">Rebecca Solnit</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Раздел: Кино -->
+            <section id="cinema">
+                <h2>Кино</h2>
+
+                <div class="sub-category">Учительство и школа</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Учитель на замену <span class="age-rating">18+</span></span>
+                        <span class="meta">Тони Кэй</span>
+                    </li>
+                    <li>
+                        <span class="title">Доживём до понедельника <span class="age-rating">12+</span></span>
+                        <span class="meta">Станислав Ростоцкий</span>
+                    </li>
+                    <li>
+                        <span class="title">Учитель, обещавший море <span class="age-rating">16+</span></span>
+                        <span class="meta">Патрисия Фонт</span>
+                    </li>
+                </ul>
+
+                <div class="sub-category">Анимация и притчи</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Маленький принц <span class="age-rating">6+</span></span>
+                        <span class="meta">Марк Осборн</span>
+                    </li>
+                    <li>
+                        <span class="title">Мальчик, Крот, Лис и Конь <span class="age-rating">6+</span></span>
+                        <span class="meta">Питер Бэйнтон, Чарли Маккизи</span>
+                    </li>
+                    <li>
+                        <span class="title">Сказание о принцессе Кагуя <span class="age-rating">12+</span></span>
+                        <span class="meta">Исао Такахата</span>
+                    </li>
+                </ul>
+
+                <div class="sub-category">Драма и поиск себя</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Вторая жизнь Уве <span class="age-rating">16+</span></span>
+                        <span class="meta">Ханнес Холм</span>
+                    </li>
+                    <li>
+                        <span class="title">Боб Тревино поставил лайк <span class="age-rating">16+</span></span>
+                        <span class="meta">Трейси Леймон</span>
+                    </li>
+                    <li>
+                        <span class="title">Лабиринт Фавна <span class="age-rating">16+</span></span>
+                        <span class="meta">Гильермо дель Торо</span>
+                    </li>
+                    <li>
+                        <span class="title">Ван Гог. С любовью, Винсент <span class="age-rating">12+</span></span>
+                        <span class="meta">Дорота Кобела, Хью Уэлшман</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Раздел: Цитаты -->
+            <section id="quotes">
+                <h2>Цитаты</h2>
+
+                <article class="quote-card">
+                    <blockquote>
+                        «Самый радикальный и смелый акт, который вы можете совершить в этом мире — это позволить себе
+                        полностью почувствовать то, что вы чувствуете прямо сейчас, не пытаясь это объяснить, изменить
+                        или сбежать.»
+                    </blockquote>
+                    <footer>
+                        <div class="author">Jeff Foster</div>
+                        <div class="source">Falling in Love with Where You Are</div>
+                    </footer>
+                </article>
+
+                <article class="quote-card">
+                    <blockquote>
+                        «Разве это не удивительное облегчение — осознать, что прямо сейчас ничто на свете не могло бы
+                        быть иным, чем оно есть? Что ЭТО и есть то, как существует Вселенная, и что всему здесь есть
+                        место? Чувствуешь ли ты свободу в знании того, что нет никакого "тебя", который "должен" был бы
+                        справляться с жизнью лучше?»
+                    </blockquote>
+                    <footer>
+                        <div class="author">Joan Tollifson</div>
+                        <div class="source">Nothing to Grasp</div>
+                    </footer>
+                </article>
+
+                <article class="quote-card">
+                    <blockquote>
+                        «Брат! я не уныл и не упал духом. Жизнь везде жизнь, жизнь в нас самих, а не во внешнем. Подле
+                        меня будут люди, и быть человеком между людьми и остаться им навсегда, в каких бы то ни было
+                        несчастьях, не уныть и не пасть — вот в чём жизнь, в чём задача её. Я сознал это. Эта идея вошла
+                        в плоть и кровь мою.»
+                    </blockquote>
+                    <footer>
+                        <div class="author">Фёдор Достоевский</div>
+                        <div class="source">
+                            Из письма М. М. Достоевскому<br>
+                            22 декабря 1849. Петербург. Петропавловская крепость
+                        </div>
+                    </footer>
+                </article>
+
+                <article class="quote-card">
+                    <blockquote>
+                        «Нам была дана заповедь: «Люби ближнего, как самого себя», — но если правильно понять эту
+                        заповедь, то можно прочесть в ней и обратное утверждение: «Ты обязан любить себя должным
+                        образом».»
+                    </blockquote>
+                    <footer>
+                        <div class="author">Сёрен Кьеркегор</div>
+                        <div class="source">Дела любви</div>
+                    </footer>
+                </article>
+            </section>
+
+            <!-- Раздел: Моменты -->
+            <section id="visuals">
+                <h2>Моменты</h2>
+                <div class="gallery">
+                    <figure>
+                        <img src="images/moments/2023-07-14 17-27-44.jpeg" alt="Урочище Джилы-Су, 14 июля 2023 года">
+                        <figcaption>Урочище Джилы-Су, 14 июля 2023 года</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/moments/2024-07-07 11-01-24.jpeg"
+                            alt="Озеро Донгуз-Орун-Кёль, 7 июля 2024 года">
+                        <figcaption>Озеро Донгуз-Орун-Кёль, 7 июля 2024 года</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/moments/2026-13-08 07-48-04.jpeg" alt="Плато Канжол, 13 августа 2026 года">
+                        <figcaption>Плато Канжол, 13 августа 2026 года</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- Раздел: Инструменты -->
+            <section id="tools">
+                <h2>Инструменты</h2>
+                <ul class="content-list">
+                    <li>
+                        <span class="title">Gemini Notebook</span>
+                        <span class="meta">AI</span>
+                    </li>
+                    <li>
+                        <span class="title">iA Writer</span>
+                        <span class="meta">Текстовый редактор</span>
+                    </li>
+                    <li>
+                        <span class="title">Dia</span>
+                        <span class="meta">Браузер</span>
+                    </li>
+                    <li>
+                        <span class="title">Down Dog</span>
+                        <span class="meta">Фитнес</span>
+                    </li>
+                    <li>
+                        <span class="title">The Marginalian</span>
+                        <span class="meta">Философско-литературный архив</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Раздел: Материалы -->
+            <section id="materials">
+                <h2>Материалы</h2>
+
+                <div class="sub-category">Курс школьной информатики</div>
+                <div class="sub-category">Основы проектирования баз данных</div>
+
+                <div class="sub-category">Базы данных</div>
+
+                <div class="sub-category">Курс Microsoft Excel</div>
+                <ul class="content-list">
+                    <li>
+                        <span class="title"><a
+                                href="https://docs.google.com/spreadsheets/d/1JNKP9LQ5LyjP9WoDQgjj_33wLmgXSH_Y/export?format=xlsx"
+                                target="_blank" class="material-link">Д31 Данные</a></span>
+                        <span class="meta">XLSX &bull; Скачайте файл с данными</span>
+                    </li>
+                </ul>
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
