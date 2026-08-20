@@ -200,6 +200,10 @@
             color: #e63946;
         }
 
+        .like-btn.liked .heart-icon {
+            color: #e63946;
+        }
+
         .like-btn .heart-icon {
             font-size: 0.9rem;
             line-height: 1;
@@ -1057,7 +1061,7 @@
             appId: "1:94456195585:web:be41f4658986ff45276e00"
         };
 
-        // Инициализация
+        // Инициализация Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
@@ -1072,35 +1076,41 @@
                 const heartSpan = btn.querySelector('.heart-icon');
                 const itemRef = db.ref('likes/' + id);
 
-                // Загрузка состояния лайка для текущего браузера
+                // 1. Проверяем состояние лайка в localStorage при загрузке
                 const isLikedLocally = localStorage.getItem(`liked_${id}`) === 'true';
+
                 if (isLikedLocally) {
                     btn.classList.add('liked');
-                    heartSpan.textContent = '♥';
+                    if (heartSpan) heartSpan.textContent = '♥';
+                } else {
+                    btn.classList.remove('liked');
+                    if (heartSpan) heartSpan.textContent = '♡';
                 }
 
-                // Слушатель изменений в Firebase (синхронизация со всеми пользователями)
+                // 2. Слушаем обновления счётчика из Firebase
                 itemRef.on('value', (snapshot) => {
                     const count = snapshot.val() || 0;
-                    countSpan.textContent = count;
+                    if (countSpan) countSpan.textContent = count;
                 });
 
-                // Обработка клика
+                // 3. Обработка клика
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     const isCurrentlyLiked = btn.classList.contains('liked');
 
                     if (isCurrentlyLiked) {
+                        // Убираем лайк
                         btn.classList.remove('liked');
-                        heartSpan.textContent = '♡';
+                        if (heartSpan) heartSpan.textContent = '♡';
                         localStorage.setItem(`liked_${id}`, 'false');
 
                         itemRef.transaction((currentCount) => {
                             return Math.max(0, (currentCount || 1) - 1);
                         });
                     } else {
+                        // Ставим лайк
                         btn.classList.add('liked');
-                        heartSpan.textContent = '♥';
+                        if (heartSpan) heartSpan.textContent = '♥';
                         localStorage.setItem(`liked_${id}`, 'true');
 
                         itemRef.transaction((currentCount) => {
