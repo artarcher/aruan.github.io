@@ -479,6 +479,14 @@
             font-family: var(--font-display);
         }
 
+        a.material-title {
+            text-decoration: none;
+            border-bottom: 1px solid var(--ink);
+            transition: opacity 0.2s var(--ease);
+        }
+
+        a.material-title:hover { opacity: 0.6; }
+
         /* ============================================================
            Responsive
            ============================================================ */
@@ -1290,11 +1298,11 @@
                 <div class="sub-category">Курс школьной информатики</div>
                 <ul class="content-list">
                     <li>
-                        <span class="title"><span class="material-title">Основы проектирования баз данных</span>
+                        <span class="title"><a href="db-basics.html" class="material-title">Основы проектирования баз данных</a>
                             <button class="like-btn" data-id="mat-db-design" title="Нравится" aria-label="Нравится"><span
                                     class="heart-icon">☆</span><span class="like-count">0</span></button>
                         </span>
-                        <span class="meta">Конспекты и практические задания — готовятся к публикации</span>
+                        <span class="meta">Конспекты и практические задания к теме 1.1</span>
                     </li>
                 </ul>
 
@@ -1339,7 +1347,7 @@
                     </figure>
                     <figure class="gallery-feature">
                         <div class="frame">
-                            <img src="images/moments/2026-13-08 07-48-04.jpeg" alt="Плато Канжол, 13 августа 2026 года">
+                            <img src="images/moments/2026-08-13 07-48-04.jpeg" alt="Плато Канжол, 13 августа 2026 года">
                         </div>
                         <figcaption>
                             <span>Плато Канжол, 13 августа 2026 года</span>
