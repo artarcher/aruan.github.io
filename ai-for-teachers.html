@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Сравнение ChatGPT, Claude, Gemini, DeepSeek, YandexGPT и GigaChat для подготовки к уроку — и рабочие приёмы составления промптов.">
+    <title>Какой ИИ выбрать для подготовки к уроку — aruan</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #faf9f6;
+            --paper: #ffffff;
+            --ink: #17181a;
+            --ink-soft: #3b3c3e;
+            --muted: #767671;
+            --faint: #aaa8a1;
+            --line: #e6e3dc;
+            --line-strong: #d8d4ca;
+            --accent: #a9832f;
+            --accent-soft: rgba(169, 131, 47, 0.1);
+            --low-fg: #b0503f;
+            --low-bg: rgba(176, 80, 63, 0.09);
+
+            --font-display: 'Lora', Georgia, 'Times New Roman', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+            --ease: cubic-bezier(.16, 1, .3, 1);
+            --content-w: 860px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        ::selection { background: var(--accent-soft); color: var(--ink); }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--ink-soft);
+            line-height: 1.7;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: var(--ink); }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+        /* ============================================================
+           Chrome: back-link + breadcrumb
+           ============================================================ */
+        .top-bar {
+            max-width: var(--content-w);
+            margin: 0 auto;
+            padding: 28px 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .back-link {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--muted);
+            letter-spacing: 0.02em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s var(--ease);
+        }
+
+        .back-link:hover { color: var(--ink); }
+
+        .breadcrumb {
+            font-size: 0.72rem;
+            color: var(--faint);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+
+        /* ============================================================
+           .wrap — shared content column
+           ============================================================ */
+        .wrap {
+            max-width: var(--content-w);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================================
+           Hero — the page's own intro, styled like the site's other
+           document headers but with a soft accent wash behind it.
+           ============================================================ */
+        .hero {
+            background: linear-gradient(180deg, var(--accent-soft), rgba(250, 249, 246, 0) 75%);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .hero .wrap {
+            padding: 40px 24px 40px;
+        }
+
+        .eyebrow {
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            margin: 0 0 14px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 2.15rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            color: var(--ink);
+            margin: 0 0 16px;
+        }
+
+        .hero p {
+            font-size: 1.02rem;
+            color: var(--muted);
+            max-width: 62ch;
+            margin: 0;
+        }
+
+        /* Signature mark for this page: a hand-drawn underline, like
+           chalk on a blackboard, under the one word the whole page
+           revolves around. */
+        .chalk-underline {
+            position: relative;
+            white-space: nowrap;
+            color: var(--ink);
+        }
+
+        .chalk-underline::after {
+            content: "";
+            position: absolute;
+            left: -3px;
+            right: -4px;
+            bottom: -4px;
+            height: 11px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 20' preserveAspectRatio='none'%3E%3Cpath d='M2 14 Q 18 4 35 13 T 68 12 T 101 13 T 137 11' fill='none' stroke='%23a9832f' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            opacity: 0.65;
+            z-index: -1;
+        }
+
+        /* ============================================================
+           Sections
+           ============================================================ */
+        main { padding: 8px 0 100px; }
+
+        section.topic { margin: 56px 0; scroll-margin-top: 24px; }
+        section.topic:first-of-type { margin-top: 44px; }
+
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 14px;
+            margin-bottom: 8px;
+        }
+
+        .section-num {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--line-strong);
+            line-height: 1;
+        }
+
+        .section-head h2 {
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink);
+            margin: 0;
+        }
+
+        .section-sub {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--ink);
+            max-width: 66ch;
+            margin: 18px 0 28px;
+        }
+
+        p { margin: 0 0 16px; }
+
+        strong { color: var(--ink); font-weight: 600; }
+
+        /* ============================================================
+           Tables + tags
+           ============================================================ */
+        .table-scroll {
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+            background: var(--paper);
+        }
+
+        th, td {
+            text-align: left;
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+        }
+
+        thead th {
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted);
+            background: var(--bg);
+            white-space: nowrap;
+        }
+
+        tbody th {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--ink);
+            background: var(--bg);
+            white-space: nowrap;
+        }
+
+        tbody tr:last-child td, tbody tr:last-child th { border-bottom: none; }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .tag.good { background: var(--accent-soft); color: var(--accent); }
+        .tag.mid { background: var(--line); color: var(--muted); }
+        .tag.low { background: var(--low-bg); color: var(--low-fg); }
+
+        .table-note {
+            font-size: 0.84rem;
+            color: var(--faint);
+            font-style: italic;
+            margin: -8px 0 0;
+        }
+
+        /* ============================================================
+           Model cards
+           ============================================================ */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 20px 22px;
+        }
+
+        .card h3 {
+            font-family: var(--font-display);
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin: 0 0 8px;
+        }
+
+        .card p {
+            font-size: 0.88rem;
+            margin: 0 0 14px;
+        }
+
+        .best-for {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* ============================================================
+           Prompt-writing steps
+           ============================================================ */
+        .margin-block {
+            display: flex;
+            gap: 18px;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .margin-block:first-of-type { padding-top: 8px; }
+        .margin-block:last-child { border-bottom: none; }
+
+        .margin-mark {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: var(--accent);
+            flex-shrink: 0;
+            width: 30px;
+            line-height: 1.3;
+        }
+
+        .margin-block h3 {
+            font-family: var(--font-display);
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin: 0 0 8px;
+        }
+
+        .margin-block p { font-size: 0.95rem; margin: 0; }
+        .margin-block p + .prompt-example { margin-top: 14px; }
+
+        .prompt-example {
+            display: block;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-left: 2px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            padding: 14px 18px;
+            font-size: 0.88rem;
+            color: var(--ink-soft);
+        }
+
+        .prompt-example .label {
+            display: block;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        /* ============================================================
+           Checklist
+           ============================================================ */
+        .checklist { margin-top: 28px; }
+
+        .check-row {
+            display: flex;
+            gap: 16px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .check-row:first-child { padding-top: 0; }
+        .check-row:last-child { border-bottom: none; }
+
+        .check-box {
+            width: 18px;
+            height: 18px;
+            margin-top: 3px;
+            border: 1.5px solid var(--line-strong);
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .check-row h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin: 0 0 6px;
+        }
+
+        .check-row p { font-size: 0.92rem; margin: 0; }
+
+        /* ============================================================
+           Footer
+           ============================================================ */
+        footer.doc-footer {
+            max-width: var(--content-w);
+            margin: 0 auto;
+            padding: 0 24px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            color: var(--faint);
+            font-size: 0.78rem;
+        }
+
+        footer.doc-footer a {
+            color: var(--muted);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line-strong);
+        }
+
+        footer.doc-footer a:hover { color: var(--ink); border-color: var(--ink); }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.7rem; }
+            th, td { white-space: normal; }
+            .breadcrumb { display: none; }
+            .margin-mark { width: 24px; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <a class="back-link" href="index.html">&larr; Назад к архиву</a>
+        <span class="breadcrumb">Материалы / Для учителей</span>
+    </div>
+
+    <header class="hero">
+        <div class="wrap">
+            <p class="eyebrow">Раздел для учителей · ИИ в работе</p>
+            <h1>Какой <span class="chalk-underline">ИИ</span> выбрать для подготовки к уроку</h1>
+            <p>Сравнение ChatGPT, Claude, Gemini, DeepSeek, YandexGPT и GigaChat — и рабочие приёмы, которые
+                помогают получать от них пользу, а не разочарование.</p>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <main>
+
+            <section class="topic" id="comparison">
+                <div class="section-head">
+                    <span class="section-num">01</span>
+                    <h2>Сравнительная таблица</h2>
+                </div>
+                <p class="section-sub">Главное для учителя — не «какая модель умнее», а какая доступна без VPN,
+                    работает с русским языком без ошибок и не потребует объяснять коллегам, куда делись деньги
+                    за подписку.</p>
+
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Критерий</th>
+                                <th>ChatGPT</th>
+                                <th>Claude</th>
+                                <th>Gemini</th>
+                                <th>DeepSeek</th>
+                                <th>YandexGPT</th>
+                                <th>GigaChat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Доступ в РФ без VPN</th>
+                                <td><span class="tag low">Нет</span></td>
+                                <td><span class="tag low">Нет</span></td>
+                                <td><span class="tag low">Нет</span></td>
+                                <td><span class="tag good">Да</span></td>
+                                <td><span class="tag good">Да</span></td>
+                                <td><span class="tag good">Да</span></td>
+                            </tr>
+                            <tr>
+                                <th>Русский язык</th>
+                                <td>Хороший, иногда «переводной» стиль</td>
+                                <td>Хороший, аккуратный стиль</td>
+                                <td>Хороший</td>
+                                <td>Неплохо, встречаются шероховатости</td>
+                                <td><span class="tag good">Отлично</span> — заточен под язык</td>
+                                <td><span class="tag good">Отлично</span> — заточен под язык</td>
+                            </tr>
+                            <tr>
+                                <th>Оплата</th>
+                                <td>Нужна иностранная карта</td>
+                                <td>Нужна иностранная карта</td>
+                                <td>Нужна иностранная карта</td>
+                                <td>Дешёвый доступ через API</td>
+                                <td>Бесплатный лимит, оплата в РФ</td>
+                                <td>Бесплатный лимит, оплата в РФ</td>
+                            </tr>
+                            <tr>
+                                <th>Работа с файлами / изображениями</th>
+                                <td><span class="tag good">Сильная</span></td>
+                                <td><span class="tag good">Сильная</span></td>
+                                <td><span class="tag good">Сильная</span></td>
+                                <td><span class="tag mid">Ограниченная</span></td>
+                                <td><span class="tag mid">Частичная</span> (картинки — через отдельный сервис)</td>
+                                <td><span class="tag mid">Частичная</span> (картинки — через Kandinsky)</td>
+                            </tr>
+                            <tr>
+                                <th>Длинные документы (методички, ФГОС, работы учеников)</th>
+                                <td><span class="tag good">Хорошо</span></td>
+                                <td><span class="tag good">Очень хорошо</span></td>
+                                <td><span class="tag good">Хорошо</span></td>
+                                <td><span class="tag mid">Средне</span></td>
+                                <td><span class="tag mid">Средне</span></td>
+                                <td><span class="tag mid">Средне</span></td>
+                            </tr>
+                            <tr>
+                                <th>Данные учеников — где хранятся</th>
+                                <td>Серверы за рубежом</td>
+                                <td>Серверы за рубежом</td>
+                                <td>Серверы за рубежом</td>
+                                <td>Серверы за рубежом</td>
+                                <td><span class="tag good">РФ, 152-ФЗ</span></td>
+                                <td><span class="tag good">РФ, 152-ФЗ</span></td>
+                            </tr>
+                            <tr>
+                                <th>Лучше всего подходит для</th>
+                                <td>Универсальные задачи, идеи для уроков</td>
+                                <td>Разбор больших текстов, вдумчивая обратная связь</td>
+                                <td>Работа с таблицами, Google-документами</td>
+                                <td>Бюджетная автоматизация, массовые рутинные задачи</td>
+                                <td>Быстрые ответы, интеграция с Алисой/Яндекс.Учебником</td>
+                                <td>Творческие тексты на русском, работа в экосистеме Сбера</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="table-note">Оценки приблизительные и меняются каждые несколько месяцев — модели
+                    обновляются быстро. Перед тем как завязывать на конкретный сервис учебный процесс, проверьте
+                    актуальные условия и лимиты.</p>
+
+                <div class="cards">
+                    <div class="card">
+                        <h3>ChatGPT</h3>
+                        <p>Самый «раскрученный» и универсальный вариант. Хорош, если нужно быстро накидать идеи,
+                            вопросы к уроку или объяснение темы простыми словами.</p>
+                        <span class="best-for">→ Мозговой штурм и идеи</span>
+                    </div>
+                    <div class="card">
+                        <h3>Claude</h3>
+                        <p>Внимателен к деталям и хорошо держит контекст длинных материалов — удобно давать на
+                            проверку сочинения или разбирать рабочую программу целиком.</p>
+                        <span class="best-for">→ Проверка и разбор текстов</span>
+                    </div>
+                    <div class="card">
+                        <h3>Gemini</h3>
+                        <p>Плотно встроен в Google-документы и таблицы — если школа уже работает в этой
+                            экосистеме, это экономит время на переносе данных.</p>
+                        <span class="best-for">→ Работа с таблицами и документами</span>
+                    </div>
+                    <div class="card">
+                        <h3>DeepSeek</h3>
+                        <p>Дешёвый и быстрый вариант для несложных, повторяющихся задач — черновики, шаблоны,
+                            простые формулировки.</p>
+                        <span class="best-for">→ Рутина и черновики</span>
+                    </div>
+                    <div class="card">
+                        <h3>YandexGPT</h3>
+                        <p>Доступен без VPN, данные остаются в России. Неплохой выбор для ежедневной рутины и
+                            там, где важна работа с русскоязычным контекстом.</p>
+                        <span class="best-for">→ Ежедневные задачи в РФ</span>
+                    </div>
+                    <div class="card">
+                        <h3>GigaChat</h3>
+                        <p>Тоже доступен без VPN. Часто отмечают неплохие результаты в творческих и текстовых
+                            задачах на русском языке.</p>
+                        <span class="best-for">→ Творческие задания и тексты</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="topic" id="prompts">
+                <div class="section-head">
+                    <span class="section-num">02</span>
+                    <h2>Как правильно составлять промпт</h2>
+                </div>
+                <p class="section-sub">Разница между «получилась ерунда» и «получился готовый черновик урока»
+                    почти всегда в том, как сформулирован запрос — а не в том, какую модель вы выбрали.</p>
+
+                <div class="margin-block">
+                    <div class="margin-mark">1</div>
+                    <div>
+                        <h3>Задайте роль и аудиторию</h3>
+                        <p>Скажите ИИ, для кого материал: класс, возраст, уровень подготовки. Без этого он
+                            выдаёт «средний» ответ, который придётся сильно переделывать.</p>
+                        <div class="prompt-example"><span class="label">Пример</span>Ты — методист. Составь план
+                            урока по теме «Причастие» для 7 класса, уровень средний, в классе есть дети с
+                            трудностями в чтении.</div>
+                    </div>
+                </div>
+
+                <div class="margin-block">
+                    <div class="margin-mark">2</div>
+                    <div>
+                        <h3>Указывайте формат и объём</h3>
+                        <p>Просите конкретную структуру: таблицу, список, план по времени, количество заданий.
+                            Иначе получите «простыню» текста, которую снова придётся форматировать вручную.</p>
+                        <div class="prompt-example"><span class="label">Пример</span>Оформи в виде таблицы: этап
+                            урока — время в минутах — деятельность учителя — деятельность учеников. Всего 5
+                            этапов, урок на 40 минут.</div>
+                    </div>
+                </div>
+
+                <div class="margin-block">
+                    <div class="margin-mark">3</div>
+                    <div>
+                        <h3>Давайте пример «как надо»</h3>
+                        <p>Если у вас есть образец теста, конспекта или отзыва в вашем стиле — вставьте его в
+                            промпт. Модель гораздо точнее подстраивается под образец, чем под словесное описание
+                            стиля.</p>
+                        <div class="prompt-example"><span class="label">Пример</span>Вот пример вопроса, который
+                            мне нравится: [вставить]. Составь ещё 10 вопросов в таком же стиле по теме
+                            «Фотосинтез».</div>
+                    </div>
+                </div>
+
+                <div class="margin-block">
+                    <div class="margin-mark">4</div>
+                    <div>
+                        <h3>Уточняйте пошагово, а не переписывайте всё заново</h3>
+                        <p>Если результат почти подходит — не пишите новый промпт с нуля, а попросите точечно
+                            доработать: «сделай задание 3 проще», «добавь ещё один пример», «убери сложные
+                            термины».</p>
+                    </div>
+                </div>
+
+                <div class="margin-block">
+                    <div class="margin-mark">5</div>
+                    <div>
+                        <h3>Просите альтернативы, а не один вариант</h3>
+                        <p>Хороший приём — просить 2–3 варианта заданий разной сложности сразу. Это удобно для
+                            дифференциации и экономит время на повторные запросы.</p>
+                        <div class="prompt-example"><span class="label">Пример</span>Дай три варианта
+                            самостоятельной работы по теме «Дроби»: для слабых, средних и сильных учеников.</div>
+                    </div>
+                </div>
+
+                <div class="margin-block">
+                    <div class="margin-mark">6</div>
+                    <div>
+                        <h3>Просите объяснить логику, а не только дать ответ</h3>
+                        <p>Для проверки решений и сочинений полезно попросить не просто оценку, а объяснение —
+                            какие именно критерии не выполнены и почему. Так проще спорить с оценкой ИИ и
+                            учиться самим.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="topic" id="checklist">
+                <div class="section-head">
+                    <span class="section-num">03</span>
+                    <h2>О чём важно помнить</h2>
+                </div>
+                <p class="section-sub">Несколько правил, которые стоит держать в голове при любой работе с ИИ в
+                    школе.</p>
+
+                <div class="checklist">
+                    <div class="check-row">
+                        <div class="check-box"></div>
+                        <div>
+                            <h4>Никогда не вставляйте личные данные учеников</h4>
+                            <p>Фамилии, оценки, диагнозы, домашние адреса — всё это не должно попадать в чат с
+                                зарубежным сервисом. Заменяйте имена на «ученик А» или используйте только
+                                российские сервисы для таких задач.</p>
+                        </div>
+                    </div>
+                    <div class="check-row">
+                        <div class="check-box"></div>
+                        <div>
+                            <h4>Всегда проверяйте факты</h4>
+                            <p>ИИ может уверенно ошибаться в датах, цитатах, формулах и терминах. Перед тем как
+                                отдать материал ученикам, перечитайте его сами — особенно цифры и имена.</p>
+                        </div>
+                    </div>
+                    <div class="check-row">
+                        <div class="check-box"></div>
+                        <div>
+                            <h4>ИИ — черновик, а не готовый урок</h4>
+                            <p>Материал почти всегда требует адаптации под конкретный класс: под темп, под тех
+                                детей, что сидят перед вами именно в этот четверг.</p>
+                        </div>
+                    </div>
+                    <div class="check-row">
+                        <div class="check-box"></div>
+                        <div>
+                            <h4>Не поручайте ИИ финальную оценку учеников</h4>
+                            <p>Использовать как помощника при проверке — нормально. Ставить итоговую оценку без
+                                вашего решения — нет: это остаётся вашей профессиональной ответственностью.</p>
+                        </div>
+                    </div>
+                    <div class="check-row">
+                        <div class="check-box"></div>
+                        <div>
+                            <h4>Сохраняйте удачные промпты</h4>
+                            <p>Заведите свой файл или папку с промптами, которые сработали хорошо — так вы не
+                                будете каждый раз изобретать формулировки заново.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="doc-footer">
+        <span>Материал носит справочный характер и обновляется по мере изменения сервисов.</span>
+        <a href="index.html">К архиву →</a>
+    </footer>
+
+</body>
+
+</html>
