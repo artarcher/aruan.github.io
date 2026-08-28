@@ -7,6 +7,15 @@
     <meta name="description" content="Основные понятия и определения баз данных — учебный материал по теме 1.1.">
     <title>Основы проектирования баз данных — aruan</title>
 
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="aruan">
+    <meta property="og:title" content="Основные понятия и определения баз данных">
+    <meta property="og:description" content="Учебный материал по теме 1.1 — сущности, атрибуты, ключи и модели данных.">
+    <meta name="twitter:card" content="summary">
+    <meta name="theme-color" content="#faf9f6">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -30,6 +39,25 @@
 
             --ease: cubic-bezier(.16, 1, .3, 1);
             --content-w: 720px;
+        }
+
+        /* Dark theme — same palette logic as the archive, inverted */
+        [data-theme="dark"] {
+            --bg: #131315;
+            --paper: #1b1b1e;
+            --ink: #f1efe8;
+            --ink-soft: #d6d3c9;
+            --muted: #93908a;
+            --faint: #666460;
+            --line: #262629;
+            --line-strong: #35353a;
+            --accent: #cda253;
+            --accent-soft: rgba(205, 162, 83, 0.14);
+        }
+
+        body, .table-scroll, table, .flow-step, .callout, .prompt-example,
+        .theme-toggle, .card, .summary-card {
+            transition: background-color 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -91,6 +119,30 @@
             letter-spacing: 0.08em;
             white-space: nowrap;
         }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--muted);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.9rem;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .theme-toggle:hover { color: var(--ink); border-color: var(--line-strong); }
 
         /* ============================================================
            Header
@@ -449,8 +501,11 @@
 <body>
 
     <div class="top-bar">
-        <a class="back-link" href="index.html">&larr; Назад к главной странице</a>
-        <span class="breadcrumb">Материалы / Для учителей</span>
+        <a class="back-link" href="index.html">&larr; Назад к архиву</a>
+        <div class="top-bar-right">
+            <span class="breadcrumb">Материалы / Информатика / Тема 1.1</span>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему">☾</button>
+        </div>
     </div>
 
     <header class="doc-header">
@@ -850,8 +905,38 @@
 
     <footer class="doc-footer">
         <span>Тема 1.1 · Основы проектирования баз данных</span>
-        <a href="aruan.html">К архиву →</a>
+        <a href="index.html">К архиву →</a>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const root = document.documentElement;
+            const toggle = document.getElementById('theme-toggle');
+
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    root.setAttribute('data-theme', 'dark');
+                    if (toggle) { toggle.textContent = '☀'; toggle.title = 'Светлая тема'; }
+                } else {
+                    root.removeAttribute('data-theme');
+                    if (toggle) { toggle.textContent = '☾'; toggle.title = 'Тёмная тема'; }
+                }
+            }
+
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
+
+            if (toggle) {
+                toggle.addEventListener('click', () => {
+                    const isDark = root.getAttribute('data-theme') === 'dark';
+                    const next = isDark ? 'light' : 'dark';
+                    applyTheme(next);
+                    localStorage.setItem('theme', next);
+                });
+            }
+        });
+    </script>
 
 </body>
 
