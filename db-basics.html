@@ -4,27 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Личный архив: книги, фильмы, музыка, мысли и ценностные ориентиры.">
-    <title>aruan</title>
+    <meta name="description" content="Лекция 1: Основные понятия и определения баз данных.">
+    <title>Лекция 1. Основные понятия и определения баз данных — aruan</title>
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="aruan">
-    <meta property="og:title" content="aruan — личный архив">
-    <meta property="og:description" content="Книги, фильмы, музыка, мысли и ценностные ориентиры.">
-    <meta property="og:image" content="images/moments/2024-07-07 11-01-24.jpeg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="theme-color" content="#faf9f6">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* ============================================================
-           Tokens
-           ============================================================ */
         :root {
             --bg: #faf9f6;
             --ink: #17181a;
@@ -46,11 +35,6 @@
             --gap: 70px;
         }
 
-        /* ============================================================
-           Dark theme — same palette logic, inverted: a quiet page for
-           reading in the evening, which is when most of this archive
-           was probably written.
-           ============================================================ */
         [data-theme="dark"] {
             --bg: #131315;
             --ink: #f1efe8;
@@ -103,9 +87,6 @@
             border-radius: 2px;
         }
 
-        /* ============================================================
-           Layout
-           ============================================================ */
         .wrapper {
             display: flex;
             width: 100%;
@@ -132,11 +113,6 @@
             min-width: 0;
         }
 
-        /* ============================================================
-           Signature mark — a quiet horizon under stars.
-           Ties the profile to the mountain photographs in "Моменты"
-           and the epigraph's line about hearts still answering stars.
-           ============================================================ */
         .signature-mark {
             width: 100%;
             height: 46px;
@@ -163,9 +139,6 @@
             fill: currentColor;
         }
 
-        /* ============================================================
-           Profile
-           ============================================================ */
         .profile-info h1 {
             font-family: var(--font-display);
             font-size: 2.1rem;
@@ -182,17 +155,6 @@
             color: var(--ink-soft);
             margin: 0 0 8px 0;
             line-height: 1.55;
-        }
-
-        .quote-author {
-            display: block;
-            font-family: var(--font-body);
-            font-style: normal;
-            font-size: 0.72rem;
-            color: var(--faint);
-            margin-top: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.09em;
         }
 
         nav { margin-top: 38px; }
@@ -231,18 +193,13 @@
         }
 
         nav a:hover { color: var(--ink); }
-
         nav li.active a { color: var(--ink); }
-
         nav li.active a::before {
             background: var(--accent);
             width: 18px;
             transform: translateY(-50%) scaleX(1);
         }
 
-        /* ============================================================
-           Theme toggle
-           ============================================================ */
         .theme-toggle {
             display: inline-flex;
             align-items: center;
@@ -265,34 +222,26 @@
             border-color: var(--line-strong);
         }
 
-        .theme-toggle .theme-icon {
+        main h1 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-top: 0;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+
+        .lecture-meta {
             font-size: 0.9rem;
-            line-height: 1;
+            color: var(--muted);
+            margin-bottom: 36px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--line);
         }
-
-        /* ============================================================
-           Sections
-           ============================================================ */
-        section {
-            margin-bottom: var(--gap);
-            padding-top: 8px;
-            opacity: 0;
-            transform: translateY(14px);
-            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-        }
-
-        section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        section:first-of-type { opacity: 1; transform: none; }
 
         h2 {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 16px;
             font-family: var(--font-body);
             font-size: 0.82rem;
             font-weight: 700;
@@ -301,248 +250,91 @@
             color: var(--ink);
             border-bottom: 1px solid var(--line);
             padding-bottom: 14px;
-            margin: 0 0 28px 0;
+            margin: 48px 0 24px 0;
         }
 
-        .header-link {
-            font-family: var(--font-body);
-            font-size: 0.78rem;
-            font-weight: 500;
-            text-transform: none;
-            letter-spacing: 0;
-            border-bottom: 1px solid var(--line-strong);
-            text-decoration: none;
-            color: var(--muted);
-            white-space: nowrap;
-            transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+        h2:first-of-type { margin-top: 0; }
+
+        ul, ol {
+            padding-left: 20px;
+            margin: 0 0 24px 0;
         }
 
-        .header-link:hover {
+        li {
+            margin-bottom: 12px;
+            color: var(--ink-soft);
+        }
+
+        li strong {
             color: var(--ink);
-            border-color: var(--ink);
         }
 
-        .section-intro {
-            font-family: var(--font-display);
-            font-size: 1.15rem;
-            font-weight: 400;
-            font-style: italic;
-            color: var(--ink);
-            margin: 0 0 26px 0;
-            max-width: 62ch;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.92rem;
         }
 
-        #about .section-intro {
-            font-size: 1.2rem;
-            font-style: normal;
-        }
-
-        .content-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .content-list li {
-            display: flex;
-            flex-direction: column;
-            padding: 14px 0;
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
             border-bottom: 1px solid var(--line);
         }
 
-        .content-list li:last-child { border-bottom: none; }
-
-        .title {
-            font-family: var(--font-display);
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: var(--ink);
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2px;
-        }
-
-        .meta {
-            font-family: var(--font-body);
-            font-size: 0.86rem;
-            color: var(--muted);
-            margin-top: 4px;
-        }
-
-        /* Like button — a small star that lights up gold, echoing the epigraph */
-        .like-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            margin-left: 10px;
-            padding: 2px 7px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: var(--faint);
-            border-radius: 20px;
-            transition: color 0.2s var(--ease), background-color 0.2s var(--ease);
-        }
-
-        .like-btn:hover {
-            color: var(--accent);
-            background-color: var(--accent-soft);
-        }
-
-        .like-btn.liked { color: var(--accent); }
-
-        .like-btn .heart-icon {
-            font-size: 0.95rem;
-            line-height: 1;
-            transition: transform 0.3s var(--ease);
-            display: inline-block;
-        }
-
-        .like-btn:active .heart-icon { transform: scale(1.35) rotate(-8deg); }
-
-        .like-btn .like-count {
-            font-size: 0.72rem;
-            font-weight: 600;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .sub-category {
-            font-family: var(--font-body);
-            font-size: 0.74rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent);
-            letter-spacing: 0.09em;
-            margin: 34px 0 6px 0;
-        }
-
-        h2 + .sub-category { margin-top: 0; }
-
-        /* ============================================================
-           Quotes
-           ============================================================ */
-        .quote-card {
-            border-left: 2px solid var(--ink);
-            padding-left: 22px;
-            margin-bottom: 34px;
-            position: relative;
-        }
-
-        .quote-card:last-child { margin-bottom: 0; }
-
-        .quote-card blockquote {
-            margin: 0;
-            font-family: var(--font-display);
-            font-style: italic;
-            font-size: 1.08rem;
-            line-height: 1.65;
-            color: var(--ink);
-        }
-
-        .quote-card footer {
-            margin-top: 14px;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 12px;
-        }
-
-        .quote-card .author {
-            font-family: var(--font-body);
+        th {
             font-weight: 600;
             color: var(--ink);
-        }
-
-        .quote-card .source {
-            font-family: var(--font-body);
+            border-bottom: 2px solid var(--line-strong);
             font-size: 0.82rem;
-            color: var(--muted);
-            margin-top: 3px;
-            line-height: 1.5;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        /* ============================================================
-           Gallery
-           ============================================================ */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 26px;
+        .callout {
+            background: var(--paper);
+            border-left: 3px solid var(--accent);
+            padding: 18px 20px;
+            margin: 24px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--line);
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
         }
 
-        .gallery figure {
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .gallery .frame {
-            overflow: hidden;
-            background: var(--line);
-            border-radius: 2px;
-        }
-
-        .gallery img {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 4 / 3;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(1.02);
-            transition: filter 0.5s var(--ease), transform 0.6s var(--ease);
-            display: block;
-        }
-
-        .gallery figure.gallery-feature {
-            grid-column: 1 / -1;
-        }
-
-        .gallery figure.gallery-feature img {
-            aspect-ratio: 21 / 9;
-        }
-
-        .gallery figure:hover img {
-            filter: grayscale(0%);
-            transform: scale(1.03);
-        }
-
-        .gallery figcaption {
-            margin-top: 10px;
-            font-size: 0.85rem;
-            color: var(--muted);
-            line-height: 1.4;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* ============================================================
-           Materials
-           ============================================================ */
-        .material-title {
+        pre {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            padding: 18px 20px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.88rem;
             color: var(--ink);
-            font-family: var(--font-display);
+            overflow-x: auto;
+            margin: 24px 0;
         }
 
-        a.material-title {
-            text-decoration: none;
-            border-bottom: 1px solid var(--ink);
-            transition: opacity 0.2s var(--ease);
+        .homework {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            padding: 24px;
+            border-radius: 6px;
+            margin-top: 40px;
         }
 
-        a.material-title:hover { opacity: 0.6; }
+        .homework h3 {
+            margin-top: 0;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink);
+            margin-bottom: 16px;
+        }
 
-        /* ============================================================
-           Responsive
-           ============================================================ */
         @media (max-width: 860px) {
-            :root { --gap: 56px; }
-
             .wrapper { flex-direction: column; padding: 48px 20px 90px; }
-
             aside {
                 position: relative;
                 top: 0;
@@ -550,119 +342,132 @@
                 height: auto;
                 margin-bottom: 44px;
             }
-
             .signature-mark { max-width: 320px; }
-
             nav { margin-top: 26px; }
-
-            nav ul {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px 18px;
-            }
-
+            nav ul { display: flex; flex-wrap: wrap; gap: 10px 18px; }
             nav li { margin-bottom: 0; }
-
             .theme-toggle { margin-top: 28px; align-self: flex-start; }
-
             main { margin-left: 0; }
-
-            .gallery { grid-template-columns: 1fr; }
-
-            h2 { flex-wrap: wrap; }
-
-            section {
-                opacity: 1 !important;
-                transform: none !important;
-            }
         }
     </style>
 </head>
 
-
 <body>
-<div class="container">
+<div class="wrapper">
+    <aside>
+        <div class="profile-info">
+            <h1>aruan</h1>
+            <div class="signature-mark">
+                <svg viewBox="0 0 200 46" aria-hidden="true">
+                    <g class="stars">
+                        <circle cx="20" cy="14" r="1.5" />
+                        <circle cx="110" cy="8" r="1" />
+                        <circle cx="175" cy="18" r="1.2" />
+                    </g>
+                    <path class="peaks" d="M0 40 L35 22 L55 32 L85 15 L120 36 L150 20 L200 40" />
+                </svg>
+            </div>
+            <p class="profile-quote">Личный архив материалов, лекций и заметок.</p>
+        </div>
+        <nav>
+            <ul>
+                <li class="active"><a href="#">Лекция 1</a></li>
+                <li><a href="#dictionary">Термины</a></li>
+                <li><a href="#models">Модели данных</a></li>
+                <li><a href="#development">Развитие</a></li>
+                <li><a href="#architecture">Архитектура</a></li>
+                <li><a href="#homework">ДЗ</a></li>
+            </ul>
+        </nav>
+        <button class="theme-toggle" id="themeToggle">
+            <span class="theme-icon">◐</span>
+            <span class="theme-text">Тема</span>
+        </button>
+    </aside>
 
-    <h1>Лекция 1. Основные понятия и определения баз данных</h1>
-    <p><strong>Дисциплина:</strong> Базы данных | <strong>Курс:</strong> 1 | <strong>Сквозной пример:</strong> «Колледж»</p>
+    <main>
+        <h1>Лекция 1. Основные понятия и определения баз данных</h1>
+        <div class="lecture-meta">
+            <strong>Дисциплина:</strong> Базы данных &nbsp;|&nbsp; <strong>Курс:</strong> 1 &nbsp;|&nbsp; <strong>Сквозной пример:</strong> «Колледж»
+        </div>
 
-    <h2>1. Теоретический минимум (Словарь терминов к диктанту)</h2>
-    <ul>
-        <li><strong>Данные:</strong> Зарегистрированные факты в формализованном виде, пригодные для хранения, передачи и обработки.</li>
-        <li><strong>Информация:</strong> Данные, помещенные в контекст и интерпретированные получателем (<br><code>Информация = Данные + Контекст</code>).</li>
-        <li><strong>База данных (БД):</strong> Именованная совокупность взаимосвязанных данных, организованных по определенным правилам и отражающих состояние объектов некоторой предметной области.</li>
-        <li><strong>СУБД (Система управления базами данных):</strong> Комплекс программных средств для создания, ведения и совместного использования БД многими пользователями.</li>
-        <li><strong>Информационная система (ИС):</strong> Совокупность БД, СУБД, приложений, пользователей и регламентов.</li>
-        <li><strong>Предметная область (ПрО):</strong> Часть реального мира, сведения о которой должны храниться в базе.</li>
-        <li><strong>Сущность:</strong> Класс однородных объектов, о которых хранятся сведения (в БД соответствует таблице).</li>
-        <li><strong>Экземпляр сущности (кортеж):</strong> Конкретный набор значений атрибутов (в БД соответствует строке).</li>
-        <li><strong>Атрибут:</strong> Свойство сущности, характеризующее ее экземпляры (в БД соответствует столбцу).</li>
-        <li><strong>Домен:</strong> Множество допустимых значений атрибута (тип данных плюс смысловое ограничение).</li>
-        <li><strong>Первичный ключ (Primary Key, PK):</strong> Атрибут или группа атрибутов, однозначно идентифицирующая экземпляр сущности. Требования: уникален, не NULL, минимален, неизменен.</li>
-        <li><strong>Внешний ключ (Foreign Key, FK):</strong> Атрибут, значения которого ссылаются на первичный ключ другой или той же таблицы для организации связи.</li>
-        <li><strong>Составной ключ:</strong> Первичный ключ, состоящий из двух и более атрибутов.</li>
-        <li><strong>Суррогатный ключ:</strong> Искусственный идентификатор (например, автоинкрементный ID), не имеющий смысла вне базы.</li>
-        <li><strong>Модель данных:</strong> Совокупность правил, определяющих структуру данных, допустимые операции над ними и ограничения целостности.</li>
-    </ul>
+        <h2 id="dictionary">1. Теоретический минимум (Словарь терминов к диктанту)</h2>
+        <ul>
+            <li><strong>Данные:</strong> Зарегистрированные факты в формализованном виде, пригодные для хранения, передачи и обработки[cite: 1].</li>
+            <li><strong>Информация:</strong> Данные, помещенные в контекст и интерпретированные получателем (<br><code>Информация = Данные + Контекст</code>)[cite: 1].</li>
+            <li><strong>База данных (БД):</strong> Именованная совокупность взаимосвязанных данных, организованных по определенным правилам и отражающих состояние объектов некоторой предметной области[cite: 1].</li>
+            <li><strong>СУБД (Система управления базами данных):</strong> Комплекс программных средств для создания, ведения и совместного использования БД многими пользователями[cite: 1].</li>
+            <li><strong>Информационная система (ИС):</strong> Совокупность БД, СУБД, приложений, пользователей и регламентов[cite: 1].</li>
+            <li><strong>Предметная область (ПрО):</strong> Часть реального мира, сведения о которой должны храниться в базе[cite: 1].</li>
+            <li><strong>Сущность:</strong> Класс однородных объектов, о которых хранятся сведения (в БД соответствует таблице)[cite: 1].</li>
+            <li><strong>Экземпляр сущности (кортеж):</strong> Конкретный набор значений атрибутов (в БД соответствует строке)[cite: 1].</li>
+            <li><strong>Атрибут:</strong> Свойство сущности, характеризующее ее экземпляры (в БД соответствует столбцу)[cite: 1].</li>
+            <li><strong>Домен:</strong> Множество допустимых значений атрибута (тип данных плюс смысловое ограничение)[cite: 1].</li>
+            <li><strong>Первичный ключ (Primary Key, PK):</strong> Атрибут или группа атрибутов, однозначно идентифицирующая экземпляр сущности. Требования: уникален, не NULL, минимален, неизменен[cite: 1].</li>
+            <li><strong>Внешний ключ (Foreign Key, FK):</strong> Атрибут, значения которого ссылаются на первичный ключ другой или той же таблицы для организации связи[cite: 1].</li>
+            <li><strong>Составной ключ:</strong> Первичный ключ, состоящий из двух и более атрибутов[cite: 1].</li>
+            <li><strong>Суррогатный ключ:</strong> Искусственный идентификатор (например, автоинкрементный ID), не имеющий смысла вне базы[cite: 1].</li>
+            <li><strong>Модель данных:</strong> Совокупность правил, определяющих структуру данных, допустимые операции над ними и ограничения целостности[cite: 1].</li>
+        </ul>
 
-    <h2>2. Сводная таблица моделей данных</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Признак</th>
-                <th>Иерархическая</th>
-                <th>Сетевая</th>
-                <th>Реляционная</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>Структура</strong></td>
-                <td>Дерево</td>
-                <td>Граф</td>
-                <td>Таблицы (отношения)</td>
-            </tr>
-            <tr>
-                <td><strong>Период</strong></td>
-                <td>1960-е</td>
-                <td>Конец 1960-х</td>
-                <td>С 1970 года</td>
-            </tr>
-            <tr>
-                <td><strong>Связь М:М</strong></td>
-                <td>Невозможна</td>
-                <td>Возможна</td>
-                <td>Через третью (промежуточную) таблицу</td>
-            </tr>
-            <tr>
-                <td><strong>Доступ</strong></td>
-                <td>Навигационный, от корня</td>
-                <td>Навигационный, по указателям</td>
-                <td>Декларативный, по значениям ключей</td>
-            </tr>
-            <tr>
-                <td><strong>Примеры</strong></td>
-                <td>IMS, файловая система</td>
-                <td>IDMS, CODASYL</td>
-                <td>Oracle, MySQL, PostgreSQL, MS Access</td>
-            </tr>
-        </tbody>
-    </table>
+        <h2 id="models">2. Сводная таблица моделей данных</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Признак</th>
+                    <th>Иерархическая</th>
+                    <th>Сетевая</th>
+                    <th>Реляционная</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Структура</strong></td>
+                    <td>Дерево[cite: 1]</td>
+                    <td>Граф[cite: 1]</td>
+                    <td>Таблицы (отношения)[cite: 1]</td>
+                </tr>
+                <tr>
+                    <td><strong>Период</strong></td>
+                    <td>1960-е[cite: 1]</td>
+                    <td>Конец 1960-х[cite: 1]</td>
+                    <td>С 1970 года[cite: 1]</td>
+                </tr>
+                <tr>
+                    <td><strong>Связь М:М</strong></td>
+                    <td>Невозможна[cite: 1]</td>
+                    <td>Возможна[cite: 1]</td>
+                    <td>Через третью (промежуточную) таблицу[cite: 1]</td>
+                </tr>
+                <tr>
+                    <td><strong>Доступ</strong></td>
+                    <td>Навигационный, от корня[cite: 1]</td>
+                    <td>Навигационный, по указателям[cite: 1]</td>
+                    <td>Декларативный, по значениям ключей[cite: 1]</td>
+                </tr>
+                <tr>
+                    <td><strong>Примеры</strong></td>
+                    <td>IMS, файловая система[cite: 1]</td>
+                    <td>IDMS, CODASYL[cite: 1]</td>
+                    <td>Oracle, MySQL, PostgreSQL, MS Access[cite: 1]</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <div class="callout">
-        <strong>Важное примечание:</strong> Слово <em>«реляционная»</em> происходит от английского <strong>relation</strong> — отношение (математическая таблица), а не от слова «связь». Модель названа так потому, что данные хранятся в таблицах-отношениях.
-    </div>
+        <div class="callout">
+            <strong>Важное примечание:</strong> Слово <em>«реляционная»</em> происходит от английского <strong>relation</strong> — отношение (математическая таблица), а не от слова «связь». Модель названа так потому, что данные хранятся в таблицах-отношениях[cite: 1].
+        </div>
 
-    <h2>3. Направления развития способов организации данных</h2>
-    <ul>
-        <li><strong>Постреляционная модель:</strong> допускает хранение массивов или вложенных таблиц в ячейках (ускоряет чтение, но контроль целостности ложится на приложение).</li>
-        <li><strong>Многомерная модель (OLAP):</strong> представление данных в виде гиперкуба для аналитических отчетов по измерениям и мерам. Отличается от OLTP (оперативной обработки транзакций).</li>
-        <li><strong>Объектно-ориентированная модель (ООБД):</strong> хранение данных в виде целостных объектов со свойствами и методами.</li>
-        <li><strong>NoSQL (Not Only SQL):</strong> семейство нереляционных БД (Document, Key-Value, Column, Graph) для распределенных систем и веб-масштаба.</li>
-    </ul>
+        <h2 id="development">3. Направления развития способов организации данных</h2>
+        <ul>
+            <li><strong>Постреляционная модель:</strong> допускает хранение массивов или вложенных таблиц в ячейках (ускоряет чтение, но контроль целостности ложится на приложение)[cite: 1].</li>
+            <li><strong>Многомерная модель (OLAP):</strong> представление данных в виде гиперкуба для аналитических отчетов по измерениям и мерам. Отличается от OLTP (оперативной обработки транзакций)[cite: 1].</li>
+            <li><strong>Объектно-ориентированная модель (ООБД):</strong> хранение данных в виде целостных объектов со свойствами и методами[cite: 1].</li>
+            <li><strong>NoSQL (Not Only SQL):</strong> семейство нереляционных БД (Document, Key-Value, Column, Graph) для распределенных систем и веб-масштаба[cite: 1].</li>
+        </ul>
 
-    <h2>4. Архитектура Информационной системы (Слои ИС)</h2>
-    <pre>ПОЛЬЗОВАТЕЛЬ  (студент, преподаватель, методист)
+        <h2 id="architecture">4. Архитектура Информационной системы (Слои ИС)</h2>
+        <pre>ПОЛЬЗОВАТЕЛЬ  (студент, преподаватель, методист)
      ↓
  ПРИЛОЖЕНИЕ   (сайт, программа, мобильное приложение)
      ↓
@@ -670,15 +475,31 @@
      ↓
  БАЗА ДАННЫХ  (сами таблицы с данными)</pre>
 
-    <div class="homework">
-        <h3>Домашнее задание</h3>
-        <ol>
-            <li><strong>Выучить термины:</strong> подготовиться к 10-минутному терминологическому диктанту на следующей паре.</li>
-            <li><strong>Проектирование предметной области:</strong> выбрать вариант из списка: <em>«Аптека», «Автосервис», «Фитнес-клуб», «Пиццерия», «Ветклиника», «Кинотеатр»</em> (варианты у сокурсников не должны повторяться). Выделить <strong>3 сущности</strong>, для каждой прописать <strong>не менее 5 атрибутов</strong>, указать первичные (PK) и внешние (FK) ключи.</li>
-            <li><strong>Графическая схема:</strong> начертить схему связей между таблицами, подписать типы связей (<code>1:1</code>, <code>1:M</code>, <code>M:M</code>).</li>
-            <li><strong>Вопрос на подумать (письменно, 3–4 предложения):</strong> <em>«Почему в таблице "Студенты" нельзя хранить атрибут "Возраст"? Что нужно хранить вместо него и почему?»</em></li>
-        </ol>
-    </div>
-
+        <div class="homework" id="homework">
+            <h3>Домашнее задание</h3>
+            <ol>
+                <li><strong>Выучить термины:</strong> подготовиться к 10-минутному терминологическому диктанту на следующей паре[cite: 1].</li>
+                <li><strong>Проектирование предметной области:</strong> выбрать вариант из списка: <em>«Аптека», «Автосервис», «Фитнес-клуб», «Пиццерия», «Ветклиника», «Кинотеатр»</em> (варианты у сокурсников не должны повторяться). Выделить <strong>3 сущности</strong>, для каждой прописать <strong>не менее 5 атрибутов</strong>, указать первичные (PK) и внешние (FK) ключи[cite: 1].</li>
+                <li><strong>Графическая схема:</strong> начертить схему связей между таблицами, подписать типы связей (<code>1:1</code>, <code>1:M</code>, <code>M:M</code>)[cite: 1].</li>
+                <li><strong>Вопрос на подумать (письменно, 3–4 предложения):</strong> <em>«Почему в таблице "Студенты" нельзя хранить атрибут "Возраст"? Что нужно хранить вместо него и почему?»</em>[cite: 1]</li>
+            </ol>
+        </div>
+    </main>
 </div>
+
+<script>
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    htmlElement.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        htmlElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+</script>
 </body>
+</html>
