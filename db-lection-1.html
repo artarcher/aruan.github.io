@@ -1,0 +1,2237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Лекция 1 — Основные понятия и определения баз данных</title>
+
+    <style>
+        :root {
+            --bg: #f6f8fc;
+            --surface: #ffffff;
+            --surface-alt: #f0f4f8;
+            --text: #1e293b;
+            --muted: #64748b;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --purple: #7c3aed;
+            --green: #059669;
+            --orange: #ea580c;
+            --red: #dc2626;
+            --border: #e2e8f0;
+            --code-bg: #0f172a;
+            --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= HEADER ================= */
+
+        .page-header {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            padding: 28px 20px 48px;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumbs {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+
+        .breadcrumbs a {
+            color: #bfdbfe;
+        }
+
+        .lecture-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.15;
+            max-width: 900px;
+            margin-bottom: 20px;
+        }
+
+        .page-header p {
+            max-width: 800px;
+            font-size: 18px;
+            color: #dbeafe;
+        }
+
+        .lecture-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .meta-item {
+            padding: 9px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        /* ================= LAYOUT ================= */
+
+        .layout {
+            max-width: 1200px;
+            margin: -25px auto 0;
+            padding: 0 20px 60px;
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .sidebar h3 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sidebar a {
+            padding: 8px 10px;
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            background: #eff6ff;
+            text-decoration: none;
+            color: var(--primary);
+        }
+
+        /* ================= CONTENT ================= */
+
+        .content {
+            min-width: 0;
+        }
+
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+        }
+
+        section h2 {
+            font-size: 28px;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+
+        section h3 {
+            font-size: 21px;
+            margin: 28px 0 12px;
+        }
+
+        section h4 {
+            margin: 22px 0 10px;
+            font-size: 17px;
+        }
+
+        p {
+            margin-bottom: 14px;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 18px;
+        }
+
+        li {
+            margin-bottom: 7px;
+        }
+
+        /* ================= CARDS ================= */
+
+        .intro-card {
+            background: linear-gradient(135deg, #eff6ff, #eef2ff);
+            border: 1px solid #bfdbfe;
+        }
+
+        .goals {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .goal-card {
+            background: white;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .goal-card strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        /* ================= CALLOUTS ================= */
+
+        .callout {
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid;
+        }
+
+        .callout.info {
+            background: #eff6ff;
+            border-color: var(--primary);
+        }
+
+        .callout.success {
+            background: #ecfdf5;
+            border-color: var(--green);
+        }
+
+        .callout.warning {
+            background: #fff7ed;
+            border-color: var(--orange);
+        }
+
+        .callout.danger {
+            background: #fef2f2;
+            border-color: var(--red);
+        }
+
+        .callout.purple {
+            background: #f5f3ff;
+            border-color: var(--purple);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        /* ================= DEFINITION ================= */
+
+        .definition {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        .definition-term {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background: #fafcff;
+        }
+
+        .error-cell {
+            background: #fee2e2 !important;
+            color: #991b1b;
+            font-weight: 600;
+        }
+
+        /* ================= CODE / SCHEME ================= */
+
+        pre {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 18px 0;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* ================= FORMULA ================= */
+
+        .formula {
+            text-align: center;
+            padding: 22px;
+            font-size: 24px;
+            font-weight: 700;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .formula span {
+            color: var(--primary);
+        }
+
+        /* ================= TIMELINE ================= */
+
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 7px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: #cbd5e1;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -25px;
+            top: 7px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        /* ================= QUIZ ================= */
+
+        .question {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        .question summary {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .answer {
+            margin-top: 12px;
+            padding: 12px;
+            background: #ecfdf5;
+            border-radius: 8px;
+        }
+
+        /* ================= HOMEWORK ================= */
+
+        .homework {
+            background: linear-gradient(135deg, #312e81, #1e3a8a);
+            color: white;
+        }
+
+        .homework h2,
+        .homework h3 {
+            color: white;
+        }
+
+        .homework .task {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        /* ================= GLOSSARY ================= */
+
+        .glossary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        .glossary-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            background: #fafcff;
+        }
+
+        .glossary-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            padding: 20px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .sidebar nav {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page-header {
+                padding-bottom: 40px;
+            }
+
+            .layout {
+                padding: 0 12px 40px;
+            }
+
+            section {
+                padding: 22px 18px;
+            }
+
+            section h2 {
+                font-size: 24px;
+            }
+
+            .formula {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="page-header">
+    <div class="header-inner">
+
+        <div class="breadcrumbs">
+            <a href="db-basics.html">Базы данных</a>
+            <span> / </span>
+            <span>Лекция 1</span>
+        </div>
+
+        <div class="lecture-label">
+            📘 Лекция №1
+        </div>
+
+        <h1>Основные понятия и определения баз данных</h1>
+
+        <p>
+            Знакомимся с фундаментальными понятиями баз данных:
+            от проблемы избыточности информации до моделей данных,
+            ключей, связей и современных подходов к хранению информации.
+        </p>
+
+        <div class="lecture-meta">
+            <div class="meta-item">🎓 Курс: 1</div>
+            <div class="meta-item">⏱ 90 минут</div>
+            <div class="meta-item">📚 Дисциплина: Базы данных</div>
+            <div class="meta-item">🏫 Сквозной пример: «Колледж»</div>
+        </div>
+
+    </div>
+</header>
+
+
+<div class="layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+        <h3>Содержание</h3>
+
+        <nav>
+            <a href="#goals">Цели лекции</a>
+            <a href="#problem">1. Зачем нужны БД</a>
+            <a href="#basic-concepts">2. Основные понятия</a>
+            <a href="#domain">3. Предметная область</a>
+            <a href="#keys">4. Ключи и связи</a>
+            <a href="#models">5. Модели данных</a>
+            <a href="#modern-models">6. Развитие моделей</a>
+            <a href="#summary">Итоги лекции</a>
+            <a href="#glossary">Словарь терминов</a>
+            <a href="#quiz">Самопроверка</a>
+            <a href="#homework">Домашнее задание</a>
+        </nav>
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="content">
+
+        <!-- INTRO -->
+
+        <section id="goals" class="intro-card">
+            <h2>🎯 Что вы изучите на этой лекции</h2>
+
+            <p>
+                База данных — это не просто таблица Excel и не просто программа,
+                в которой хранятся записи. Чтобы правильно проектировать базы данных,
+                сначала необходимо освоить их язык и основные понятия.
+            </p>
+
+            <div class="goals">
+                <div class="goal-card">
+                    <strong>01. Понятия</strong>
+                    Данные, информация, база данных, СУБД и информационная система.
+                </div>
+
+                <div class="goal-card">
+                    <strong>02. Структура данных</strong>
+                    Предметная область, сущность, атрибут, экземпляр и домен.
+                </div>
+
+                <div class="goal-card">
+                    <strong>03. Идентификация</strong>
+                    Первичные, внешние, составные и суррогатные ключи.
+                </div>
+
+                <div class="goal-card">
+                    <strong>04. Организация данных</strong>
+                    Классические и современные модели данных.
+                </div>
+            </div>
+
+            <div class="callout info">
+                <div class="callout-title">💡 Главная идея лекции</div>
+                Весь дальнейший курс строится на понимании одной проблемы:
+                <strong>как хранить большое количество данных без дублирования,
+                противоречий и потери информации.</strong>
+            </div>
+        </section>
+
+
+        <!-- ================= PROBLEM ================= -->
+
+        <section id="problem">
+
+            <h2>1. Почему появились базы данных?</h2>
+
+            <p>
+                Представим, что в колледже все сведения об обучении студентов
+                хранятся в одной большой таблице.
+            </p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Фамилия</th>
+                            <th>Группа</th>
+                            <th>Куратор</th>
+                            <th>Предмет</th>
+                            <th>Оценка</th>
+                            <th>Дата</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Иванов</td>
+                            <td>ИС-11</td>
+                            <td>Смирнова А.П.</td>
+                            <td>Базы данных</td>
+                            <td>5</td>
+                            <td>12.09.2026</td>
+                        </tr>
+
+                        <tr>
+                            <td>Иванов</td>
+                            <td class="error-cell">ИС11</td>
+                            <td class="error-cell">Смирнова</td>
+                            <td>Базы данных</td>
+                            <td>4</td>
+                            <td class="error-cell">12/09/26</td>
+                        </tr>
+
+                        <tr>
+                            <td>Петров</td>
+                            <td>ИС-12</td>
+                            <td>Смирнова А.П.</td>
+                            <td>Математика</td>
+                            <td>3</td>
+                            <td>13.09.2026</td>
+                        </tr>
+
+                        <tr>
+                            <td>Иванов</td>
+                            <td>ИС-11</td>
+                            <td class="error-cell">Смирнов А.П.</td>
+                            <td>Математика</td>
+                            <td>5</td>
+                            <td>13.09.2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>
+                Уже на нескольких строках возникают проблемы. Представьте,
+                что в реальной системе таких записей миллионы.
+            </p>
+
+            <h3>Основные проблемы хранения данных в одной таблице</h3>
+
+            <div class="definition">
+                <div class="definition-term">Избыточность данных</div>
+                Одни и те же сведения повторяются много раз.
+                Например, название группы и имя куратора повторяются
+                в каждой записи студента.
+            </div>
+
+            <div class="definition">
+                <div class="definition-term">Противоречивость данных</div>
+                Одни и те же факты записываются по-разному.
+                Например: <code>ИС-11</code>, <code>ИС11</code>, <code>ис 11</code>.
+            </div>
+
+            <div class="definition">
+                <div class="definition-term">Аномалия обновления</div>
+                Чтобы изменить один факт, необходимо изменить множество записей.
+            </div>
+
+            <div class="definition">
+                <div class="definition-term">Аномалия вставки</div>
+                Невозможно добавить информацию об одном объекте,
+                пока отсутствует информация о другом.
+            </div>
+
+            <div class="definition">
+                <div class="definition-term">Аномалия удаления</div>
+                При удалении одной записи можно случайно потерять сведения
+                о совершенно другом объекте.
+            </div>
+
+            <h3>Пример: аномалия обновления</h3>
+
+            <p>
+                Предположим, куратор группы ИС-11 сменился.
+                Если сведения о кураторе повторяются в каждой строке,
+                необходимо изменить сотни записей.
+            </p>
+
+            <div class="callout danger">
+                <div class="callout-title">Проблема</div>
+                Если хотя бы одну запись забыть изменить, база данных
+                будет содержать противоречивую информацию.
+            </div>
+
+            <h3>Пример: аномалия вставки</h3>
+
+            <p>
+                Открылась новая группа, но студенты ещё не зачислены.
+                В большой общей таблице может просто не оказаться места,
+                куда записать сведения о новой группе.
+            </p>
+
+            <h3>Пример: аномалия удаления</h3>
+
+            <p>
+                Если удалить единственного студента группы,
+                можно одновременно потерять сведения о самой группе и её кураторе.
+            </p>
+
+            <div class="formula">
+                Избыточность
+                <span>→</span>
+                Противоречивость
+                <span>→</span>
+                Потеря данных
+            </div>
+
+            <div class="callout success">
+                <div class="callout-title">Решение</div>
+                Необходимо разделить информацию на отдельные связанные структуры
+                и поручить управление ими специализированной программе —
+                <strong>системе управления базами данных.</strong>
+            </div>
+
+        </section>
+
+
+        <!-- ================= BASIC CONCEPTS ================= -->
+
+        <section id="basic-concepts">
+
+            <h2>2. Данные, информация, БД, СУБД и ИС</h2>
+
+            <h3>Данные и информация</h3>
+
+            <p>Посмотрите на следующий набор символов:</p>
+
+            <pre><code>24-101    5    12.09</code></pre>
+
+            <p>
+                Без контекста сложно понять, что означают эти значения.
+                Но если добавить описание:
+            </p>
+
+            <ul>
+                <li><strong>24-101</strong> — номер зачётной книжки;</li>
+                <li><strong>5</strong> — оценка;</li>
+                <li><strong>12.09</strong> — дата.</li>
+            </ul>
+
+            <p>
+                Теперь данные приобретают смысл.
+            </p>
+
+            <div class="formula">
+                Информация = <span>Данные + Контекст</span>
+            </div>
+
+            <div class="definition">
+                <div class="definition-term">Данные</div>
+                Зарегистрированные факты, представленные в формализованном виде
+                и пригодные для хранения, передачи и обработки.
+            </div>
+
+            <div class="definition">
+                <div class="definition-term">Информация</div>
+                Данные, помещённые в контекст и осмысленные для решения конкретной задачи.
+            </div>
+
+            <div class="callout purple">
+                <div class="callout-title">Дополнительно</div>
+                Часто используют цепочку:
+                <strong>данные → информация → знания.</strong>
+                Знания возникают, когда на основе информации выявляются закономерности,
+                позволяющие принимать решения.
+            </div>
+
+
+            <h3>База данных</h3>
+
+            <div class="definition">
+                <div class="definition-term">База данных (БД)</div>
+                Именованная совокупность взаимосвязанных данных,
+                организованных по определённым правилам и отражающих состояние
+                объектов некоторой предметной области.
+            </div>
+
+            <p>Важно понимать три особенности базы данных:</p>
+
+            <ul>
+                <li>данные <strong>взаимосвязаны</strong>;</li>
+                <li>данные организованы по определённым <strong>правилам</strong>;</li>
+                <li>БД отражает определённую <strong>предметную область</strong>.</li>
+            </ul>
+
+
+            <h3>Система управления базами данных</h3>
+
+            <div class="definition">
+                <div class="definition-term">СУБД</div>
+                Система управления базами данных — комплекс программных средств
+                для создания, хранения, изменения и совместного использования базы данных.
+            </div>
+
+            <div class="callout warning">
+                <div class="callout-title">⚠️ Главное различие</div>
+                <strong>БД — это данные.</strong><br>
+                <strong>СУБД — это программа, которая управляет данными.</strong>
+            </div>
+
+            <h4>Основные функции СУБД</h4>
+
+            <ul>
+                <li>определение структуры данных;</li>
+                <li>создание базы данных;</li>
+                <li>добавление данных;</li>
+                <li>изменение и удаление данных;</li>
+                <li>поиск и выборка информации;</li>
+                <li>контроль целостности;</li>
+                <li>разграничение прав доступа;</li>
+                <li>поддержка многопользовательской работы;</li>
+                <li>управление транзакциями;</li>
+                <li>резервное копирование;</li>
+                <li>восстановление после сбоев.</li>
+            </ul>
+
+            <h4>Примеры СУБД</h4>
+
+            <ul>
+                <li>MS Access;</li>
+                <li>MySQL;</li>
+                <li>PostgreSQL;</li>
+                <li>SQLite;</li>
+                <li>Oracle Database;</li>
+                <li>Microsoft SQL Server;</li>
+                <li>MongoDB — нереляционная СУБД.</li>
+            </ul>
+
+
+            <h3>Информационная система</h3>
+
+            <div class="definition">
+                <div class="definition-term">Информационная система (ИС)</div>
+                Совокупность базы данных, СУБД, программных приложений,
+                пользователей и организационных правил, предназначенная
+                для решения задач определённой предметной области.
+            </div>
+
+            <pre><code>ПОЛЬЗОВАТЕЛЬ
+      ↕
+ПРИЛОЖЕНИЕ
+(сайт / программа)
+      ↕
+СУБД
+(MySQL / PostgreSQL)
+      ↕
+БАЗА ДАННЫХ
+(таблицы и данные)</code></pre>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Понятие</th>
+                            <th>Что это?</th>
+                            <th>Пример</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>БД</strong></td>
+                            <td>Совокупность данных</td>
+                            <td>Таблицы студентов и оценок</td>
+                        </tr>
+                        <tr>
+                            <td><strong>СУБД</strong></td>
+                            <td>Программа для управления БД</td>
+                            <td>PostgreSQL</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ИС</strong></td>
+                            <td>Полная система для решения задач</td>
+                            <td>Электронный дневник колледжа</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout info">
+                <div class="callout-title">Простая аналогия</div>
+                База данных — это <strong>книги</strong>.<br>
+                СУБД — это <strong>библиотекарь</strong>.<br>
+                Информационная система — это <strong>вся библиотека вместе
+                с читателями, правилами и системой выдачи книг.</strong>
+            </div>
+
+        </section>
+
+
+        <!-- ================= DOMAIN ================= -->
+
+        <section id="domain">
+
+            <h2>3. Предметная область и структура данных</h2>
+
+            <h3>Предметная область</h3>
+
+            <div class="definition">
+                <div class="definition-term">Предметная область (ПрО)</div>
+                Часть реального мира, сведения о которой необходимо хранить
+                и обрабатывать в информационной системе.
+            </div>
+
+            <p>Примеры предметных областей:</p>
+
+            <ul>
+                <li>колледж;</li>
+                <li>библиотека;</li>
+                <li>аптека;</li>
+                <li>автосервис;</li>
+                <li>фитнес-клуб;</li>
+                <li>кинотеатр.</li>
+            </ul>
+
+            <div class="callout warning">
+                <div class="callout-title">Важный принцип проектирования</div>
+                В базе данных хранится <strong>не всё, что известно</strong>,
+                а только то, что необходимо для работы системы.
+            </div>
+
+            <p>
+                Например, в базе колледжа может быть необходимо хранить
+                номер телефона студента, но его любимый музыкальный жанр,
+                скорее всего, не имеет отношения к задачам колледжа.
+            </p>
+
+
+            <h3>Объект и сущность</h3>
+
+            <div class="definition">
+                <div class="definition-term">Объект</div>
+                Конкретный элемент реального мира.
+                Например: конкретный студент Иванов или конкретная группа ИС-11.
+            </div>
+
+            <div class="definition">
+                <div class="definition-term">Сущность</div>
+                Тип или класс однородных объектов, о которых необходимо хранить информацию.
+            </div>
+
+            <p>
+                Например:
+            </p>
+
+            <ul>
+                <li><strong>Студент</strong> — сущность;</li>
+                <li><strong>Иванов Пётр Сергеевич</strong> — экземпляр сущности.</li>
+            </ul>
+
+            <div class="callout info">
+                <strong>В реляционной базе данных:</strong><br>
+                сущность → таблица;<br>
+                экземпляр сущности → строка таблицы.
+            </div>
+
+
+            <h3>Атрибут</h3>
+
+            <div class="definition">
+                <div class="definition-term">Атрибут</div>
+                Свойство сущности, характеризующее её экземпляры.
+                В таблице атрибут обычно соответствует столбцу.
+            </div>
+
+            <p>Например, для сущности «Студент» атрибутами могут быть:</p>
+
+            <ul>
+                <li>номер зачётной книжки;</li>
+                <li>фамилия;</li>
+                <li>имя;</li>
+                <li>дата рождения;</li>
+                <li>номер группы.</li>
+            </ul>
+
+
+            <h3>Экземпляр сущности</h3>
+
+            <div class="definition">
+                <div class="definition-term">Экземпляр сущности (запись, кортеж)</div>
+                Конкретный набор значений атрибутов, описывающий один объект.
+                В таблице соответствует строке.
+            </div>
+
+
+            <h3>Домен</h3>
+
+            <div class="definition">
+                <div class="definition-term">Домен</div>
+                Множество допустимых значений атрибута.
+                Домен включает не только тип данных, но и смысловые ограничения.
+            </div>
+
+            <p>Например, атрибут «Оценка»:</p>
+
+            <ul>
+                <li>тип данных — целое число;</li>
+                <li>домен — <code>{2, 3, 4, 5}</code>.</li>
+            </ul>
+
+            <p>
+                Число <code>147</code> является целым числом,
+                поэтому тип данных формально не нарушен.
+                Но значение не принадлежит домену оценки.
+            </p>
+
+            <div class="callout danger">
+                <div class="callout-title">Тип данных ≠ домен</div>
+                Тип отвечает на вопрос:
+                <strong>«Какого рода данные?»</strong><br>
+                Домен отвечает на вопрос:
+                <strong>«Какие конкретные значения допустимы?»</strong>
+            </div>
+
+
+            <h3>Структура сущности «Студенты»</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Зачётка</th>
+                            <th>Фамилия</th>
+                            <th>Дата рождения</th>
+                            <th>Код группы</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>24-101</td>
+                            <td>Иванов</td>
+                            <td>12.05.2008</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>24-102</td>
+                            <td>Петров</td>
+                            <td>03.11.2007</td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ul>
+                <li><strong>Таблица</strong> — сущность «Студенты»;</li>
+                <li><strong>Столбцы</strong> — атрибуты;</li>
+                <li><strong>Строки</strong> — экземпляры сущности;</li>
+                <li><strong>Ячейка</strong> — значение атрибута.</li>
+            </ul>
+
+
+            <h3>Виды атрибутов</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Тип атрибута</th>
+                            <th>Описание</th>
+                            <th>Пример</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Простой</td>
+                            <td>Состоит из одного значения</td>
+                            <td>Фамилия</td>
+                        </tr>
+                        <tr>
+                            <td>Составной</td>
+                            <td>Состоит из нескольких частей</td>
+                            <td>ФИО, адрес</td>
+                        </tr>
+                        <tr>
+                            <td>Однозначный</td>
+                            <td>Для объекта одно значение</td>
+                            <td>Дата рождения</td>
+                        </tr>
+                        <tr>
+                            <td>Многозначный</td>
+                            <td>Может иметь несколько значений</td>
+                            <td>Несколько телефонов</td>
+                        </tr>
+                        <tr>
+                            <td>Хранимый</td>
+                            <td>Значение хранится непосредственно</td>
+                            <td>Дата рождения</td>
+                        </tr>
+                        <tr>
+                            <td>Вычисляемый</td>
+                            <td>Получается на основе других данных</td>
+                            <td>Возраст</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <h3>Основные типы данных</h3>
+
+            <ul>
+                <li><code>INTEGER</code> — целые числа;</li>
+                <li><code>FLOAT</code>, <code>DECIMAL</code> — вещественные числа;</li>
+                <li><code>CHAR</code>, <code>VARCHAR</code> — строки;</li>
+                <li><code>DATE</code> — дата;</li>
+                <li><code>TIME</code> — время;</li>
+                <li><code>DATETIME</code> — дата и время;</li>
+                <li><code>BOOLEAN</code> — логическое значение.</li>
+            </ul>
+
+
+            <h3>Что такое NULL?</h3>
+
+            <div class="definition">
+                <div class="definition-term">NULL</div>
+                Специальное значение, означающее, что значение отсутствует или неизвестно.
+            </div>
+
+            <div class="callout warning">
+                <strong>NULL — это не:</strong>
+                <ul>
+                    <li>не число 0;</li>
+                    <li>не пустая строка;</li>
+                    <li>не слово «нет».</li>
+                </ul>
+            </div>
+
+            <p>
+                Например, у обучающегося студента может отсутствовать дата отчисления.
+                В этом случае значение атрибута может быть <code>NULL</code>.
+            </p>
+
+        </section>
+
+
+        <!-- ================= KEYS ================= -->
+
+        <section id="keys">
+
+            <h2>4. Ключи и связи между таблицами</h2>
+
+            <h3>Что такое ключ?</h3>
+
+            <div class="definition">
+                <div class="definition-term">Ключ</div>
+                Атрибут или набор атрибутов, однозначно идентифицирующий экземпляр сущности.
+            </div>
+
+            <p>
+                Например, фамилия не является хорошим идентификатором,
+                потому что могут существовать однофамильцы.
+            </p>
+
+            <p>
+                Для студента более подходящим идентификатором может быть
+                номер зачётной книжки или внутренний идентификатор <code>ID</code>.
+            </p>
+
+
+            <h3>Первичный ключ — Primary Key (PK)</h3>
+
+            <div class="definition">
+                <div class="definition-term">Первичный ключ (PK)</div>
+                Атрибут или набор атрибутов, однозначно определяющий каждую строку таблицы.
+            </div>
+
+            <h4>Требования к первичному ключу</h4>
+
+            <ul>
+                <li><strong>Уникальность</strong> — значение не повторяется;</li>
+                <li><strong>NOT NULL</strong> — значение обязательно должно существовать;</li>
+                <li><strong>Минимальность</strong> — ключ не содержит лишних атрибутов;</li>
+                <li><strong>Неизменность</strong> — желательно, чтобы значение не менялось со временем.</li>
+            </ul>
+
+            <div class="formula">
+                PK = Уникален · Не NULL · Минимален · Неизменен
+            </div>
+
+
+            <h3>Виды ключей</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Тип ключа</th>
+                            <th>Описание</th>
+                            <th>Пример</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Простой</td>
+                            <td>Состоит из одного атрибута</td>
+                            <td>ID студента</td>
+                        </tr>
+
+                        <tr>
+                            <td>Составной</td>
+                            <td>Состоит из нескольких атрибутов</td>
+                            <td>Студент + Предмет + Дата</td>
+                        </tr>
+
+                        <tr>
+                            <td>Потенциальный</td>
+                            <td>Может использоваться как уникальный идентификатор</td>
+                            <td>Номер зачётки, паспорт</td>
+                        </tr>
+
+                        <tr>
+                            <td>Первичный</td>
+                            <td>Главный выбранный ключ таблицы</td>
+                            <td>ID</td>
+                        </tr>
+
+                        <tr>
+                            <td>Альтернативный</td>
+                            <td>Потенциальный ключ, не выбранный первичным</td>
+                            <td>Уникальный номер документа</td>
+                        </tr>
+
+                        <tr>
+                            <td>Естественный</td>
+                            <td>Существует в реальном мире</td>
+                            <td>ИНН</td>
+                        </tr>
+
+                        <tr>
+                            <td>Суррогатный</td>
+                            <td>Создан специально для БД</td>
+                            <td>ID = 1, 2, 3...</td>
+                        </tr>
+
+                        <tr>
+                            <td>Внешний</td>
+                            <td>Ссылается на ключ другой таблицы</td>
+                            <td>Код группы</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <h3>Суррогатный ключ</h3>
+
+            <div class="definition">
+                <div class="definition-term">Суррогатный ключ</div>
+                Искусственный идентификатор, созданный специально для базы данных
+                и не имеющий самостоятельного смысла в предметной области.
+            </div>
+
+            <p>
+                Обычно суррогатный ключ представляет собой автоматически
+                увеличивающийся идентификатор:
+            </p>
+
+            <pre><code>ID
+1
+2
+3
+4
+5</code></pre>
+
+            <p>
+                Такой подход удобен, потому что внутренний идентификатор
+                не зависит от изменения фамилии, паспорта или других данных человека.
+            </p>
+
+
+            <h3>Внешний ключ — Foreign Key (FK)</h3>
+
+            <div class="definition">
+                <div class="definition-term">Внешний ключ (FK)</div>
+                Атрибут таблицы, значения которого ссылаются на первичный ключ
+                другой таблицы.
+            </div>
+
+            <pre><code>ГРУППЫ                         СТУДЕНТЫ
+
+Код_гр PK                     Зачётка PK
+Название                      Фамилия
+                              Код_гр FK
+    1  ИС-11        ◄────────      1
+    2  ИС-12        ◄────────      1
+                              ───── 2</code></pre>
+
+            <p>
+                Вместо хранения названия группы в каждой строке студентов
+                хранится только ссылка на соответствующую группу.
+            </p>
+
+            <div class="callout success">
+                <div class="callout-title">Преимущество</div>
+                Если название группы изменится, его нужно изменить
+                только <strong>в одном месте</strong>.
+            </div>
+
+            <div class="callout info">
+                <strong>Первичный ключ:</strong> не повторяется.<br>
+                <strong>Внешний ключ:</strong> может повторяться.
+            </div>
+
+
+            <h3>Ссылочная целостность</h3>
+
+            <div class="definition">
+                <div class="definition-term">Ссылочная целостность</div>
+                Правило, согласно которому значение внешнего ключа должно
+                соответствовать существующему значению первичного ключа
+                связанной таблицы либо быть NULL, если это разрешено.
+            </div>
+
+            <p>
+                Например, нельзя назначить студенту <code>Код_гр = 99</code>,
+                если группы с таким кодом не существует.
+            </p>
+
+
+            <h3>Виды связей</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Связь</th>
+                            <th>Название</th>
+                            <th>Пример</th>
+                            <th>Реализация</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>1:1</td>
+                            <td>Один к одному</td>
+                            <td>Студент — Личное дело</td>
+                            <td>Общий или уникальный ключ</td>
+                        </tr>
+
+                        <tr>
+                            <td>1:M</td>
+                            <td>Один ко многим</td>
+                            <td>Группа — Студенты</td>
+                            <td>FK находится на стороне «многие»</td>
+                        </tr>
+
+                        <tr>
+                            <td>M:M</td>
+                            <td>Многие ко многим</td>
+                            <td>Студенты — Предметы</td>
+                            <td>Через промежуточную таблицу</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre><code>1:1
+
+СТУДЕНТ ───── ЛИЧНОЕ ДЕЛО
+
+
+1:M
+
+ГРУППА ═══════◄ СТУДЕНТЫ
+
+
+M:M
+
+СТУДЕНТЫ ►════ ОЦЕНКИ ════◄ ПРЕДМЕТЫ</code></pre>
+
+            <div class="callout danger">
+                <div class="callout-title">Важно!</div>
+                Связь <strong>«многие ко многим»</strong> в реляционной базе данных
+                не реализуется напрямую.
+                Для неё необходима <strong>третья промежуточная таблица</strong>.
+            </div>
+
+        </section>
+
+
+        <!-- ================= MODELS ================= -->
+
+        <section id="models">
+
+            <h2>5. Классические модели данных</h2>
+
+            <div class="definition">
+                <div class="definition-term">Модель данных</div>
+                Совокупность правил, определяющих структуру данных,
+                допустимые операции над ними и ограничения целостности.
+            </div>
+
+            <div class="timeline">
+
+                <div class="timeline-item">
+                    <strong>1960-е — Иерархическая модель</strong><br>
+                    Данные организованы в виде дерева.
+                </div>
+
+                <div class="timeline-item">
+                    <strong>Конец 1960-х — Сетевая модель</strong><br>
+                    Данные представлены в виде графа.
+                </div>
+
+                <div class="timeline-item">
+                    <strong>1970 — Реляционная модель</strong><br>
+                    Данные представлены в виде отношений (таблиц).
+                </div>
+
+            </div>
+
+
+            <h3>Иерархическая модель</h3>
+
+            <p>
+                В иерархической модели данные организованы в виде дерева.
+                У каждого потомка может быть только один непосредственный предок.
+            </p>
+
+            <pre><code>          КОЛЛЕДЖ
+         /        \
+      ИС-11       ИС-12
+      /   \          |
+  Иванов  Петров   Сидоров</code></pre>
+
+            <h4>Преимущества</h4>
+
+            <ul>
+                <li>простая структура;</li>
+                <li>высокая скорость доступа по известному пути;</li>
+                <li>экономия памяти.</li>
+            </ul>
+
+            <h4>Недостатки</h4>
+
+            <ul>
+                <li>сложно представить связь «многие ко многим»;</li>
+                <li>доступ обычно начинается от корня;</li>
+                <li>структура жёстко связана с путями доступа;</li>
+                <li>удаление родителя может привести к удалению потомков.</li>
+            </ul>
+
+            <p><strong>Примеры:</strong> файловые системы, XML, организационные структуры.</p>
+
+
+            <h3>Сетевая модель</h3>
+
+            <p>
+                Сетевая модель является развитием иерархической.
+                Один объект может быть связан с несколькими другими объектами.
+                Структура напоминает граф.
+            </p>
+
+            <pre><code>ИС-11        ИС-12
+  │  \      /   │
+  │   \    /    │
+Иванов  Петров  Сидоров
+    \     |     /
+     Базы данных</code></pre>
+
+            <h4>Преимущества</h4>
+
+            <ul>
+                <li>поддерживает сложные связи;</li>
+                <li>может представлять связь «многие ко многим»;</li>
+                <li>эффективна при навигационном доступе.</li>
+            </ul>
+
+            <h4>Недостатки</h4>
+
+            <ul>
+                <li>сложная структура;</li>
+                <li>программист должен знать маршруты доступа;</li>
+                <li>изменение структуры может потребовать изменения программ.</li>
+            </ul>
+
+
+            <h3>Реляционная модель</h3>
+
+            <p>
+                Реляционная модель была предложена Эдгаром Коддом в 1970 году.
+                Она основана на математическом понятии <strong>отношения</strong>.
+            </p>
+
+            <div class="callout danger">
+                <div class="callout-title">⚠️ Частая ошибка</div>
+                Слово «реляционная» происходит от английского
+                <strong>relation — отношение</strong>, а не от слова «связь».
+            </div>
+
+            <p>
+                В реляционной модели данные представлены в виде таблиц,
+                а связи между ними устанавливаются через значения ключей.
+            </p>
+
+            <h4>Преимущества</h4>
+
+            <ul>
+                <li>простота и наглядность;</li>
+                <li>строгая математическая основа;</li>
+                <li>независимость данных от программ;</li>
+                <li>использование декларативного языка SQL;</li>
+                <li>широкая распространённость.</li>
+            </ul>
+
+            <h4>Недостатки</h4>
+
+            <ul>
+                <li>сложные объекты приходится разбивать на несколько таблиц;</li>
+                <li>для сложных запросов необходимо соединение таблиц;</li>
+                <li>не всегда оптимальна для аналитики огромных объёмов данных.</li>
+            </ul>
+
+            <p>
+                Примеры реляционных СУБД:
+                <strong>PostgreSQL, MySQL, SQLite, Oracle, MS SQL Server, MS Access.</strong>
+            </p>
+
+
+            <h3>Сравнение классических моделей</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Признак</th>
+                            <th>Иерархическая</th>
+                            <th>Сетевая</th>
+                            <th>Реляционная</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Структура</td>
+                            <td>Дерево</td>
+                            <td>Граф</td>
+                            <td>Таблицы</td>
+                        </tr>
+
+                        <tr>
+                            <td>Период появления</td>
+                            <td>1960-е</td>
+                            <td>Конец 1960-х</td>
+                            <td>С 1970 года</td>
+                        </tr>
+
+                        <tr>
+                            <td>Связь M:M</td>
+                            <td>Сложно / естественно не поддерживается</td>
+                            <td>Поддерживается</td>
+                            <td>Через промежуточную таблицу</td>
+                        </tr>
+
+                        <tr>
+                            <td>Доступ</td>
+                            <td>От корня</td>
+                            <td>По навигационным связям</td>
+                            <td>По значениям</td>
+                        </tr>
+
+                        <tr>
+                            <td>Сложность</td>
+                            <td>Низкая</td>
+                            <td>Высокая</td>
+                            <td>Средняя</td>
+                        </tr>
+
+                        <tr>
+                            <td>Примеры</td>
+                            <td>IMS, файловые структуры</td>
+                            <td>IDMS</td>
+                            <td>MySQL, PostgreSQL</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+
+        <!-- ================= MODERN MODELS ================= -->
+
+        <section id="modern-models">
+
+            <h2>6. Развитие моделей данных</h2>
+
+            <p>
+                Реляционная модель является основной для большинства
+                корпоративных и учебных систем, однако существуют задачи,
+                для которых другие способы хранения данных оказываются удобнее.
+            </p>
+
+
+            <h3>Постреляционная модель</h3>
+
+            <p>
+                Постреляционные модели расширяют традиционный подход
+                и допускают хранение более сложных структур внутри одной записи.
+            </p>
+
+            <div class="definition">
+                <div class="definition-term">Особенность</div>
+                В одном поле могут храниться массивы или вложенные структуры.
+            </div>
+
+            <p>
+                Например, вместо отдельной таблицы можно представить список книг
+                читателя в виде массива внутри одного поля.
+            </p>
+
+            <h4>Плюсы</h4>
+            <ul>
+                <li>связанные данные могут храниться вместе;</li>
+                <li>меньше операций соединения таблиц;</li>
+                <li>удобно работать со сложными структурами.</li>
+            </ul>
+
+            <h4>Минусы</h4>
+            <ul>
+                <li>сложнее контролировать целостность;</li>
+                <li>часть контроля может переходить к приложению.</li>
+            </ul>
+
+
+            <h3>Многомерная модель</h3>
+
+            <p>
+                Многомерные базы данных используются прежде всего
+                для аналитической обработки больших объёмов информации.
+            </p>
+
+            <pre><code>             ТОВАР
+               │
+               │       ╱ РЕГИОН
+               │     ╱
+               └──────────── ВРЕМЯ
+
+Меры:
+• сумма продаж
+• количество продаж</code></pre>
+
+            <div class="definition">
+                <div class="definition-term">Измерение</div>
+                Характеристика, по которой анализируются данные.
+                Например: время, товар, регион.
+            </div>
+
+            <div class="definition">
+                <div class="definition-term">Мера</div>
+                Числовой показатель для анализа.
+                Например: сумма продаж или количество товаров.
+            </div>
+
+            <h4>Типичные операции</h4>
+
+            <ul>
+                <li><strong>Срез</strong> — фиксируется одно измерение;</li>
+                <li><strong>Вращение</strong> — меняются оси анализа;</li>
+                <li><strong>Детализация</strong> — переход к более подробным данным;</li>
+                <li><strong>Свёртка</strong> — переход к обобщённым данным.</li>
+            </ul>
+
+
+            <h3>OLTP и OLAP</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>OLTP</th>
+                            <th>OLAP</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><strong>Online Transaction Processing</strong></td>
+                            <td><strong>Online Analytical Processing</strong></td>
+                        </tr>
+
+                        <tr>
+                            <td>Оперативная обработка транзакций</td>
+                            <td>Аналитическая обработка</td>
+                        </tr>
+
+                        <tr>
+                            <td>Продажа товара</td>
+                            <td>Анализ продаж за 5 лет</td>
+                        </tr>
+
+                        <tr>
+                            <td>Зачисление студента</td>
+                            <td>Отчёт по успеваемости</td>
+                        </tr>
+
+                        <tr>
+                            <td>Выдача книги</td>
+                            <td>Статистика выдач по месяцам</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <h3>Объектно-ориентированные базы данных</h3>
+
+            <p>
+                В объектно-ориентированной модели данные хранятся
+                в виде объектов со свойствами и методами.
+            </p>
+
+            <p>Поддерживаются принципы ООП:</p>
+
+            <ul>
+                <li>инкапсуляция;</li>
+                <li>наследование;</li>
+                <li>полиморфизм.</li>
+            </ul>
+
+            <h4>Преимущество</h4>
+            <p>
+                Удобное хранение сложных объектов:
+                мультимедиа, чертежей, географических данных,
+                инженерных моделей.
+            </p>
+
+            <h4>Недостаток</h4>
+            <p>
+                Отсутствует единый универсальный стандарт,
+                сопоставимый по распространённости с SQL.
+            </p>
+
+
+            <h3>NoSQL</h3>
+
+            <div class="definition">
+                <div class="definition-term">NoSQL</div>
+                Семейство нереляционных подходов к хранению данных.
+                Расшифровывается как <strong>Not Only SQL</strong> —
+                «не только SQL».
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Тип</th>
+                            <th>Пример</th>
+                            <th>Особенность</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Документные</td>
+                            <td>MongoDB</td>
+                            <td>Данные в виде документов</td>
+                        </tr>
+
+                        <tr>
+                            <td>Ключ — значение</td>
+                            <td>Redis</td>
+                            <td>Очень быстрый доступ по ключу</td>
+                        </tr>
+
+                        <tr>
+                            <td>Колоночные</td>
+                            <td>Cassandra</td>
+                            <td>Работа с большими распределёнными данными</td>
+                        </tr>
+
+                        <tr>
+                            <td>Графовые</td>
+                            <td>Neo4j</td>
+                            <td>Работа со сложными сетями связей</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout info">
+                <div class="callout-title">Главный вывод</div>
+                Новые модели данных <strong>не отменили реляционную модель</strong>.
+                Они используются в задачах, где традиционные таблицы менее удобны.
+            </div>
+
+        </section>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <section id="summary">
+
+            <h2>📌 Итоги лекции</h2>
+
+            <p>
+                После первой лекции необходимо уверенно понимать следующие идеи.
+            </p>
+
+            <ol>
+                <li>
+                    <strong>Базы данных появились как решение проблемы избыточности
+                    и противоречивости информации.</strong>
+                </li>
+
+                <li>
+                    <strong>БД — это данные, СУБД — программа для управления данными,
+                    ИС — более широкая система.</strong>
+                </li>
+
+                <li>
+                    <strong>Предметная область определяет, какие данные
+                    необходимо хранить.</strong>
+                </li>
+
+                <li>
+                    <strong>Сущность соответствует типу объектов,
+                    экземпляр — конкретному объекту.</strong>
+                </li>
+
+                <li>
+                    <strong>Атрибут описывает свойства сущности.</strong>
+                </li>
+
+                <li>
+                    <strong>Домен определяет допустимые значения атрибута.</strong>
+                </li>
+
+                <li>
+                    <strong>Первичный ключ уникально идентифицирует запись.</strong>
+                </li>
+
+                <li>
+                    <strong>Внешний ключ связывает таблицы.</strong>
+                </li>
+
+                <li>
+                    <strong>Наиболее распространённая модель сегодня —
+                    реляционная.</strong>
+                </li>
+
+                <li>
+                    <strong>Реляционная модель получила название от relation —
+                    «отношение», а не от слова «связь».</strong>
+                </li>
+            </ol>
+
+        </section>
+
+
+        <!-- ================= GLOSSARY ================= -->
+
+        <section id="glossary">
+
+            <h2>📖 Словарь терминов</h2>
+
+            <div class="glossary">
+
+                <div class="glossary-item">
+                    <strong>Данные</strong>
+                    Формализованные факты, пригодные для хранения и обработки.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Информация</strong>
+                    Осмысленные данные, помещённые в контекст.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>База данных</strong>
+                    Организованная совокупность взаимосвязанных данных.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>СУБД</strong>
+                    Программный комплекс для управления базами данных.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Информационная система</strong>
+                    БД + СУБД + приложения + пользователи + правила работы.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Предметная область</strong>
+                    Часть реального мира, сведения о которой хранятся в БД.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Сущность</strong>
+                    Тип объектов, о которых необходимо хранить информацию.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Экземпляр сущности</strong>
+                    Конкретный объект сущности.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Атрибут</strong>
+                    Свойство сущности.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Домен</strong>
+                    Множество допустимых значений атрибута.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Первичный ключ (PK)</strong>
+                    Уникальный идентификатор записи.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Внешний ключ (FK)</strong>
+                    Атрибут, ссылающийся на ключ другой таблицы.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Составной ключ</strong>
+                    Ключ, состоящий из нескольких атрибутов.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Суррогатный ключ</strong>
+                    Искусственный идентификатор, созданный специально для БД.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Модель данных</strong>
+                    Правила организации структуры данных и операций над ними.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>NULL</strong>
+                    Отсутствующее или неизвестное значение.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>Ссылочная целостность</strong>
+                    Правило корректности ссылок между связанными таблицами.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>OLTP</strong>
+                    Оперативная обработка транзакций.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>OLAP</strong>
+                    Аналитическая обработка накопленных данных.
+                </div>
+
+                <div class="glossary-item">
+                    <strong>NoSQL</strong>
+                    Семейство нереляционных подходов к хранению данных.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUIZ ================= -->
+
+        <section id="quiz">
+
+            <h2>🧠 Самопроверка</h2>
+
+            <p>
+                Попробуйте сначала ответить самостоятельно,
+                а затем откройте правильный ответ.
+            </p>
+
+            <details class="question">
+                <summary>1. Почему хранение всех данных в одной большой таблице опасно?</summary>
+                <div class="answer">
+                    Возникают избыточность, противоречивость,
+                    аномалии обновления, вставки и удаления.
+                </div>
+            </details>
+
+            <details class="question">
+                <summary>2. Чем данные отличаются от информации?</summary>
+                <div class="answer">
+                    Данные являются зарегистрированными фактами.
+                    Информация — это данные, осмысленные в определённом контексте.
+                </div>
+            </details>
+
+            <details class="question">
+                <summary>3. Чем БД отличается от СУБД?</summary>
+                <div class="answer">
+                    БД — это сами данные.
+                    СУБД — программная система для управления этими данными.
+                </div>
+            </details>
+
+            <details class="question">
+                <summary>4. Что является сущностью, а что экземпляром?</summary>
+                <div class="answer">
+                    «Студент» — сущность.
+                    «Иванов Пётр» — экземпляр сущности.
+                </div>
+            </details>
+
+            <details class="question">
+                <summary>5. Чем тип данных отличается от домена?</summary>
+                <div class="answer">
+                    Тип определяет вид данных, например «целое число».
+                    Домен дополнительно ограничивает допустимые значения,
+                    например оценка может принимать только 2, 3, 4 или 5.
+                </div>
+            </details>
+
+            <details class="question">
+                <summary>6. Может ли первичный ключ повторяться?</summary>
+                <div class="answer">
+                    Нет. Значение первичного ключа должно быть уникальным.
+                </div>
+            </details>
+
+            <details class="question">
+                <summary>7. Может ли внешний ключ повторяться?</summary>
+                <div class="answer">
+                    Да. Например, у многих студентов может быть один и тот же код группы.
+                </div>
+            </details>
+
+            <details class="question">
+                <summary>8. Почему связь «многие ко многим» требует промежуточную таблицу?</summary>
+                <div class="answer">
+                    Потому что одна таблица не может напрямую хранить
+                    множество повторяющихся связей без нарушения нормальной структуры данных.
+                    Промежуточная таблица содержит ссылки на обе связанные сущности.
+                </div>
+            </details>
+
+            <details class="question">
+                <summary>9. Почему модель называется реляционной?</summary>
+                <div class="answer">
+                    От английского слова relation — «отношение».
+                    В математическом смысле отношение соответствует таблице.
+                </div>
+            </details>
+
+            <details class="question">
+                <summary>10. Что означает NoSQL?</summary>
+                <div class="answer">
+                    Not Only SQL — «не только SQL».
+                    Это семейство различных нереляционных моделей данных.
+                </div>
+            </details>
+
+        </section>
+
+
+        <!-- ================= HOMEWORK ================= -->
+
+        <section id="homework" class="homework">
+
+            <h2>🏠 Домашнее задание</h2>
+
+            <div class="task">
+                <h3>1. Выучить термины</h3>
+
+                <p>
+                    Данные, информация, база данных, СУБД,
+                    информационная система, предметная область,
+                    сущность, атрибут, экземпляр, домен,
+                    первичный ключ, внешний ключ,
+                    составной ключ, суррогатный ключ,
+                    модель данных.
+                </p>
+            </div>
+
+
+            <div class="task">
+                <h3>2. Выбрать предметную область</h3>
+
+                <p>Выберите один вариант:</p>
+
+                <p>
+                    <strong>
+                        Аптека / Автосервис / Фитнес-клуб /
+                        Пиццерия / Ветклиника / Кинотеатр
+                    </strong>
+                </p>
+
+                <p>Для выбранной предметной области:</p>
+
+                <ul>
+                    <li>выделите минимум 3 сущности;</li>
+                    <li>для каждой сущности укажите не менее 5 атрибутов;</li>
+                    <li>определите первичный ключ;</li>
+                    <li>определите возможные внешние ключи.</li>
+                </ul>
+            </div>
+
+
+            <div class="task">
+                <h3>3. Начертить схему связей</h3>
+
+                <p>
+                    Изобразите сущности в виде прямоугольников-таблиц
+                    и проведите между ними связи.
+                </p>
+
+                <p>
+                    Подпишите тип каждой связи:
+                    <strong>1:1, 1:M или M:M.</strong>
+                </p>
+            </div>
+
+
+            <div class="task">
+                <h3>4. Вопрос на понимание</h3>
+
+                <p>
+                    Ответьте письменно в 3–4 предложениях:
+                </p>
+
+                <p>
+                    <strong>
+                        Почему в таблице «Студенты» не рекомендуется хранить атрибут «Возраст»?
+                        Что следует хранить вместо него и почему?
+                    </strong>
+                </p>
+            </div>
+
+
+            <div class="task">
+                <h3>Моя предметная область</h3>
+                <p>
+                    ________________________________________________
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- ================= NEXT ================= -->
+
+        <section>
+
+            <h2>➡️ Что дальше?</h2>
+
+            <p>
+                Следующая лекция посвящена более подробному изучению
+                <strong>реляционной модели данных</strong>.
+            </p>
+
+            <p>Далее будут рассмотрены:</p>
+
+            <ul>
+                <li>свойства отношений;</li>
+                <li>структура таблиц;</li>
+                <li>типы данных;</li>
+                <li>ограничения целостности;</li>
+                <li>основы проектирования реляционных баз данных.</li>
+            </ul>
+
+            <div class="callout success">
+                <div class="callout-title">🎓 Главное перед следующей лекцией</div>
+                Убедитесь, что вы уверенно различаете:
+                <strong>сущность → атрибут → экземпляр → значение</strong>,
+                а также понимаете разницу между
+                <strong>PK и FK</strong>.
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+
+<footer>
+    <p>
+        Базы данных · Лекция №1 · Основные понятия и определения
+    </p>
+</footer>
+
+</body>
+</html>
