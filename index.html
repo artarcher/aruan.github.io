@@ -4,27 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Личный архив: книги, фильмы, музыка, мысли и ценностные ориентиры.">
-    <title>aruan</title>
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <meta name="description"
+        content="Личный архив aruan: информатика, книги, фильмы, музыка, философия, материалы для студентов и моменты из жизни.">
+
+    <title>aruan — учитель информатики и преподаватель</title>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="aruan">
-    <meta property="og:title" content="aruan — личный архив">
-    <meta property="og:description" content="Книги, фильмы, музыка, мысли и ценностные ориентиры.">
+    <meta property="og:title" content="aruan — учитель информатики и преподаватель">
+    <meta property="og:description"
+        content="Личный архив: информатика, книги, фильмы, музыка, философия и материалы для студентов.">
     <meta property="og:image" content="images/moments/2024-07-07 11-01-24.jpeg">
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#faf9f6">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         /* ============================================================
            Tokens
            ============================================================ */
+
         :root {
             --bg: #faf9f6;
             --ink: #17181a;
@@ -41,16 +51,16 @@
             --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
             --ease: cubic-bezier(.16, 1, .3, 1);
+
             --content-w: 1000px;
             --sidebar-w: 260px;
             --gap: 70px;
         }
 
         /* ============================================================
-           Dark theme — same palette logic, inverted: a quiet page for
-           reading in the evening, which is when most of this archive
-           was probably written.
+           Dark theme
            ============================================================ */
+
         [data-theme="dark"] {
             --bg: #131315;
             --ink: #f1efe8;
@@ -64,38 +74,51 @@
             --paper: #1b1b1e;
         }
 
-        body, .frame, .like-btn, .theme-toggle {
-            transition: background-color 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease);
+        /* ============================================================
+           Base
+           ============================================================ */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.001ms !important;
-                transition-duration: 0.001ms !important;
-                scroll-behavior: auto !important;
-            }
+        html {
+            scroll-behavior: smooth;
         }
 
-        * { box-sizing: border-box; }
+        body,
+        .frame,
+        .theme-toggle {
+            transition:
+                background-color 0.35s var(--ease),
+                color 0.35s var(--ease),
+                border-color 0.35s var(--ease);
+        }
 
-        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            padding: 0;
+
+            font-family: var(--font-body);
+            line-height: 1.65;
+
+            background-color: var(--bg);
+            color: var(--ink-soft);
+
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
 
         ::selection {
             background: var(--accent-soft);
             color: var(--ink);
         }
 
-        body {
-            font-family: var(--font-body);
-            background-color: var(--bg);
-            color: var(--ink-soft);
-            line-height: 1.65;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
+        a {
+            color: inherit;
         }
-
-        a { color: inherit; }
 
         :focus-visible {
             outline: 2px solid var(--accent);
@@ -103,44 +126,118 @@
             border-radius: 2px;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.001ms !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
         /* ============================================================
            Layout
            ============================================================ */
+
         .wrapper {
             display: flex;
+
             width: 100%;
             max-width: var(--content-w);
+
             margin: 0 auto;
             padding: 72px 24px 120px;
+
             position: relative;
         }
 
         aside {
             width: var(--sidebar-w);
+
             position: fixed;
             top: 72px;
+
             height: calc(100vh - 140px);
+
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
         main {
-            margin-left: calc(var(--sidebar-w) + 60px);
             flex: 1;
             width: 100%;
             min-width: 0;
+
+            margin-left: calc(var(--sidebar-w) + 60px);
         }
 
         /* ============================================================
-           Signature mark — a quiet horizon under stars.
-           Ties the profile to the mountain photographs in "Моменты"
-           and the epigraph's line about hearts still answering stars.
+           Profile
            ============================================================ */
+
+        .profile-info h1 {
+            margin: 0;
+
+            font-family: var(--font-display);
+            font-size: 2.1rem;
+            font-weight: 600;
+
+            letter-spacing: -0.02em;
+
+            color: var(--ink);
+        }
+
+        .profile-role {
+            margin: 6px 0 22px;
+
+            font-size: 0.74rem;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+
+            color: var(--muted);
+        }
+
+        .profile-quote {
+            margin: 0 0 8px;
+
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1rem;
+
+            line-height: 1.55;
+
+            color: var(--ink-soft);
+        }
+
+        .quote-author {
+            display: block;
+
+            margin-top: 12px;
+
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-style: normal;
+
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+
+            color: var(--faint);
+        }
+
+        /* ============================================================
+           Signature mark
+           ============================================================ */
+
         .signature-mark {
             width: 100%;
             height: 46px;
+
             margin: 22px 0 34px;
+
             color: var(--ink);
             opacity: 0.5;
         }
@@ -148,13 +245,16 @@
         .signature-mark svg {
             width: 100%;
             height: 100%;
+
             overflow: visible;
         }
 
         .signature-mark .peaks {
             fill: none;
+
             stroke: currentColor;
             stroke-width: 1;
+
             stroke-linejoin: round;
             stroke-linecap: round;
         }
@@ -164,99 +264,109 @@
         }
 
         /* ============================================================
-           Profile
+           Navigation
            ============================================================ */
-        .profile-info h1 {
-            font-family: var(--font-display);
-            font-size: 2.1rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin: 0;
-            color: var(--ink);
-        }
 
-        .profile-quote {
-            font-family: var(--font-display);
-            font-style: italic;
-            font-size: 1rem;
-            color: var(--ink-soft);
-            margin: 0 0 8px 0;
-            line-height: 1.55;
+        nav {
+            margin-top: 38px;
         }
-
-        .quote-author {
-            display: block;
-            font-family: var(--font-body);
-            font-style: normal;
-            font-size: 0.72rem;
-            color: var(--faint);
-            margin-top: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.09em;
-        }
-
-        nav { margin-top: 38px; }
 
         nav ul {
             list-style: none;
+
             padding: 0;
             margin: 0;
         }
 
-        nav li { margin-bottom: 13px; }
+        nav li {
+            margin-bottom: 13px;
+        }
 
         nav a {
             position: relative;
+
+            display: inline-block;
+
+            padding-left: 14px;
+
             color: var(--muted);
+
             text-decoration: none;
+
             font-size: 0.78rem;
             font-weight: 600;
-            letter-spacing: 0.07em;
+
             text-transform: uppercase;
+            letter-spacing: 0.07em;
+
             transition: color 0.25s var(--ease);
-            padding-left: 14px;
         }
 
         nav a::before {
             content: "";
+
             position: absolute;
             left: 0;
             top: 50%;
+
             width: 5px;
             height: 1px;
+
             background: var(--faint);
-            transform: translateY(-50%) scaleX(0.6);
+
+            transform:
+                translateY(-50%)
+                scaleX(0.6);
+
             transform-origin: left;
+
             transition: all 0.25s var(--ease);
         }
 
-        nav a:hover { color: var(--ink); }
+        nav a:hover {
+            color: var(--ink);
+        }
 
-        nav li.active a { color: var(--ink); }
+        nav li.active a {
+            color: var(--ink);
+        }
 
         nav li.active a::before {
-            background: var(--accent);
             width: 18px;
-            transform: translateY(-50%) scaleX(1);
+
+            background: var(--accent);
+
+            transform:
+                translateY(-50%)
+                scaleX(1);
         }
 
         /* ============================================================
            Theme toggle
            ============================================================ */
+
         .theme-toggle {
             display: inline-flex;
             align-items: center;
             gap: 8px;
+
+            align-self: flex-start;
+
+            padding: 9px 14px;
+
             border: 1px solid var(--line);
+            border-radius: 20px;
+
             background: transparent;
             color: var(--muted);
+
             font-family: var(--font-body);
             font-size: 0.72rem;
             font-weight: 600;
+
             text-transform: uppercase;
             letter-spacing: 0.07em;
-            padding: 9px 14px;
-            border-radius: 20px;
+
             cursor: pointer;
         }
 
@@ -273,12 +383,17 @@
         /* ============================================================
            Sections
            ============================================================ */
+
         section {
             margin-bottom: var(--gap);
             padding-top: 8px;
+
             opacity: 0;
             transform: translateY(14px);
-            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+
+            transition:
+                opacity 0.7s var(--ease),
+                transform 0.7s var(--ease);
         }
 
         section.is-visible {
@@ -286,35 +401,52 @@
             transform: translateY(0);
         }
 
-        section:first-of-type { opacity: 1; transform: none; }
+        section:first-of-type {
+            opacity: 1;
+            transform: none;
+        }
 
         h2 {
             display: flex;
             align-items: baseline;
             justify-content: space-between;
+
             gap: 16px;
+
+            margin: 0 0 28px;
+            padding-bottom: 14px;
+
+            border-bottom: 1px solid var(--line);
+
             font-family: var(--font-body);
             font-size: 0.82rem;
             font-weight: 700;
+
             text-transform: uppercase;
             letter-spacing: 0.12em;
+
             color: var(--ink);
-            border-bottom: 1px solid var(--line);
-            padding-bottom: 14px;
-            margin: 0 0 28px 0;
         }
 
         .header-link {
             font-family: var(--font-body);
             font-size: 0.78rem;
             font-weight: 500;
+
             text-transform: none;
             letter-spacing: 0;
-            border-bottom: 1px solid var(--line-strong);
-            text-decoration: none;
+
             color: var(--muted);
+
+            text-decoration: none;
+
+            border-bottom: 1px solid var(--line-strong);
+
             white-space: nowrap;
-            transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+
+            transition:
+                color 0.2s var(--ease),
+                border-color 0.2s var(--ease);
         }
 
         .header-link:hover {
@@ -323,13 +455,16 @@
         }
 
         .section-intro {
+            max-width: 62ch;
+
+            margin: 0 0 26px;
+
             font-family: var(--font-display);
             font-size: 1.15rem;
-            font-weight: 400;
             font-style: italic;
+            font-weight: 400;
+
             color: var(--ink);
-            margin: 0 0 26px 0;
-            max-width: 62ch;
         }
 
         #about .section-intro {
@@ -337,8 +472,46 @@
             font-style: normal;
         }
 
+        /* ============================================================
+           About
+           ============================================================ */
+
+        #about p {
+            max-width: 72ch;
+        }
+
+        .teaching-note {
+            margin: 34px 0 0;
+            padding: 22px 24px;
+
+            border-left: 2px solid var(--accent);
+
+            background: var(--accent-soft);
+
+            color: var(--ink-soft);
+        }
+
+        .teaching-note strong {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--ink);
+
+            font-size: 0.78rem;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* ============================================================
+           Content lists
+           ============================================================ */
+
         .content-list {
             list-style: none;
+
             padding: 0;
             margin: 0;
         }
@@ -346,153 +519,163 @@
         .content-list li {
             display: flex;
             flex-direction: column;
+
             padding: 14px 0;
+
             border-bottom: 1px solid var(--line);
         }
 
-        .content-list li:last-child { border-bottom: none; }
+        .content-list li:last-child {
+            border-bottom: none;
+        }
 
         .title {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px;
+
             font-family: var(--font-display);
             font-size: 1.05rem;
             font-weight: 500;
+
             color: var(--ink);
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2px;
         }
 
         .meta {
+            margin-top: 4px;
+
             font-family: var(--font-body);
             font-size: 0.86rem;
+
             color: var(--muted);
-            margin-top: 4px;
         }
 
-        /* Like button — a small star that lights up gold, echoing the epigraph */
-        .like-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            margin-left: 10px;
-            padding: 2px 7px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: var(--faint);
-            border-radius: 20px;
-            transition: color 0.2s var(--ease), background-color 0.2s var(--ease);
-        }
+        .sub-note {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-style: italic;
+            font-weight: 400;
 
-        .like-btn:hover {
-            color: var(--accent);
-            background-color: var(--accent-soft);
-        }
-
-        .like-btn.liked { color: var(--accent); }
-
-        .like-btn .heart-icon {
-            font-size: 0.95rem;
-            line-height: 1;
-            transition: transform 0.3s var(--ease);
-            display: inline-block;
-        }
-
-        .like-btn:active .heart-icon { transform: scale(1.35) rotate(-8deg); }
-
-        .like-btn .like-count {
-            font-size: 0.72rem;
-            font-weight: 600;
-            font-variant-numeric: tabular-nums;
+            color: var(--muted);
         }
 
         .sub-category {
+            margin: 34px 0 6px;
+
             font-family: var(--font-body);
             font-size: 0.74rem;
             font-weight: 700;
+
             text-transform: uppercase;
-            color: var(--accent);
             letter-spacing: 0.09em;
-            margin: 34px 0 6px 0;
+
+            color: var(--accent);
         }
 
-        h2 + .sub-category { margin-top: 0; }
+        h2 + .sub-category {
+            margin-top: 0;
+        }
 
         /* ============================================================
            Quotes
            ============================================================ */
+
         .quote-card {
-            border-left: 2px solid var(--ink);
-            padding-left: 22px;
-            margin-bottom: 34px;
             position: relative;
+
+            margin-bottom: 34px;
+            padding-left: 22px;
+
+            border-left: 2px solid var(--ink);
         }
 
-        .quote-card:last-child { margin-bottom: 0; }
+        .quote-card:last-child {
+            margin-bottom: 0;
+        }
 
         .quote-card blockquote {
             margin: 0;
+
             font-family: var(--font-display);
-            font-style: italic;
             font-size: 1.08rem;
+            font-style: italic;
+
             line-height: 1.65;
+
             color: var(--ink);
         }
 
         .quote-card footer {
-            margin-top: 14px;
-            font-size: 0.9rem;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+
             gap: 12px;
+
+            margin-top: 14px;
         }
 
         .quote-card .author {
             font-family: var(--font-body);
             font-weight: 600;
+
             color: var(--ink);
         }
 
         .quote-card .source {
+            margin-top: 3px;
+
             font-family: var(--font-body);
             font-size: 0.82rem;
-            color: var(--muted);
-            margin-top: 3px;
+
             line-height: 1.5;
+
+            color: var(--muted);
         }
 
         /* ============================================================
            Gallery
            ============================================================ */
+
         .gallery {
             display: grid;
+
             grid-template-columns: repeat(2, 1fr);
+
             gap: 26px;
         }
 
         .gallery figure {
-            margin: 0;
             display: flex;
             flex-direction: column;
+
+            margin: 0;
         }
 
         .gallery .frame {
             overflow: hidden;
+
             background: var(--line);
+
             border-radius: 2px;
         }
 
         .gallery img {
+            display: block;
+
             width: 100%;
             height: auto;
+
             aspect-ratio: 4 / 3;
+
             object-fit: cover;
+
             filter: grayscale(100%) contrast(1.02);
-            transition: filter 0.5s var(--ease), transform 0.6s var(--ease);
-            display: block;
+
+            transition:
+                filter 0.5s var(--ease),
+                transform 0.6s var(--ease);
         }
 
         .gallery figure.gallery-feature {
@@ -509,71 +692,135 @@
         }
 
         .gallery figcaption {
-            margin-top: 10px;
-            font-size: 0.85rem;
-            color: var(--muted);
-            line-height: 1.4;
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             gap: 8px;
+
+            margin-top: 10px;
+
+            font-size: 0.85rem;
+            line-height: 1.4;
+
+            color: var(--muted);
         }
 
         /* ============================================================
            Materials
            ============================================================ */
-        .material-title {
-            color: var(--ink);
-            font-family: var(--font-display);
-        }
 
-        a.material-title {
+        .material-title {
+            font-family: var(--font-display);
+
+            color: var(--ink);
+
             text-decoration: none;
+
             border-bottom: 1px solid var(--ink);
+
             transition: opacity 0.2s var(--ease);
         }
 
-        a.material-title:hover { opacity: 0.6; }
+        .material-title:hover {
+            opacity: 0.6;
+        }
 
         /* ============================================================
            Responsive
            ============================================================ */
-        @media (max-width: 860px) {
-            :root { --gap: 56px; }
 
-            .wrapper { flex-direction: column; padding: 48px 20px 90px; }
+        @media (max-width: 860px) {
+
+            :root {
+                --gap: 56px;
+            }
+
+            .wrapper {
+                flex-direction: column;
+
+                padding: 48px 20px 90px;
+            }
 
             aside {
                 position: relative;
                 top: 0;
+
                 width: 100%;
                 height: auto;
+
                 margin-bottom: 44px;
             }
 
-            .signature-mark { max-width: 320px; }
+            main {
+                margin-left: 0;
+            }
 
-            nav { margin-top: 26px; }
+            .signature-mark {
+                max-width: 320px;
+            }
+
+            nav {
+                margin-top: 26px;
+            }
 
             nav ul {
                 display: flex;
                 flex-wrap: wrap;
+
                 gap: 10px 18px;
             }
 
-            nav li { margin-bottom: 0; }
+            nav li {
+                margin-bottom: 0;
+            }
 
-            .theme-toggle { margin-top: 28px; align-self: flex-start; }
+            .theme-toggle {
+                margin-top: 28px;
+            }
 
-            main { margin-left: 0; }
+            .gallery {
+                grid-template-columns: 1fr;
+            }
 
-            .gallery { grid-template-columns: 1fr; }
-
-            h2 { flex-wrap: wrap; }
+            h2 {
+                flex-wrap: wrap;
+            }
 
             section {
                 opacity: 1 !important;
                 transform: none !important;
+            }
+        }
+
+        @media (max-width: 520px) {
+
+            .wrapper {
+                padding-top: 36px;
+            }
+
+            .profile-info h1 {
+                font-size: 1.9rem;
+            }
+
+            .section-intro {
+                font-size: 1.05rem;
+            }
+
+            .gallery figure.gallery-feature {
+                grid-column: auto;
+            }
+
+            .gallery figure.gallery-feature img {
+                aspect-ratio: 4 / 3;
+            }
+
+            .quote-card {
+                padding-left: 17px;
+            }
+
+            .quote-card blockquote {
+                font-size: 1rem;
             }
         }
     </style>
@@ -583,20 +830,33 @@
 
     <div class="wrapper">
 
-        <!-- Левая колонка: Профиль и Меню -->
+        <!-- ==========================================================
+             Левая колонка
+             ========================================================== -->
+
         <aside>
+
             <div class="profile-info">
+
                 <h1>aruan</h1>
+
+                <div class="profile-role">
+                    Учитель информатики · преподаватель
+                </div>
 
                 <p class="profile-quote">
                     Пока твоё сердце<br>
                     Ещё откликается<br>
                     На звёзды
-                    <span class="quote-author">Bazlab — Дружище</span>
+
+                    <span class="quote-author">
+                        Bazlab — «Дружище»
+                    </span>
                 </p>
 
                 <div class="signature-mark" aria-hidden="true">
                     <svg viewBox="0 0 240 46" preserveAspectRatio="none">
+
                         <g class="stars">
                             <circle cx="18" cy="10" r="1" />
                             <circle cx="150" cy="6" r="1" />
@@ -604,1009 +864,1383 @@
                             <circle cx="90" cy="4" r="0.8" />
                             <circle cx="222" cy="9" r="0.8" />
                         </g>
-                        <path class="peaks"
-                            d="M0,40 L34,22 L52,32 L78,14 L104,36 L128,20 L152,38 L182,16 L206,34 L240,24" />
+
+                        <path
+                            class="peaks"
+                            d="M0,40 L34,22 L52,32 L78,14 L104,36 L128,20 L152,38 L182,16 L206,34 L240,24"
+                        />
+
                     </svg>
                 </div>
 
-                <nav>
+                <nav aria-label="Основная навигация">
                     <ul>
-                        <li><a href="#about">О себе</a></li>
-                        <li><a href="#people">Личности</a></li>
-                        <li><a href="#music">Музыка</a></li>
-                        <li><a href="#books">Книги</a></li>
-                        <li><a href="#cinema">Кино</a></li>
-                        <li><a href="#quotes">Цитаты</a></li>
-                        <li><a href="#tools">Инструменты</a></li>
-                        <li><a href="#materials">Материалы</a></li>
-                        <li><a href="#visuals">Моменты</a></li>
+
+                        <li>
+                            <a href="#about">О себе</a>
+                        </li>
+
+                        <li>
+                            <a href="#people">Личности</a>
+                        </li>
+
+                        <li>
+                            <a href="#music">Музыка</a>
+                        </li>
+
+                        <li>
+                            <a href="#books">Книги</a>
+                        </li>
+
+                        <li>
+                            <a href="#cinema">Кино</a>
+                        </li>
+
+                        <li>
+                            <a href="#quotes">Цитаты</a>
+                        </li>
+
+                        <li>
+                            <a href="#tools">Инструменты</a>
+                        </li>
+
+                        <li>
+                            <a href="#materials">Материалы</a>
+                        </li>
+
+                        <li>
+                            <a href="#visuals">Моменты</a>
+                        </li>
+
                     </ul>
                 </nav>
+
             </div>
 
-            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему">
-                <span class="theme-icon">☾</span><span class="theme-label">Тёмная тема</span>
+            <button
+                id="theme-toggle"
+                class="theme-toggle"
+                type="button"
+                aria-label="Переключить тему"
+            >
+                <span class="theme-icon" aria-hidden="true">☾</span>
+                <span class="theme-label">Тёмная тема</span>
             </button>
+
         </aside>
 
-        <!-- Правая колонка: Сам контент -->
+
+        <!-- ==========================================================
+             Основной контент
+             ========================================================== -->
+
         <main>
 
-            <!-- Раздел: О себе -->
+            <!-- ======================================================
+                 О себе
+                 ====================================================== -->
+
             <section id="about">
+
                 <h2>О себе</h2>
-                <p>Я учитель информатики — по будням объясняю школьникам логику алгоритмов, а по вечерам пытаюсь разобраться в том, как устроен я сам.
-                    Наверное, поэтому мне одинаково интересны чёткие структуры и вопросы, у которых структуры нет вовсе.</p>
-                <p>Я быстро устаю от людей — и быстро по ним скучаю; кажется, это и называют «отровертом». 
-                    Мне важно многое чувствовать и держать это при себе, пока не найдутся точные слова. 
-                    Я не верю в свободу воли в привычном смысле, но давно перестал искать в этом повод для тревоги: 
-                    если ничего нельзя было сделать иначе, остаётся только внимательно смотреть на то, что есть — на горы, на тишину, на людей рядом.</p>
+
+                <p class="section-intro">
+                    Я учитель информатики — по будням объясняю школьникам
+                    логику алгоритмов, а по вечерам пытаюсь разобраться
+                    в том, как устроен я сам.
+                </p>
+
+                <p>
+                    Наверное, поэтому мне одинаково интересны чёткие структуры
+                    и вопросы, у которых структуры нет вовсе.
+                </p>
+
+                <p>
+                    Мне одинаково необходимы близость и уединение. Я быстро
+                    устаю от шума и большого количества людей, но так же быстро
+                    начинаю скучать по тем, кто мне дорог. Наверное, поэтому мне
+                    особенно близки книги, прогулки, горы и разговоры,
+                    в которых не нужно спешить.
+                </p>
+
+                <p>
+                    Мне интересны вопросы сознания, свободы воли и природы
+                    человеческого «я». Я не всегда ищу в них окончательные
+                    ответы — скорее учусь внимательнее смотреть на то,
+                    что уже есть: на людей рядом, на тишину и на мир,
+                    который происходит независимо от наших объяснений.
+                </p>
+
+                <div class="teaching-note">
+
+                    <strong>Что мне важно в преподавании</strong>
+
+                    Мне нравится объяснять сложное простым языком и видеть
+                    момент, когда у человека вместо «я ничего не понимаю»
+                    появляется собственный вопрос. В информатике для меня
+                    важнее не механическое запоминание команд, а способность
+                    замечать структуру задачи, сомневаться, искать и постепенно
+                    собирать решение.
+
+                </div>
+
 
                 <ul class="content-list">
-    <li>
-        <span class="title">INFP <span class="sub-note">— убежище для внутреннего идеализма</span></span>
-        <span class="meta">MBTI</span>
-    </li>
-    <li>
-        <span class="title">4w5 459 sx/sp <span class="sub-note">— тяга к глубине и уединению</span></span>
-        <span class="meta">Эннеаграмма</span>
-    </li>
-    <li>
-        <span class="title">Отроверт <span class="sub-note">— качели между тоской по людям и тишиной</span></span>
-        <span class="meta">Концепция Рами Камински</span>
-    </li>
-    <li>
-        <span class="title">HSP <span class="sub-note">— слишком близкое соприкосновение с миром</span></span>
-        <span class="meta">Особенность нервной системы</span>
-    </li>
-    <li>
-        <span class="title">Бирюзовый / Коралловый</span>
-        <span class="meta">Спиральная динамика</span>
-    </li>
-    <li>
-        <span class="title">Экзистенциальный и внутриличностный</span>
-        <span class="meta">Интеллект (по Гарднеру)</span>
-    </li>
-    <li>
-        <span class="title">Жёсткий инкомпатибилизм и недвойственность</span>
-        <span class="meta">Мировоззрение и философские ориентиры</span>
-    </li>
-</ul>
+
+                    <li>
+                        <span class="title">
+                            INFP
+                            <span class="sub-note">
+                                — язык для описания внутреннего идеализма
+                            </span>
+                        </span>
+
+                        <span class="meta">
+                            MBTI
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="title">
+                            Отроверт
+                            <span class="sub-note">
+                                — качели между тягой к людям и тишиной
+                            </span>
+                        </span>
+
+                        <span class="meta">
+                            Концепция Рами Камински
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="title">
+                            Детерминизм и недвойственность
+                        </span>
+
+                        <span class="meta">
+                            Философские ориентиры
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="title">
+                            Философия сознания
+                        </span>
+
+                        <span class="meta">
+                            Область постоянного интереса
+                        </span>
+                    </li>
+
+                </ul>
+
             </section>
 
-            <!-- Раздел: Личности -->
+
+            <!-- ======================================================
+                 Личности
+                 ====================================================== -->
+
             <section id="people">
-                <h2>Личности</h2>
-                <p class="section-intro">Люди — настоящие и вымышленные — которые незаметно повлияли на то, как я
-                    думаю и чувствую.</p>
 
-               <div class="sub-category">Реальные</div>
+                <h2>Личности</h2>
+
+                <p class="section-intro">
+                    Люди — настоящие и вымышленные — которые незаметно
+                    повлияли на то, как я думаю и чувствую.
+                </p>
+
+
+                <div class="sub-category">
+                    Реальные
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Алан Уотс
-                            <button class="like-btn" data-id="people-watts" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Алан Уотс</span>
+                        <span class="meta">
+                            Британский философ и популяризатор восточной философии
                         </span>
-                        <span class="meta">Британский философ и популяризатор восточной философии</span>
                     </li>
+
                     <li>
-                        <span class="title">Анри-Фредерик Амьель
-                            <button class="like-btn" data-id="people-amiel" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Анри-Фредерик Амьель</span>
+                        <span class="meta">
+                            Швейцарский писатель, философ и поэт
                         </span>
-                        <span class="meta">Швейцарский писатель, философ и поэт</span>
                     </li>
+
                     <li>
-                        <span class="title">Винсент Ван Гог
-                            <button class="like-btn" data-id="people-vangogh" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Винсент Ван Гог</span>
+                        <span class="meta">
+                            Нидерландский художник-постимпрессионист
                         </span>
-                        <span class="meta">Нидерландский художник-постимпрессионист</span>
                     </li>
+
                     <li>
-                        <span class="title">Лев Толстой
-                            <button class="like-btn" data-id="people-tolstoy" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Лев Толстой</span>
+                        <span class="meta">
+                            Русский писатель и мыслитель, искатель нравственной истины
                         </span>
-                        <span class="meta">Русский писатель и мыслитель, искатель нравственной истины</span>
                     </li>
+
                     <li>
-                        <span class="title">Майкл Рьюз
-                            <button class="like-btn" data-id="people-ruse" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Майкл Рьюз</span>
+                        <span class="meta">
+                            Канадский философ науки, специалист по философии биологии
                         </span>
-                        <span class="meta">Канадский философ науки, специалист по философии биологии</span>
                     </li>
+
                     <li>
-                        <span class="title">Мишель Монтень
-                            <button class="like-btn" data-id="people-montaigne" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Мишель Монтень</span>
+                        <span class="meta">
+                            Французский философ-гуманист и писатель эпохи Возрождения
                         </span>
-                        <span class="meta">Французский философ-гуманист и писатель эпохи Возрождения</span>
                     </li>
+
                     <li>
-                        <span class="title">Омар Хайям
-                            <button class="like-btn" data-id="people-khayyam" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Омар Хайям</span>
+                        <span class="meta">
+                            Персидский поэт, математик и философ-скептик
                         </span>
-                        <span class="meta">Персидский поэт, математик и философ-скептик</span>
                     </li>
+
                     <li>
-                        <span class="title">Сёрен Кьеркегор
-                            <button class="like-btn" data-id="people-kierkegaard" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Сёрен Кьеркегор</span>
+                        <span class="meta">
+                            Датский философ, один из предшественников экзистенциализма
                         </span>
-                        <span class="meta">Датский философ, отец экзистенциализма</span>
                     </li>
+
                     <li>
-                        <span class="title">Томас Метцингер
-                            <button class="like-btn" data-id="people-metzinger" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Томас Метцингер</span>
+                        <span class="meta">
+                            Немецкий философ, исследователь философии сознания
                         </span>
-                        <span class="meta">Немецкий философ, исследователь философии сознания</span>
                     </li>
+
                     <li>
-                        <span class="title">Франц Кафка
-                            <button class="like-btn" data-id="people-kafka" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Франц Кафка</span>
+                        <span class="meta">
+                            Немецкоязычный писатель Праги, исследователь абсурда и одиночества
                         </span>
-                        <span class="meta">Немецкоязычный писатель Праги, исследователь абсурда и одиночества</span>
                     </li>
+
                     <li>
-                        <span class="title">Чарльз Дарвин
-                            <button class="like-btn" data-id="people-darwin" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Чарльз Дарвин</span>
+                        <span class="meta">
+                            Английский натуралист и путешественник, автор теории эволюции
                         </span>
-                        <span class="meta">Английский натуралист и путешественник, автор теории эволюции</span>
                     </li>
+
                 </ul>
-                
-                <div class="sub-category">Вымышленные</div>
+
+
+                <div class="sub-category">
+                    Вымышленные
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Мальчик
-                            <button class="like-btn" data-id="people-boy" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Мальчик</span>
+                        <span class="meta">
+                            Чарли Маккиси, «Мальчик, Крот, Лис и Конь»
                         </span>
-                        <span class="meta">Чарли Маккизи, «Мальчик, Крот, Лис и Конь»</span>
                     </li>
+
                     <li>
-                        <span class="title">Маленький Принц
-                            <button class="like-btn" data-id="people-little-prince" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Маленький Принц</span>
+                        <span class="meta">
+                            Антуан де Сент-Экзюпери, «Маленький принц»
                         </span>
-                        <span class="meta">Антуан де Сент-Экзюпери, «Маленький принц»</span>
                     </li>
+
                     <li>
-                        <span class="title">Офелия
-                            <button class="like-btn" data-id="people-ofelia" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Офелия</span>
+                        <span class="meta">
+                            Гильермо дель Торо, «Лабиринт Фавна»
                         </span>
-                        <span class="meta">Гильермо дель Торо, «Лабиринт Фавна»</span>
                     </li>
+
                     <li>
-                        <span class="title">Анна
-                            <button class="like-btn" data-id="people-anna" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Анна</span>
+                        <span class="meta">
+                            Хиромаса Ёнэбаяси, «Воспоминания о Марни»
                         </span>
-                        <span class="meta">Хиромаса Ёнэбаяси, «Воспоминания о Марни»</span>
                     </li>
+
                     <li>
-                        <span class="title">Мастер
-                            <button class="like-btn" data-id="people-master" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Мастер</span>
+                        <span class="meta">
+                            Михаил Булгаков, «Мастер и Маргарита»
                         </span>
-                        <span class="meta">Михаил Булгаков, «Мастер и Маргарита»</span>
                     </li>
+
                     <li>
-                        <span class="title">Алиса
-                            <button class="like-btn" data-id="people-alice" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Алиса</span>
+                        <span class="meta">
+                            Льюис Кэрролл, «Приключения Алисы в Стране чудес»
                         </span>
-                        <span class="meta">Льюис Кэрролл, «Приключения Алисы в Стране чудес»</span>
                     </li>
+
                     <li>
-                        <span class="title">Князь Мышкин
-                            <button class="like-btn" data-id="people-myshkin" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Князь Мышкин</span>
+                        <span class="meta">
+                            Фёдор Достоевский, «Идиот»
                         </span>
-                        <span class="meta">Фёдор Достоевский, «Идиот»</span>
                     </li>
+
                 </ul>
+
             </section>
 
-            <!-- Раздел: Музыка -->
-            <section id="music">
-                <h2>Музыка <a
-                        href="https://music.yandex.ru/playlists/3ba28253-1cea-ccd7-be57-26b04e64c551?utm_source=desktop&utm_medium=copy_link"
-                        target="_blank" class="header-link">слушать в Яндекс.Музыке →</a></h2>
-                <p class="section-intro">Плейлист, который меняется медленно и переслушивается годами.</p>
 
-                <div class="sub-category">Инди и Альтернатива</div>
+            <!-- ======================================================
+                 Музыка
+                 ====================================================== -->
+
+            <section id="music">
+
+                <h2>
+                    Музыка
+
+                    <a
+                        href="https://music.yandex.ru/playlists/3ba28253-1cea-ccd7-be57-26b04e64c551?utm_source=desktop&utm_medium=copy_link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="header-link"
+                    >
+                        слушать в Яндекс.Музыке →
+                    </a>
+                </h2>
+
+                <p class="section-intro">
+                    Плейлист, который меняется медленно и переслушивается годами.
+                </p>
+
+
+                <div class="sub-category">
+                    Инди и альтернатива
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Oysters in My Pocket
-                            <button class="like-btn" data-id="music-oysters-in-my-pocket" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Oysters in My Pocket</span>
                         <span class="meta">Royel Otis</span>
                     </li>
+
                     <li>
-                        <span class="title">good girls
-                            <button class="like-btn" data-id="music-good-girls" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">good girls</span>
                         <span class="meta">Josie Edwards</span>
                     </li>
+
                     <li>
-                        <span class="title">Дружище
-                            <button class="like-btn" data-id="music-druzhishche" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Дружище</span>
                         <span class="meta">Bazlab</span>
                     </li>
+
                     <li>
-                        <span class="title">Bite My Lip
-                            <button class="like-btn" data-id="music-bite-my-lip" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Bite My Lip</span>
                         <span class="meta">Kelly Boesch</span>
                     </li>
+
                     <li>
-                        <span class="title">Ihr seid mir egal
-                            <button class="like-btn" data-id="music-ihr-seid-mir-egal" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Ihr seid mir egal</span>
                         <span class="meta">Lina Maly</span>
                     </li>
+
                     <li>
-                        <span class="title">Golden Age
-                            <button class="like-btn" data-id="music-golden-age" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Golden Age</span>
                         <span class="meta">Chris Staples</span>
                     </li>
+
                     <li>
-                        <span class="title">Katie Queen of Tennessee
-                            <button class="like-btn" data-id="music-katie-queen" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Katie Queen of Tennessee</span>
                         <span class="meta">The Apache Relay</span>
                     </li>
+
                 </ul>
 
-                <div class="sub-category">Поп-музыка</div>
+
+                <div class="sub-category">
+                    Поп-музыка
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Friends Go
-                            <button class="like-btn" data-id="music-friends-go" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Friends Go</span>
                         <span class="meta">Maggie Lindemann</span>
                     </li>
+
                     <li>
-                        <span class="title">Chloe or Sam or Sophia or Marcus
-                            <button class="like-btn" data-id="music-chloe-sam" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Chloe or Sam or Sophia or Marcus
                         </span>
                         <span class="meta">Taylor Swift</span>
                     </li>
+
                     <li>
-                        <span class="title">Paper Rings
-                            <button class="like-btn" data-id="music-paper-rings" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Paper Rings</span>
                         <span class="meta">Taylor Swift</span>
                     </li>
+
                     <li>
-                        <span class="title">ME!
-                            <button class="like-btn" data-id="music-me" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">ME!</span>
+                        <span class="meta">
+                            Taylor Swift, Brendon Urie
                         </span>
-                        <span class="meta">Taylor Swift, Brendon Urie</span>
                     </li>
+
                     <li>
-                        <span class="title">Daylight
-                            <button class="like-btn" data-id="music-daylight" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Daylight</span>
                         <span class="meta">Taylor Swift</span>
                     </li>
+
                     <li>
-                        <span class="title">Si no es con vos
-                            <button class="like-btn" data-id="music-si-no-es-con-vos" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Si no es con vos</span>
                         <span class="meta">Natalia Oreiro</span>
                     </li>
+
                 </ul>
 
-                <div class="sub-category">Русская рок- и поп-сцена</div>
+
+                <div class="sub-category">
+                    Русская рок- и поп-сцена
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">АВСТРАЛИЯ
-                            <button class="like-btn" data-id="music-australia" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">АВСТРАЛИЯ</span>
                         <span class="meta">Земфира</span>
                     </li>
+
                     <li>
-                        <span class="title">Питер - Владивосток
-                            <button class="like-btn" data-id="music-piter-vladivostok" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Питер — Владивосток</span>
                         <span class="meta">просто Лера</span>
                     </li>
+
                 </ul>
 
-                <div class="sub-category">Хаус и танцевальная электроника</div>
+
+                <div class="sub-category">
+                    Хаус и танцевальная электроника
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Girls in Luv
-                            <button class="like-btn" data-id="music-girls-in-luv" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Girls in Luv</span>
+                        <span class="meta">
+                            DJane HouseKat, Rameez — Radio Mix
                         </span>
-                        <span class="meta">DJane HouseKat, Rameez — Radio Mix</span>
                     </li>
+
                     <li>
-                        <span class="title">The Magic Key
-                            <button class="like-btn" data-id="music-magic-key" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">The Magic Key</span>
                         <span class="meta">One-T</span>
                     </li>
+
                     <li>
-                        <span class="title">High
-                            <button class="like-btn" data-id="music-high" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">High</span>
                         <span class="meta">Tim3bomb</span>
                     </li>
+
                     <li>
-                        <span class="title">Sousou
-                            <button class="like-btn" data-id="music-sousou" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Sousou</span>
+                        <span class="meta">
+                            Ultra Beats — Instrumental
                         </span>
-                        <span class="meta">Ultra Beats — Instrumental</span>
                     </li>
+
                 </ul>
 
-                <div class="sub-category">Атмосферная электроника</div>
+
+                <div class="sub-category">
+                    Атмосферная электроника
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Clocks
-                            <button class="like-btn" data-id="music-clocks" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Clocks</span>
                         <span class="meta">Lost Ways</span>
                     </li>
+
                     <li>
-                        <span class="title">Your Firefly, Pt. 2
-                            <button class="like-btn" data-id="music-firefly-2" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Your Firefly, Pt. 2</span>
+                        <span class="meta">
+                            Ben Cocks, Benjamin Ian Cocks
                         </span>
-                        <span class="meta">Ben Cocks, Benjamin Ian Cocks</span>
                     </li>
+
                     <li>
-                        <span class="title">CRYING STAR
-                            <button class="like-btn" data-id="music-crying-star" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">CRYING STAR</span>
                         <span class="meta">YOHYOSAN</span>
                     </li>
+
                     <li>
-                        <span class="title">Wanderer
-                            <button class="like-btn" data-id="music-wanderer" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Wanderer</span>
                         <span class="meta">Steven Gutheinz</span>
                     </li>
+
                     <li>
-                        <span class="title">Olamorph
-                            <button class="like-btn" data-id="music-olamorph" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Olamorph</span>
+                        <span class="meta">
+                            Landhouse, Raddantze
                         </span>
-                        <span class="meta">Landhouse, Raddantze</span>
                     </li>
+
                     <li>
-                        <span class="title">MEMORIES
-                            <button class="like-btn" data-id="music-memories" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">MEMORIES</span>
                         <span class="meta">ROMANTICA</span>
                     </li>
-                    <li>
-                        <span class="title">STRATOSPHERE
-                            <button class="like-btn" data-id="music-stratosphere" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
-                        <span class="meta">ROMANTICA, Lestmor</span>
-                    </li>
-                </ul>
-            </section>
-            <!-- Раздел: Книги -->
-            <section id="books">
-                <h2>Книги</h2>
-                <p class="section-intro">Книги, к которым я обращаюсь чаще, чем к новым.</p>
 
-                <div class="sub-category">Проза</div>
-                <ul class="content-list">
                     <li>
-                        <span class="title">Мастер и Маргарита
-                            <button class="like-btn" data-id="book-master-i-margarita" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">STRATOSPHERE</span>
+                        <span class="meta">
+                            ROMANTICA, Lestmor
                         </span>
+                    </li>
+
+                </ul>
+
+            </section>
+
+
+            <!-- ======================================================
+                 Книги
+                 ====================================================== -->
+
+            <section id="books">
+
+                <h2>Книги</h2>
+
+                <p class="section-intro">
+                    Книги, к которым я обращаюсь чаще, чем к новым.
+                </p>
+
+
+                <div class="sub-category">
+                    Проза
+                </div>
+
+                <ul class="content-list">
+
+                    <li>
+                        <span class="title">Мастер и Маргарита</span>
                         <span class="meta">Михаил Булгаков</span>
                     </li>
+
                     <li>
-                        <span class="title">Братья Карамазовы
-                            <button class="like-btn" data-id="book-karamazovs" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Братья Карамазовы</span>
                         <span class="meta">Фёдор Достоевский</span>
                     </li>
+
                     <li>
-                        <span class="title">Идиот
-                            <button class="like-btn" data-id="book-idiot" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Идиот</span>
                         <span class="meta">Фёдор Достоевский</span>
                     </li>
+
                     <li>
-                        <span class="title">Смерть Ивана Ильича
-                            <button class="like-btn" data-id="book-ivan-ilyich" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Смерть Ивана Ильича</span>
                         <span class="meta">Лев Толстой</span>
                     </li>
+
                 </ul>
 
-                <div class="sub-category">Информатика и технологии</div>
+
+                <div class="sub-category">
+                    Информатика и технологии
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Искусство программирования
-                            <button class="like-btn" data-id="book-art-of-programming" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Искусство программирования
                         </span>
                         <span class="meta">Дональд Кнут</span>
                     </li>
+
                     <li>
-                        <span class="title">Код. Тайный язык информатики
-                            <button class="like-btn" data-id="book-code-petzold" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Код. Тайный язык информатики
                         </span>
                         <span class="meta">Чарльз Петцольд</span>
                     </li>
+
                 </ul>
 
-                <div class="sub-category">Философия и экзистенция</div>
+
+                <div class="sub-category">
+                    Философия и экзистенция
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Или-или
-                            <button class="like-btn" data-id="book-either-or" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Или-или</span>
                         <span class="meta">Сёрен Кьеркегор</span>
                     </li>
+
                     <li>
-                        <span class="title">Existential Physics: A Scientist's Guide to Life's Biggest Questions
-                            <button class="like-btn" data-id="book-existential-physics" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Existential Physics: A Scientist's Guide to Life's Biggest Questions
                         </span>
                         <span class="meta">Sabine Hossenfelder</span>
                     </li>
+
                 </ul>
 
-                <div class="sub-category">Человек и разум</div>
+
+                <div class="sub-category">
+                    Человек и разум
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Наука о мозге и миф о своем Я. Тоннель эго
-                            <button class="like-btn" data-id="book-ego-tunnel" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Наука о мозге и миф о своем Я. Тоннель эго
                         </span>
                         <span class="meta">Томас Метцингер</span>
                     </li>
+
                     <li>
-                        <span class="title">Рождение разума: Как интеллект зарождается в людях и нейросетях
-                            <button class="like-btn" data-id="book-birth-of-mind" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Рождение разума: Как интеллект зарождается в людях и нейросетях
                         </span>
-                        <span class="meta">Джей Макклелланд, Гаурав Сури</span>
+                        <span class="meta">
+                            Джей Макклелланд, Гаурав Сури
+                        </span>
                     </li>
+
                     <li>
-                        <span class="title">Всё решено: Жизнь без свободы воли
-                            <button class="like-btn" data-id="book-determined" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Всё решено: Жизнь без свободы воли
                         </span>
                         <span class="meta">Роберт Сапольски</span>
                     </li>
+
                     <li>
-                        <span class="title">Как рождаются эмоции. Революция в понимании мозга и управлении эмоциями
-                            <button class="like-btn" data-id="book-how-emotions-are-made" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Как рождаются эмоции. Революция в понимании мозга и управлении эмоциями
                         </span>
-                        <span class="meta">Лиза Фельдман Барретт</span>
+                        <span class="meta">
+                            Лиза Фельдман Барретт
+                        </span>
                     </li>
+
                     <li>
-                        <span class="title">Быть собой. Новая теория сознания
-                            <button class="like-btn" data-id="book-being-you" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Быть собой. Новая теория сознания
                         </span>
                         <span class="meta">Анил Сет</span>
                     </li>
+
                     <li>
-                        <span class="title">Чистый лист. Природа человека. Кто и почему отказывается признавать её
-                            сегодня
-                            <button class="like-btn" data-id="book-blank-slate" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Чистый лист. Природа человека. Кто и почему отказывается признавать её сегодня
                         </span>
                         <span class="meta">Стивен Пинкер</span>
                     </li>
+
                     <li>
-                        <span class="title">Истоки морали. В поисках человеческого у приматов
-                            <button class="like-btn" data-id="book-bonobo-and-atheist" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Истоки морали. В поисках человеческого у приматов
                         </span>
                         <span class="meta">Франс де Вааль</span>
                     </li>
+
                 </ul>
 
-                <div class="sub-category">Эссеистика</div>
+
+                <div class="sub-category">
+                    Эссеистика
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Письма к молодому поэту
-                            <button class="like-btn" data-id="book-letters-young-poet" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Письма к молодому поэту
                         </span>
-                        <span class="meta">Райнер Мария Рильке</span>
+                        <span class="meta">
+                            Райнер Мария Рильке
+                        </span>
                     </li>
+
                     <li>
-                        <span class="title">Wanderlust: A History of Walking
-                            <button class="like-btn" data-id="book-wanderlust" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Wanderlust: A History of Walking
                         </span>
                         <span class="meta">Rebecca Solnit</span>
                     </li>
+
                 </ul>
 
-                <div class="sub-category">Для учеников и студентов</div>
+
+                <div class="sub-category">
+                    Для учеников и студентов
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Письма о добром
-                            <button class="like-btn" data-id="book-student-likhachev" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Письма о добром
                         </span>
                         <span class="meta">Дмитрий Лихачев</span>
                     </li>
+
                     <li>
-                        <span class="title">Суперстудент. Как учиться быстро, эффективно и с удовольствием
-                            <button class="like-btn" data-id="book-student-sheve" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Суперстудент. Как учиться быстро, эффективно и с удовольствием
                         </span>
                         <span class="meta">Шеве Улаф</span>
                     </li>
+
                     <li>
-                        <span class="title">Литературный марафон, Как написать книгу за 30 дней
-                            <button class="like-btn" data-id="book-student-beaty" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Литературный марафон. Как написать книгу за 30 дней
                         </span>
                         <span class="meta">Крис Бейти</span>
                     </li>
+
                     <li>
-                        <span class="title">Как читать книги для самообразования
-                            <button class="like-btn" data-id="book-student-povarnin" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Как читать книги для самообразования
                         </span>
                         <span class="meta">Сергей Поварнин</span>
                     </li>
+
                     <li>
-                        <span class="title">Учись как профи. 14 супернавыков, чтобы освоить все что хочешь
-                            <button class="like-btn" data-id="book-student-willingham" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Учись как профи. 14 супернавыков, чтобы освоить всё, что хочешь
                         </span>
                         <span class="meta">Дэн Уиллингэм</span>
                     </li>
+
                 </ul>
+
             </section>
 
-            <!-- Раздел: Кино -->
+
+            <!-- ======================================================
+                 Кино
+                 ====================================================== -->
+
             <section id="cinema">
+
                 <h2>Кино</h2>
-                <p class="section-intro">Фильмы о тишине, взрослении и умении оставаться собой.</p>
-                <div class="sub-category">Анимация и притчи</div>
+
+                <p class="section-intro">
+                    Фильмы о тишине, взрослении и умении оставаться собой.
+                </p>
+
+
+                <div class="sub-category">
+                    Анимация и притчи
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Маленький принц
-                            <button class="like-btn" data-id="cinema-little-prince" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Маленький принц</span>
                         <span class="meta">Марк Осборн</span>
                     </li>
+
                     <li>
-                        <span class="title">Мальчик, Крот, Лис и Конь
-                            <button class="like-btn" data-id="cinema-boy-mole-fox" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Мальчик, Крот, Лис и Конь
                         </span>
-                        <span class="meta">Питер Бэйнтон, Чарли Маккизи</span>
+                        <span class="meta">
+                            Питер Бэйнтон, Чарли Маккиси
+                        </span>
                     </li>
+
                     <li>
-                        <span class="title">Сказание о принцессе Кагуя
-                            <button class="like-btn" data-id="cinema-kaguya" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Сказание о принцессе Кагуя
                         </span>
                         <span class="meta">Исао Такахата</span>
                     </li>
+
                 </ul>
 
-                <div class="sub-category">Драма и поиск себя</div>
+
+                <div class="sub-category">
+                    Драма и поиск себя
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Вторая жизнь Уве
-                            <button class="like-btn" data-id="cinema-uve" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </span>
+                        <span class="title">Вторая жизнь Уве</span>
                         <span class="meta">Ханнес Холм</span>
                     </li>
+
                     <li>
-                        <span class="title">Боб Тревино поставил лайк
-                            <button class="like-btn" data-id="cinema-bob-trevino" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Боб Тревино поставил лайк
                         </span>
                         <span class="meta">Трейси Леймон</span>
                     </li>
+
                     <li>
-                        <span class="title">Лабиринт Фавна
-                            <button class="like-btn" data-id="cinema-pans-labyrinth" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">Лабиринт Фавна</span>
+                        <span class="meta">
+                            Гильермо дель Торо
                         </span>
-                        <span class="meta">Гильермо дель Торо</span>
                     </li>
+
                     <li>
-                        <span class="title">Ван Гог. С любовью, Винсент
-                            <button class="like-btn" data-id="cinema-loving-vincent" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Ван Гог. С любовью, Винсент
                         </span>
-                        <span class="meta">Дорота Кобела, Хью Уэлшман</span>
+                        <span class="meta">
+                            Дорота Кобела, Хью Уэлшман
+                        </span>
                     </li>
-                    <div class="sub-category">Учительство и школа</div>
+
+                </ul>
+
+
+                <div class="sub-category">
+                    Учительство и школа
+                </div>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Доживём до понедельника
-                            <button class="like-btn" data-id="cinema-monday" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Доживём до понедельника
                         </span>
-                        <span class="meta">Станислав Ростоцкий</span>
+                        <span class="meta">
+                            Станислав Ростоцкий
+                        </span>
                     </li>
+
                     <li>
-                        <span class="title">Учитель, обещавший море
-                            <button class="like-btn" data-id="cinema-teacher-sea" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
+                        <span class="title">
+                            Учитель, обещавший море
                         </span>
-                        <span class="meta">Патрисия Фонт</span>
+                        <span class="meta">
+                            Патрисия Фонт
+                        </span>
                     </li>
+
                 </ul>
-                </ul>
+
             </section>
 
-            <!-- Раздел: Цитаты -->
+
+            <!-- ======================================================
+                 Цитаты
+                 ====================================================== -->
+
             <section id="quotes">
+
                 <h2>Цитаты</h2>
 
-                <article class="quote-card">
-                    <blockquote>
-                        «Самый радикальный и смелый акт, который вы можете совершить в этом мире — это позволить себе
-                        полностью почувствовать то, что вы чувствуете прямо сейчас, не пытаясь это объяснить, изменить
-                        или сбежать.»
-                    </blockquote>
-                    <footer>
-                        <div>
-                            <div class="author">Jeff Foster</div>
-                            <div class="source">Falling in Love with Where You Are</div>
-                        </div>
-                        <button class="like-btn" data-id="quote-foster" title="Нравится" aria-label="Нравится"><span
-                                class="heart-icon">☆</span><span class="like-count">0</span></button>
-                    </footer>
-                </article>
 
                 <article class="quote-card">
+
                     <blockquote>
-                        «Разве это не удивительное облегчение — осознать, что прямо сейчас ничто на свете не могло бы
-                        быть иным, чем оно есть? Что ЭТО и есть то, как существует Вселенная, и что всему здесь есть
-                        место? Чувствуешь ли ты свободу в знании того, что нет никакого „тебя“, который „должен“ был бы
-                        справляться с жизнью лучше?»
+                        «Самый радикальный и смелый акт, который вы можете
+                        совершить в этом мире — это позволить себе полностью
+                        почувствовать то, что вы чувствуете прямо сейчас,
+                        не пытаясь это объяснить, изменить или сбежать.»
                     </blockquote>
+
                     <footer>
+
                         <div>
-                            <div class="author">Joan Tollifson</div>
-                            <div class="source">Nothing to Grasp</div>
+                            <div class="author">
+                                Jeff Foster
+                            </div>
+
+                            <div class="source">
+                                Falling in Love with Where You Are
+                            </div>
                         </div>
-                        <button class="like-btn" data-id="quote-tollifson" title="Нравится" aria-label="Нравится"><span
-                                class="heart-icon">☆</span><span class="like-count">0</span></button>
+
                     </footer>
+
                 </article>
 
+
                 <article class="quote-card">
+
                     <blockquote>
-                        «Брат! я не уныл и не упал духом. Жизнь везде жизнь, жизнь в нас самих, а не во внешнем. Подле
-                        меня будут люди, и быть человеком между людьми и остаться им навсегда, в каких бы то ни было
-                        несчастьях, не уныть и не пасть — вот в чём жизнь, в чём задача её. Я сознал это. Эта идея вошла
-                        в плоть и кровь мою.»
+                        «Разве это не удивительное облегчение — осознать,
+                        что прямо сейчас ничто на свете не могло бы быть иным,
+                        чем оно есть? Что ЭТО и есть то, как существует Вселенная,
+                        и что всему здесь есть место?»
                     </blockquote>
+
                     <footer>
+
                         <div>
-                            <div class="author">Фёдор Достоевский</div>
+                            <div class="author">
+                                Joan Tollifson
+                            </div>
+
+                            <div class="source">
+                                Nothing to Grasp
+                            </div>
+                        </div>
+
+                    </footer>
+
+                </article>
+
+
+                <article class="quote-card">
+
+                    <blockquote>
+                        «Брат! я не уныл и не упал духом. Жизнь везде жизнь,
+                        жизнь в нас самих, а не во внешнем. Подле меня будут
+                        люди, и быть человеком между людьми и остаться им
+                        навсегда, в каких бы то ни было несчастьях, не уныть
+                        и не пасть — вот в чём жизнь, в чём задача её.
+                        Я сознал это. Эта идея вошла в плоть и кровь мою.»
+                    </blockquote>
+
+                    <footer>
+
+                        <div>
+                            <div class="author">
+                                Фёдор Достоевский
+                            </div>
+
                             <div class="source">
                                 Из письма М. М. Достоевскому<br>
                                 22 декабря 1849. Петербург. Петропавловская крепость
                             </div>
                         </div>
-                        <button class="like-btn" data-id="quote-dostoevsky" title="Нравится" aria-label="Нравится"><span
-                                class="heart-icon">☆</span><span class="like-count">0</span></button>
+
                     </footer>
+
                 </article>
+
 
                 <article class="quote-card">
+
                     <blockquote>
-                        «Нам была дана заповедь: «Люби ближнего, как самого себя», — но если правильно понять эту
-                        заповедь, то можно прочесть в ней и обратное утверждение: «Ты обязан любить себя должным
-                        образом».»
+                        «Нам была дана заповедь: «Люби ближнего, как самого себя»,
+                        — но если правильно понять эту заповедь, то можно прочесть
+                        в ней и обратное утверждение: «Ты обязан любить себя
+                        должным образом».»
                     </blockquote>
+
                     <footer>
+
                         <div>
-                            <div class="author">Сёрен Кьеркегор</div>
-                            <div class="source">Дела любви</div>
+                            <div class="author">
+                                Сёрен Кьеркегор
+                            </div>
+
+                            <div class="source">
+                                Дела любви
+                            </div>
                         </div>
-                        <button class="like-btn" data-id="quote-kierkegaard" title="Нравится" aria-label="Нравится"><span
-                                class="heart-icon">☆</span><span class="like-count">0</span></button>
+
                     </footer>
+
                 </article>
+
             </section>
 
-            <!-- Раздел: Инструменты -->
+
+            <!-- ======================================================
+                 Инструменты
+                 ====================================================== -->
+
             <section id="tools">
+
                 <h2>Инструменты</h2>
-                <p class="section-intro">То, чем я пользуюсь каждый день — без лишнего шума.</p>
+
+                <p class="section-intro">
+                    То, чем я пользуюсь каждый день — без лишнего шума.
+                </p>
+
                 <ul class="content-list">
+
                     <li>
-                        <span class="title">Gemini Notebook
-                        </span>
+                        <span class="title">Gemini Notebook</span>
                         <span class="meta">AI</span>
                     </li>
+
                     <li>
-                        <span class="title">iA Writer
-                        </span>
+                        <span class="title">iA Writer</span>
                         <span class="meta">Текстовый редактор</span>
                     </li>
+
                     <li>
-                        <span class="title">Dia
-                        </span>
+                        <span class="title">Dia</span>
                         <span class="meta">Браузер</span>
                     </li>
+
                     <li>
-                        <span class="title">Down Dog
-                        </span>
+                        <span class="title">Down Dog</span>
                         <span class="meta">Фитнес</span>
                     </li>
+
                     <li>
-                        <span class="title">The Marginalian
+                        <span class="title">The Marginalian</span>
+                        <span class="meta">
+                            Философско-литературный архив
                         </span>
-                        <span class="meta">Философско-литературный архив</span>
                     </li>
+
                 </ul>
+
             </section>
 
-            <!-- Раздел: Материалы -->
 
-<section id="materials">
-    <h2>Материалы</h2>
-    <p class="section-intro">
-        Конспекты, лекции и задания — материалы, которыми можно поделиться с теми,
-        кто только начинает разбираться в теме.
-    </p>
+            <!-- ======================================================
+                 Материалы
+                 ====================================================== -->
 
-```
-<div class="sub-category">Для студентов</div>
-<ul class="content-list">
-    <li>
-        <span class="title">
-            <a href="db-basics.html" class="material-title">
-                Все материалы для студентов →
-            </a>
-        </span>
-        <span class="meta">
-            Лекции, конспекты и практические задания по информатике
-        </span>
-    </li>
-</ul>
-</section>
+            <section id="materials">
+
+                <h2>Материалы</h2>
+
+                <p class="section-intro">
+                    Конспекты, лекции и задания — материалы, которыми можно
+                    поделиться с теми, кто только начинает разбираться в теме.
+                </p>
 
 
-            <!-- Раздел: Моменты — вынесен в самый конец: страница должна заканчиваться
-                 образом, а не учебными материалами -->
-            <section id="visuals">
-                <h2>Моменты</h2>
-                <p class="section-intro">Несколько мест, где я по-настоящему был здесь.</p>
-                <div class="gallery">
-                    <figure>
-                        <div class="frame">
-                            <img src="images/moments/2023-07-14 17-27-44.jpeg" alt="Урочище Джилы-Су, 14 июля 2023 года">
-                        </div>
-                        <figcaption>
-                            <span>Урочище Джилы-Су, 14 июля 2023 года</span>
-                            <button class="like-btn" data-id="visual-jily-su" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </figcaption>
-                    </figure>
-                    <figure>
-                        <div class="frame">
-                            <img src="images/moments/2024-07-07 11-01-24.jpeg"
-                                alt="Озеро Донгуз-Орун-Кёль, 7 июля 2024 года">
-                        </div>
-                        <figcaption>
-                            <span>Озеро Донгуз-Орун-Кёль, 7 июля 2024 года</span>
-                            <button class="like-btn" data-id="visual-donguz" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </figcaption>
-                    </figure>
-                    <figure class="gallery-feature">
-                        <div class="frame">
-                            <img src="images/moments/2026-13-08 07-48-04.jpeg" alt="Плато Канжол, 13 августа 2026 года">
-                        </div>
-                        <figcaption>
-                            <span>Плато Канжол, 13 августа 2026 года</span>
-                            <button class="like-btn" data-id="visual-kanzhol" title="Нравится" aria-label="Нравится"><span
-                                    class="heart-icon">☆</span><span class="like-count">0</span></button>
-                        </figcaption>
-                    </figure>
+                <div class="sub-category">
+                    Для студентов
                 </div>
+
+                <ul class="content-list">
+
+                    <li>
+
+                        <span class="title">
+                            <a
+                                href="db-basics.html"
+                                class="material-title"
+                            >
+                                Все материалы для студентов →
+                            </a>
+                        </span>
+
+                        <span class="meta">
+                            Лекции, конспекты и практические задания по информатике
+                        </span>
+
+                    </li>
+
+                </ul>
+
+            </section>
+
+
+            <!-- ======================================================
+                 Моменты
+                 ====================================================== -->
+
+            <section id="visuals">
+
+                <h2>Моменты</h2>
+
+                <p class="section-intro">
+                    Несколько мест, где я по-настоящему был здесь.
+                </p>
+
+
+                <div class="gallery">
+
+                    <figure>
+
+                        <div class="frame">
+
+                            <img
+                                src="images/moments/2023-07-14 17-27-44.jpeg"
+                                alt="Урочище Джилы-Су, 14 июля 2023 года"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                        <figcaption>
+                            <span>
+                                Урочище Джилы-Су, 14 июля 2023 года
+                            </span>
+                        </figcaption>
+
+                    </figure>
+
+
+                    <figure>
+
+                        <div class="frame">
+
+                            <img
+                                src="images/moments/2024-07-07 11-01-24.jpeg"
+                                alt="Озеро Донгуз-Орун-Кёль, 7 июля 2024 года"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                        <figcaption>
+                            <span>
+                                Озеро Донгуз-Орун-Кёль, 7 июля 2024 года
+                            </span>
+                        </figcaption>
+
+                    </figure>
+
+
+                    <figure class="gallery-feature">
+
+                        <div class="frame">
+
+                            <img
+                                src="images/moments/2026-08-13 07-48-04.jpeg"
+                                alt="Плато Канжол, 13 августа 2026 года"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                        <figcaption>
+                            <span>
+                                Плато Канжол, 13 августа 2026 года
+                            </span>
+                        </figcaption>
+
+                    </figure>
+
+                </div>
+
             </section>
 
         </main>
+
     </div>
 
-    <!-- Firebase SDK (совместимый режим) -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <!-- ==============================================================
+         JavaScript
+         ============================================================== -->
 
     <script>
-        // Конфигурация Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyAWgK5QCnqmWyIYSZ_WipY0RkaiHC4B-xk",
-            authDomain: "aruan-site.firebaseapp.com",
-            projectId: "aruan-site",
-            storageBucket: "aruan-site.firebasestorage.app",
-            messagingSenderId: "94456195585",
-            appId: "1:94456195585:web:be41f4658986ff45276e00"
-        };
-
-        // Инициализация Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Тёмная тема: сохранённый выбор → системная настройка → светлая по умолчанию
+
+            /* ========================================================
+               Theme
+               ======================================================== */
+
             const root = document.documentElement;
+
             const toggle = document.getElementById('theme-toggle');
-            const toggleIcon = toggle ? toggle.querySelector('.theme-icon') : null;
-            const toggleLabel = toggle ? toggle.querySelector('.theme-label') : null;
+            const toggleIcon = toggle?.querySelector('.theme-icon');
+            const toggleLabel = toggle?.querySelector('.theme-label');
 
             function applyTheme(theme) {
+
                 if (theme === 'dark') {
+
                     root.setAttribute('data-theme', 'dark');
-                    if (toggleIcon) toggleIcon.textContent = '☀';
-                    if (toggleLabel) toggleLabel.textContent = 'Светлая тема';
+
+                    if (toggleIcon) {
+                        toggleIcon.textContent = '☀';
+                    }
+
+                    if (toggleLabel) {
+                        toggleLabel.textContent = 'Светлая тема';
+                    }
+
                 } else {
+
                     root.removeAttribute('data-theme');
-                    if (toggleIcon) toggleIcon.textContent = '☾';
-                    if (toggleLabel) toggleLabel.textContent = 'Тёмная тема';
+
+                    if (toggleIcon) {
+                        toggleIcon.textContent = '☾';
+                    }
+
+                    if (toggleLabel) {
+                        toggleLabel.textContent = 'Тёмная тема';
+                    }
                 }
             }
+
 
             const savedTheme = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            applyTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
+
+            const systemPrefersDark =
+                window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+
+            applyTheme(
+                savedTheme ||
+                (systemPrefersDark ? 'dark' : 'light')
+            );
+
 
             if (toggle) {
+
                 toggle.addEventListener('click', () => {
-                    const isDark = root.getAttribute('data-theme') === 'dark';
-                    const next = isDark ? 'light' : 'dark';
-                    applyTheme(next);
-                    localStorage.setItem('theme', next);
+
+                    const isDark =
+                        root.getAttribute('data-theme') === 'dark';
+
+                    const nextTheme =
+                        isDark ? 'light' : 'dark';
+
+                    applyTheme(nextTheme);
+
+                    localStorage.setItem(
+                        'theme',
+                        nextTheme
+                    );
+
                 });
+
             }
 
-            const likeButtons = document.querySelectorAll('.like-btn');
 
-            likeButtons.forEach(btn => {
-                const id = btn.getAttribute('data-id');
-                if (!id) return;
+            /* ========================================================
+               Section reveal
+               ======================================================== */
 
-                const countSpan = btn.querySelector('.like-count');
-                const heartSpan = btn.querySelector('.heart-icon');
-                const itemRef = db.ref('likes/' + id);
+            const sections =
+                document.querySelectorAll('main section');
 
-                // 1. Проверяем состояние лайка в localStorage при загрузке
-                const isLikedLocally = localStorage.getItem(`liked_${id}`) === 'true';
 
-                if (isLikedLocally) {
-                    btn.classList.add('liked');
-                    if (heartSpan) heartSpan.textContent = '★';
-                } else {
-                    btn.classList.remove('liked');
-                    if (heartSpan) heartSpan.textContent = '☆';
-                }
+            if ('IntersectionObserver' in window) {
 
-                // 2. Слушаем обновления счётчика из Firebase
-                itemRef.on('value', (snapshot) => {
-                    const count = snapshot.val() || 0;
-                    if (countSpan) countSpan.textContent = count;
+                const revealObserver =
+                    new IntersectionObserver(
+                        (entries, observer) => {
+
+                            entries.forEach(entry => {
+
+                                if (entry.isIntersecting) {
+
+                                    entry.target.classList.add(
+                                        'is-visible'
+                                    );
+
+                                    observer.unobserve(
+                                        entry.target
+                                    );
+                                }
+
+                            });
+
+                        },
+                        {
+                            threshold: 0.1,
+                            rootMargin: '0px 0px -60px 0px'
+                        }
+                    );
+
+
+                sections.forEach(section => {
+                    revealObserver.observe(section);
                 });
 
-                // 3. Обработка клика
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const isCurrentlyLiked = btn.classList.contains('liked');
+            } else {
 
-                    if (isCurrentlyLiked) {
-                        // Убираем лайк
-                        btn.classList.remove('liked');
-                        if (heartSpan) heartSpan.textContent = '☆';
-                        localStorage.setItem(`liked_${id}`, 'false');
-
-                        itemRef.transaction((currentCount) => {
-                            return Math.max(0, (currentCount || 1) - 1);
-                        });
-                    } else {
-                        // Ставим лайк
-                        btn.classList.add('liked');
-                        if (heartSpan) heartSpan.textContent = '★';
-                        localStorage.setItem(`liked_${id}`, 'true');
-
-                        itemRef.transaction((currentCount) => {
-                            return (currentCount || 0) + 1;
-                        });
-                    }
+                sections.forEach(section => {
+                    section.classList.add('is-visible');
                 });
+
+            }
+
+
+            /* ========================================================
+               Active navigation
+               ======================================================== */
+
+            const navLinks =
+                document.querySelectorAll(
+                    'nav a[href^="#"]'
+                );
+
+
+            const navItemsById = new Map();
+
+
+            navLinks.forEach(link => {
+
+                const id =
+                    link
+                        .getAttribute('href')
+                        .slice(1);
+
+                navItemsById.set(
+                    id,
+                    link.parentElement
+                );
+
             });
 
-            // Плавное появление секций при прокрутке
-            const sections = document.querySelectorAll('main section');
-            if ('IntersectionObserver' in window) {
-                const revealObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            revealObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-                sections.forEach(section => revealObserver.observe(section));
-            } else {
-                sections.forEach(section => section.classList.add('is-visible'));
-            }
-
-            // Подсветка активного пункта меню при скролле
-            const navLinks = document.querySelectorAll('nav a[href^="#"]');
-            const navItemsByHref = new Map();
-            navLinks.forEach(link => navItemsByHref.set(link.getAttribute('href').slice(1), link.parentElement));
 
             if ('IntersectionObserver' in window) {
-                const navObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        const li = navItemsByHref.get(entry.target.id);
-                        if (!li) return;
-                        if (entry.isIntersecting) {
-                            navItemsByHref.forEach(item => item.classList.remove('active'));
-                            li.classList.add('active');
-                        }
-                    });
-                }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
 
-                sections.forEach(section => navObserver.observe(section));
+                const navObserver =
+                    new IntersectionObserver(
+                        entries => {
+
+                            entries.forEach(entry => {
+
+                                const navItem =
+                                    navItemsById.get(
+                                        entry.target.id
+                                    );
+
+                                if (!navItem) {
+                                    return;
+                                }
+
+
+                                if (entry.isIntersecting) {
+
+                                    navItemsById.forEach(item => {
+                                        item.classList.remove('active');
+                                    });
+
+                                    navItem.classList.add('active');
+
+                                }
+
+                            });
+
+                        },
+                        {
+                            rootMargin: '-45% 0px -50% 0px',
+                            threshold: 0
+                        }
+                    );
+
+
+                sections.forEach(section => {
+                    navObserver.observe(section);
+                });
+
             }
+
         });
+
     </script>
+
 </body>
 
 </html>
