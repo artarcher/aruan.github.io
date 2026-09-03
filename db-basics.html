@@ -1,942 +1,1004 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Основные понятия и определения баз данных — учебный материал по теме 1.1.">
-    <title>Основы проектирования баз данных — aruan</title>
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+```
+<meta name="description"
+    content="Учебные материалы, лекции, конспекты и практические задания для студентов.">
 
-    <meta property="og:type" content="article">
-    <meta property="og:site_name" content="aruan">
-    <meta property="og:title" content="Основные понятия и определения баз данных">
-    <meta property="og:description" content="Учебный материал по теме 1.1 — сущности, атрибуты, ключи и модели данных.">
-    <meta name="twitter:card" content="summary">
-    <meta name="theme-color" content="#faf9f6">
+<title>Материалы для студентов — aruan</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
-    <style>
-        :root {
-            --bg: #faf9f6;
-            --paper: #ffffff;
-            --ink: #17181a;
-            --ink-soft: #3b3c3e;
-            --muted: #767671;
-            --faint: #aaa8a1;
-            --line: #e6e3dc;
-            --line-strong: #d8d4ca;
-            --accent: #a9832f;
-            --accent-soft: rgba(169, 131, 47, 0.1);
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-            --font-display: 'Lora', Georgia, 'Times New Roman', serif;
-            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+<link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 
-            --ease: cubic-bezier(.16, 1, .3, 1);
-            --content-w: 720px;
+<style>
+
+    /* ============================================================
+       Tokens
+       ============================================================ */
+
+    :root {
+        --bg: #faf9f6;
+        --ink: #17181a;
+        --ink-soft: #3b3c3e;
+        --muted: #767671;
+        --faint: #aaa8a1;
+        --line: #e6e3dc;
+        --line-strong: #d8d4ca;
+        --accent: #a9832f;
+        --accent-soft: rgba(169, 131, 47, 0.12);
+        --paper: #ffffff;
+
+        --font-display: 'Lora', Georgia, 'Times New Roman', serif;
+        --font-body: 'Inter', -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, sans-serif;
+
+        --ease: cubic-bezier(.16, 1, .3, 1);
+
+        --content-w: 1000px;
+        --sidebar-w: 260px;
+    }
+
+    /* ============================================================
+       Dark theme
+       ============================================================ */
+
+    [data-theme="dark"] {
+        --bg: #131315;
+        --ink: #f1efe8;
+        --ink-soft: #d6d3c9;
+        --muted: #93908a;
+        --faint: #666460;
+        --line: #262629;
+        --line-strong: #35353a;
+        --accent: #cda253;
+        --accent-soft: rgba(205, 162, 83, 0.14);
+        --paper: #1b1b1e;
+    }
+
+    body,
+    .lecture-card,
+    .theme-toggle {
+        transition:
+            background-color 0.35s var(--ease),
+            color 0.35s var(--ease),
+            border-color 0.35s var(--ease);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--ink-soft);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+        background: var(--accent-soft);
+        color: var(--ink);
+    }
+
+    a {
+        color: inherit;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+    }
+
+    /* ============================================================
+       Layout
+       ============================================================ */
+
+    .wrapper {
+        display: flex;
+        width: 100%;
+        max-width: var(--content-w);
+        margin: 0 auto;
+        padding: 72px 24px 120px;
+    }
+
+    aside {
+        width: var(--sidebar-w);
+        position: fixed;
+        top: 72px;
+        height: calc(100vh - 140px);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    main {
+        margin-left: calc(var(--sidebar-w) + 60px);
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* ============================================================
+       Sidebar
+       ============================================================ */
+
+    .profile-info h1 {
+        font-family: var(--font-display);
+        font-size: 2.1rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin: 0;
+        color: var(--ink);
+    }
+
+    .profile-quote {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 1rem;
+        color: var(--ink-soft);
+        margin: 10px 0 0;
+        line-height: 1.55;
+    }
+
+    .quote-author {
+        display: block;
+        font-family: var(--font-body);
+        font-style: normal;
+        font-size: 0.72rem;
+        color: var(--faint);
+        margin-top: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+    }
+
+    /* ============================================================
+       Signature
+       ============================================================ */
+
+    .signature-mark {
+        width: 100%;
+        height: 46px;
+        margin: 22px 0 34px;
+        color: var(--ink);
+        opacity: 0.5;
+    }
+
+    .signature-mark svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+    }
+
+    .signature-mark .peaks {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+    }
+
+    .signature-mark .stars circle {
+        fill: currentColor;
+    }
+
+    /* ============================================================
+       Navigation
+       ============================================================ */
+
+    nav {
+        margin-top: 38px;
+    }
+
+    nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    nav li {
+        margin-bottom: 13px;
+    }
+
+    nav a {
+        position: relative;
+
+        color: var(--muted);
+        text-decoration: none;
+
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+
+        padding-left: 14px;
+
+        transition: color 0.25s var(--ease);
+    }
+
+    nav a::before {
+        content: "";
+
+        position: absolute;
+        left: 0;
+        top: 50%;
+
+        width: 5px;
+        height: 1px;
+
+        background: var(--faint);
+
+        transform:
+            translateY(-50%)
+            scaleX(0.6);
+
+        transform-origin: left;
+
+        transition: all 0.25s var(--ease);
+    }
+
+    nav a:hover {
+        color: var(--ink);
+    }
+
+    nav li.active a {
+        color: var(--ink);
+    }
+
+    nav li.active a::before {
+        background: var(--accent);
+        width: 18px;
+
+        transform:
+            translateY(-50%)
+            scaleX(1);
+    }
+
+    /* ============================================================
+       Theme toggle
+       ============================================================ */
+
+    .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--muted);
+
+        font-family: var(--font-body);
+        font-size: 0.72rem;
+        font-weight: 600;
+
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+
+        padding: 9px 14px;
+
+        border-radius: 20px;
+
+        cursor: pointer;
+    }
+
+    .theme-toggle:hover {
+        color: var(--ink);
+        border-color: var(--line-strong);
+    }
+
+    .theme-icon {
+        font-size: 0.9rem;
+    }
+
+    /* ============================================================
+       Page header
+       ============================================================ */
+
+    .page-header {
+        margin-bottom: 56px;
+    }
+
+    .page-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+
+        margin-bottom: 16px;
+    }
+
+    .page-title {
+        font-family: var(--font-display);
+        font-size: clamp(2.2rem, 5vw, 3.4rem);
+        font-weight: 500;
+        line-height: 1.15;
+
+        color: var(--ink);
+
+        margin: 0 0 20px;
+    }
+
+    .page-description {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        font-style: italic;
+
+        max-width: 62ch;
+
+        color: var(--ink-soft);
+
+        margin: 0;
+    }
+
+    /* ============================================================
+       Section
+       ============================================================ */
+
+    .section-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 20px;
+
+        border-bottom: 1px solid var(--line);
+
+        padding-bottom: 14px;
+        margin-bottom: 28px;
+    }
+
+    .section-heading h2 {
+        margin: 0;
+
+        font-size: 0.82rem;
+        font-weight: 700;
+
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+
+        color: var(--ink);
+    }
+
+    .section-count {
+        font-size: 0.78rem;
+        color: var(--muted);
+    }
+
+    /* ============================================================
+       Course
+       ============================================================ */
+
+    .course {
+        margin-bottom: 64px;
+    }
+
+    .course-title {
+        font-family: var(--font-display);
+        font-size: 1.55rem;
+        font-weight: 500;
+
+        color: var(--ink);
+
+        margin: 0 0 8px;
+    }
+
+    .course-description {
+        color: var(--muted);
+        font-size: 0.9rem;
+
+        margin: 0 0 24px;
+    }
+
+    /* ============================================================
+       Lecture cards
+       ============================================================ */
+
+    .lecture-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .lecture-card {
+        display: block;
+
+        text-decoration: none;
+
+        border: 1px solid var(--line);
+        background: transparent;
+
+        padding: 22px 24px;
+
+        transition:
+            transform 0.25s var(--ease),
+            border-color 0.25s var(--ease),
+            background-color 0.25s var(--ease);
+    }
+
+    .lecture-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--line-strong);
+        background: var(--paper);
+    }
+
+    .lecture-card-inner {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .lecture-number {
+        flex: 0 0 auto;
+
+        width: 42px;
+        height: 42px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: var(--accent-soft);
+        color: var(--accent);
+
+        font-size: 0.78rem;
+        font-weight: 700;
+    }
+
+    .lecture-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .lecture-title {
+        font-family: var(--font-display);
+        font-size: 1.12rem;
+        font-weight: 500;
+
+        color: var(--ink);
+
+        line-height: 1.4;
+
+        margin-bottom: 5px;
+    }
+
+    .lecture-meta {
+        font-size: 0.84rem;
+        color: var(--muted);
+    }
+
+    .lecture-arrow {
+        flex: 0 0 auto;
+
+        color: var(--faint);
+        font-size: 1.2rem;
+
+        transition:
+            transform 0.25s var(--ease),
+            color 0.25s var(--ease);
+    }
+
+    .lecture-card:hover .lecture-arrow {
+        color: var(--accent);
+        transform: translateX(4px);
+    }
+
+    /* ============================================================
+       Coming soon
+       ============================================================ */
+
+    .coming-soon {
+        border-top: 1px solid var(--line);
+
+        padding-top: 24px;
+        margin-top: 18px;
+
+        font-size: 0.88rem;
+        color: var(--faint);
+    }
+
+    /* ============================================================
+       Footer note
+       ============================================================ */
+
+    .page-footer {
+        margin-top: 80px;
+        padding-top: 24px;
+
+        border-top: 1px solid var(--line);
+
+        font-size: 0.82rem;
+        color: var(--faint);
+    }
+
+    .page-footer a {
+        color: var(--muted);
+        text-decoration: none;
+
+        border-bottom: 1px solid var(--line-strong);
+    }
+
+    .page-footer a:hover {
+        color: var(--ink);
+    }
+
+    /* ============================================================
+       Responsive
+       ============================================================ */
+
+    @media (max-width: 860px) {
+
+        .wrapper {
+            flex-direction: column;
+            padding: 48px 20px 90px;
         }
 
-        /* Dark theme — same palette logic as the archive, inverted */
-        [data-theme="dark"] {
-            --bg: #131315;
-            --paper: #1b1b1e;
-            --ink: #f1efe8;
-            --ink-soft: #d6d3c9;
-            --muted: #93908a;
-            --faint: #666460;
-            --line: #262629;
-            --line-strong: #35353a;
-            --accent: #cda253;
-            --accent-soft: rgba(205, 162, 83, 0.14);
+        aside {
+            position: relative;
+            top: 0;
+
+            width: 100%;
+            height: auto;
+
+            margin-bottom: 52px;
         }
 
-        body, .table-scroll, table, .flow-step, .callout, .prompt-example,
-        .theme-toggle, .card, .summary-card {
-            transition: background-color 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease);
+        main {
+            margin-left: 0;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.001ms !important;
-                transition-duration: 0.001ms !important;
-                scroll-behavior: auto !important;
-            }
+        .signature-mark {
+            max-width: 320px;
         }
 
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
-        ::selection { background: var(--accent-soft); color: var(--ink); }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--bg);
-            color: var(--ink-soft);
-            line-height: 1.7;
-            margin: 0;
-            -webkit-font-smoothing: antialiased;
+        nav {
+            margin-top: 26px;
         }
 
-        a { color: var(--ink); }
-        :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-
-        /* ============================================================
-           Chrome: back-link + progress rail
-           ============================================================ */
-        .top-bar {
-            max-width: var(--content-w);
-            margin: 0 auto;
-            padding: 28px 24px 0;
+        nav ul {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
+            flex-wrap: wrap;
+            gap: 10px 18px;
         }
 
-        .back-link {
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            color: var(--muted);
-            letter-spacing: 0.02em;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.2s var(--ease);
-        }
-
-        .back-link:hover { color: var(--ink); }
-
-        .breadcrumb {
-            font-size: 0.72rem;
-            color: var(--faint);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            white-space: nowrap;
-        }
-
-        .top-bar-right {
-            display: flex;
-            align-items: center;
-            gap: 14px;
+        nav li {
+            margin-bottom: 0;
         }
 
         .theme-toggle {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border: 1px solid var(--line);
-            background: transparent;
-            color: var(--muted);
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 0.9rem;
-            line-height: 1;
-            padding: 0;
+            margin-top: 28px;
+            align-self: flex-start;
         }
 
-        .theme-toggle:hover { color: var(--ink); border-color: var(--line-strong); }
+        .page-header {
+            margin-bottom: 46px;
+        }
+    }
 
-        /* ============================================================
-           Header
-           ============================================================ */
-        header.doc-header {
-            max-width: var(--content-w);
-            margin: 0 auto;
-            padding: 36px 24px 40px;
-            border-bottom: 1px solid var(--line);
+    @media (max-width: 560px) {
+
+        .lecture-card {
+            padding: 18px;
         }
 
-        .eyebrow {
-            font-size: 0.74rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--accent);
-            margin: 0 0 14px;
-        }
-
-        h1.doc-title {
-            font-family: var(--font-display);
-            font-size: 2.1rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            line-height: 1.25;
-            color: var(--ink);
-            margin: 0 0 14px;
-        }
-
-        .doc-subtitle {
-            font-family: var(--font-display);
-            font-style: italic;
-            font-size: 1.05rem;
-            color: var(--muted);
-            margin: 0;
-        }
-
-        /* ============================================================
-           Table of contents
-           ============================================================ */
-        nav.toc {
-            max-width: var(--content-w);
-            margin: 40px auto 0;
-            padding: 0 24px;
-        }
-
-        nav.toc h2 {
-            font-size: 0.74rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--muted);
-            margin: 0 0 14px;
-        }
-
-        nav.toc ol {
-            margin: 0;
-            padding-left: 0;
-            list-style: none;
-            counter-reset: toc;
-            display: grid;
-            gap: 8px;
-        }
-
-        nav.toc li {
-            counter-increment: toc;
-            font-size: 0.92rem;
-        }
-
-        nav.toc li::before {
-            content: counter(toc) ".";
-            color: var(--accent);
-            font-weight: 600;
-            width: 20px;
-            display: inline-block;
-        }
-
-        nav.toc a {
-            text-decoration: none;
-            color: var(--ink-soft);
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
-        }
-
-        nav.toc a:hover {
-            color: var(--ink);
-            border-color: var(--line-strong);
-        }
-
-        /* ============================================================
-           Main content
-           ============================================================ */
-        main {
-            max-width: var(--content-w);
-            margin: 0 auto;
-            padding: 48px 24px 100px;
-        }
-
-        section.topic { margin-bottom: 64px; scroll-margin-top: 24px; }
-        section.topic:last-of-type { margin-bottom: 0; }
-
-        h2.topic-title {
-            font-family: var(--font-body);
-            font-size: 0.82rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--ink);
-            border-bottom: 1px solid var(--line);
-            padding-bottom: 14px;
-            margin: 0 0 24px;
-            display: flex;
-            gap: 10px;
-        }
-
-        h2.topic-title .num { color: var(--accent); }
-
-        h3.sub-title {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--ink);
-            margin: 36px 0 14px;
-        }
-
-        h3.sub-title:first-child { margin-top: 0; }
-
-        p { margin: 0 0 16px; }
-        p:last-child { margin-bottom: 0; }
-
-        ul.plain, ol.plain {
-            margin: 0 0 16px;
-            padding-left: 22px;
-        }
-
-        ul.plain li, ol.plain li { margin-bottom: 10px; }
-        ul.plain li:last-child, ol.plain li:last-child { margin-bottom: 0; }
-
-        strong { color: var(--ink); font-weight: 600; }
-
-        /* ============================================================
-           Definition cards — the key terms a student must retain.
-           Echoes the quote-card treatment from the main site so the
-           two pages feel like the same hand.
-           ============================================================ */
-        .definition {
-            border-left: 2px solid var(--ink);
-            padding: 4px 0 4px 22px;
-            margin: 20px 0;
-        }
-
-        .definition .term {
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: var(--ink);
-        }
-
-        .definition p { margin-top: 6px; }
-
-        /* ============================================================
-           Tables
-           ============================================================ */
-        .table-scroll {
-            overflow-x: auto;
-            margin: 20px 0;
-            border: 1px solid var(--line);
-            border-radius: 6px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-            background: var(--paper);
-        }
-
-        caption {
-            font-family: var(--font-body);
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--muted);
-            text-align: left;
-            padding: 10px 16px 0;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 11px 16px;
-            border-bottom: 1px solid var(--line);
-            white-space: nowrap;
-        }
-
-        thead th {
-            font-family: var(--font-body);
-            font-weight: 700;
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--muted);
-            background: var(--bg);
-        }
-
-        tbody tr:last-child td { border-bottom: none; }
-
-        td.key-col { color: var(--accent); font-weight: 600; font-family: var(--font-mono); font-size: 0.85rem; }
-
-        /* ============================================================
-           Relation link — visual note between two linked tables
-           ============================================================ */
-        .relation-note {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.84rem;
-            color: var(--muted);
-            margin: -6px 0 20px;
-        }
-
-        .relation-note svg { flex-shrink: 0; color: var(--accent); }
-
-        /* ============================================================
-           Diagram: Предметная область → ... → Модель данных
-           ============================================================ */
-        .flow {
-            display: grid;
-            gap: 0;
-            margin: 24px 0;
-        }
-
-        .flow-step {
-            border: 1px solid var(--line-strong);
-            border-radius: 8px;
-            background: var(--paper);
-            padding: 14px 18px;
-            font-size: 0.92rem;
-        }
-
-        .flow-step .label {
-            font-family: var(--font-body);
-            font-size: 0.68rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--accent);
-            display: block;
-            margin-bottom: 3px;
-        }
-
-        .flow-arrow {
-            display: flex;
-            justify-content: center;
-            color: var(--faint);
-            padding: 6px 0;
-        }
-
-        /* ============================================================
-           Comparison callout — БД vs СУБД style side-by-side note
-           ============================================================ */
-        .callout {
-            background: var(--paper);
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            padding: 18px 20px;
-            margin: 20px 0;
-            font-size: 0.92rem;
-        }
-
-        .callout .callout-title {
-            font-weight: 700;
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--muted);
-            margin-bottom: 8px;
-        }
-
-        /* ============================================================
-           Self-check questions
-           ============================================================ */
-        ol.self-check {
-            list-style: none;
-            counter-reset: q;
-            margin: 0;
-            padding: 0;
-        }
-
-        ol.self-check li {
-            counter-increment: q;
-            display: flex;
+        .lecture-card-inner {
+            align-items: flex-start;
             gap: 14px;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--line);
         }
 
-        ol.self-check li:last-child { border-bottom: none; }
-
-        ol.self-check li::before {
-            content: counter(q);
-            font-family: var(--font-display);
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--accent);
-            flex-shrink: 0;
-            width: 22px;
+        .lecture-number {
+            width: 36px;
+            height: 36px;
+            font-size: 0.7rem;
         }
 
-        /* ============================================================
-           Summary
-           ============================================================ */
-        .summary-card {
-            border-left: 2px solid var(--accent);
-            background: var(--accent-soft);
-            border-radius: 0 8px 8px 0;
-            padding: 22px 24px;
+        .lecture-arrow {
+            display: none;
         }
 
-        .summary-card h2.topic-title { border-bottom: none; padding-bottom: 0; margin-bottom: 16px; }
-
-        .summary-card ul.plain { margin-bottom: 0; }
-
-        /* ============================================================
-           Footer
-           ============================================================ */
-        footer.doc-footer {
-            max-width: var(--content-w);
-            margin: 0 auto;
-            padding: 0 24px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            color: var(--faint);
-            font-size: 0.78rem;
+        .page-title {
+            font-size: 2.3rem;
         }
+    }
 
-        footer.doc-footer a {
-            color: var(--muted);
-            text-decoration: none;
-            border-bottom: 1px solid var(--line-strong);
-        }
+</style>
+```
 
-        footer.doc-footer a:hover { color: var(--ink); border-color: var(--ink); }
-
-        @media (max-width: 640px) {
-            h1.doc-title { font-size: 1.7rem; }
-            th, td { white-space: normal; }
-            .breadcrumb { display: none; }
-        }
-    </style>
 </head>
 
 <body>
 
-    <div class="top-bar">
-        <a class="back-link" href="index.html">&larr; Назад к архиву</a>
-        <div class="top-bar-right">
-            <span class="breadcrumb">Материалы / Информатика / Тема 1.1</span>
-            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему">☾</button>
+```
+<div class="wrapper">
+
+    <!-- ========================================================
+         Sidebar
+         ======================================================== -->
+
+    <aside>
+
+        <div class="profile-info">
+
+            <h1>aruan</h1>
+
+            <p class="profile-quote">
+                Пока твоё сердце<br>
+                Ещё откликается<br>
+                На звёзды
+
+                <span class="quote-author">
+                    Bazlab — Дружище
+                </span>
+            </p>
+
+
+            <div class="signature-mark" aria-hidden="true">
+
+                <svg viewBox="0 0 240 46" preserveAspectRatio="none">
+
+                    <g class="stars">
+                        <circle cx="18" cy="10" r="1" />
+                        <circle cx="150" cy="6" r="1" />
+                        <circle cx="200" cy="14" r="1" />
+                        <circle cx="90" cy="4" r="0.8" />
+                        <circle cx="222" cy="9" r="0.8" />
+                    </g>
+
+                    <path
+                        class="peaks"
+                        d="M0,40 L34,22 L52,32 L78,14 L104,36 L128,20 L152,38 L182,16 L206,34 L240,24"
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <nav>
+
+                <ul>
+
+                    <li>
+                        <a href="index.html">
+                            ← На главную
+                        </a>
+                    </li>
+
+                    <li class="active">
+                        <a href="students.html">
+                            Материалы
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
         </div>
-    </div>
 
-    <header class="doc-header">
-        <p class="eyebrow">Учебный материал · Тема 1.1</p>
-        <h1 class="doc-title">Основные понятия и определения баз данных</h1>
-        <p class="doc-subtitle">Материал для подготовки к занятию и защите практических работ.</p>
-    </header>
 
-    <nav class="toc" aria-label="Содержание">
-        <h2>Содержание</h2>
-        <ol>
-            <li><a href="#sec-1">Зачем нужна база данных</a></li>
-            <li><a href="#sec-2">Предметная область</a></li>
-            <li><a href="#sec-3">Объекты (сущности), атрибуты и ключи</a></li>
-            <li><a href="#sec-4">Модели данных</a></li>
-            <li><a href="#sec-5">Соотношение ключевых понятий</a></li>
-            <li><a href="#sec-6">Разграничение близких понятий</a></li>
-            <li><a href="#sec-7">Вопросы для самопроверки</a></li>
-            <li><a href="#sec-summary">Краткое резюме темы</a></li>
-        </ol>
-    </nav>
+        <button
+            id="theme-toggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Переключить тему"
+        >
+
+            <span class="theme-icon">☾</span>
+
+            <span class="theme-label">
+                Тёмная тема
+            </span>
+
+        </button>
+
+    </aside>
+
+
+    <!-- ========================================================
+         Main
+         ======================================================== -->
 
     <main>
 
-        <!-- 1. Зачем нужна база данных -->
-        <section class="topic" id="sec-1">
-            <h2 class="topic-title"><span class="num">1.</span> Зачем нужна база данных</h2>
 
-            <p>Пока данных немного и с ними работает один человек, их можно хранить в обычном файле —
-                например, в таблице Excel. Но при увеличении объёма данных и количества людей, работающих с
-                ними одновременно, возникают проблемы:</p>
+        <!-- Header -->
 
-            <ul class="plain">
-                <li><strong>Дублирование</strong> — одна и та же информация хранится в нескольких местах и со
-                    временем перестаёт совпадать (например, фамилия студента записана по-разному в разных
-                    файлах).</li>
-                <li><strong>Противоречивость</strong> — в разных источниках оказываются разные,
-                    взаимоисключающие данные об одном и том же объекте.</li>
-                <li><strong>Сложности совместной работы</strong> — при одновременном редактировании одного
-                    файла несколькими людьми часть изменений может теряться.</li>
-                <li><strong>Медленный и ненадёжный поиск</strong> — при большом объёме данных вручную найти
-                    нужную информацию по сложному критерию практически невозможно.</li>
-                <li><strong>Отсутствие защиты от ошибок</strong> — обычный файл не может автоматически
-                    проверить корректность вводимых данных.</li>
-            </ul>
+        <header class="page-header">
 
-            <div class="definition">
-                <span class="term">База данных (БД)</span>
-                <p>Организованная совокупность взаимосвязанных данных, хранимая с минимальной избыточностью и
-                    предназначенная для многоцелевого использования.</p>
+            <div class="page-label">
+                Учебные материалы
             </div>
 
-            <p>Работой с базой данных управляет специальная программа — <strong>система управления базами
-                    данных (СУБД)</strong>. Важно не путать эти два понятия:</p>
+            <h1 class="page-title">
+                Материалы<br>
+                для студентов
+            </h1>
 
-            <div class="table-scroll">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>База данных</th>
-                            <th>СУБД</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Сами данные, организованные определённым образом</td>
-                            <td>Программное обеспечение, которое создаёт, хранит и обрабатывает базы данных</td>
-                        </tr>
-                        <tr>
-                            <td>Пример: база данных «Колледж»</td>
-                            <td>Пример: MS Access, MySQL</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <p class="page-description">
+                Лекции, конспекты и практические задания по информатике.
+                Всё собрано здесь, чтобы не искать нужные материалы среди сообщений и файлов.
+            </p>
+
+        </header>
+
+
+        <!-- ====================================================
+             Lectures
+             ==================================================== -->
+
+        <section class="course">
+
+
+            <div class="section-heading">
+
+                <h2>
+                    Базы данных
+                </h2>
+
+                <span class="section-count">
+                    1 лекция
+                </span>
+
             </div>
+
+
+            <h3 class="course-title">
+                Основы баз данных
+            </h3>
+
+            <p class="course-description">
+                Введение в основные понятия, структуру и принципы организации баз данных.
+            </p>
+
+
+            <div class="lecture-list">
+
+
+                <!-- Лекция 1 -->
+
+                <a
+                    href="db-basics.html"
+                    class="lecture-card"
+                >
+
+                    <div class="lecture-card-inner">
+
+                        <div class="lecture-number">
+                            01
+                        </div>
+
+
+                        <div class="lecture-content">
+
+                            <div class="lecture-title">
+                                Основные понятия и определения баз данных
+                            </div>
+
+                            <div class="lecture-meta">
+                                Лекция · Конспект · Практические задания
+                            </div>
+
+                        </div>
+
+
+                        <div class="lecture-arrow">
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!--
+                ====================================================
+                Шаблон для следующей лекции:
+
+                <a href="lecture-2.html" class="lecture-card">
+
+                    <div class="lecture-card-inner">
+
+                        <div class="lecture-number">
+                            02
+                        </div>
+
+                        <div class="lecture-content">
+
+                            <div class="lecture-title">
+                                Название второй лекции
+                            </div>
+
+                            <div class="lecture-meta">
+                                Лекция · Конспект · Практические задания
+                            </div>
+
+                        </div>
+
+                        <div class="lecture-arrow">
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+                ====================================================
+                -->
+
+
+            </div>
+
+
+            <div class="coming-soon">
+                Новые материалы будут появляться здесь по мере прохождения курса.
+            </div>
+
+
         </section>
 
-        <!-- 2. Предметная область -->
-        <section class="topic" id="sec-2">
-            <h2 class="topic-title"><span class="num">2.</span> Предметная область</h2>
 
-            <div class="definition">
-                <span class="term">Предметная область</span>
-                <p>Часть реального мира (объекты, процессы и взаимосвязи между ними), информация о которой
-                    подлежит сбору, хранению и обработке в информационной системе.</p>
+
+        <!-- ====================================================
+             Future course example
+             ==================================================== -->
+
+        <!--
+
+        <section class="course">
+
+            <div class="section-heading">
+
+                <h2>
+                    Алгоритмы
+                </h2>
+
+                <span class="section-count">
+                    0 лекций
+                </span>
+
             </div>
 
-            <p>Предметная область определяет границы: какая информация войдёт в базу данных, а какая — нет, в
-                зависимости от задач, которые база данных должна решать.</p>
+            <h3 class="course-title">
+                Основы алгоритмизации
+            </h3>
 
-            <div class="callout">
-                <div class="callout-title">Пример</div>
-                <p>Предметная область базы данных колледжа — учебный процесс: студенты, группы, преподаватели,
-                    дисциплины, оценки, расписание. Информация, не связанная с учебным процессом (например,
-                    марка оборудования в столовой), в эту предметную область не входит.</p>
-            </div>
+            <p class="course-description">
+                Основные алгоритмические конструкции и принципы решения задач.
+            </p>
+
         </section>
 
-        <!-- 3. Сущности, атрибуты, ключи -->
-        <section class="topic" id="sec-3">
-            <h2 class="topic-title"><span class="num">3.</span> Объекты (сущности), атрибуты и ключи</h2>
+        -->
 
-            <h3 class="sub-title">3.1. Сущность</h3>
 
-            <div class="definition">
-                <span class="term">Сущность</span>
-                <p>Отражение в информационной системе объекта или события реального мира, о котором собирается
-                    и хранится информация.</p>
-            </div>
+        <!-- Footer -->
 
-            <p>Важно различать сущность и её экземпляр:</p>
-            <ul class="plain">
-                <li><strong>Сущность</strong> — это тип, категория (например, «Студент» как понятие).</li>
-                <li><strong>Экземпляр сущности</strong> — конкретный представитель этой сущности (например,
-                    «Иванов Пётр Сергеевич, № зачётки 20345»).</li>
-            </ul>
+        <footer class="page-footer">
 
-            <p><strong>Примеры сущностей базы данных колледжа:</strong> Студент, Группа, Преподаватель,
-                Дисциплина, Оценка, Занятие (расписание).</p>
+            <a href="index.html#materials">
+                ← Вернуться к материалам
+            </a>
 
-            <h3 class="sub-title">3.2. Атрибут</h3>
+        </footer>
 
-            <div class="definition">
-                <span class="term">Атрибут</span>
-                <p>Свойство сущности, характеризующее её с определённой стороны и принимающее конкретное
-                    значение для каждого экземпляра сущности.</p>
-            </div>
-
-            <div class="callout">
-                <div class="callout-title">Пример</div>
-                <p>Атрибуты сущности «Студент»: фамилия, имя, отчество, дата рождения, номер зачётной книжки,
-                    номер группы.</p>
-            </div>
-
-            <p>Не любая реальная характеристика объекта становится атрибутом в базе данных — только та, которая
-                необходима для решения конкретных задач информационной системы.</p>
-
-            <h3 class="sub-title">3.3. Ключ</h3>
-
-            <div class="definition">
-                <span class="term">Ключ</span>
-                <p>Атрибут или минимальный набор атрибутов, значение которого однозначно (уникально)
-                    идентифицирует каждый экземпляр сущности.</p>
-            </div>
-
-            <p>Разновидности ключа, которые нужно различать:</p>
-            <ul class="plain">
-                <li><strong>Потенциальный ключ</strong> — любой атрибут (или набор атрибутов), который в
-                    принципе мог бы однозначно идентифицировать экземпляр сущности (например, у студента это
-                    может быть и номер зачётки, и номер паспорта).</li>
-                <li><strong>Первичный ключ</strong> — тот потенциальный ключ, который выбран для фактического
-                    использования в таблице.</li>
-                <li><strong>Составной ключ</strong> — ключ, состоящий из нескольких атрибутов одновременно,
-                    если ни один из них по отдельности не обеспечивает уникальности.</li>
-            </ul>
-
-            <div class="callout">
-                <div class="callout-title">Пример</div>
-                <p>Ключом сущности «Студент» является номер зачётной книжки — он не повторяется ни у одного
-                    студента, даже если у двух студентов совпадают фамилия, имя и отчество.</p>
-            </div>
-
-            <div class="table-scroll">
-                <table>
-                    <caption>Студент</caption>
-                    <thead>
-                        <tr>
-                            <th>№ зачётки (ключ)</th>
-                            <th>Фамилия</th>
-                            <th>Имя</th>
-                            <th>Группа</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="key-col">20345</td>
-                            <td>Иванов</td>
-                            <td>Иван</td>
-                            <td>ИС-21</td>
-                        </tr>
-                        <tr>
-                            <td class="key-col">20346</td>
-                            <td>Иванов</td>
-                            <td>Иван</td>
-                            <td>ИС-22</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- 4. Модели данных -->
-        <section class="topic" id="sec-4">
-            <h2 class="topic-title"><span class="num">4.</span> Модели данных</h2>
-
-            <div class="definition">
-                <span class="term">Модель данных</span>
-                <p>Способ логической организации данных, определяющий, как данные структурированы и как связаны
-                    между собой.</p>
-            </div>
-
-            <h3 class="sub-title">4.1. Иерархическая модель</h3>
-            <p>Данные организованы в виде дерева: каждый элемент (кроме корневого) имеет ровно одного
-                «родителя» и может иметь несколько «потомков».</p>
-            <p><strong>Пример.</strong> Колледж → Факультет → Группа → Студент.</p>
-            <p><strong>Ограничение.</strong> Элемент не может иметь двух «родителей» одновременно. Это
-                неудобно, если, например, один преподаватель ведёт занятия сразу в нескольких группах.</p>
-            <p><strong>Область применения сегодня.</strong> Файловые системы, структура XML-документов.</p>
-
-            <h3 class="sub-title">4.2. Сетевая модель</h3>
-            <p>Развитие иерархической модели: элемент данных может иметь произвольное количество связей с
-                другими элементами, то есть несколько «родителей» одновременно.</p>
-            <p><strong>Пример.</strong> Преподаватель может одновременно относиться сразу к нескольким
-                группам.</p>
-            <p><strong>Ограничение.</strong> Структура значительно сложнее для проектирования и обработки, чем
-                дерево.</p>
-
-            <h3 class="sub-title">4.3. Реляционная модель</h3>
-            <p>Данные представлены в виде набора двумерных таблиц (<strong>отношений</strong>), а связи между
-                таблицами устанавливаются через совпадающие значения соответствующих атрибутов.</p>
-
-            <p>Термин «реляционная» происходит от английского <em>relation</em> — «отношение». В строгом
-                математическом смысле отношение — это множество кортежей (строк с определённым набором
-                атрибутов), а таблица — прикладное представление отношения. В учебных целях таблицу и отношение
-                можно считать синонимами.</p>
-
-            <div class="callout">
-                <div class="callout-title">Пример</div>
-
-                <div class="table-scroll">
-                    <table>
-                        <caption>Студент</caption>
-                        <thead>
-                            <tr><th>№ зачётки</th><th>Фамилия</th><th>Группа</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="key-col">20345</td><td>Иванов</td><td>ИС-21</td></tr>
-                            <tr><td class="key-col">20346</td><td>Петрова</td><td>ИС-22</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="relation-note">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    связь устанавливается через совпадение значения «Группа» / «№ группы»
-                </div>
-
-                <div class="table-scroll">
-                    <table>
-                        <caption>Группа</caption>
-                        <thead>
-                            <tr><th>№ группы</th><th>Название</th><th>Курс</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="key-col">ИС-21</td><td>Информ. системы</td><td>2</td></tr>
-                            <tr><td class="key-col">ИС-22</td><td>Информ. системы</td><td>2</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <p><strong>Почему реляционная модель стала основной.</strong> Она проще для проектирования, чем
-                сетевая, гибче для запросов, чем иерархическая (позволяет легко искать данные по любому
-                критерию), и имеет строгое математическое обоснование (реляционная алгебра, правила Кодда —
-                изучаются на следующих занятиях).</p>
-
-            <h3 class="sub-title">4.4. Развитие способов организации данных</h3>
-            <ul class="plain">
-                <li><strong>Постреляционные модели</strong> — допускают хранение в одной ячейке таблицы более
-                    сложных, «вложенных» значений (например, список телефонов), в отличие от классической
-                    реляционной модели, где ячейка хранит только одно значение.</li>
-                <li><strong>Многомерные модели</strong> — организуют данные не в виде плоской таблицы, а в виде
-                    многомерного «куба» (например, измерения «студент — дисциплина — семестр»). Используются в
-                    системах аналитики (OLAP) и хранилищах данных.</li>
-                <li><strong>Объектно-ориентированные модели</strong> — хранят данные как объекты, объединяющие
-                    атрибуты и связанное с ними поведение, по аналогии с объектно-ориентированным
-                    программированием.</li>
-            </ul>
-
-            <p>В большинстве практических задач, включая практические работы этого курса, используется
-                реляционная модель данных.</p>
-        </section>
-
-        <!-- 5. Соотношение ключевых понятий -->
-        <section class="topic" id="sec-5">
-            <h2 class="topic-title"><span class="num">5.</span> Соотношение ключевых понятий</h2>
-
-            <div class="flow">
-                <div class="flow-step">
-                    <span class="label">Отправная точка</span>
-                    Предметная область
-                </div>
-                <div class="flow-arrow">↓</div>
-                <div class="flow-step">
-                    <span class="label">Что мы храним</span>
-                    Сущности — обладают атрибутами, которые вместе их описывают
-                </div>
-                <div class="flow-arrow">↓</div>
-                <div class="flow-step">
-                    <span class="label">Как отличить экземпляр от экземпляра</span>
-                    Ключ — уникальный атрибут (или набор атрибутов)
-                </div>
-                <div class="flow-arrow">↓</div>
-                <div class="flow-step">
-                    <span class="label">Как всё это организовано</span>
-                    Модель данных — иерархическая / сетевая / реляционная и другие
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. Разграничение близких понятий -->
-        <section class="topic" id="sec-6">
-            <h2 class="topic-title"><span class="num">6.</span> Разграничение близких понятий</h2>
-
-            <div class="table-scroll">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Понятие 1</th>
-                            <th>Понятие 2</th>
-                            <th>В чём разница</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>База данных</td>
-                            <td>СУБД</td>
-                            <td>БД — сами данные; СУБД — программа для работы с ними</td>
-                        </tr>
-                        <tr>
-                            <td>Сущность</td>
-                            <td>Экземпляр сущности</td>
-                            <td>Сущность — тип/категория; экземпляр — конкретный представитель</td>
-                        </tr>
-                        <tr>
-                            <td>Объект</td>
-                            <td>Атрибут</td>
-                            <td>Объект — «о ком/о чём»; атрибут — «какое свойство»</td>
-                        </tr>
-                        <tr>
-                            <td>Первичный ключ</td>
-                            <td>Потенциальный ключ</td>
-                            <td>Потенциальный ключ — любой атрибут-кандидат на уникальность; первичный — тот,
-                                что реально выбран</td>
-                        </tr>
-                        <tr>
-                            <td>Таблица</td>
-                            <td>Отношение</td>
-                            <td>На практике — синонимы; строго математически отношение — множество кортежей,
-                                таблица — его представление</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- 7. Вопросы для самопроверки -->
-        <section class="topic" id="sec-7">
-            <h2 class="topic-title"><span class="num">7.</span> Вопросы для самопроверки перед защитой</h2>
-
-            <ol class="self-check">
-                <li>Почему хранение данных в обычном файле (например, Excel) перестаёт быть эффективным при
-                    увеличении объёма данных и числа пользователей?</li>
-                <li>В чём разница между базой данных и СУБД? Приведите пример каждого понятия.</li>
-                <li>Что такое предметная область? На примере базы данных колледжа укажите, что входит в
-                    предметную область, а что — нет.</li>
-                <li>Дайте определение сущности. Приведите пример сущности и одного из её экземпляров.</li>
-                <li>Чем атрибут отличается от сущности?</li>
-                <li>Что такое ключ? Почему ключ не может повторяться у разных экземпляров сущности?</li>
-                <li>В чём разница между потенциальным и первичным ключом?</li>
-                <li>Опишите иерархическую модель данных. Какое у неё ограничение?</li>
-                <li>Чем сетевая модель отличается от иерархической?</li>
-                <li>Дайте определение реляционной модели данных. Как устанавливаются связи между таблицами?</li>
-                <li>Почему реляционная модель данных стала наиболее распространённой?</li>
-                <li>Назовите модели данных, появившиеся после реляционной, и кратко опишите каждую.</li>
-            </ol>
-        </section>
-
-        <!-- Резюме -->
-        <section class="topic summary-card" id="sec-summary">
-            <h2 class="topic-title">Краткое резюме темы</h2>
-            <ul class="plain">
-                <li>База данных решает проблему надёжного, организованного и совместного хранения больших
-                    объёмов данных.</li>
-                <li>Предметная область определяет границы того, какая информация войдёт в базу данных.</li>
-                <li>Сущность, атрибут и ключ — три базовых понятия, описывающих структуру данных: что мы
-                    храним, какие у него свойства и как отличить один экземпляр от другого.</li>
-                <li>Существует несколько моделей организации данных: иерархическая (дерево), сетевая (граф
-                    связей), реляционная (таблицы со связями через совпадающие значения) — последняя является
-                    основной в современных базах данных.</li>
-            </ul>
-        </section>
 
     </main>
 
-    <footer class="doc-footer">
-        <span>Тема 1.1 · Основы проектирования баз данных</span>
-        <a href="index.html">К архиву →</a>
-    </footer>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const root = document.documentElement;
-            const toggle = document.getElementById('theme-toggle');
 
-            function applyTheme(theme) {
-                if (theme === 'dark') {
-                    root.setAttribute('data-theme', 'dark');
-                    if (toggle) { toggle.textContent = '☀'; toggle.title = 'Светлая тема'; }
-                } else {
-                    root.removeAttribute('data-theme');
-                    if (toggle) { toggle.textContent = '☾'; toggle.title = 'Тёмная тема'; }
-                }
+<!-- ============================================================
+     Theme script
+     ============================================================ -->
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const root = document.documentElement;
+
+        const toggle = document.getElementById('theme-toggle');
+
+        const toggleIcon =
+            toggle?.querySelector('.theme-icon');
+
+        const toggleLabel =
+            toggle?.querySelector('.theme-label');
+
+
+        function applyTheme(theme) {
+
+            if (theme === 'dark') {
+
+                root.setAttribute(
+                    'data-theme',
+                    'dark'
+                );
+
+                if (toggleIcon)
+                    toggleIcon.textContent = '☀';
+
+                if (toggleLabel)
+                    toggleLabel.textContent = 'Светлая тема';
+
+            } else {
+
+                root.removeAttribute('data-theme');
+
+                if (toggleIcon)
+                    toggleIcon.textContent = '☾';
+
+                if (toggleLabel)
+                    toggleLabel.textContent = 'Тёмная тема';
+
             }
 
-            const savedTheme = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            applyTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
+        }
 
-            if (toggle) {
-                toggle.addEventListener('click', () => {
-                    const isDark = root.getAttribute('data-theme') === 'dark';
-                    const next = isDark ? 'light' : 'dark';
-                    applyTheme(next);
-                    localStorage.setItem('theme', next);
-                });
-            }
-        });
-    </script>
+
+        const savedTheme =
+            localStorage.getItem('theme');
+
+
+        const systemPrefersDark =
+            window.matchMedia &&
+            window.matchMedia(
+                '(prefers-color-scheme: dark)'
+            ).matches;
+
+
+        applyTheme(
+            savedTheme ||
+            (systemPrefersDark ? 'dark' : 'light')
+        );
+
+
+        if (toggle) {
+
+            toggle.addEventListener('click', () => {
+
+                const isDark =
+                    root.getAttribute('data-theme') === 'dark';
+
+
+                const next =
+                    isDark ? 'light' : 'dark';
+
+
+                applyTheme(next);
+
+
+                localStorage.setItem(
+                    'theme',
+                    next
+                );
+
+            });
+
+        }
+
+    });
+
+</script>
+```
 
 </body>
 
