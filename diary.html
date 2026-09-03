@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Из дневника aruan — личные мысли, наблюдения и попытки разобраться в себе и окружающем мире.">
+
+    <title>Из дневника — aruan</title>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="aruan">
+    <meta property="og:title" content="Из дневника — aruan">
+    <meta property="og:description"
+        content="Личные мысли, наблюдения и попытки разобраться в себе и окружающем мире.">
+
+    <meta name="twitter:card" content="summary">
+
+    <meta name="theme-color" content="#faf9f6">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+
+        /* ============================================================
+           Tokens
+           ============================================================ */
+
+        :root {
+            --bg: #faf9f6;
+            --ink: #17181a;
+            --ink-soft: #3b3c3e;
+            --muted: #767671;
+            --faint: #aaa8a1;
+            --line: #e6e3dc;
+            --line-strong: #d8d4ca;
+            --accent: #a9832f;
+            --accent-soft: rgba(169, 131, 47, 0.12);
+            --paper: #ffffff;
+
+            --font-display: 'Lora', Georgia, 'Times New Roman', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont,
+                'Segoe UI', Roboto, sans-serif;
+
+            --ease: cubic-bezier(.16, 1, .3, 1);
+
+            --content-w: 1000px;
+            --sidebar-w: 260px;
+        }
+
+
+        /* ============================================================
+           Dark theme
+           ============================================================ */
+
+        [data-theme="dark"] {
+            --bg: #131315;
+            --ink: #f1efe8;
+            --ink-soft: #d6d3c9;
+            --muted: #93908a;
+            --faint: #666460;
+            --line: #262629;
+            --line-strong: #35353a;
+            --accent: #cda253;
+            --accent-soft: rgba(205, 162, 83, 0.14);
+            --paper: #1b1b1e;
+        }
+
+
+        /* ============================================================
+           Base
+           ============================================================ */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 0;
+
+            background: var(--bg);
+            color: var(--ink-soft);
+
+            font-family: var(--font-body);
+            line-height: 1.7;
+
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+
+            transition:
+                background-color 0.35s var(--ease),
+                color 0.35s var(--ease);
+        }
+
+
+        a {
+            color: inherit;
+        }
+
+
+        ::selection {
+            background: var(--accent-soft);
+            color: var(--ink);
+        }
+
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.001ms !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+
+        /* ============================================================
+           Layout
+           ============================================================ */
+
+        .wrapper {
+            display: flex;
+
+            width: 100%;
+            max-width: var(--content-w);
+
+            margin: 0 auto;
+            padding: 72px 24px 120px;
+
+            position: relative;
+        }
+
+
+        aside {
+            width: var(--sidebar-w);
+
+            position: fixed;
+            top: 72px;
+
+            height: calc(100vh - 140px);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+
+        main {
+            flex: 1;
+            width: 100%;
+            min-width: 0;
+
+            margin-left: calc(var(--sidebar-w) + 60px);
+        }
+
+
+        /* ============================================================
+           Profile
+           ============================================================ */
+
+        .profile-info h1 {
+            margin: 0;
+
+            font-family: var(--font-display);
+            font-size: 2.1rem;
+            font-weight: 600;
+
+            letter-spacing: -0.02em;
+
+            color: var(--ink);
+        }
+
+
+        .profile-role {
+            margin: 6px 0 22px;
+
+            font-size: 0.74rem;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+
+            color: var(--muted);
+        }
+
+
+        .profile-quote {
+            margin: 0 0 8px;
+
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-style: italic;
+
+            line-height: 1.55;
+
+            color: var(--ink-soft);
+        }
+
+
+        .quote-author {
+            display: block;
+
+            margin-top: 12px;
+
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-style: normal;
+
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+
+            color: var(--faint);
+        }
+
+
+        /* ============================================================
+           Signature
+           ============================================================ */
+
+        .signature-mark {
+            width: 100%;
+            height: 46px;
+
+            margin: 22px 0 34px;
+
+            color: var(--ink);
+            opacity: 0.5;
+        }
+
+
+        .signature-mark svg {
+            width: 100%;
+            height: 100%;
+
+            overflow: visible;
+        }
+
+
+        .signature-mark .peaks {
+            fill: none;
+
+            stroke: currentColor;
+            stroke-width: 1;
+
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+
+        .signature-mark .stars circle {
+            fill: currentColor;
+        }
+
+
+        /* ============================================================
+           Navigation
+           ============================================================ */
+
+        nav {
+            margin-top: 38px;
+        }
+
+
+        nav ul {
+            list-style: none;
+
+            padding: 0;
+            margin: 0;
+        }
+
+
+        nav li {
+            margin-bottom: 13px;
+        }
+
+
+        nav a {
+            position: relative;
+
+            display: inline-block;
+
+            padding-left: 14px;
+
+            color: var(--muted);
+
+            text-decoration: none;
+
+            font-size: 0.78rem;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+
+            transition: color 0.25s var(--ease);
+        }
+
+
+        nav a::before {
+            content: "";
+
+            position: absolute;
+            left: 0;
+            top: 50%;
+
+            width: 5px;
+            height: 1px;
+
+            background: var(--faint);
+
+            transform:
+                translateY(-50%) scaleX(0.6);
+
+            transform-origin: left;
+
+            transition: all 0.25s var(--ease);
+        }
+
+
+        nav a:hover {
+            color: var(--ink);
+        }
+
+
+        nav li.active a {
+            color: var(--ink);
+        }
+
+
+        nav li.active a::before {
+            width: 18px;
+
+            background: var(--accent);
+
+            transform:
+                translateY(-50%) scaleX(1);
+        }
+
+
+        /* ============================================================
+           Theme toggle
+           ============================================================ */
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            align-self: flex-start;
+
+            padding: 9px 14px;
+
+            border: 1px solid var(--line);
+            border-radius: 20px;
+
+            background: transparent;
+            color: var(--muted);
+
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+
+            cursor: pointer;
+
+            transition:
+                background-color 0.35s var(--ease),
+                color 0.35s var(--ease),
+                border-color 0.35s var(--ease);
+        }
+
+
+        .theme-toggle:hover {
+            color: var(--ink);
+            border-color: var(--line-strong);
+        }
+
+
+        .theme-toggle .theme-icon {
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+
+
+        /* ============================================================
+           Diary
+           ============================================================ */
+
+        .diary-header {
+            margin-bottom: 52px;
+        }
+
+
+        .diary-header h2 {
+            margin: 0 0 18px;
+            padding-bottom: 14px;
+
+            border-bottom: 1px solid var(--line);
+
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+
+            color: var(--ink);
+        }
+
+
+        .diary-intro {
+            max-width: 62ch;
+
+            margin: 0;
+
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-style: italic;
+
+            line-height: 1.65;
+
+            color: var(--ink);
+        }
+
+
+        /* ============================================================
+           Diary entries
+           ============================================================ */
+
+        .diary-entry {
+            margin-bottom: 64px;
+        }
+
+
+        .diary-entry:last-child {
+            margin-bottom: 0;
+        }
+
+
+        .diary-date {
+            margin-bottom: 12px;
+
+            font-size: 0.72rem;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+
+            color: var(--faint);
+        }
+
+
+        .diary-entry h1 {
+            max-width: 700px;
+
+            margin: 0 0 24px;
+
+            font-family: var(--font-display);
+            font-size: clamp(1.7rem, 3vw, 2.3rem);
+            font-weight: 500;
+
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+
+            color: var(--ink);
+        }
+
+
+        .diary-text {
+            max-width: 68ch;
+        }
+
+
+        .diary-text p {
+            margin: 0 0 22px;
+
+            font-family: var(--font-display);
+            font-size: 1.06rem;
+
+            line-height: 1.85;
+
+            color: var(--ink-soft);
+        }
+
+
+        .diary-text p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        .diary-entry + .diary-entry {
+            padding-top: 58px;
+
+            border-top: 1px solid var(--line);
+        }
+
+
+        /* ============================================================
+           Back link
+           ============================================================ */
+
+        .back-link {
+            display: inline-block;
+
+            margin-top: 64px;
+
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+
+            color: var(--muted);
+
+            text-decoration: none;
+
+            border-bottom: 1px solid var(--line-strong);
+
+            transition:
+                color 0.2s var(--ease),
+                border-color 0.2s var(--ease);
+        }
+
+
+        .back-link:hover {
+            color: var(--ink);
+            border-color: var(--ink);
+        }
+
+
+        /* ============================================================
+           Responsive
+           ============================================================ */
+
+        @media (max-width: 860px) {
+
+            .wrapper {
+                flex-direction: column;
+
+                padding: 48px 20px 90px;
+            }
+
+
+            aside {
+                position: relative;
+                top: 0;
+
+                width: 100%;
+                height: auto;
+
+                margin-bottom: 44px;
+            }
+
+
+            main {
+                margin-left: 0;
+            }
+
+
+            .signature-mark {
+                max-width: 320px;
+            }
+
+
+            nav {
+                margin-top: 26px;
+            }
+
+
+            nav ul {
+                display: flex;
+                flex-wrap: wrap;
+
+                gap: 10px 18px;
+            }
+
+
+            nav li {
+                margin-bottom: 0;
+            }
+
+
+            .theme-toggle {
+                margin-top: 28px;
+            }
+        }
+
+
+        @media (max-width: 520px) {
+
+            .wrapper {
+                padding-top: 36px;
+            }
+
+
+            .profile-info h1 {
+                font-size: 1.9rem;
+            }
+
+
+            .diary-intro {
+                font-size: 1.05rem;
+            }
+
+
+            .diary-entry h1 {
+                font-size: 1.65rem;
+            }
+
+
+            .diary-text p {
+                font-size: 1rem;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="wrapper">
+
+        <!-- ==========================================================
+             Левая колонка
+             ========================================================== -->
+
+        <aside>
+
+            <div class="profile-info">
+
+                <h1>aruan</h1>
+
+                <div class="profile-role">
+                    Учитель информатики
+                </div>
+
+                <p class="profile-quote">
+                    Пока твоё сердце<br>
+                    Ещё откликается<br>
+                    На звёзды
+
+                    <span class="quote-author">
+                        Bazlab — «Дружище»
+                    </span>
+                </p>
+
+
+                <div class="signature-mark" aria-hidden="true">
+
+                    <svg viewBox="0 0 240 46" preserveAspectRatio="none">
+
+                        <g class="stars">
+                            <circle cx="18" cy="10" r="1" />
+                            <circle cx="150" cy="6" r="1" />
+                            <circle cx="200" cy="14" r="1" />
+                            <circle cx="90" cy="4" r="0.8" />
+                            <circle cx="222" cy="9" r="0.8" />
+                        </g>
+
+                        <path class="peaks"
+                            d="M0,40 L34,22 L52,32 L78,14 L104,36 L128,20 L152,38 L182,16 L206,34 L240,24" />
+
+                    </svg>
+
+                </div>
+
+
+                <nav aria-label="Основная навигация">
+
+                    <ul>
+
+                        <li>
+                            <a href="index.html#about">О себе</a>
+                        </li>
+
+                        <li>
+                            <a href="index.html#people">Личности</a>
+                        </li>
+
+                        <li>
+                            <a href="index.html#music">Музыка</a>
+                        </li>
+
+                        <li>
+                            <a href="index.html#books">Книги</a>
+                        </li>
+
+                        <li>
+                            <a href="index.html#cinema">Кино</a>
+                        </li>
+
+                        <li class="active">
+                            <a href="diary.html">Из дневника</a>
+                        </li>
+
+                        <li>
+                            <a href="index.html#quotes">Цитаты</a>
+                        </li>
+
+                        <li>
+                            <a href="index.html#tools">Инструменты</a>
+                        </li>
+
+                        <li>
+                            <a href="index.html#materials">Материалы</a>
+                        </li>
+
+                        <li>
+                            <a href="index.html#visuals">Моменты</a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+
+            <button
+                id="theme-toggle"
+                class="theme-toggle"
+                type="button"
+                aria-label="Переключить тему">
+
+                <span
+                    class="theme-icon"
+                    aria-hidden="true">☾</span>
+
+                <span class="theme-label">
+                    Тёмная тема
+                </span>
+
+            </button>
+
+        </aside>
+
+
+        <!-- ==========================================================
+             Дневник
+             ========================================================== -->
+
+        <main>
+
+            <header class="diary-header">
+
+                <h2>Из дневника</h2>
+
+                <p class="diary-intro">
+                    Мысли, наблюдения и попытки разобраться в том,
+                    что происходит внутри и вокруг меня.
+                </p>
+
+            </header>
+
+
+            <!-- ======================================================
+                 Временная запись
+                 ====================================================== -->
+
+            <article class="diary-entry">
+
+                <div class="diary-date">
+                    3 сентября 2026
+                </div>
+
+                <h1>
+                    Иногда нужно просто остановиться
+                </h1>
+
+                <div class="diary-text">
+
+                    <p>
+                        Есть странное ощущение, что большую часть времени
+                        мы куда-то торопимся, даже когда никуда особенно
+                        не нужно. Закрываем одну задачу, открываем другую,
+                        отвечаем на сообщения, строим планы — и почти
+                        незаметно проживаем целый день.
+                    </p>
+
+                    <p>
+                        А потом наступает вечер, и вдруг становится тихо.
+                        В этой тишине обнаруживается довольно простая вещь:
+                        день ведь уже случился. Его нельзя переделать,
+                        нельзя прожить немного внимательнее задним числом.
+                    </p>
+
+                    <p>
+                        Наверное, поэтому мне всё чаще хочется оставлять
+                        пространство для ничего. Для прогулки без цели,
+                        книги, которую не нужно дочитывать, разговора,
+                        который не обязан к чему-то привести.
+                    </p>
+
+                    <p>
+                        Может быть, это и есть одна из форм присутствия —
+                        не пытаться каждую минуту сделать полезной.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- ======================================================
+                 Ссылка назад
+                 ====================================================== -->
+
+            <a href="index.html" class="back-link">
+                ← Вернуться на главную
+            </a>
+
+        </main>
+
+    </div>
+
+
+    <!-- ==============================================================
+         JavaScript
+         ============================================================== -->
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const root = document.documentElement;
+
+            const toggle =
+                document.getElementById('theme-toggle');
+
+            const toggleIcon =
+                toggle?.querySelector('.theme-icon');
+
+            const toggleLabel =
+                toggle?.querySelector('.theme-label');
+
+
+            /* ========================================================
+               Theme
+               ======================================================== */
+
+            function applyTheme(theme) {
+
+                if (theme === 'dark') {
+
+                    root.setAttribute(
+                        'data-theme',
+                        'dark'
+                    );
+
+                    if (toggleIcon) {
+                        toggleIcon.textContent = '☀';
+                    }
+
+                    if (toggleLabel) {
+                        toggleLabel.textContent =
+                            'Светлая тема';
+                    }
+
+                } else {
+
+                    root.removeAttribute(
+                        'data-theme'
+                    );
+
+                    if (toggleIcon) {
+                        toggleIcon.textContent = '☾';
+                    }
+
+                    if (toggleLabel) {
+                        toggleLabel.textContent =
+                            'Тёмная тема';
+                    }
+                }
+            }
+
+
+            const savedTheme =
+                localStorage.getItem('theme');
+
+
+            const systemPrefersDark =
+                window.matchMedia &&
+                window.matchMedia(
+                    '(prefers-color-scheme: dark)'
+                ).matches;
+
+
+            applyTheme(
+                savedTheme ||
+                (systemPrefersDark
+                    ? 'dark'
+                    : 'light')
+            );
+
+
+            if (toggle) {
+
+                toggle.addEventListener(
+                    'click',
+                    () => {
+
+                        const isDark =
+                            root.getAttribute(
+                                'data-theme'
+                            ) === 'dark';
+
+
+                        const nextTheme =
+                            isDark
+                                ? 'light'
+                                : 'dark';
+
+
+                        applyTheme(nextTheme);
+
+
+                        localStorage.setItem(
+                            'theme',
+                            nextTheme
+                        );
+
+                    }
+                );
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
