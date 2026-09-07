@@ -1,1 +1,2682 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 2 — Реляционная модель данных</title>
+    <style>
 
+        :root {
+            --bg: #f6f8fc;
+            --surface: #ffffff;
+            --surface-alt: #f0f4f8;
+            --text: #1e293b;
+            --muted: #64748b;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --purple: #7c3aed;
+            --green: #059669;
+            --orange: #ea580c;
+            --red: #dc2626;
+            --border: #e2e8f0;
+            --code-bg: #0f172a;
+            --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= HEADER ================= */
+
+        .page-header {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            padding: 28px 20px 48px;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumbs {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+
+        .breadcrumbs a {
+            color: #bfdbfe;
+        }
+
+        .lecture-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.15;
+            max-width: 900px;
+            margin-bottom: 20px;
+        }
+
+        .page-header p {
+            max-width: 800px;
+            font-size: 18px;
+            color: #dbeafe;
+        }
+
+        .lecture-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .meta-item {
+            padding: 9px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        /* ================= LAYOUT ================= */
+
+        .layout {
+            max-width: 1200px;
+            margin: -25px auto 0;
+            padding: 0 20px 60px;
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .sidebar h3 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sidebar a {
+            padding: 8px 10px;
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            background: #eff6ff;
+            text-decoration: none;
+            color: var(--primary);
+        }
+
+        /* ================= CONTENT ================= */
+
+        .content {
+            min-width: 0;
+        }
+
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+        }
+
+        section h2 {
+            font-size: 28px;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+
+        section h3 {
+            font-size: 21px;
+            margin: 28px 0 12px;
+        }
+
+        section h4 {
+            margin: 22px 0 10px;
+            font-size: 17px;
+        }
+
+        p {
+            margin-bottom: 14px;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 18px;
+        }
+
+        li {
+            margin-bottom: 7px;
+        }
+
+        /* ================= CARDS ================= */
+
+        .intro-card {
+            background: linear-gradient(135deg, #eff6ff, #eef2ff);
+            border: 1px solid #bfdbfe;
+        }
+
+        .goals {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .goal-card {
+            background: white;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .goal-card strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        /* ================= CALLOUTS ================= */
+
+        .callout {
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid;
+        }
+
+        .callout.info {
+            background: #eff6ff;
+            border-color: var(--primary);
+        }
+
+        .callout.success {
+            background: #ecfdf5;
+            border-color: var(--green);
+        }
+
+        .callout.warning {
+            background: #fff7ed;
+            border-color: var(--orange);
+        }
+
+        .callout.danger {
+            background: #fef2f2;
+            border-color: var(--red);
+        }
+
+        .callout.purple {
+            background: #f5f3ff;
+            border-color: var(--purple);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        /* ================= DEFINITION ================= */
+
+        .definition {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        .definition-term {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background: #fafcff;
+        }
+
+        .error-cell {
+            background: #fee2e2 !important;
+            color: #991b1b;
+            font-weight: 600;
+        }
+
+        /* ================= CODE / SCHEME ================= */
+
+        pre {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 18px 0;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* ================= FORMULA ================= */
+
+        .formula {
+            text-align: center;
+            padding: 22px;
+            font-size: 24px;
+            font-weight: 700;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .formula span {
+            color: var(--primary);
+        }
+
+        /* ================= TIMELINE ================= */
+
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 7px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: #cbd5e1;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -25px;
+            top: 7px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        /* ================= QUIZ ================= */
+
+        .question {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        .question summary {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .answer {
+            margin-top: 12px;
+            padding: 12px;
+            background: #ecfdf5;
+            border-radius: 8px;
+        }
+
+        /* ================= HOMEWORK ================= */
+
+        .homework {
+            background: linear-gradient(135deg, #312e81, #1e3a8a);
+            color: white;
+        }
+
+        .homework h2,
+        .homework h3 {
+            color: white;
+        }
+
+        .homework .task {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        /* ================= GLOSSARY ================= */
+
+        .glossary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        .glossary-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            background: #fafcff;
+        }
+
+        .glossary-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            padding: 20px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .sidebar nav {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page-header {
+                padding-bottom: 40px;
+            }
+
+            .layout {
+                padding: 0 12px 40px;
+            }
+
+            section {
+                padding: 22px 18px;
+            }
+
+            section h2 {
+                font-size: 24px;
+            }
+
+            .formula {
+                font-size: 18px;
+            }
+        }
+    
+
+
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.15;
+            max-width: 900px;
+            margin: 0 0 20px;
+            color: white;
+        }
+
+        .lecture-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .page-header p {
+            max-width: 800px;
+            font-size: 18px;
+            color: #dbeafe;
+            margin: 0;
+        }
+
+        .lecture-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .meta-item {
+            padding: 9px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .content section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+        }
+
+        .content section h2 {
+            font-size: 28px;
+            line-height: 1.25;
+            margin: 0 0 20px;
+        }
+
+        .content section h3 {
+            font-size: 21px;
+            margin: 28px 0 12px;
+        }
+
+        .content section h4 {
+            margin: 22px 0 10px;
+            font-size: 17px;
+        }
+
+        .content section p {
+            margin-bottom: 14px;
+        }
+
+        .content section ul,
+        .content section ol {
+            padding-left: 24px;
+            margin-bottom: 18px;
+        }
+
+        .content section li {
+            margin-bottom: 7px;
+        }
+
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin: 20px 0;
+        }
+
+        .content th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .content th,
+        .content td {
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .content tr:nth-child(even) td {
+            background: #fafcff;
+        }
+
+        .content pre {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 18px 0;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .content code {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .content pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .intro-card {
+            background: linear-gradient(135deg, #eff6ff, #eef2ff) !important;
+            border-color: #bfdbfe !important;
+        }
+
+        .goal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .goal-card {
+            background: white;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .goal-card strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .callout {
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid;
+        }
+
+        .callout.info { background: #eff6ff; border-color: var(--primary); }
+        .callout.success { background: #ecfdf5; border-color: var(--green); }
+        .callout.warning { background: #fff7ed; border-color: var(--orange); }
+        .callout.danger { background: #fef2f2; border-color: var(--red); }
+        .callout.purple { background: #f5f3ff; border-color: var(--purple); }
+        .callout-title { font-weight: 700; margin-bottom: 7px; }
+
+        .definition {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        .definition-term {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .formula {
+            text-align: center;
+            padding: 22px;
+            font-size: 24px;
+            font-weight: 700;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .formula span { color: var(--primary); }
+
+        .glossary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        .glossary-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            background: #fafcff;
+        }
+
+        .glossary-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .question {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        .question summary {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .answer {
+            margin-top: 12px;
+            padding: 12px;
+            background: #ecfdf5;
+            border-radius: 8px;
+        }
+
+        .page-footer {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            padding: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .sidebar nav { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+        }
+
+        @media (max-width: 600px) {
+            .page-header { padding-bottom: 40px; }
+            .layout { padding: 0 12px 40px; }
+            .content section { padding: 22px 18px; }
+            .content section h2 { font-size: 24px; }
+            .formula { font-size: 18px; }
+        }
+
+    </style>
+</head>
+<body>
+
+<header class="page-header">
+    <div class="header-inner">
+        <div class="breadcrumbs">
+            <a href="db-basics.html">Базы данных</a>
+            <span> / </span>
+            <span>Лекция 2</span>
+        </div>
+        <div class="lecture-label">📘 Лекция №2</div>
+        <h1>Реляционная модель данных</h1>
+        <p>
+            Реляционные объекты данных, индексирование, связывание таблиц,
+            ссылочная целостность, ограничения целостности, правила Кодда и реляционная алгебра.
+        </p>
+        <div class="lecture-meta">
+            <div class="meta-item">🎓 Курс: 2</div>
+            <div class="meta-item">⏱ 180 минут</div>
+            <div class="meta-item">📚 Дисциплина: Базы данных</div>
+            <div class="meta-item">🏫 Сквозной пример: «Колледж»</div>
+        </div>
+    </div>
+</header>
+
+<div class="layout">
+    <aside class="sidebar">
+        <h3>Содержание</h3>
+        <nav>
+<a href="#goals">Цели лекции</a>
+<a href="#motivation">1. Введение и мотивация</a>
+<a href="#data-model">2. Модель данных</a>
+<a href="#relational-model">3. Реляционная модель</a>
+<a href="#keys">4. Объекты и ключи</a>
+<a href="#relationships">5. Связывание таблиц</a>
+<a href="#integrity">6. Ссылочная целостность</a>
+<a href="#constraints">7. Ограничения целостности</a>
+<a href="#indexes">8. Индексирование</a>
+<a href="#codd">9. Правила Кодда</a>
+<a href="#algebra">10. Реляционная алгебра</a>
+<a href="#summary">Итоги</a>
+<a href="#glossary">Словарь</a>
+<a href="#quiz">Самопроверка</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+        
+<section id="goals" class="intro-card">
+    <h2>🎯 Что вы изучите на этой лекции</h2>
+    <p>
+        Цель лекции — сформировать целостное представление о реляционной модели данных
+        и принципах организации данных в реляционных базах данных.
+    </p>
+    <div class="goal-grid">
+        <div class="goal-card"><strong>01. Реляционная модель</strong>Отношение, атрибут, кортеж, домен и свойства реляционной таблицы.</div>
+        <div class="goal-card"><strong>02. Ключи и связи</strong>Первичный и внешний ключи, связи 1:1, 1:M и M:M.</div>
+        <div class="goal-card"><strong>03. Целостность</strong>Ссылочная целостность и ограничения NOT NULL, UNIQUE, CHECK, DEFAULT и др.</div>
+        <div class="goal-card"><strong>04. Поиск и операции</strong>Индексирование, правила Кодда и реляционная алгебра.</div>
+    </div>
+    <div class="callout info">
+        <div class="callout-title">💡 К концу лекции</div>
+        Вы должны уметь находить первичные и внешние ключи, определять типы связей,
+        объяснять ссылочную целостность, понимать назначение индекса и различать
+        выборку, проекцию и JOIN.
+    </div>
+</section>
+
+        <section id="motivation"><h2>Блок 1. Введение И Мотивация</h2>
+<hr />
+<h2>Цель этапа</h2>
+<p>Создать у студентов понимание проблемы хранения большого количества данных.</p>
+<hr />
+<p>Студенты часто воспринимают базы данных как просто «набор таблиц».</p>
+<p>Важно сразу показать:</p>
+<blockquote>
+<p>База данных — это не просто таблица в Excel.</p>
+</blockquote>
+<p>Основное отличие заключается в том, что база данных:</p>
+<ul>
+<li>хранит большие объёмы данных;</li>
+<li>обеспечивает структурированное хранение;</li>
+<li>позволяет быстро находить информацию;</li>
+<li>поддерживает связи между данными;</li>
+<li>контролирует корректность данных;</li>
+<li>обеспечивает одновременную работу нескольких пользователей.</li>
+</ul>
+<hr />
+<p>Начать не с определения.</p>
+<p>Задать аудитории вопрос:</p>
+<blockquote>
+<p>Представьте, что администрация колледжа попросила вас создать систему учёта студентов. Какие данные нужно хранить?</p>
+</blockquote>
+<p>Дать студентам возможность назвать варианты.</p>
+<p>Ожидаемые ответы:</p>
+<ul>
+<li>ФИО;</li>
+<li>дата рождения;</li>
+<li>группа;</li>
+<li>телефон;</li>
+<li>дисциплины;</li>
+<li>оценки;</li>
+<li>преподаватели.</li>
+</ul>
+<p>Записать ответы на доске.</p>
+<p>Затем спросить:</p>
+<blockquote>
+<p>А что произойдёт, если у нас будет не 10 студентов, а 10 000?</p>
+</blockquote>
+<p>После этого:</p>
+<blockquote>
+<p>А если один студент изучает 15 дисциплин?</p>
+</blockquote>
+<blockquote>
+<p>А если нужно быстро найти всех студентов определённой группы?</p>
+</blockquote>
+<blockquote>
+<p>А если фамилия студента изменилась?</p>
+</blockquote>
+<p>Подвести к проблеме организации информации.</p>
+<hr />
+<p>На экране показать хаотичную таблицу:</p>
+<table>
+<thead>
+<tr>
+  <th>СтудентГруппаПредмет 1ОценкаПредмет 2ОценкаПредмет 3Оценка</th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Иванов</td>
+  <td>ИСП-21</td>
+  <td>БД</td>
+  <td>5</td>
+  <td>Программирование</td>
+  <td>4</td>
+  <td>Математика</td>
+  <td>5</td>
+</tr>
+<tr>
+  <td>Петрова</td>
+  <td>ИСП-21</td>
+  <td>БД</td>
+  <td>5</td>
+  <td>Программирование</td>
+  <td>5</td>
+  <td>Математика</td>
+  <td>4</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Какие проблемы вы здесь видите?</p>
+</blockquote>
+<p>Подвести студентов к ответам:</p>
+<ul>
+<li>много повторяющихся данных;</li>
+<li>сложно добавлять новые предметы;</li>
+<li>неудобно искать;</li>
+<li>легко допустить ошибку;</li>
+<li>сложно изменять информацию.</li>
+</ul>
+<hr />
+<h3>Основная мысль</h3>
+<blockquote>
+<p>Когда данных становится много, их необходимо не просто хранить, а правильно организовывать.</p>
+</blockquote>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>База данных (БД)</strong> — организованная совокупность взаимосвязанных данных, предназначенная для длительного хранения, поиска и обработки информации.</p>
+<p><strong>Проблемы неструктурированного хранения данных:</strong></p>
+<ol>
+<li>Повторение информации.</li>
+<li>Ошибки при изменении.</li>
+<li>Сложность поиска.</li>
+<li>Противоречивость данных.</li>
+<li>Неудобство обработки.</li>
+</ol>
+<hr />
+</section>
+
+<section id="data-model"><h2>Блок 2. Что Такое Модель Данных?</h2>
+<hr />
+<p>Перед изучением реляционной модели необходимо объяснить понятие модели данных.</p>
+<p>Очень важно использовать аналогию.</p>
+<p>Например:</p>
+<blockquote>
+<p>Один и тот же город можно представить как фотографию, карту метро или навигатор. Город один, но способы представления разные.</p>
+</blockquote>
+<p>То же самое относится к данным.</p>
+<hr />
+<blockquote>
+<p>Если у нас есть информация о студентах, можно ли организовать её разными способами?</p>
+</blockquote>
+<p>Ответ: да.</p>
+<p>Объяснить:</p>
+<p><strong>Модель данных</strong> определяет:</p>
+<ul>
+<li>как данные представлены;</li>
+<li>как данные связаны;</li>
+<li>какие операции можно выполнять;</li>
+<li>какие правила должны соблюдаться.</li>
+</ul>
+<hr />
+<h2>Кратко показать развитие моделей</h2>
+<p>Не углубляться слишком сильно.</p>
+<h3>Иерархическая модель</h3>
+<p>Данные похожи на дерево.</p>
+<pre><code>Колледж
+│
+├── Отделение
+│   │
+│   ├── Группа
+│   │   │
+│   │   ├── Студент
+
+</code></pre>
+<h3>Сетевая модель</h3>
+<p>Объекты могут иметь множество связей.</p>
+<h3>Реляционная модель</h3>
+<p>Данные представлены в виде таблиц.</p>
+<pre><code>СТУДЕНТЫ
+
+ID | Фамилия | Группа
+
+</code></pre>
+<p>Сделать акцент:</p>
+<blockquote>
+<p>Сегодня мы изучаем именно реляционную модель, потому что именно она стала основой большинства современных баз данных.</p>
+</blockquote>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>Модель данных</strong> — совокупность принципов, определяющих структуру данных, связи между данными и способы работы с ними.</p>
+<p>Основные модели данных:</p>
+<ul>
+<li>иерархическая;</li>
+<li>сетевая;</li>
+<li>реляционная.</li>
+</ul>
+<p><strong>Реляционная модель данных</strong> представляет информацию в виде взаимосвязанных таблиц.</p>
+<hr />
+</section>
+
+<section id="relational-model"><h2>Блок 3. Реляционная Модель Данных</h2>
+<hr />
+<h1>3.1. Откуда произошло слово «реляционная»?</h1>
+<p>Слово происходит от английского <strong>relation — отношение</strong>.</p>
+<p>В математическом смысле:</p>
+<blockquote>
+<p>Таблица в реляционной модели называется отношением.</p>
+</blockquote>
+<p>Однако для начинающих студентов лучше сначала использовать привычное слово «таблица», а затем вводить термин.</p>
+<hr />
+<p>Показать таблицу:</p>
+<h3>СТУДЕНТЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>IDФамилияИмяГруппа</th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Иванов</td>
+  <td>Иван</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Петрова</td>
+  <td>Анна</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Сидоров</td>
+  <td>Максим</td>
+  <td>ИСП-22</td>
+</tr>
+</tbody>
+</table>
+<p>Объяснить каждый элемент.</p>
+<hr />
+<h1>3.2. Основные элементы отношения</h1>
+<p>Нарисовать схему:</p>
+<pre><code>             ОТНОШЕНИЕ
+                │
+                ▼
+             ТАБЛИЦА
+       ┌────────┼────────┐
+       ▼        ▼        ▼
+    Столбцы   Строки   Значения
+
+</code></pre>
+<hr />
+<h2>Понятие отношения</h2>
+<p><strong>Отношение</strong> — таблица, содержащая данные об объектах определённого типа.</p>
+<p>Пример:</p>
+<p>Таблица «Студенты» содержит информацию о студентах.</p>
+<hr />
+<h2>Понятие атрибута</h2>
+<p>Столбец таблицы называется <strong>атрибутом</strong>.</p>
+<p>Например:</p>
+<table>
+<thead>
+<tr>
+  <th>IDФамилияИмяГруппа</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>Атрибуты:</p>
+<ul>
+<li>ID;</li>
+<li>Фамилия;</li>
+<li>Имя;</li>
+<li>Группа.</li>
+</ul>
+<hr />
+<h2>Понятие кортежа</h2>
+<p>Строка таблицы называется <strong>кортежем</strong>.</p>
+<p>Например:</p>
+<p>| 1 | Иванов | Иван | ИСП-21 |</p>
+<p>Это один кортеж.</p>
+<p>Для начинающих сразу сказать:</p>
+<blockquote>
+<p>В практической работе чаще говорят «запись» или «строка».</p>
+</blockquote>
+<hr />
+<h2>Понятие домена</h2>
+<p>Каждый атрибут имеет допустимый набор значений.</p>
+<p>Например:</p>
+<h3>Атрибут «Оценка»</h3>
+<p>Допустимые значения:</p>
+<pre><code>2, 3, 4, 5
+
+</code></pre>
+<h3>Атрибут «Возраст»</h3>
+<p>Допустимые значения:</p>
+<pre><code>целые положительные числа
+
+</code></pre>
+<p>Это называется <strong>доменом</strong>.</p>
+<hr />
+<p>Спросить студентов:</p>
+<blockquote>
+<p>Может ли в поле «Возраст» находиться значение «Понедельник»?</p>
+</blockquote>
+<p>Ответ очевиден: нет.</p>
+<blockquote>
+<p>Может ли в поле «Оценка» находиться значение 100?</p>
+</blockquote>
+<p>Зависит от установленного правила.</p>
+<p>Подвести к мысли:</p>
+<blockquote>
+<p>Структура данных должна определять, какие значения являются допустимыми.</p>
+</blockquote>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>Основные элементы реляционной модели:</strong></p>
+<ul>
+<li><strong>отношение</strong> — таблица;</li>
+<li><strong>атрибут</strong> — столбец таблицы;</li>
+<li><strong>кортеж</strong> — строка таблицы;</li>
+<li><strong>значение атрибута</strong> — конкретное значение в ячейке;</li>
+<li><strong>домен</strong> — множество допустимых значений атрибута.</li>
+</ul>
+<p>Схема:</p>
+<pre><code>Отношение = Таблица
+Атрибут = Столбец
+Кортеж = Строка
+
+</code></pre>
+<hr />
+<h1>3.3. Свойства реляционной таблицы</h1>
+<p>Основные особенности:</p>
+<ol>
+<li>Каждая таблица имеет уникальное имя.</li>
+<li>Каждое поле имеет имя.</li>
+<li>Значения в одном столбце относятся к одному типу данных.</li>
+<li>Каждая строка описывает отдельный объект.</li>
+<li>В идеальной реляционной модели строки не должны дублировать друг друга.</li>
+<li>Порядок строк не имеет принципиального значения.</li>
+<li>Порядок столбцов также не определяет смысл данных.</li>
+</ol>
+<hr />
+<blockquote>
+<p>Если поменять местами первую и вторую строки таблицы, изменится ли информация?</p>
+</blockquote>
+<p>Ответ: нет.</p>
+<p>Следовательно:</p>
+<blockquote>
+<p>В базе данных порядок строк сам по себе не является смысловой характеристикой.</p>
+</blockquote>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>Свойства реляционной таблицы:</strong></p>
+<ul>
+<li>таблица имеет уникальное имя;</li>
+<li>столбцы имеют уникальные имена;</li>
+<li>данные одного столбца имеют одинаковый тип;</li>
+<li>строки описывают отдельные объекты;</li>
+<li>строки не должны дублироваться;</li>
+<li>порядок строк не влияет на смысл данных.</li>
+</ul>
+<hr />
+</section>
+
+<section id="keys"><h2>Блок 4. Реляционные Объекты И Ключи</h2>
+<hr />
+<h1>4.1. Зачем нужны ключи?</h1>
+<p>Начать с вопроса:</p>
+<p>Показать таблицу:</p>
+<table>
+<thead>
+<tr>
+  <th>ФамилияИмяГруппа</th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Иванов</td>
+  <td>Иван</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>Иванов</td>
+  <td>Иван</td>
+  <td>ИСП-22</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Как понять, один это человек или два разных человека?</p>
+</blockquote>
+<p>Проблема: ФИО может повторяться.</p>
+<hr />
+<h2>Решение — уникальный идентификатор</h2>
+<p>Добавляем поле:</p>
+<table>
+<thead>
+<tr>
+  <th>IDФамилияИмяГруппа</th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Иванов</td>
+  <td>Иван</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Иванов</td>
+  <td>Иван</td>
+  <td>ИСП-22</td>
+</tr>
+</tbody>
+</table>
+<p>Теперь каждая запись уникальна.</p>
+<hr />
+<h1>4.2. Первичный ключ</h1>
+<p><strong>Первичный ключ (Primary Key)</strong> — атрибут или набор атрибутов, однозначно идентифицирующий каждую запись таблицы.</p>
+<p>Пример:</p>
+<pre><code>ID_студента
+
+</code></pre>
+<hr />
+<h2>Свойства первичного ключа</h2>
+<p>Он должен:</p>
+<ol>
+<li>быть уникальным;</li>
+<li>не повторяться;</li>
+<li>не быть пустым.</li>
+</ol>
+<hr />
+<p>Попросить студентов назвать примеры уникальных идентификаторов.</p>
+<p>Например:</p>
+<ul>
+<li>номер паспорта;</li>
+<li>номер студенческого билета;</li>
+<li>VIN автомобиля;</li>
+<li>серийный номер устройства.</li>
+</ul>
+<p>Объяснить:</p>
+<blockquote>
+<p>В реальной жизни объект может иметь имя, но имя не всегда уникально. Поэтому используются идентификаторы.</p>
+</blockquote>
+<hr />
+<h1>4.3. Внешний ключ</h1>
+<p>Пока не давать слишком сложное определение.</p>
+<p>Показать две таблицы.</p>
+<h3>ГРУППЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>ID_группыНазвание</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>ИСП-22</td>
+</tr>
+</tbody>
+</table>
+<h3>СТУДЕНТЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>ID_студентаФамилияID_группы</th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Иванов</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Петрова</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Сидоров</td>
+  <td>2</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Что означает число 1 в поле ID_группы?</p>
+</blockquote>
+<p>Ответ:</p>
+<p>Оно ссылается на запись в таблице «Группы».</p>
+<p>Это и есть внешний ключ.</p>
+<hr />
+<h2>Простая формулировка</h2>
+<blockquote>
+<p>Внешний ключ — это поле одной таблицы, которое ссылается на ключ другой таблицы.</p>
+</blockquote>
+<hr />
+<h2>Визуализация</h2>
+<p>Нарисовать:</p>
+<pre><code>ГРУППЫ
+──────────────
+ID_группы (PK)
+Название
+       ▲
+       │
+       │
+СТУДЕНТЫ
+──────────────
+ID_студента (PK)
+Фамилия
+ID_группы (FK)
+
+</code></pre>
+<p>Обязательно объяснить обозначения:</p>
+<ul>
+<li>PK — Primary Key;</li>
+<li>FK — Foreign Key.</li>
+</ul>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>Ключ</strong> — атрибут или набор атрибутов, используемый для идентификации записи.</p>
+<p><strong>Первичный ключ (PK)</strong> — уникальный идентификатор записи.</p>
+<p>Свойства первичного ключа:</p>
+<ul>
+<li>уникальность;</li>
+<li>отсутствие повторений;</li>
+<li>отсутствие пустых значений.</li>
+</ul>
+<p><strong>Внешний ключ (FK)</strong> — поле, содержащее ссылку на запись другой таблицы.</p>
+<hr />
+</section>
+
+<section id="relationships"><h2>Блок 5. Связывание Таблиц</h2>
+<hr />
+<h1>5.1. Зачем вообще разделять данные на таблицы?</h1>
+<p>Показать «плохую» таблицу.</p>
+<table>
+<thead>
+<tr>
+  <th>СтудентГруппаКуратор группыКабинет</th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Иванов</td>
+  <td>ИСП-21</td>
+  <td>Смирнов</td>
+  <td>304</td>
+</tr>
+<tr>
+  <td>Петрова</td>
+  <td>ИСП-21</td>
+  <td>Смирнов</td>
+  <td>304</td>
+</tr>
+<tr>
+  <td>Сидоров</td>
+  <td>ИСП-21</td>
+  <td>Смирнов</td>
+  <td>304</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Что здесь повторяется?</p>
+</blockquote>
+<p>Ответ:</p>
+<ul>
+<li>группа;</li>
+<li>куратор;</li>
+<li>кабинет.</li>
+</ul>
+<blockquote>
+<p>Что произойдёт, если куратор сменится?</p>
+</blockquote>
+<p>Придётся изменить информацию во всех строках.</p>
+<p>Это может привести к ошибкам.</p>
+<hr />
+<h2>Решение</h2>
+<p>Разделить данные.</p>
+<h3>СТУДЕНТЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>IDФамилияID_группы</th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Иванов</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Петрова</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Сидоров</td>
+  <td>1</td>
+</tr>
+</tbody>
+</table>
+<h3>ГРУППЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>ID_группыНазваниеКураторКабинет</th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>ИСП-21</td>
+  <td>Смирнов</td>
+  <td>304</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p>Разделение информации на таблицы уменьшает дублирование и упрощает изменение данных.</p>
+</blockquote>
+<p>Но теперь возникает новая проблема:</p>
+<blockquote>
+<p>Как понять, какие данные относятся друг к другу?</p>
+</blockquote>
+<p>Ответ:</p>
+<blockquote>
+<p>С помощью связей.</p>
+</blockquote>
+<hr />
+<h1>5.2. Связь «один к одному»</h1>
+<h2>1 : 1</h2>
+<p>Пример:</p>
+<pre><code>ЧЕЛОВЕК ───────── ПАСПОРТ
+
+</code></pre>
+<p>Один человек — один паспорт.</p>
+<p>Один паспорт — один человек.</p>
+<hr />
+<h2>Важно</h2>
+<p>Объяснить, что такая связь встречается реже других.</p>
+<hr />
+<h1>5.3. Связь «один ко многим»</h1>
+<h2>1 : M</h2>
+<p>Это наиболее распространённая связь.</p>
+<p>Пример:</p>
+<pre><code>ГРУППА ─────&lt; СТУДЕНТЫ
+
+</code></pre>
+<p>Одна группа содержит много студентов.</p>
+<p>Но один конкретный студент относится к одной группе.</p>
+<hr />
+<h2>Визуализация</h2>
+<pre><code>Группа ИСП-21
+      │
+      ├── Иванов
+      ├── Петрова
+      ├── Сидоров
+      └── Смирнов
+
+</code></pre>
+<hr />
+<h1>5.4. Связь «многие ко многим»</h1>
+<h2>M : M</h2>
+<p>Показать вопрос:</p>
+<blockquote>
+<p>Может ли студент изучать несколько дисциплин?</p>
+</blockquote>
+<p>Да.</p>
+<blockquote>
+<p>Может ли одну дисциплину изучать несколько студентов?</p>
+</blockquote>
+<p>Да.</p>
+<p>Получаем:</p>
+<pre><code>СТУДЕНТЫ ←→ ДИСЦИПЛИНЫ
+
+</code></pre>
+<p>Это связь многие ко многим.</p>
+<hr />
+<h2>Важнейший момент лекции</h2>
+<p>Нельзя просто напрямую реализовать связь M:M.</p>
+<p>Нужна промежуточная таблица.</p>
+<hr />
+<h3>СТУДЕНТЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>ID_студентаФамилия</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Иванов</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Петрова</td>
+</tr>
+</tbody>
+</table>
+<h3>ДИСЦИПЛИНЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>ID_дисциплиныНазвание</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Базы данных</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Программирование</td>
+</tr>
+</tbody>
+</table>
+<h3>УСПЕВАЕМОСТЬ</h3>
+<table>
+<thead>
+<tr>
+  <th>ID_студентаID_дисциплиныОценка</th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>1</td>
+  <td>5</td>
+</tr>
+<tr>
+  <td>1</td>
+  <td>2</td>
+  <td>4</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>1</td>
+  <td>5</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Нарисовать схему</h2>
+<pre><code>СТУДЕНТЫ                 ДИСЦИПЛИНЫ
+    │                         │
+    │                         │
+    └─────────┐   ┌───────────┘
+              ▼   ▼
+          УСПЕВАЕМОСТЬ
+
+</code></pre>
+<p>Объяснить:</p>
+<blockquote>
+<p>Связь «многие ко многим» обычно реализуется через промежуточную таблицу.</p>
+</blockquote>
+<hr />
+<p>Попросить студентов определить тип связи.</p>
+<h3>Вопрос 1</h3>
+<pre><code>
+</code></pre>
+<p>Возможный ответ:</p>
+<p>Один преподаватель может преподавать нескольким группам.</p>
+<h3>Вопрос 2</h3>
+<pre><code>Студент — Студенческий билет
+
+</code></pre>
+<p>Один к одному.</p>
+<h3>Вопрос 3</h3>
+<pre><code>Книга — Автор
+
+</code></pre>
+<p>Обсудить.</p>
+<p>Книга может иметь нескольких авторов, автор может написать несколько книг.</p>
+<p>Следовательно:</p>
+<p>Многие ко многим.</p>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>Основные типы связей:</strong></p>
+<h3>1 : 1 — один к одному</h3>
+<p>Одной записи первой таблицы соответствует одна запись второй.</p>
+<h3>1 : M — один ко многим</h3>
+<p>Одной записи первой таблицы соответствует множество записей второй.</p>
+<h3>M : M — многие ко многим</h3>
+<p>Множеству записей первой таблицы соответствует множество записей второй.</p>
+<p>Связь M:M реализуется через промежуточную таблицу.</p>
+<hr />
+</section>
+
+<section id="integrity"><h2>Блок 6. Ссылочная Целостность</h2>
+<hr />
+<h1>6.1. Начать с проблемы</h1>
+<h3>ГРУППЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>IDНазвание</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>ИСП-22</td>
+</tr>
+</tbody>
+</table>
+<h3>СТУДЕНТЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>IDФамилияID_группы</th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Иванов</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Петрова</td>
+  <td>7</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Где находится группа с ID = 7?</p>
+</blockquote>
+<p>Её нет.</p>
+<p>Получается:</p>
+<blockquote>
+<p>Студент ссылается на несуществующую группу.</p>
+</blockquote>
+<p>Это ошибка.</p>
+<hr />
+<h1>6.2. Понятие ссылочной целостности</h1>
+<p><strong>Ссылочная целостность</strong> — правило, согласно которому внешние ключи должны ссылаться только на существующие записи.</p>
+<p>Простая формулировка для студентов:</p>
+<blockquote>
+<p>Нельзя создать ссылку на то, чего не существует.</p>
+</blockquote>
+<hr />
+<p>Представить библиотеку.</p>
+<p>Есть карточка выдачи:</p>
+<pre><code>Читатель №125 получил книгу №500
+
+</code></pre>
+<p>Если книги №500 не существует, запись бессмысленна.</p>
+<p>То же самое происходит в базе данных.</p>
+<hr />
+<h1>6.3. Проблема удаления</h1>
+<h3>ГРУППЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>IDНазвание</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>ИСП-21</td>
+</tr>
+</tbody>
+</table>
+<h3>СТУДЕНТЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>ФамилияID_группы</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Иванов</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>Петрова</td>
+  <td>1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Можно ли удалить группу ИСП-21?</p>
+</blockquote>
+<p>Если удалить:</p>
+<pre><code>Иванов → группа 1
+Петрова → группа 1
+
+</code></pre>
+<p>Но группы 1 уже нет.</p>
+<p>Это нарушение ссылочной целостности.</p>
+<hr />
+<h1>6.4. Основные варианты поведения</h1>
+<p>Объяснить четыре подхода.</p>
+<h3>1. RESTRICT</h3>
+<p>Запретить удаление.</p>
+<blockquote>
+<p>Пока существуют студенты группы, удалить группу нельзя.</p>
+</blockquote>
+<h3>2. CASCADE</h3>
+<p>Удалить связанные записи автоматически.</p>
+<p>Удаляем группу → удаляются студенты.</p>
+<p>Обязательно подчеркнуть:</p>
+<blockquote>
+<p>Использовать нужно осторожно.</p>
+</blockquote>
+<h3>3. SET NULL</h3>
+<p>При удалении связанного объекта значение внешнего ключа становится NULL.</p>
+<pre><code>ID_группы = NULL
+
+</code></pre>
+<h3>4. SET DEFAULT</h3>
+<p>Устанавливается значение по умолчанию.</p>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>Ссылочная целостность</strong> — правило согласованности связанных таблиц.</p>
+<p>Внешний ключ должен ссылаться на существующую запись другой таблицы.</p>
+<p>Основные варианты действий при удалении связанной записи:</p>
+<ul>
+<li>RESTRICT — запретить удаление;</li>
+<li>CASCADE — удалить связанные записи;</li>
+<li>SET NULL — установить пустое значение;</li>
+<li>SET DEFAULT — установить значение по умолчанию.</li>
+</ul>
+<hr />
+</section>
+
+<section id="constraints"><h2>Блок 7. Ограничения Целостности</h2>
+<hr />
+<blockquote>
+<p>Должна ли база данных принимать любые данные?</p>
+</blockquote>
+<p>Например:</p>
+<pre><code>Возраст = -25
+Оценка = 100
+Дата рождения = &quot;Слон&quot;
+
+</code></pre>
+<p>Ответ очевиден: нет.</p>
+<p>Следовательно:</p>
+<blockquote>
+<p>База данных должна контролировать правильность информации.</p>
+</blockquote>
+<hr />
+<h1>7.1. Ограничение типа данных</h1>
+<p>Например:</p>
+<pre><code>Возраст → INTEGER
+Фамилия → VARCHAR
+Дата рождения → DATE
+
+</code></pre>
+<hr />
+<h1>7.2. NOT NULL</h1>
+<p>Поле не может быть пустым.</p>
+<p>Например:</p>
+<pre><code>Фамилия NOT NULL
+
+</code></pre>
+<p>Студент обязательно должен иметь фамилию.</p>
+<hr />
+<h1>7.3. UNIQUE</h1>
+<p>Значения не должны повторяться.</p>
+<p>Например:</p>
+<pre><code>Номер студенческого билета UNIQUE
+
+</code></pre>
+<hr />
+<h1>7.4. PRIMARY KEY</h1>
+<p>Уникальный идентификатор записи.</p>
+<p>Сочетает:</p>
+<ul>
+<li>уникальность;</li>
+<li>обязательность значения.</li>
+</ul>
+<hr />
+<h1>7.5. FOREIGN KEY</h1>
+<p>Обеспечивает связь между таблицами.</p>
+<hr />
+<h1>7.6. CHECK</h1>
+<p>Позволяет установить условие.</p>
+<p>Например:</p>
+<pre><code>CHECK (Оценка &gt;= 2 AND Оценка &lt;= 5)
+
+</code></pre>
+<hr />
+<h1>7.7. DEFAULT</h1>
+<p>Устанавливает значение по умолчанию.</p>
+<p>Например:</p>
+<pre><code>Статус = 'Активен'
+
+</code></pre>
+<hr />
+<h2>Очень важная схема</h2>
+<p>Нарисовать на доске:</p>
+<pre><code>              ЦЕЛОСТНОСТЬ ДАННЫХ
+                      │
+       ┌──────────────┼──────────────┐
+       ▼              ▼              ▼
+   Тип данных      Ключи         Ограничения
+       │              │              │
+   INTEGER         PK/FK      NOT NULL
+   DATE                         UNIQUE
+   TEXT                         CHECK
+                                DEFAULT
+
+</code></pre>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>Ограничения целостности</strong> — правила, контролирующие корректность данных.</p>
+<p>Основные ограничения:</p>
+<ul>
+<li>NOT NULL — значение обязательно;</li>
+<li>UNIQUE — значение уникально;</li>
+<li>PRIMARY KEY — первичный ключ;</li>
+<li>FOREIGN KEY — внешний ключ;</li>
+<li>CHECK — проверка условия;</li>
+<li>DEFAULT — значение по умолчанию.</li>
+</ul>
+<hr />
+</section>
+
+<section id="indexes"><h2>Блок 8. Индексирование</h2>
+<hr />
+<h1>8.1. Начать с жизненной аналогии</h1>
+<blockquote>
+<p>Как быстрее найти слово в словаре?</p>
+</blockquote>
+<p>Студенты ответят:</p>
+<blockquote>
+<p>По алфавиту.</p>
+</blockquote>
+<blockquote>
+<p>Почему не нужно читать весь словарь?</p>
+</blockquote>
+<p>Потому что существует определённая структура поиска.</p>
+<p>Подвести:</p>
+<blockquote>
+<p>Индекс в базе данных работает примерно так же.</p>
+</blockquote>
+<hr />
+<h1>8.2. Проблема поиска</h1>
+<p>Представить таблицу:</p>
+<pre><code>1 000 000 студентов
+
+</code></pre>
+<p>Запрос:</p>
+<blockquote>
+<p>Найти студента с номером 857392.</p>
+</blockquote>
+<p>Без специальной структуры системе, возможно, придётся просматривать большое количество записей.</p>
+<hr />
+<h1>8.3. Понятие индекса</h1>
+<p><strong>Индекс</strong> — специальная структура данных, ускоряющая поиск и обработку информации.</p>
+<p>Простая аналогия:</p>
+<pre><code>Книга
+│
+├── Содержание
+├── Алфавитный указатель
+└── Страницы
+
+</code></pre>
+<p>Индекс — это «указатель», позволяющий быстрее находить нужные данные.</p>
+<hr />
+<h1>8.4. Что можно индексировать?</h1>
+<p>Например:</p>
+<p>Таблица студентов:</p>
+<table>
+<thead>
+<tr>
+  <th>IDФамилияГруппа</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>Часто ищут по:</p>
+<ul>
+<li>ID;</li>
+<li>фамилии;</li>
+<li>группе.</li>
+</ul>
+<p>На этих полях могут быть индексы.</p>
+<hr />
+<h1>8.5. Важное ограничение</h1>
+<p>Нельзя говорить студентам:</p>
+<blockquote>
+<p>Чем больше индексов, тем лучше.</p>
+</blockquote>
+<p>Это неправильно.</p>
+<p>Объяснить:</p>
+<p>Индексы:</p>
+<h3>Плюсы</h3>
+<ul>
+<li>ускоряют поиск;</li>
+<li>ускоряют некоторые запросы;</li>
+<li>ускоряют сортировку в определённых случаях.</li>
+</ul>
+<h3>Минусы</h3>
+<ul>
+<li>занимают дополнительную память;</li>
+<li>замедляют добавление данных;</li>
+<li>замедляют изменение данных;</li>
+<li>требуют обслуживания.</li>
+</ul>
+<hr />
+<h2>Главная мысль</h2>
+<blockquote>
+<p>Индекс ускоряет чтение, но может замедлять изменение данных.</p>
+</blockquote>
+<hr />
+<p>Нарисовать:</p>
+<pre><code>БЕЗ ИНДЕКСА
+
+Запрос → просмотр таблицы
+          │
+          ▼
+        1 запись
+        2 запись
+        3 запись
+        ...
+        500000 запись
+
+</code></pre>
+<pre><code>С ИНДЕКСОМ
+
+Запрос
+   │
+   ▼
+ИНДЕКС
+   │
+   ▼
+Нужная запись
+
+</code></pre>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>Индекс</strong> — специальная структура данных, предназначенная для ускорения поиска информации.</p>
+<p>Преимущества:</p>
+<ul>
+<li>ускорение поиска;</li>
+<li>ускорение обработки запросов.</li>
+</ul>
+<p>Недостатки:</p>
+<ul>
+<li>дополнительное место;</li>
+<li>замедление операций изменения данных.</li>
+</ul>
+<p>Индексы следует создавать для полей, по которым часто выполняется поиск.</p>
+<hr />
+</section>
+
+<section id="codd"><h2>Блок 9. Правила Кодда</h2>
+<hr />
+<h1>Введение</h1>
+<p>Реляционная модель была сформулирована Эдгаром Коддом.</p>
+<p>Он предложил принципы, позволяющие определить:</p>
+<blockquote>
+<p>Насколько система действительно соответствует идее реляционной базы данных?</p>
+</blockquote>
+<p>Эти принципы получили название <strong>правил Кодда</strong>.</p>
+<hr />
+<p>Не рекомендуется заставлять студентов механически запоминать все 12 правил в подробной формулировке.</p>
+<p>Для первого знакомства эффективнее:</p>
+<ol>
+<li>объяснить идею;</li>
+<li>показать основные группы правил;</li>
+<li>дать краткий список.</li>
+</ol>
+<hr />
+<h1>Нулевое правило</h1>
+<p>Система должна управлять базой данных с использованием реляционных возможностей.</p>
+<hr />
+<h1>Правило 1. Информационное правило</h1>
+<p>Вся информация должна быть представлена в виде данных в таблицах.</p>
+<p>Простая мысль:</p>
+<blockquote>
+<p>Основная форма представления данных — отношения (таблицы).</p>
+</blockquote>
+<hr />
+<h1>Правило 2. Гарантированный доступ</h1>
+<p>К каждому отдельному значению можно обратиться через:</p>
+<ul>
+<li>имя таблицы;</li>
+<li>первичный ключ;</li>
+<li>имя столбца.</li>
+</ul>
+<hr />
+<h1>Правило 3. Систематическая обработка NULL</h1>
+<p>Система должна корректно работать с отсутствующими значениями.</p>
+<p>Важно объяснить:</p>
+<p>NULL — это не всегда:</p>
+<ul>
+<li>ноль;</li>
+<li>пустая строка.</li>
+</ul>
+<p>NULL может означать:</p>
+<blockquote>
+<p>значение неизвестно или отсутствует.</p>
+</blockquote>
+<hr />
+<h1>Правило 4. Каталог должен быть реляционным</h1>
+<p>Информация о структуре базы данных также должна быть доступна в виде данных.</p>
+<p>Простая формулировка:</p>
+<blockquote>
+<p>База данных должна «знать» информацию о собственной структуре.</p>
+</blockquote>
+<hr />
+<h1>Правило 5. Полный язык работы с данными</h1>
+<p>Должен существовать язык, позволяющий:</p>
+<ul>
+<li>создавать таблицы;</li>
+<li>изменять структуру;</li>
+<li>добавлять данные;</li>
+<li>искать данные;</li>
+<li>удалять данные;</li>
+<li>управлять доступом.</li>
+</ul>
+<p>Пример такого языка:</p>
+<p>SQL.</p>
+<hr />
+<h1>Правило 6. Обновляемость представлений</h1>
+<p>Некоторые представления данных должны поддерживать возможность обновления.</p>
+<hr />
+<h1>Правило 7. Операции должны работать с наборами данных</h1>
+<p>Очень важное правило.</p>
+<p>База данных должна работать не только с одной записью.</p>
+<p>Например:</p>
+<p>Не:</p>
+<blockquote>
+<p>Изменить одного студента.</p>
+</blockquote>
+<p>А:</p>
+<blockquote>
+<p>Повысить стипендию всем студентам определённой категории.</p>
+</blockquote>
+<hr />
+<h1>Правило 8. Независимость физических данных</h1>
+<p>Изменение способа физического хранения данных не должно требовать изменения программ.</p>
+<hr />
+<h1>Правило 9. Независимость логических данных</h1>
+<p>Изменения логической структуры должны минимально влиять на приложения.</p>
+<hr />
+<h1>Правило 10. Независимость ограничений целостности</h1>
+<p>Правила целостности должны определяться самой базой данных.</p>
+<hr />
+<h1>Правило 11. Независимость распределения</h1>
+<p>Пользователь не должен зависеть от того, где физически находятся данные.</p>
+<hr />
+<h1>Правило 12. Отсутствие обхода правил</h1>
+<p>Нельзя обходить ограничения реляционной модели через низкоуровневые механизмы.</p>
+<hr />
+<p>После перечисления сказать:</p>
+<blockquote>
+<p>Не нужно сейчас дословно запоминать все правила. Главное — понять, что Кодд сформулировал требования к настоящей реляционной системе.</p>
+</blockquote>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>Правила Кодда</strong> — набор принципов, определяющих требования к реляционной системе управления базами данных.</p>
+<p>Основные идеи правил:</p>
+<ul>
+<li>данные представлены в таблицах;</li>
+<li>к данным должен быть гарантированный доступ;</li>
+<li>должна поддерживаться работа с NULL;</li>
+<li>система должна иметь язык работы с данными;</li>
+<li>операции должны выполняться над наборами данных;</li>
+<li>должна обеспечиваться независимость данных;</li>
+<li>ограничения целостности должны контролироваться СУБД.</li>
+</ul>
+<hr />
+</section>
+
+<section id="algebra"><h2>Блок 10. Реляционная Алгебра</h2>
+<hr />
+<p>Сказать студентам:</p>
+<blockquote>
+<p>До этого момента мы говорили, как данные хранятся. Теперь возникает вопрос: как над этими данными выполнять операции?</p>
+</blockquote>
+<p>Для этого существует реляционная алгебра.</p>
+<hr />
+<h1>Определение</h1>
+<p><strong>Реляционная алгебра</strong> — система операций над отношениями (таблицами), результатом которых также является отношение.</p>
+<p>Очень важная идея:</p>
+<pre><code>Таблица
+   ↓
+Операция
+   ↓
+Новая таблица
+
+</code></pre>
+<hr />
+<h1>Основные операции</h1>
+<p>Для первого знакомства достаточно рассмотреть:</p>
+<ol>
+<li>выборку;</li>
+<li>проекцию;</li>
+<li>объединение;</li>
+<li>пересечение;</li>
+<li>разность;</li>
+<li>декартово произведение;</li>
+<li>соединение.</li>
+</ol>
+<hr />
+<h1>10.1. Выборка (Selection)</h1>
+<p>Обозначается:</p>
+<pre><code>σ
+
+</code></pre>
+<p>Выбирает строки по условию.</p>
+<hr />
+<h3>Исходная таблица</h3>
+<table>
+<thead>
+<tr>
+  <th>IDФамилияГруппа</th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Иванов</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Петрова</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Сидоров</td>
+  <td>ИСП-22</td>
+</tr>
+</tbody>
+</table>
+<p>Запрос:</p>
+<blockquote>
+<p>Найти студентов группы ИСП-21.</p>
+</blockquote>
+<p>Результат:</p>
+<table>
+<thead>
+<tr>
+  <th>IDФамилияГруппа</th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Иванов</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Петрова</td>
+  <td>ИСП-21</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Объяснение</h2>
+<p>Выборка отвечает на вопрос:</p>
+<blockquote>
+<p>Какие строки нам нужны?</p>
+</blockquote>
+<hr />
+<h1>10.2. Проекция (Projection)</h1>
+<p>Обозначается:</p>
+<pre><code>π
+
+</code></pre>
+<p>Выбирает определённые столбцы.</p>
+<hr />
+<p>Исходная таблица:</p>
+<table>
+<thead>
+<tr>
+  <th>IDФамилияИмяГруппа</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>Нужно получить:</p>
+<pre><code>Фамилия
+Группа
+
+</code></pre>
+<p>Результат:</p>
+<table>
+<thead>
+<tr>
+  <th>ФамилияГруппа</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Иванов</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>Петрова</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>Сидоров</td>
+  <td>ИСП-22</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Объяснение</h2>
+<p>Проекция отвечает на вопрос:</p>
+<blockquote>
+<p>Какие столбцы нам нужны?</p>
+</blockquote>
+<hr />
+<h1>Ключевая разница</h1>
+<p>Написать крупно:</p>
+<pre><code>ВЫБОРКА → выбираем СТРОКИ
+ПРОЕКЦИЯ → выбираем СТОЛБЦЫ
+
+</code></pre>
+<p>Это один из самых важных моментов для понимания.</p>
+<hr />
+<h1>10.3. Объединение</h1>
+<p>Обозначается:</p>
+<pre><code>∪
+
+</code></pre>
+<p>Объединяет данные двух совместимых отношений.</p>
+<p>Например:</p>
+<pre><code>Студенты группы ИСП-21
+          +
+Студенты группы ИСП-22
+          ↓
+Все студенты
+
+</code></pre>
+<hr />
+<h1>10.4. Пересечение</h1>
+<p>Обозначается:</p>
+<pre><code>∩
+
+</code></pre>
+<p>Возвращает общие элементы.</p>
+<p>Аналогия:</p>
+<pre><code>A ∩ B
+
+</code></pre>
+<p>То, что принадлежит одновременно A и B.</p>
+<hr />
+<h1>10.5. Разность</h1>
+<p>Обозначается:</p>
+<pre><code>−
+
+</code></pre>
+<p>Возвращает элементы, которые находятся в первом отношении, но отсутствуют во втором.</p>
+<hr />
+<h1>10.6. Декартово произведение</h1>
+<p>Объяснить осторожно.</p>
+<p>Если есть:</p>
+<h3>Студенты</h3>
+<table>
+<thead>
+<tr>
+  <th>Студент</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Иванов</td>
+</tr>
+<tr>
+  <td>Петрова</td>
+</tr>
+</tbody>
+</table>
+<h3>Предметы</h3>
+<table>
+<thead>
+<tr>
+  <th>Предмет</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Базы данных</td>
+</tr>
+<tr>
+  <td>Математика</td>
+</tr>
+</tbody>
+</table>
+<p>Декартово произведение создаёт все возможные комбинации:</p>
+<table>
+<thead>
+<tr>
+  <th>СтудентПредмет</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Иванов</td>
+  <td>Базы данных</td>
+</tr>
+<tr>
+  <td>Иванов</td>
+  <td>Математика</td>
+</tr>
+<tr>
+  <td>Петрова</td>
+  <td>Базы данных</td>
+</tr>
+<tr>
+  <td>Петрова</td>
+  <td>Математика</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>10.7. Соединение JOIN</h1>
+<p>Это одна из наиболее важных операций.</p>
+<p>Вернуться к таблицам.</p>
+<h3>СТУДЕНТЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>ID_студентаФамилияID_группы</th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Иванов</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Петрова</td>
+  <td>1</td>
+</tr>
+</tbody>
+</table>
+<h3>ГРУППЫ</h3>
+<table>
+<thead>
+<tr>
+  <th>ID_группыНазвание</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>ИСП-21</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p>Как получить результат:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+  <th>ФамилияГруппа</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Иванов</td>
+  <td>ИСП-21</td>
+</tr>
+<tr>
+  <td>Петрова</td>
+  <td>ИСП-21</td>
+</tr>
+</tbody>
+</table>
+<p>Нужно соединить таблицы.</p>
+<pre><code>СТУДЕНТЫ
+     │
+     │ ID_группы
+     ▼
+   JOIN
+     ▲
+     │ ID_группы
+     │
+ГРУППЫ
+
+</code></pre>
+<hr />
+<h2>Главная мысль</h2>
+<blockquote>
+<p>Соединение позволяет объединять информацию из нескольких связанных таблиц.</p>
+</blockquote>
+<hr />
+<h1>Связь реляционной алгебры и SQL</h1>
+<p>Показать студентам простое соответствие:</p>
+<table>
+<thead>
+<tr>
+  <th>Реляционная алгебраSQL</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Выборка</td>
+  <td>WHERE</td>
+</tr>
+<tr>
+  <td>Проекция</td>
+  <td>SELECT</td>
+</tr>
+<tr>
+  <td>Объединение</td>
+  <td>UNION</td>
+</tr>
+<tr>
+  <td>Соединение</td>
+  <td>JOIN</td>
+</tr>
+</tbody>
+</table>
+<p>Важно сказать:</p>
+<blockquote>
+<p>SQL — это практический язык работы с базами данных, а реляционная алгебра является теоретической основой многих операций.</p>
+</blockquote>
+<hr />
+<h2>Что студенты записывают</h2>
+<h3>Конспект</h3>
+<p><strong>Реляционная алгебра</strong> — набор операций над отношениями.</p>
+<p>Результатом операций также является отношение.</p>
+<p>Основные операции:</p>
+<ul>
+<li><strong>выборка σ</strong> — выбор строк;</li>
+<li><strong>проекция π</strong> — выбор столбцов;</li>
+<li><strong>объединение ∪</strong>;</li>
+<li><strong>пересечение ∩</strong>;</li>
+<li><strong>разность −</strong>;</li>
+<li><strong>декартово произведение ×</strong>;</li>
+<li><strong>соединение JOIN</strong>.</li>
+</ul>
+<p>Главное:</p>
+<pre><code>Выборка → строки
+Проекция → столбцы
+JOIN → объединение связанных таблиц
+
+</code></pre>
+<hr />
+<h1>ИТОГОВОЕ ЗАКРЕПЛЕНИЕ</h1>
+<hr />
+<h1>Метод «собери всю тему»</h1>
+<pre><code>                    БАЗА ДАННЫХ
+                         │
+                         ▼
+              РЕЛЯЦИОННАЯ МОДЕЛЬ
+                         │
+          ┌──────────────┼──────────────┐
+          ▼              ▼              ▼
+       Таблицы         Связи       Ограничения
+          │              │              │
+          ▼              ▼              ▼
+       Атрибуты       1:1          NOT NULL
+       Кортежи        1:M          UNIQUE
+       Домены         M:M          CHECK
+                                      │
+                         ┌────────────┘
+                         ▼
+                 ССЫЛОЧНАЯ ЦЕЛОСТНОСТЬ
+                         │
+                         ▼
+                    PK ←→ FK
+                         
+                         
+        ИНДЕКСИРОВАНИЕ → ускорение поиска
+                         
+                         
+           ПРАВИЛА КОДДА → принципы РСУБД
+                         
+                         
+       РЕЛЯЦИОННАЯ АЛГЕБРА → операции над данными
+
+</code></pre>
+<hr />
+<h1>ФИНАЛЬНЫЙ ОПРОС СТУДЕНТОВ</h1>
+<p>Задать вопросы аудитории.</p>
+<h3>Вопрос 1</h3>
+<p>Что является основным способом представления данных в реляционной модели?</p>
+<p><strong>Ответ:</strong> таблицы (отношения).</p>
+<hr />
+<h3>Вопрос 2</h3>
+<p>Как называется строка таблицы?</p>
+<p><strong>Ответ:</strong> кортеж или запись.</p>
+<hr />
+<h3>Вопрос 3</h3>
+<p>Как называется уникальный идентификатор записи?</p>
+<p><strong>Ответ:</strong> первичный ключ.</p>
+<hr />
+<h3>Вопрос 4</h3>
+<p>Что связывает одну таблицу с другой?</p>
+<p><strong>Ответ:</strong> внешний ключ.</p>
+<hr />
+<h3>Вопрос 5</h3>
+<p>Какая связь существует между группой и студентами?</p>
+<p><strong>Ответ:</strong> один ко многим.</p>
+<hr />
+<h3>Вопрос 6</h3>
+<p>Что такое ссылочная целостность?</p>
+<p><strong>Ответ:</strong> правило, запрещающее ссылки на несуществующие записи.</p>
+<hr />
+<h3>Вопрос 7</h3>
+<p>Для чего нужен индекс?</p>
+<p><strong>Ответ:</strong> для ускорения поиска и обработки данных.</p>
+<hr />
+<h3>Вопрос 8</h3>
+<p>Чем выборка отличается от проекции?</p>
+<p><strong>Ответ:</strong></p>
+<p>Выборка выбирает строки.</p>
+<p>Проекция выбирает столбцы.</p>
+<hr />
+<h1>ФИНАЛЬНОЕ РЕЗЮМЕ ЛЕКТОРА</h1>
+<p>В конце лекции рекомендуется произнести:</p>
+<blockquote>
+<p>Сегодня мы познакомились с основой большинства современных баз данных — реляционной моделью. Мы увидели, что данные в такой модели организованы в виде таблиц, но главная особенность заключается не только в наличии таблиц. Таблицы связаны между собой с помощью ключей, корректность этих связей контролируется правилами ссылочной целостности, ограничения защищают данные от ошибок, индексы позволяют быстрее находить информацию, а реляционная алгебра определяет основные операции работы с данными.</p>
+<p>В дальнейшем все эти понятия будут использоваться нами на практике при изучении языка SQL и создании собственных баз данных.</p>
+</blockquote>
+<hr />
+</section>
+        
+<section id="summary">
+    <h2>Итоги лекции</h2>
+    <p>
+        Реляционная модель представляет данные в виде взаимосвязанных таблиц.
+        Таблицы имеют атрибуты и кортежи, записи идентифицируются ключами,
+        связи поддерживаются внешними ключами, а целостность защищается ограничениями.
+        Индексы помогают ускорять поиск, правила Кодда задают общие принципы реляционных систем,
+        а реляционная алгебра описывает операции над отношениями.
+    </p>
+    <div class="formula">ДАННЫЕ → ТАБЛИЦЫ → КЛЮЧИ → СВЯЗИ → ЦЕЛОСТНОСТЬ → ПОИСК → ОПЕРАЦИИ</div>
+    <div class="callout success">
+        <div class="callout-title">🎓 Главное</div>
+        Эти понятия станут основой дальнейшего изучения SQL, нормализации,
+        проектирования баз данных и СУБД.
+    </div>
+</section>
+
+<section id="glossary">
+    <h2>Словарь терминов</h2>
+    <div class="glossary">
+        <div class="glossary-item"><strong>Отношение</strong>Таблица в реляционной модели.</div>
+        <div class="glossary-item"><strong>Атрибут</strong>Столбец отношения.</div>
+        <div class="glossary-item"><strong>Кортеж</strong>Строка отношения.</div>
+        <div class="glossary-item"><strong>Домен</strong>Множество допустимых значений атрибута.</div>
+        <div class="glossary-item"><strong>Первичный ключ</strong>Уникальный идентификатор записи.</div>
+        <div class="glossary-item"><strong>Внешний ключ</strong>Поле, ссылающееся на ключ другой таблицы.</div>
+        <div class="glossary-item"><strong>Ссылочная целостность</strong>Правило, запрещающее ссылки на несуществующие записи.</div>
+        <div class="glossary-item"><strong>Индекс</strong>Структура данных для ускорения поиска.</div>
+        <div class="glossary-item"><strong>Реляционная алгебра</strong>Система операций над отношениями.</div>
+    </div>
+</section>
+
+<section id="quiz">
+    <h2>Самопроверка</h2>
+    <p>Попробуйте ответить самостоятельно, затем откройте ответ.</p>
+    <details class="question"><summary>1. Что является основным способом представления данных в реляционной модели?</summary><div class="answer">Таблицы, или отношения.</div></details>
+    <details class="question"><summary>2. Как называется столбец таблицы?</summary><div class="answer">Атрибут.</div></details>
+    <details class="question"><summary>3. Как называется строка таблицы?</summary><div class="answer">Кортеж или запись.</div></details>
+    <details class="question"><summary>4. Для чего нужен первичный ключ?</summary><div class="answer">Для однозначной идентификации каждой записи таблицы.</div></details>
+    <details class="question"><summary>5. Для чего нужен внешний ключ?</summary><div class="answer">Для связи одной таблицы с другой.</div></details>
+    <details class="question"><summary>6. Какая связь существует между группой и студентами?</summary><div class="answer">Один ко многим — 1:M.</div></details>
+    <details class="question"><summary>7. Как реализуется связь многие ко многим?</summary><div class="answer">Через промежуточную таблицу.</div></details>
+    <details class="question"><summary>8. Что такое ссылочная целостность?</summary><div class="answer">Правило, согласно которому внешний ключ должен ссылаться только на существующую запись.</div></details>
+    <details class="question"><summary>9. Для чего нужен индекс?</summary><div class="answer">Для ускорения поиска и обработки данных.</div></details>
+    <details class="question"><summary>10. Чем выборка отличается от проекции?</summary><div class="answer">Выборка выбирает строки, а проекция — столбцы.</div></details>
+    <details class="question"><summary>11. Для чего используется JOIN?</summary><div class="answer">Для объединения информации из нескольких связанных таблиц.</div></details>
+    <details class="question"><summary>12. Что такое реляционная алгебра?</summary><div class="answer">Система операций над отношениями, результатом которых также является отношение.</div></details>
+</section>
+
+    </main>
+</div>
+
+<footer class="page-footer">
+    <p>Базы данных · Лекция №2 · Реляционная модель данных</p>
+</footer>
+
+</body>
+</html>
