@@ -6,22 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-        content="Личный архив aruan: информатика, книги, фильмы, музыка, философия, материалы для студентов и моменты из жизни.">
+        content="Личный архив aruan: информатика, книги, кино, музыка, философия, материалы для студентов и моменты жизни.">
 
-    <title>aruan — учитель информатики и преподаватель</title>
+    <title>aruan — учитель информатики, книги, музыка и мысли</title>
 
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="aruan">
-    <meta property="og:title" content="aruan — учитель информатики и преподаватель">
+    <meta property="og:title" content="aruan — учитель информатики, книги, музыка и мысли">
     <meta property="og:description"
-        content="Личный архив: информатика, книги, фильмы, музыка, философия и материалы для студентов.">
+        content="Личный архив: информатика, книги, кино, музыка, философия, материалы для студентов и моменты жизни.">
     <meta property="og:image" content="images/moments/2024-07-07 11-01-24.jpeg">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#faf9f6" id="theme-color-meta">
+
+    <!--
+        Применяем сохранённую тему как можно раньше,
+        чтобы избежать вспышки светлой темы при загрузке.
+    -->
+    <script>
+        (() => {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+
+                const systemPrefersDark =
+                    window.matchMedia &&
+                    window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                if (
+                    savedTheme === 'dark' ||
+                    (!savedTheme && systemPrefersDark)
+                ) {
+                    document.documentElement.setAttribute(
+                        'data-theme',
+                        'dark'
+                    );
+                }
+            } catch (error) {
+                // localStorage может быть недоступен.
+            }
+        })();
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -560,6 +588,7 @@
         }
 
         /* Личный комментарий */
+
         .note {
             margin: 10px 0 2px;
             padding-left: 14px;
@@ -700,9 +729,12 @@
             aspect-ratio: 21 / 9;
         }
 
-        /* Grayscale-to-color hover reveal only applies where hovering
+        /*
+           Grayscale-to-color hover reveal only applies where hovering
            is actually possible; touch devices show full colour photos
-           by default instead of a permanently desaturated image. */
+           by default.
+        */
+
         @media (hover: hover) and (pointer: fine) {
 
             .gallery img {
@@ -833,7 +865,9 @@
             color: inherit;
             text-decoration: none;
             border-bottom: 1px solid transparent;
-            transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+            transition:
+                color 0.2s var(--ease),
+                border-color 0.2s var(--ease);
         }
 
         .footer-meta a:hover {
@@ -1056,10 +1090,18 @@
 
             </div>
 
-            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему"
+            <button id="theme-toggle"
+                class="theme-toggle"
+                type="button"
+                aria-label="Включить тёмную тему"
                 aria-pressed="false">
+
                 <span class="theme-icon" aria-hidden="true">☾</span>
-                <span class="theme-label">Тёмная тема</span>
+
+                <span class="theme-label">
+                    Тёмная тема
+                </span>
+
             </button>
 
         </aside>
@@ -1093,8 +1135,8 @@
                 <p>
                     Мне одинаково необходимы близость и уединение. Я быстро
                     устаю от шума и большого количества людей, но так же быстро
-                    начинаю скучать по тем, кто мне дорог. Наверное, поэтому мне
-                    особенно близки книги, прогулки, горы и разговоры,
+                    начинаю скучать по тем, кто мне дорог. Поэтому мне особенно
+                    близки книги, прогулки, горы и разговоры,
                     в которых не нужно спешить.
                 </p>
 
@@ -1108,7 +1150,9 @@
 
                 <div class="teaching-note">
 
-                    <strong>Что мне важно в преподавании</strong>
+                    <strong>
+                        Что мне важно в преподавании
+                    </strong>
 
                     Мне нравится объяснять сложное простым языком и видеть
                     момент, когда у человека вместо «я ничего не понимаю»
@@ -1120,49 +1164,47 @@
                 <ul class="content-list">
 
                     <li>
+
                         <span class="title">
                             INFP
+
                             <span class="sub-note">
-                                — язык для описания внутреннего идеализма
+                                — одна из привычных мне моделей описания себя
                             </span>
                         </span>
 
                         <span class="meta">
                             MBTI
                         </span>
+
                     </li>
 
                     <li>
+
                         <span class="title">
                             Отроверт
+
                             <span class="sub-note">
-                                — между тягой к людям и потребностью в тишине
+                                — ощущение себя скорее «рядом с группой», чем внутри неё
                             </span>
                         </span>
 
                         <span class="meta">
                             Концепция Рами Камински
                         </span>
+
                     </li>
 
                     <li>
-                        <span class="title">
-                            Детерминизм и недвойственность
-                        </span>
 
-                        <span class="meta">
-                            Философские ориентиры
-                        </span>
-                    </li>
-
-                    <li>
                         <span class="title">
                             Философия сознания
                         </span>
 
                         <span class="meta">
-                            Область постоянного интереса
+                            Свобода воли, «я» и природа субъективного опыта
                         </span>
+
                     </li>
 
                 </ul>
@@ -1192,6 +1234,7 @@
 
                     <li>
                         <span class="title">Алан Уотс</span>
+
                         <span class="meta">
                             Британский философ и популяризатор восточной философии
                         </span>
@@ -1199,6 +1242,7 @@
 
                     <li>
                         <span class="title">Анри-Фредерик Амьель</span>
+
                         <span class="meta">
                             Швейцарский писатель, философ и поэт
                         </span>
@@ -1206,6 +1250,7 @@
 
                     <li>
                         <span class="title">Лев Толстой</span>
+
                         <span class="meta">
                             Русский писатель и мыслитель, искатель нравственной истины
                         </span>
@@ -1213,6 +1258,7 @@
 
                     <li>
                         <span class="title">Омар Хайям</span>
+
                         <span class="meta">
                             Персидский поэт, математик и философ-скептик
                         </span>
@@ -1220,6 +1266,7 @@
 
                     <li>
                         <span class="title">Сёрен Кьеркегор</span>
+
                         <span class="meta">
                             Датский философ, один из предшественников экзистенциализма
                         </span>
@@ -1236,6 +1283,7 @@
 
                     <li>
                         <span class="title">Алиса</span>
+
                         <span class="meta">
                             Льюис Кэрролл, «Приключения Алисы в Стране чудес»
                         </span>
@@ -1243,6 +1291,7 @@
 
                     <li>
                         <span class="title">Анна</span>
+
                         <span class="meta">
                             Хиромаса Ёнэбаяси, «Воспоминания о Марни»
                         </span>
@@ -1250,6 +1299,7 @@
 
                     <li>
                         <span class="title">Князь Мышкин</span>
+
                         <span class="meta">
                             Фёдор Достоевский, «Идиот»
                         </span>
@@ -1257,13 +1307,16 @@
 
                     <li>
                         <span class="title">Маленький Принц</span>
+
                         <span class="meta">
                             Антуан де Сент-Экзюпери, «Маленький принц»
                         </span>
                     </li>
 
                     <li>
+
                         <span class="title">Мальчик</span>
+
                         <span class="meta">
                             Чарли Маккиси, «Мальчик, Крот, Лис и Конь»
                         </span>
@@ -1271,17 +1324,23 @@
                         <p class="note">
                             Наверное, самое прямое и точное выражение меня.
                         </p>
+
                     </li>
 
                     <li>
+
                         <span class="title">Мастер</span>
+
                         <span class="meta">
                             Михаил Булгаков, «Мастер и Маргарита»
                         </span>
+
                     </li>
 
                     <li>
+
                         <span class="title">Офелия</span>
+
                         <span class="meta">
                             Гильермо дель Торо, «Лабиринт Фавна»
                         </span>
@@ -1290,6 +1349,7 @@
                             Если когда-нибудь у меня будет дочь, мне хотелось бы
                             назвать её Офелией — в честь этой героини.
                         </p>
+
                     </li>
 
                 </ul>
@@ -1304,12 +1364,18 @@
             <section id="music">
 
                 <h2>
+
                     Музыка
 
                     <a href="https://music.yandex.ru/playlists/3ba28253-1cea-ccd7-be57-26b04e64c551?utm_source=desktop&utm_medium=copy_link"
-                        target="_blank" rel="noopener noreferrer" class="header-link">
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="header-link">
+
                         слушать в Яндекс.Музыке →
+
                     </a>
+
                 </h2>
 
                 <p class="section-intro">
@@ -1324,18 +1390,33 @@
                 <ul class="content-list">
 
                     <li>
-                        <span class="title">Ihr seid mir egal</span>
-                        <span class="meta">Lina Maly</span>
+                        <span class="title">
+                            Ihr seid mir egal
+                        </span>
+
+                        <span class="meta">
+                            Lina Maly
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Katie Queen of Tennessee</span>
-                        <span class="meta">The Apache Relay</span>
+                        <span class="title">
+                            Katie Queen of Tennessee
+                        </span>
+
+                        <span class="meta">
+                            The Apache Relay
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Oysters in My Pocket</span>
-                        <span class="meta">Royel Otis</span>
+                        <span class="title">
+                            Oysters in My Pocket
+                        </span>
+
+                        <span class="meta">
+                            Royel Otis
+                        </span>
                     </li>
 
                 </ul>
@@ -1348,20 +1429,33 @@
                 <ul class="content-list">
 
                     <li>
-                        <span class="title">Daylight</span>
-                        <span class="meta">Taylor Swift</span>
+                        <span class="title">
+                            Daylight
+                        </span>
+
+                        <span class="meta">
+                            Taylor Swift
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">ME!</span>
+                        <span class="title">
+                            ME!
+                        </span>
+
                         <span class="meta">
                             Taylor Swift, Brendon Urie
                         </span>
                     </li>
 
                     <li>
-                        <span class="title">Si no es con vos</span>
-                        <span class="meta">Natalia Oreiro</span>
+                        <span class="title">
+                            Si no es con vos
+                        </span>
+
+                        <span class="meta">
+                            Natalia Oreiro
+                        </span>
                     </li>
 
                 </ul>
@@ -1374,8 +1468,13 @@
                 <ul class="content-list">
 
                     <li>
-                        <span class="title">Питер — Владивосток</span>
-                        <span class="meta">просто Лера</span>
+                        <span class="title">
+                            Питер — Владивосток
+                        </span>
+
+                        <span class="meta">
+                            просто Лера
+                        </span>
                     </li>
 
                 </ul>
@@ -1388,12 +1487,20 @@
                 <ul class="content-list">
 
                     <li>
-                        <span class="title">High</span>
-                        <span class="meta">Tim3bomb</span>
+                        <span class="title">
+                            High
+                        </span>
+
+                        <span class="meta">
+                            Tim3bomb
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Sousou</span>
+                        <span class="title">
+                            Sousou
+                        </span>
+
                         <span class="meta">
                             Ultra Beats
                         </span>
@@ -1409,53 +1516,90 @@
                 <ul class="content-list">
 
                     <li>
-                        <span class="title">Aqua de vida</span>
-                        <span class="meta">I AM JAS</span>
+                        <span class="title">
+                            Aqua de vida
+                        </span>
+
+                        <span class="meta">
+                            I AM JAS
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Clocks</span>
-                        <span class="meta">Lost Ways</span>
+                        <span class="title">
+                            Clocks
+                        </span>
+
+                        <span class="meta">
+                            Lost Ways
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">CRYING STAR</span>
-                        <span class="meta">YOHYOSAN</span>
+                        <span class="title">
+                            CRYING STAR
+                        </span>
+
+                        <span class="meta">
+                            YOHYOSAN
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">MEMORIES</span>
-                        <span class="meta">ROMANTICA</span>
+                        <span class="title">
+                            MEMORIES
+                        </span>
+
+                        <span class="meta">
+                            ROMANTICA
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Olamorph</span>
+                        <span class="title">
+                            Olamorph
+                        </span>
+
                         <span class="meta">
                             Landhouse, Raddantze
                         </span>
                     </li>
 
                     <li>
-                        <span class="title">STRATOSPHERE</span>
+                        <span class="title">
+                            STRATOSPHERE
+                        </span>
+
                         <span class="meta">
                             ROMANTICA, Lestmor
                         </span>
                     </li>
 
                     <li>
-                        <span class="title">Time Is Over</span>
+                        <span class="title">
+                            Time Is Over
+                        </span>
+
                         <span class="meta">
                             DK PROJECT
                         </span>
                     </li>
 
                     <li>
-                        <span class="title">Wanderer</span>
-                        <span class="meta">Steven Gutheinz</span>
+                        <span class="title">
+                            Wanderer
+                        </span>
+
+                        <span class="meta">
+                            Steven Gutheinz
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Your Firefly, Pt. 2</span>
+                        <span class="title">
+                            Your Firefly, Pt. 2
+                        </span>
+
                         <span class="meta">
                             Ben Cocks, Benjamin Ian Cocks
                         </span>
@@ -1486,23 +1630,43 @@
                 <ul class="content-list">
 
                     <li>
-                        <span class="title">Братья Карамазовы</span>
-                        <span class="meta">Фёдор Достоевский</span>
+                        <span class="title">
+                            Братья Карамазовы
+                        </span>
+
+                        <span class="meta">
+                            Фёдор Достоевский
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Идиот</span>
-                        <span class="meta">Фёдор Достоевский</span>
+                        <span class="title">
+                            Идиот
+                        </span>
+
+                        <span class="meta">
+                            Фёдор Достоевский
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Мастер и Маргарита</span>
-                        <span class="meta">Михаил Булгаков</span>
+                        <span class="title">
+                            Мастер и Маргарита
+                        </span>
+
+                        <span class="meta">
+                            Михаил Булгаков
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Смерть Ивана Ильича</span>
-                        <span class="meta">Лев Толстой</span>
+                        <span class="title">
+                            Смерть Ивана Ильича
+                        </span>
+
+                        <span class="meta">
+                            Лев Толстой
+                        </span>
                     </li>
 
                 </ul>
@@ -1518,7 +1682,10 @@
                         <span class="title">
                             Код. Тайный язык информатики
                         </span>
-                        <span class="meta">Чарльз Петцольд</span>
+
+                        <span class="meta">
+                            Чарльз Петцольд
+                        </span>
                     </li>
 
                 </ul>
@@ -1531,8 +1698,13 @@
                 <ul class="content-list">
 
                     <li>
-                        <span class="title">Или-или</span>
-                        <span class="meta">Сёрен Кьеркегор</span>
+                        <span class="title">
+                            Или-или
+                        </span>
+
+                        <span class="meta">
+                            Сёрен Кьеркегор
+                        </span>
                     </li>
 
                 </ul>
@@ -1548,20 +1720,27 @@
                         <span class="title">
                             Всё решено: Жизнь без свободы воли
                         </span>
-                        <span class="meta">Роберт Сапольски</span>
+
+                        <span class="meta">
+                            Роберт Сапольски
+                        </span>
                     </li>
 
                     <li>
                         <span class="title">
                             Истоки морали. В поисках человеческого у приматов
                         </span>
-                        <span class="meta">Франс де Вааль</span>
+
+                        <span class="meta">
+                            Франс де Вааль
+                        </span>
                     </li>
 
                     <li>
                         <span class="title">
                             Как рождаются эмоции. Революция в понимании мозга и управлении эмоциями
                         </span>
+
                         <span class="meta">
                             Лиза Фельдман Барретт
                         </span>
@@ -1571,7 +1750,10 @@
                         <span class="title">
                             Наука о мозге и миф о своем Я. Тоннель эго
                         </span>
-                        <span class="meta">Томас Метцингер</span>
+
+                        <span class="meta">
+                            Томас Метцингер
+                        </span>
                     </li>
 
                 </ul>
@@ -1587,6 +1769,7 @@
                         <span class="title">
                             Письма к молодому поэту
                         </span>
+
                         <span class="meta">
                             Райнер Мария Рильке
                         </span>
@@ -1596,7 +1779,10 @@
                         <span class="title">
                             Wanderlust: A History of Walking
                         </span>
-                        <span class="meta">Rebecca Solnit</span>
+
+                        <span class="meta">
+                            Rebecca Solnit
+                        </span>
                     </li>
 
                 </ul>
@@ -1612,28 +1798,40 @@
                         <span class="title">
                             Как читать книги для самообразования
                         </span>
-                        <span class="meta">Сергей Поварнин</span>
+
+                        <span class="meta">
+                            Сергей Поварнин
+                        </span>
                     </li>
 
                     <li>
                         <span class="title">
                             Литературный марафон. Как написать книгу за 30 дней
                         </span>
-                        <span class="meta">Крис Бейти</span>
+
+                        <span class="meta">
+                            Крис Бейти
+                        </span>
                     </li>
 
                     <li>
                         <span class="title">
                             Письма о добром
                         </span>
-                        <span class="meta">Дмитрий Лихачев</span>
+
+                        <span class="meta">
+                            Дмитрий Лихачев
+                        </span>
                     </li>
 
                     <li>
                         <span class="title">
                             Суперстудент. Как учиться быстро, эффективно и с удовольствием
                         </span>
-                        <span class="meta">Шеве Улаф</span>
+
+                        <span class="meta">
+                            Шеве Улаф
+                        </span>
                     </li>
 
                 </ul>
@@ -1661,28 +1859,44 @@
                 <ul class="content-list">
 
                     <li>
-                        <span class="title">Маленький принц</span>
-                        <span class="meta">Марк Осборн</span>
+
+                        <span class="title">
+                            Маленький принц
+                        </span>
+
+                        <span class="meta">
+                            Марк Осборн
+                        </span>
 
                         <p class="note">
-                            Наверное, самое любимое и прекрасное, что мне доводилось смотреть.
+                            Наверное, самое любимое и прекрасное,
+                            что мне доводилось смотреть.
                         </p>
+
                     </li>
 
                     <li>
+
                         <span class="title">
                             Мальчик, Крот, Лис и Конь
                         </span>
+
                         <span class="meta">
                             Питер Бэйнтон, Чарли Маккиси
                         </span>
+
                     </li>
 
                     <li>
+
                         <span class="title">
                             Сказание о принцессе Кагуя
                         </span>
-                        <span class="meta">Исао Такахата</span>
+
+                        <span class="meta">
+                            Исао Такахата
+                        </span>
+
                     </li>
 
                 </ul>
@@ -1695,33 +1909,53 @@
                 <ul class="content-list">
 
                     <li>
+
                         <span class="title">
                             Боб Тревино поставил лайк
                         </span>
-                        <span class="meta">Трейси Леймон</span>
+
+                        <span class="meta">
+                            Трейси Леймон
+                        </span>
+
                     </li>
 
                     <li>
+
                         <span class="title">
                             Ван Гог. С любовью, Винсент
                         </span>
+
                         <span class="meta">
                             Дорота Кобела, Хью Уэлшман
                         </span>
+
                     </li>
 
                     <li>
-                        <span class="title">Вторая жизнь Уве</span>
-                        <span class="meta">Ханнес Холм</span>
+
+                        <span class="title">
+                            Вторая жизнь Уве
+                        </span>
+
+                        <span class="meta">
+                            Ханнес Холм
+                        </span>
+
                     </li>
 
                     <li>
-                        <span class="title">Лабиринт Фавна</span>
+
+                        <span class="title">
+                            Лабиринт Фавна
+                        </span>
+
                         <span class="meta">
                             Гильермо дель Торо
                         </span>
+
                     </li>
-                    
+
                 </ul>
 
 
@@ -1732,21 +1966,27 @@
                 <ul class="content-list">
 
                     <li>
+
                         <span class="title">
                             Доживём до понедельника
                         </span>
+
                         <span class="meta">
                             Станислав Ростоцкий
                         </span>
+
                     </li>
 
                     <li>
+
                         <span class="title">
                             Учитель, обещавший море
                         </span>
+
                         <span class="meta">
                             Патрисия Фонт
                         </span>
+
                     </li>
 
                 </ul>
@@ -1775,6 +2015,7 @@
                     <footer>
 
                         <div>
+
                             <div class="author">
                                 Jeff Foster
                             </div>
@@ -1782,6 +2023,7 @@
                             <div class="source">
                                 Falling in Love with Where You Are
                             </div>
+
                         </div>
 
                     </footer>
@@ -1801,6 +2043,7 @@
                     <footer>
 
                         <div>
+
                             <div class="author">
                                 Joan Tollifson
                             </div>
@@ -1808,6 +2051,7 @@
                             <div class="source">
                                 Nothing to Grasp
                             </div>
+
                         </div>
 
                     </footer>
@@ -1829,6 +2073,7 @@
                     <footer>
 
                         <div>
+
                             <div class="author">
                                 Фёдор Достоевский
                             </div>
@@ -1837,6 +2082,7 @@
                                 Из письма М. М. Достоевскому<br>
                                 22 декабря 1849. Петербург. Петропавловская крепость
                             </div>
+
                         </div>
 
                     </footer>
@@ -1856,6 +2102,7 @@
                     <footer>
 
                         <div>
+
                             <div class="author">
                                 Сёрен Кьеркегор
                             </div>
@@ -1863,6 +2110,7 @@
                             <div class="source">
                                 Дела любви
                             </div>
+
                         </div>
 
                     </footer>
@@ -1887,27 +2135,50 @@
                 <ul class="content-list">
 
                     <li>
-                        <span class="title">Dia</span>
-                        <span class="meta">Браузер</span>
+                        <span class="title">
+                            Dia
+                        </span>
+
+                        <span class="meta">
+                            Браузер
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Down Dog</span>
-                        <span class="meta">Фитнес</span>
+                        <span class="title">
+                            Down Dog
+                        </span>
+
+                        <span class="meta">
+                            Фитнес
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">Gemini Notebook</span>
-                        <span class="meta">AI</span>
+                        <span class="title">
+                            Gemini Notebook
+                        </span>
+
+                        <span class="meta">
+                            AI
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">iA Writer</span>
-                        <span class="meta">Текстовый редактор</span>
+                        <span class="title">
+                            iA Writer
+                        </span>
+
+                        <span class="meta">
+                            Текстовый редактор
+                        </span>
                     </li>
 
                     <li>
-                        <span class="title">The Marginalian</span>
+                        <span class="title">
+                            The Marginalian
+                        </span>
+
                         <span class="meta">
                             Философско-литературный архив
                         </span>
@@ -1927,27 +2198,26 @@
                 <h2>Материалы</h2>
 
                 <p class="section-intro">
-                    Конспекты, лекции и задания — материалы, которыми можно
-                    поделиться с теми, кто только начинает разбираться в теме.
+                    Конспекты, лекции и задания по информатике — то, что
+                    можно открыть, разобраться и использовать в своей работе.
                 </p>
-
-
-                <div class="sub-category">
-                    Для студентов
-                </div>
 
                 <ul class="content-list">
 
                     <li>
+
                         <span class="title">
+
                             <a href="db-basics.html" class="content-link">
-                                Все материалы для студентов →
+                                Материалы для студентов →
                             </a>
+
                         </span>
 
                         <span class="meta">
-                            Лекции, конспекты и практические задания по информатике
+                            Лекции, конспекты и практические задания
                         </span>
+
                     </li>
 
                 </ul>
@@ -1967,22 +2237,25 @@
                     Несколько мест, где я по-настоящему был здесь.
                 </p>
 
-
                 <div class="gallery">
 
                     <figure>
 
                         <div class="frame">
 
-                            <img src="images/moments/2023-07-14 17-27-44.jpeg"
-                                alt="Урочище Джилы-Су, 14 июля 2023 года" loading="lazy">
+                            <img
+                                src="images/moments/2023-07-14 17-27-44.jpeg"
+                                alt="Урочище Джилы-Су, 14 июля 2023 года"
+                                loading="lazy">
 
                         </div>
 
                         <figcaption>
+
                             <span>
                                 Урочище Джилы-Су, 14 июля 2023 года
                             </span>
+
                         </figcaption>
 
                     </figure>
@@ -1992,15 +2265,19 @@
 
                         <div class="frame">
 
-                            <img src="images/moments/2024-07-07 11-01-24.jpeg"
-                                alt="Озеро Донгуз-Орун-Кёль, 7 июля 2024 года" loading="lazy">
+                            <img
+                                src="images/moments/2024-07-07 11-01-24.jpeg"
+                                alt="Озеро Донгуз-Орун-Кёль, 7 июля 2024 года"
+                                loading="lazy">
 
                         </div>
 
                         <figcaption>
+
                             <span>
                                 Озеро Донгуз-Орун-Кёль, 7 июля 2024 года
                             </span>
+
                         </figcaption>
 
                     </figure>
@@ -2009,38 +2286,74 @@
 
             </section>
 
+
             <!-- ======================================================
                  Footer
                  ====================================================== -->
 
             <footer class="site-footer" aria-label="Подвал сайта">
+
                 <div class="footer-inner">
 
                     <div class="footer-brand">
 
-                        <div class="footer-mark" aria-hidden="true">
-                            <svg viewBox="0 0 38 30" preserveAspectRatio="none">
-                                <circle class="star" cx="8" cy="6" r="1.6" />
-                                <path class="peaks" d="M2,26 L12,12 L18,20 L26,8 L36,22" />
+                        <div
+                            class="footer-mark"
+                            aria-hidden="true">
+
+                            <svg
+                                viewBox="0 0 38 30"
+                                preserveAspectRatio="none">
+
+                                <circle
+                                    class="star"
+                                    cx="8"
+                                    cy="6"
+                                    r="1.6" />
+
+                                <path
+                                    class="peaks"
+                                    d="M2,26 L12,12 L18,20 L26,8 L36,22" />
+
                             </svg>
+
                         </div>
 
                         <div>
-                            <div class="footer-wordmark">aruan</div>
+
+                            <div class="footer-wordmark">
+                                aruan
+                            </div>
+
                             <div class="footer-caption">
                                 информатика, книги, кино и немного философии
                             </div>
+
                         </div>
 
                     </div>
 
+
                     <div class="footer-meta">
-                        <a href="#about">В начало ↑</a>
-                        <span class="footer-divider" aria-hidden="true">·</span>
-                        <span>© <span id="footer-year">2026</span> aruan</span>
+
+                        <a href="#about">
+                            В начало ↑
+                        </a>
+
+                        <span
+                            class="footer-divider"
+                            aria-hidden="true">
+                            ·
+                        </span>
+
+                        <span>
+                            © <span id="footer-year"></span> aruan
+                        </span>
+
                     </div>
 
                 </div>
+
             </footer>
 
         </main>
@@ -2057,97 +2370,180 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             /* ========================================================
-               Theme
+               Общие элементы
                ======================================================== */
 
             const root = document.documentElement;
 
-            const footerYear = document.getElementById('footer-year');
+            const footerYear =
+                document.getElementById('footer-year');
+
+            const toggle =
+                document.getElementById('theme-toggle');
+
+            const toggleIcon =
+                toggle?.querySelector('.theme-icon');
+
+            const toggleLabel =
+                toggle?.querySelector('.theme-label');
+
+            const themeColorMeta =
+                document.getElementById('theme-color-meta');
+
+
             if (footerYear) {
-                footerYear.textContent = new Date().getFullYear();
+                footerYear.textContent =
+                    new Date().getFullYear();
             }
 
-            const toggle = document.getElementById('theme-toggle');
-            const toggleIcon = toggle?.querySelector('.theme-icon');
-            const toggleLabel = toggle?.querySelector('.theme-label');
-            const themeColorMeta = document.getElementById('theme-color-meta');
+
+            /* ========================================================
+               Theme
+               ======================================================== */
+
+            function updateThemeButton(theme) {
+
+                const isDark =
+                    theme === 'dark';
+
+
+                if (toggleIcon) {
+
+                    toggleIcon.textContent =
+                        isDark ? '☀' : '☾';
+
+                }
+
+
+                if (toggleLabel) {
+
+                    toggleLabel.textContent =
+                        isDark
+                            ? 'Светлая тема'
+                            : 'Тёмная тема';
+
+                }
+
+
+                if (toggle) {
+
+                    toggle.setAttribute(
+                        'aria-label',
+                        isDark
+                            ? 'Включить светлую тему'
+                            : 'Включить тёмную тему'
+                    );
+
+                    toggle.setAttribute(
+                        'aria-pressed',
+                        String(isDark)
+                    );
+
+                }
+
+            }
+
 
             function applyTheme(theme) {
 
                 if (theme === 'dark') {
 
-                    root.setAttribute('data-theme', 'dark');
+                    root.setAttribute(
+                        'data-theme',
+                        'dark'
+                    );
 
-                    if (toggleIcon) {
-                        toggleIcon.textContent = '☀';
-                    }
-
-                    if (toggleLabel) {
-                        toggleLabel.textContent = 'Светлая тема';
-                    }
-
-                    if (toggle) {
-                        toggle.setAttribute('aria-pressed', 'true');
-                    }
 
                     if (themeColorMeta) {
-                        themeColorMeta.setAttribute('content', '#131315');
+
+                        themeColorMeta.setAttribute(
+                            'content',
+                            '#131315'
+                        );
+
                     }
 
                 } else {
 
-                    root.removeAttribute('data-theme');
+                    root.removeAttribute(
+                        'data-theme'
+                    );
 
-                    if (toggleIcon) {
-                        toggleIcon.textContent = '☾';
-                    }
-
-                    if (toggleLabel) {
-                        toggleLabel.textContent = 'Тёмная тема';
-                    }
-
-                    if (toggle) {
-                        toggle.setAttribute('aria-pressed', 'false');
-                    }
 
                     if (themeColorMeta) {
-                        themeColorMeta.setAttribute('content', '#faf9f6');
+
+                        themeColorMeta.setAttribute(
+                            'content',
+                            '#faf9f6'
+                        );
+
                     }
+
                 }
+
+
+                updateThemeButton(theme);
+
             }
 
 
-            const savedTheme = localStorage.getItem('theme');
+            const savedTheme =
+                localStorage.getItem('theme');
+
 
             const systemPrefersDark =
                 window.matchMedia &&
-                window.matchMedia('(prefers-color-scheme: dark)').matches;
+                window.matchMedia(
+                    '(prefers-color-scheme: dark)'
+                ).matches;
 
 
-            applyTheme(
+            const initialTheme =
                 savedTheme ||
-                (systemPrefersDark ? 'dark' : 'light')
-            );
+                (systemPrefersDark
+                    ? 'dark'
+                    : 'light');
+
+
+            applyTheme(initialTheme);
 
 
             if (toggle) {
 
-                toggle.addEventListener('click', () => {
+                toggle.addEventListener(
+                    'click',
+                    () => {
 
-                    const isDark =
-                        root.getAttribute('data-theme') === 'dark';
+                        const isDark =
+                            root.getAttribute(
+                                'data-theme'
+                            ) === 'dark';
 
-                    const nextTheme =
-                        isDark ? 'light' : 'dark';
 
-                    applyTheme(nextTheme);
+                        const nextTheme =
+                            isDark
+                                ? 'light'
+                                : 'dark';
 
-                    localStorage.setItem(
-                        'theme',
-                        nextTheme
-                    );
 
-                });
+                        applyTheme(nextTheme);
+
+
+                        try {
+
+                            localStorage.setItem(
+                                'theme',
+                                nextTheme
+                            );
+
+                        } catch (error) {
+
+                            // localStorage может быть недоступен.
+
+                        }
+
+                    }
+                );
 
             }
 
@@ -2157,7 +2553,9 @@
                ======================================================== */
 
             const sections =
-                document.querySelectorAll('main section');
+                document.querySelectorAll(
+                    'main section'
+                );
 
 
             if ('IntersectionObserver' in window) {
@@ -2168,15 +2566,19 @@
 
                             entries.forEach(entry => {
 
-                                if (entry.isIntersecting) {
+                                if (
+                                    entry.isIntersecting
+                                ) {
 
                                     entry.target.classList.add(
                                         'is-visible'
                                     );
 
+
                                     observer.unobserve(
                                         entry.target
                                     );
+
                                 }
 
                             });
@@ -2184,19 +2586,28 @@
                         },
                         {
                             threshold: 0.1,
-                            rootMargin: '0px 0px -60px 0px'
+                            rootMargin:
+                                '0px 0px -60px 0px'
                         }
                     );
 
 
                 sections.forEach(section => {
-                    revealObserver.observe(section);
+
+                    revealObserver.observe(
+                        section
+                    );
+
                 });
 
             } else {
 
                 sections.forEach(section => {
-                    section.classList.add('is-visible');
+
+                    section.classList.add(
+                        'is-visible'
+                    );
+
                 });
 
             }
@@ -2207,72 +2618,130 @@
                ======================================================== */
 
             const navLinks =
-                document.querySelectorAll(
+                [...document.querySelectorAll(
                     'nav a[href^="#"]'
-                );
+                )];
 
 
-            const navItemsById = new Map();
+            function setActiveSection() {
+
+                if (!sections.length) {
+                    return;
+                }
 
 
-            navLinks.forEach(link => {
-
-                const id =
-                    link
-                        .getAttribute('href')
-                        .slice(1);
-
-                navItemsById.set(
-                    id,
-                    link.parentElement
-                );
-
-            });
+                const marker =
+                    window.innerHeight * 0.32;
 
 
-            if ('IntersectionObserver' in window) {
-
-                const navObserver =
-                    new IntersectionObserver(
-                        entries => {
-
-                            entries.forEach(entry => {
-
-                                const navItem =
-                                    navItemsById.get(
-                                        entry.target.id
-                                    );
-
-                                if (!navItem) {
-                                    return;
-                                }
+                let activeSection =
+                    sections[0];
 
 
-                                if (entry.isIntersecting) {
-
-                                    navItemsById.forEach(item => {
-                                        item.classList.remove('active');
-                                    });
-
-                                    navItem.classList.add('active');
-
-                                }
-
-                            });
-
-                        },
-                        {
-                            rootMargin: '-45% 0px -50% 0px',
-                            threshold: 0
-                        }
-                    );
+                let smallestDistance =
+                    Infinity;
 
 
                 sections.forEach(section => {
-                    navObserver.observe(section);
+
+                    const rect =
+                        section.getBoundingClientRect();
+
+
+                    /*
+                       Не учитываем полностью невидимые секции.
+                    */
+
+                    if (
+                        rect.bottom <= 0 ||
+                        rect.top >= window.innerHeight
+                    ) {
+                        return;
+                    }
+
+
+                    const distance =
+                        Math.abs(
+                            rect.top - marker
+                        );
+
+
+                    if (
+                        distance <
+                        smallestDistance
+                    ) {
+
+                        smallestDistance =
+                            distance;
+
+                        activeSection =
+                            section;
+
+                    }
+
+                });
+
+
+                navLinks.forEach(link => {
+
+                    const isActive =
+                        link.getAttribute(
+                            'href'
+                        ) ===
+                        `#${activeSection.id}`;
+
+
+                    link.parentElement
+                        .classList
+                        .toggle(
+                            'active',
+                            isActive
+                        );
+
                 });
 
             }
+
+
+            let navTicking = false;
+
+
+            window.addEventListener(
+                'scroll',
+                () => {
+
+                    if (navTicking) {
+                        return;
+                    }
+
+
+                    navTicking = true;
+
+
+                    requestAnimationFrame(
+                        () => {
+
+                            setActiveSection();
+
+                            navTicking = false;
+
+                        }
+                    );
+
+                },
+                {
+                    passive: true
+                }
+            );
+
+
+            window.addEventListener(
+                'resize',
+                setActiveSection
+            );
+
+
+            setActiveSection();
 
         });
 
