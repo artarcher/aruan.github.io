@@ -408,6 +408,43 @@
         }
 
         /* ============================================================
+           Sidebar footer (contact)
+           ============================================================ */
+
+        .sidebar-contact {
+            margin-top: 20px;
+        }
+
+        .sidebar-contact a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            font-size: 0.78rem;
+            font-weight: 500;
+
+            color: var(--muted);
+
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+
+            transition:
+                color 0.2s var(--ease),
+                border-color 0.2s var(--ease);
+        }
+
+        .sidebar-contact a:hover {
+            color: var(--ink);
+            border-color: var(--line-strong);
+        }
+
+        .sidebar-contact .contact-icon {
+            font-size: 0.86rem;
+            line-height: 1;
+            color: var(--accent);
+        }
+
+        /* ============================================================
            Sections
            ============================================================ */
 
@@ -623,6 +660,58 @@
         }
 
         /* ============================================================
+           Essays / thoughts
+           ============================================================ */
+
+        .essay-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .essay-card {
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .essay-card:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .essay-date {
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+
+            color: var(--faint);
+        }
+
+        .essay-title {
+            margin: 0 0 10px;
+
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+
+            color: var(--ink);
+        }
+
+        .essay-excerpt {
+            margin: 0;
+            max-width: 66ch;
+
+            color: var(--ink-soft);
+        }
+
+        /* ============================================================
            Quotes
            ============================================================ */
 
@@ -719,14 +808,6 @@
             transition:
                 filter 0.5s var(--ease),
                 transform 0.6s var(--ease);
-        }
-
-        .gallery figure.gallery-feature {
-            grid-column: 1 / -1;
-        }
-
-        .gallery figure.gallery-feature img {
-            aspect-ratio: 21 / 9;
         }
 
         /*
@@ -932,6 +1013,10 @@
                 margin-top: 28px;
             }
 
+            .sidebar-contact {
+                margin-top: 16px;
+            }
+
             .gallery {
                 grid-template-columns: 1fr;
             }
@@ -974,20 +1059,16 @@
                 font-size: 1.05rem;
             }
 
-            .gallery figure.gallery-feature {
-                grid-column: auto;
-            }
-
-            .gallery figure.gallery-feature img {
-                aspect-ratio: 4 / 3;
-            }
-
             .quote-card {
                 padding-left: 17px;
             }
 
             .quote-card blockquote {
                 font-size: 1rem;
+            }
+
+            .essay-title {
+                font-size: 1.12rem;
             }
 
             .site-footer {
@@ -1054,6 +1135,10 @@
                         </li>
 
                         <li>
+                            <a href="#thoughts">Мысли</a>
+                        </li>
+
+                        <li>
                             <a href="#people">Личности</a>
                         </li>
 
@@ -1090,19 +1175,32 @@
 
             </div>
 
-            <button id="theme-toggle"
-                class="theme-toggle"
-                type="button"
-                aria-label="Включить тёмную тему"
-                aria-pressed="false">
+            <div>
 
-                <span class="theme-icon" aria-hidden="true">☾</span>
+                <div class="sidebar-contact">
 
-                <span class="theme-label">
-                    Тёмная тема
-                </span>
+                    <a href="mailto:you@example.com">
+                        <span class="contact-icon" aria-hidden="true">✉</span>
+                        <span>you@example.com</span>
+                    </a>
 
-            </button>
+                </div>
+
+                <button id="theme-toggle"
+                    class="theme-toggle"
+                    type="button"
+                    aria-label="Включить тёмную тему"
+                    aria-pressed="false">
+
+                    <span class="theme-icon" aria-hidden="true">☾</span>
+
+                    <span class="theme-label">
+                        Тёмная тема
+                    </span>
+
+                </button>
+
+            </div>
 
         </aside>
 
@@ -1208,6 +1306,63 @@
                     </li>
 
                 </ul>
+
+            </section>
+
+
+            <!-- ======================================================
+                 Мысли
+                 ====================================================== -->
+
+            <section id="thoughts">
+
+                <h2>Мысли</h2>
+
+                <p class="section-intro">
+                    Короткие заметки — без претензии на систему, просто то,
+                    что задержалось в голове дольше обычного.
+                </p>
+
+                <!--
+                    Ниже — черновые примеры-заглушки. Замените заголовок,
+                    дату и текст на собственные заметки; карточек может
+                    быть сколько угодно, разметка одной штуки ниже.
+                -->
+
+                <div class="essay-list">
+
+                    <article class="essay-card">
+
+                        <span class="essay-date">Сентябрь 2026</span>
+
+                        <h3 class="essay-title">
+                            О том, зачем объяснять то, что и так понятно
+                        </h3>
+
+                        <p class="essay-excerpt">
+                            Заметка-заглушка. Здесь может быть короткое
+                            размышление — о преподавании, о свободе воли,
+                            о горах или о тишине. Замените этот текст на свой.
+                        </p>
+
+                    </article>
+
+                    <article class="essay-card">
+
+                        <span class="essay-date">Август 2026</span>
+
+                        <h3 class="essay-title">
+                            Ещё одна заметка
+                        </h3>
+
+                        <p class="essay-excerpt">
+                            Ещё одна заглушка для примера — чтобы было видно,
+                            как выглядит раздел с несколькими записями подряд.
+                        </p>
+
+                    </article>
+
+                </div>
 
             </section>
 
@@ -2129,7 +2284,8 @@
                 <h2>Инструменты</h2>
 
                 <p class="section-intro">
-                    То, чем я пользуюсь каждый день — без лишнего шума.
+                    То, чем я пользуюсь каждый день — без лишнего шума
+                    и без стремления перепробовать всё подряд.
                 </p>
 
                 <ul class="content-list">
@@ -2282,6 +2438,27 @@
 
                     </figure>
 
+                    <figure>
+
+                        <div class="frame">
+
+                            <img
+                                src="images/moments/IMG_2135.jpeg"
+                                alt="Плато Канжол, 13 августа 2026 года"
+                                loading="lazy">
+
+                        </div>
+
+                        <figcaption>
+
+                            <span>
+                                Озеро Донгуз-Орун-Кёль, 7 июля 2024 года
+                            </span>
+
+                        </figcaption>
+
+                    </figure>
+
                 </div>
 
             </section>
@@ -2335,6 +2512,16 @@
 
 
                     <div class="footer-meta">
+
+                        <a href="mailto:aruan.edu@yandex.ru">
+                            Написать
+                        </a>
+
+                        <span
+                            class="footer-divider"
+                            aria-hidden="true">
+                            ·
+                        </span>
 
                         <a href="#about">
                             В начало ↑
