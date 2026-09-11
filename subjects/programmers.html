@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Базы данных — страница готовится к публикации.">
-    <title>Базы данных — готовится к публикации — aruan</title>
+    <meta name="description" content="Базы данных — материалы для квалификации «Оператор информационных систем и ресурсов». Страница готовится к публикации.">
+    <title>Базы данных — материалы — aruan</title>
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
@@ -56,7 +57,6 @@
 
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-
         body {
             margin: 0;
             font-family: var(--font-body);
@@ -66,7 +66,6 @@
             -webkit-font-smoothing: antialiased;
             transition: background-color .35s var(--ease), color .35s var(--ease);
         }
-
         ::selection { background: var(--accent-soft); color: var(--ink); }
         a { color: inherit; }
         :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
@@ -78,7 +77,6 @@
             margin: 0 auto;
             padding: 72px 24px 120px;
         }
-
         aside {
             width: var(--sidebar-w);
             position: fixed;
@@ -88,349 +86,96 @@
             flex-direction: column;
             justify-content: space-between;
         }
+        main { margin-left: calc(var(--sidebar-w) + 60px); flex: 1; min-width: 0; }
 
-        main {
-            margin-left: calc(var(--sidebar-w) + 60px);
-            flex: 1;
-            min-width: 0;
-        }
-
-        .profile-info h1 {
-            margin: 0;
-            font-family: var(--font-display);
-            font-size: 2.1rem;
-            font-weight: 600;
-            color: var(--ink);
-            letter-spacing: -.02em;
-        }
-
-        .profile-quote {
-            margin: 10px 0 0;
-            font-family: var(--font-display);
-            font-style: italic;
-            font-size: 1rem;
-            line-height: 1.55;
-        }
-
-        .quote-author {
-            display: block;
-            margin-top: 12px;
-            font-family: var(--font-body);
-            font-style: normal;
-            font-size: .72rem;
-            color: var(--faint);
-            text-transform: uppercase;
-            letter-spacing: .09em;
-        }
-
-        .signature-mark {
-            width: 100%;
-            height: 46px;
-            margin: 22px 0 34px;
-            opacity: .5;
-            color: var(--ink);
-        }
-
-        .signature-mark svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .signature-mark .peaks {
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1;
-            stroke-linejoin: round;
-            stroke-linecap: round;
-        }
-
-        .signature-mark .stars circle {
-            fill: currentColor;
-        }
+        .profile-info h1 { margin: 0; font-family: var(--font-display); font-size: 2.1rem; font-weight: 600; color: var(--ink); letter-spacing: -.02em; }
+        .profile-quote { margin: 10px 0 0; font-family: var(--font-display); font-style: italic; font-size: 1rem; line-height: 1.55; }
+        .quote-author { display: block; margin-top: 12px; font-family: var(--font-body); font-style: normal; font-size: .72rem; color: var(--faint); text-transform: uppercase; letter-spacing: .09em; }
+        .signature-mark { width: 100%; height: 46px; margin: 22px 0 34px; opacity: .5; color: var(--ink); }
+        .signature-mark svg { width: 100%; height: 100%; }
+        .signature-mark .peaks { fill: none; stroke: currentColor; stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; }
+        .signature-mark .stars circle { fill: currentColor; }
 
         nav { margin-top: 38px; }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
+        nav ul { list-style: none; margin: 0; padding: 0; }
         nav li { margin-bottom: 13px; }
-
-        nav a {
-            position: relative;
-            display: inline-block;
-            padding-left: 14px;
-            color: var(--muted);
-            font-size: .78rem;
-            font-weight: 600;
-            letter-spacing: .07em;
-            text-transform: uppercase;
-            text-decoration: none;
-        }
-
-        nav a::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 5px;
-            height: 1px;
-            background: var(--faint);
-            transform: translateY(-50%) scaleX(.6);
-            transform-origin: left;
-            transition: all .25s var(--ease);
-        }
-
+        nav a { position: relative; display: inline-block; padding-left: 14px; color: var(--muted); font-size: .78rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; text-decoration: none; }
+        nav a::before { content: ""; position: absolute; left: 0; top: 50%; width: 5px; height: 1px; background: var(--faint); transform: translateY(-50%) scaleX(.6); transform-origin: left; transition: all .25s var(--ease); }
         nav a:hover { color: var(--ink); }
 
         .theme-toggle {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid var(--line);
-            background: transparent;
-            color: var(--muted);
-            font-family: var(--font-body);
-            font-size: .72rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: .07em;
-            padding: 9px 14px;
-            border-radius: 20px;
-            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid var(--line); background: transparent; color: var(--muted);
+            font-family: var(--font-body); font-size: .72rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: .07em; padding: 9px 14px;
+            border-radius: 20px; cursor: pointer;
             transition: border-color .3s var(--ease), color .3s var(--ease);
         }
+        .theme-toggle:hover { color: var(--ink); border-color: var(--line-strong); }
 
-        .theme-toggle:hover {
-            color: var(--ink);
-            border-color: var(--line-strong);
-        }
+        .page-label { font-size: .72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 16px; }
+        .page-title { margin: 0 0 18px; font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 500; line-height: 1.12; color: var(--ink); }
+        .page-description { max-width: 68ch; margin: 0; font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--ink-soft); }
+        .course-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+        .meta-item { display: inline-flex; align-items: center; min-height: 32px; padding: 6px 11px; border: 1px solid var(--line); border-radius: 20px; font-size: .72rem; color: var(--muted); letter-spacing: .03em; }
 
-        .page-label {
-            font-size: .72rem;
-            font-weight: 700;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: .12em;
-            margin-bottom: 16px;
-        }
+        .content-section { margin-top: 68px; }
+        .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 24px; }
+        .section-heading h2 { margin: 0; color: var(--ink); font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
+        .section-count { font-size: .78rem; color: var(--muted); }
+        .section-description { margin: -8px 0 24px; max-width: 72ch; font-size: .9rem; color: var(--muted); }
 
-        .page-title {
-            margin: 0 0 18px;
-            font-family: var(--font-display);
-            font-size: clamp(2.4rem, 5vw, 3.6rem);
-            font-weight: 500;
-            line-height: 1.12;
-            color: var(--ink);
-        }
+        .topic-label { margin: 38px 0 16px; font-family: var(--font-display); font-size: 1.25rem; font-weight: 500; line-height: 1.4; color: var(--ink); }
+        .topic-number { color: var(--accent); font-family: var(--font-body); font-size: .72rem; font-weight: 700; letter-spacing: .08em; margin-right: 8px; }
 
-        .page-description {
-            max-width: 68ch;
-            margin: 0;
-            font-family: var(--font-display);
-            font-style: italic;
-            font-size: 1.15rem;
-            color: var(--ink-soft);
-        }
+        .material-list { display: flex; flex-direction: column; gap: 10px; }
+        .material-card { display: block; padding: 20px 22px; border: 1px solid var(--line); text-decoration: none; transition: transform .25s var(--ease), background-color .25s var(--ease), border-color .25s var(--ease); }
+        .material-card:hover { transform: translateY(-2px); background: var(--paper); border-color: var(--line-strong); }
+        .material-inner { display: flex; align-items: center; gap: 18px; }
+        .material-number { flex: 0 0 auto; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: .76rem; font-weight: 700; }
+        .material-content { flex: 1; min-width: 0; }
+        .material-title { margin-bottom: 5px; font-family: var(--font-display); font-size: 1.08rem; font-weight: 500; color: var(--ink); line-height: 1.4; }
+        .material-meta { font-size: .81rem; color: var(--muted); }
+        .material-arrow { color: var(--faint); font-size: 1.2rem; transition: transform .25s var(--ease), color .25s var(--ease); }
+        .material-card:hover .material-arrow { color: var(--accent); transform: translateX(4px); }
 
-        .content-section {
-            margin-top: 68px;
-        }
+        .programs { display: flex; flex-wrap: wrap; gap: 8px; }
+        .program-tag { padding: 7px 11px; border: 1px solid var(--line); border-radius: 20px; font-size: .74rem; color: var(--muted); }
 
-        .section-heading {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 20px;
-            border-bottom: 1px solid var(--line);
-            padding-bottom: 14px;
-            margin-bottom: 24px;
-        }
+        .control-card { display: flex; align-items: center; gap: 18px; padding: 20px 22px; border: 1px solid var(--line); background: var(--accent-soft); }
+        .control-number { flex: 0 0 auto; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--paper); color: var(--accent); font-size: .76rem; font-weight: 700; }
+        .control-content { min-width: 0; flex: 1; }
+        .control-title { margin-bottom: 4px; font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); }
+        .control-meta { font-size: .8rem; color: var(--muted); }
 
-        .section-heading h2 {
-            margin: 0;
-            color: var(--ink);
-            font-size: .82rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .12em;
-        }
-
-        .section-count {
-            font-size: .78rem;
-            color: var(--muted);
-        }
-
-        .section-description {
-            margin: -8px 0 24px;
-            max-width: 72ch;
-            font-size: .9rem;
-            color: var(--muted);
-        }
-
-        .material-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .material-card {
-            display: block;
-            padding: 20px 22px;
-            border: 1px solid var(--line);
-            text-decoration: none;
-            transition:
-                transform .25s var(--ease),
-                background-color .25s var(--ease),
-                border-color .25s var(--ease);
-        }
-
-        .material-card:hover {
-            transform: translateY(-2px);
-            background: var(--paper);
-            border-color: var(--line-strong);
-        }
-
-        .material-inner {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .material-number {
-            flex: 0 0 auto;
-            width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: var(--accent-soft);
-            color: var(--accent);
-            font-size: .76rem;
-            font-weight: 700;
-        }
-
-        .material-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .material-title {
-            margin-bottom: 5px;
-            font-family: var(--font-display);
-            font-size: 1.08rem;
-            font-weight: 500;
-            color: var(--ink);
-            line-height: 1.4;
-        }
-
-        .material-meta {
-            font-size: .81rem;
-            color: var(--muted);
-        }
-
-        .material-arrow {
-            color: var(--faint);
-            font-size: 1.2rem;
-            transition:
-                transform .25s var(--ease),
-                color .25s var(--ease);
-        }
-
-        .material-card:hover .material-arrow {
-            color: var(--accent);
-            transform: translateX(4px);
-        }
-
-        .page-footer {
-            margin-top: 80px;
-            padding-top: 24px;
-            border-top: 1px solid var(--line);
-            font-size: .82rem;
-            color: var(--faint);
-        }
-
-        .page-footer a {
-            color: var(--muted);
-            text-decoration: none;
-            border-bottom: 1px solid var(--line-strong);
-        }
-
+        .page-footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--line); font-size: .82rem; color: var(--faint); }
+        .page-footer a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
         .page-footer a:hover { color: var(--ink); }
 
         @media (max-width: 860px) {
-            .wrapper {
-                flex-direction: column;
-                padding: 48px 20px 90px;
-            }
-
-            aside {
-                position: relative;
-                top: 0;
-                width: 100%;
-                height: auto;
-                margin-bottom: 52px;
-            }
-
-            main {
-                margin-left: 0;
-            }
-
-            .signature-mark {
-                max-width: 320px;
-            }
-
-            nav {
-                margin-top: 26px;
-            }
-
-            nav ul {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px 18px;
-            }
-
-            nav li {
-                margin-bottom: 0;
-            }
-
-            .theme-toggle {
-                margin-top: 28px;
-                align-self: flex-start;
-            }
+            .wrapper { flex-direction: column; padding: 48px 20px 90px; }
+            aside { position: relative; top: 0; width: 100%; height: auto; margin-bottom: 52px; }
+            main { margin-left: 0; }
+            .signature-mark { max-width: 320px; }
+            nav { margin-top: 26px; }
+            nav ul { display: flex; flex-wrap: wrap; gap: 10px 18px; }
+            nav li { margin-bottom: 0; }
+            .theme-toggle { margin-top: 28px; align-self: flex-start; }
         }
 
         @media (max-width: 560px) {
-            .material-card {
-                padding: 18px;
-            }
-
-            .material-inner {
-                align-items: flex-start;
-                gap: 14px;
-            }
-
-            .material-number {
-                width: 36px;
-                height: 36px;
-            }
-
-            .material-arrow {
-                display: none;
-            }
+            .material-card { padding: 18px; }
+            .material-inner { align-items: flex-start; gap: 14px; }
+            .material-number { width: 36px; height: 36px; }
+            .material-arrow { display: none; }
+            .control-card { align-items: flex-start; padding: 18px; }
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     </style>
 </head>
 
 <body>
-
 <div class="wrapper">
 
     <aside>
@@ -453,96 +198,108 @@
                         <circle cx="90" cy="4" r=".8" />
                         <circle cx="222" cy="9" r=".8" />
                     </g>
-
-                    <path
-                        class="peaks"
-                        d="M0,40 L34,22 L52,32 L78,14 L104,36 L128,20 L152,38 L182,16 L206,34 L240,24"
-                    />
+                    <path class="peaks" d="M0,40 L34,22 L52,32 L78,14 L104,36 L128,20 L152,38 L182,16 L206,34 L240,24" />
                 </svg>
             </div>
 
             <nav>
                 <ul>
-                    <li>
-                        <a href="../students.html">← Все квалификации</a>
-                    </li>
+                    <li><a href="../students.html">← Все квалификации</a></li>
                 </ul>
             </nav>
         </div>
 
-        <button
-            id="theme-toggle"
-            class="theme-toggle"
-            type="button"
-            aria-label="Переключить тему"
-            aria-pressed="false"
-        >
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему" aria-pressed="false">
             <span class="theme-icon" aria-hidden="true">☾</span>
             <span class="theme-label">Тёмная тема</span>
         </button>
     </aside>
 
     <main>
-
         <header>
-            <div class="page-label">Дисциплина</div>
-
-            <h2 class="page-title">Базы данных</h2>
+            <div class="page-label">Квалификация</div>
+            <h2 class="page-title">Оператор информационных систем и ресурсов</h2>
 
             <p class="page-description">
-                Учебные материалы по дисциплине готовятся к публикации.
+                Материалы по дисциплине «Базы данных» для данной квалификации
+                готовятся к публикации.
             </p>
+
+            <div class="course-meta">
+                <span class="meta-item">Страница готовится к публикации</span>
+                <span class="meta-item">Материалы в разработке</span>
+            </div>
         </header>
 
+        <!-- ==================== Information ==================== -->
         <section class="content-section">
-
             <div class="section-heading">
-                <h2>Страница готовится к публикации</h2>
-                <span class="section-count">Скоро</span>
+                <h2>Информация</h2>
+                <span class="section-count">Важно</span>
             </div>
 
             <p class="section-description">
-                Полный комплект учебных материалов по дисциплине
-                «Базы данных» в настоящее время находится в подготовке.
+                Страница с учебными материалами для квалификации
+                «Оператор информационных систем и ресурсов» в настоящее время
+                готовится к публикации.
+            </p>
+
+            <p class="section-description">
+                На данный момент лекционные материалы полностью совпадают
+                с материалами, размещёнными для другой квалификации. Поэтому
+                до публикации отдельной страницы вы можете использовать
+                материалы по ссылке ниже.
             </p>
 
             <div class="material-list">
-
-                <a href="lectures/operators/lecture-01.html" class="material-card">
+                <a href="../other-qualification/index.html" class="material-card">
                     <div class="material-inner">
-
-                        <div class="material-number">01</div>
+                        <div class="material-number">→</div>
 
                         <div class="material-content">
                             <div class="material-title">
-                                Лекция по дисциплине «Базы данных»
+                                Перейти к материалам другой квалификации
                             </div>
 
                             <div class="material-meta">
-                                На данный момент доступна лекция для квалификации
-                                «Оператор информационных систем и ресурсов»
+                                Лекционные материалы полностью совпадают
+                                и могут использоваться для подготовки
                             </div>
                         </div>
 
-                        <div class="material-arrow" aria-hidden="true">
-                            →
-                        </div>
-
+                        <div class="material-arrow" aria-hidden="true">→</div>
                     </div>
                 </a>
+            </div>
+        </section>
 
+        <!-- ==================== Publication ==================== -->
+        <section class="content-section">
+            <div class="section-heading">
+                <h2>Публикация материалов</h2>
+                <span class="section-count">В разработке</span>
             </div>
 
+            <div class="control-card">
+                <div class="control-number">i</div>
+
+                <div class="control-content">
+                    <div class="control-title">
+                        Страница готовится к публикации
+                    </div>
+
+                    <div class="control-meta">
+                        Отдельные материалы для данной квалификации будут
+                        размещены после завершения подготовки страницы.
+                    </div>
+                </div>
+            </div>
         </section>
 
         <footer class="page-footer">
-            <a href="../students.html">
-                ← Вернуться ко всем дисциплинам
-            </a>
+            <a href="../students.html">← Вернуться ко всем дисциплинам</a>
         </footer>
-
     </main>
-
 </div>
 
 <script>
@@ -554,58 +311,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function applyTheme(theme) {
         const isDark = theme === 'dark';
-
         if (isDark) {
             root.setAttribute('data-theme', 'dark');
-
             if (icon) icon.textContent = '☀';
             if (label) label.textContent = 'Светлая тема';
-
-            toggle?.setAttribute(
-                'aria-label',
-                'Переключить на светлую тему'
-            );
-
+            toggle?.setAttribute('aria-label', 'Переключить на светлую тему');
             toggle?.setAttribute('aria-pressed', 'true');
-
         } else {
             root.removeAttribute('data-theme');
-
             if (icon) icon.textContent = '☾';
             if (label) label.textContent = 'Тёмная тема';
-
-            toggle?.setAttribute(
-                'aria-label',
-                'Переключить на тёмную тему'
-            );
-
+            toggle?.setAttribute('aria-label', 'Переключить на тёмную тему');
             toggle?.setAttribute('aria-pressed', 'false');
         }
     }
 
     const savedTheme = localStorage.getItem('theme');
-
-    const systemPrefersDark =
-        window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    applyTheme(
-        savedTheme ||
-        (systemPrefersDark ? 'dark' : 'light')
-    );
+    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
 
     toggle?.addEventListener('click', () => {
-        const isDark =
-            root.getAttribute('data-theme') === 'dark';
-
-        const next =
-            isDark ? 'light' : 'dark';
-
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
         applyTheme(next);
         localStorage.setItem('theme', next);
     });
 });
 </script>
-
 </body>
 </html>
+```
