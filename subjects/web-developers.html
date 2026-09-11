@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Базы данных — материалы для квалификации «Оператор информационных систем и ресурсов». Страница готовится к публикации.">
+    <meta name="description" content="Базы данных — рабочая программа, лекции, практические занятия, самостоятельная работа и учебные материалы.">
     <title>Базы данных — материалы — aruan</title>
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
@@ -16,6 +16,7 @@
         (() => {
             const savedTheme = localStorage.getItem('theme');
             const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
             if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
@@ -31,12 +32,21 @@
             --faint: #aaa8a1;
             --line: #e6e3dc;
             --line-strong: #d8d4ca;
+
             --accent: #a9832f;
             --accent-soft: rgba(169,131,47,.12);
+
+            --completed: #4f765b;
+            --completed-soft: rgba(79,118,91,.10);
+            --completed-line: rgba(79,118,91,.34);
+
             --paper: #ffffff;
+
             --font-display: 'Lora', Georgia, serif;
             --font-body: 'Inter', sans-serif;
+
             --ease: cubic-bezier(.16,1,.3,1);
+
             --content-w: 1000px;
             --sidebar-w: 260px;
         }
@@ -49,13 +59,25 @@
             --faint: #666460;
             --line: #262629;
             --line-strong: #35353a;
+
             --accent: #cda253;
             --accent-soft: rgba(205,162,83,.14);
+
+            --completed: #82ae8c;
+            --completed-soft: rgba(130,174,140,.10);
+            --completed-line: rgba(130,174,140,.34);
+
             --paper: #1b1b1e;
         }
 
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             font-family: var(--font-body);
@@ -63,11 +85,24 @@
             color: var(--ink-soft);
             line-height: 1.65;
             -webkit-font-smoothing: antialiased;
-            transition: background-color .35s var(--ease), color .35s var(--ease);
+            transition:
+                background-color .35s var(--ease),
+                color .35s var(--ease);
         }
-        ::selection { background: var(--accent-soft); color: var(--ink); }
-        a { color: inherit; }
-        :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+        ::selection {
+            background: var(--accent-soft);
+            color: var(--ink);
+        }
+
+        a {
+            color: inherit;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
 
         .wrapper {
             display: flex;
@@ -76,6 +111,7 @@
             margin: 0 auto;
             padding: 72px 24px 120px;
         }
+
         aside {
             width: var(--sidebar-w);
             position: fixed;
@@ -85,92 +121,536 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        main { margin-left: calc(var(--sidebar-w) + 60px); flex: 1; min-width: 0; }
 
-        .profile-info h1 { margin: 0; font-family: var(--font-display); font-size: 2.1rem; font-weight: 600; color: var(--ink); letter-spacing: -.02em; }
-        .profile-quote { margin: 10px 0 0; font-family: var(--font-display); font-style: italic; font-size: 1rem; line-height: 1.55; }
-        .quote-author { display: block; margin-top: 12px; font-family: var(--font-body); font-style: normal; font-size: .72rem; color: var(--faint); text-transform: uppercase; letter-spacing: .09em; }
-        .signature-mark { width: 100%; height: 46px; margin: 22px 0 34px; opacity: .5; color: var(--ink); }
-        .signature-mark svg { width: 100%; height: 100%; }
-        .signature-mark .peaks { fill: none; stroke: currentColor; stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; }
-        .signature-mark .stars circle { fill: currentColor; }
+        main {
+            margin-left: calc(var(--sidebar-w) + 60px);
+            flex: 1;
+            min-width: 0;
+        }
 
-        nav { margin-top: 38px; }
-        nav ul { list-style: none; margin: 0; padding: 0; }
-        nav li { margin-bottom: 13px; }
-        nav a { position: relative; display: inline-block; padding-left: 14px; color: var(--muted); font-size: .78rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; text-decoration: none; }
-        nav a::before { content: ""; position: absolute; left: 0; top: 50%; width: 5px; height: 1px; background: var(--faint); transform: translateY(-50%) scaleX(.6); transform-origin: left; transition: all .25s var(--ease); }
-        nav a:hover { color: var(--ink); }
+        .profile-info h1 {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: 2.1rem;
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -.02em;
+        }
+
+        .profile-quote {
+            margin: 10px 0 0;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.55;
+        }
+
+        .quote-author {
+            display: block;
+            margin-top: 12px;
+            font-family: var(--font-body);
+            font-style: normal;
+            font-size: .72rem;
+            color: var(--faint);
+            text-transform: uppercase;
+            letter-spacing: .09em;
+        }
+
+        .signature-mark {
+            width: 100%;
+            height: 46px;
+            margin: 22px 0 34px;
+            opacity: .5;
+            color: var(--ink);
+        }
+
+        .signature-mark svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .signature-mark .peaks {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .signature-mark .stars circle {
+            fill: currentColor;
+        }
+
+        nav {
+            margin-top: 38px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin-bottom: 13px;
+        }
+
+        nav a {
+            position: relative;
+            display: inline-block;
+            padding-left: 14px;
+            color: var(--muted);
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        nav a::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 5px;
+            height: 1px;
+            background: var(--faint);
+            transform: translateY(-50%) scaleX(.6);
+            transform-origin: left;
+            transition: all .25s var(--ease);
+        }
+
+        nav a:hover {
+            color: var(--ink);
+        }
 
         .theme-toggle {
-            display: inline-flex; align-items: center; gap: 8px;
-            border: 1px solid var(--line); background: transparent; color: var(--muted);
-            font-family: var(--font-body); font-size: .72rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: .07em; padding: 9px 14px;
-            border-radius: 20px; cursor: pointer;
-            transition: border-color .3s var(--ease), color .3s var(--ease);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--muted);
+            font-family: var(--font-body);
+            font-size: .72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            padding: 9px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition:
+                border-color .3s var(--ease),
+                color .3s var(--ease);
         }
-        .theme-toggle:hover { color: var(--ink); border-color: var(--line-strong); }
 
-        .page-label { font-size: .72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 16px; }
-        .page-title { margin: 0 0 18px; font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 500; line-height: 1.12; color: var(--ink); }
-        .page-description { max-width: 68ch; margin: 0; font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--ink-soft); }
-        .course-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
-        .meta-item { display: inline-flex; align-items: center; min-height: 32px; padding: 6px 11px; border: 1px solid var(--line); border-radius: 20px; font-size: .72rem; color: var(--muted); letter-spacing: .03em; }
+        .theme-toggle:hover {
+            color: var(--ink);
+            border-color: var(--line-strong);
+        }
 
-        .content-section { margin-top: 68px; }
-        .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 24px; }
-        .section-heading h2 { margin: 0; color: var(--ink); font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
-        .section-count { font-size: .78rem; color: var(--muted); }
-        .section-description { margin: -8px 0 24px; max-width: 72ch; font-size: .9rem; color: var(--muted); }
+        .page-label {
+            font-size: .72rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            margin-bottom: 16px;
+        }
 
-        .topic-label { margin: 38px 0 16px; font-family: var(--font-display); font-size: 1.25rem; font-weight: 500; line-height: 1.4; color: var(--ink); }
-        .topic-number { color: var(--accent); font-family: var(--font-body); font-size: .72rem; font-weight: 700; letter-spacing: .08em; margin-right: 8px; }
+        .page-title {
+            margin: 0 0 18px;
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 500;
+            line-height: 1.12;
+            color: var(--ink);
+        }
 
-        .material-list { display: flex; flex-direction: column; gap: 10px; }
-        .material-card { display: block; padding: 20px 22px; border: 1px solid var(--line); text-decoration: none; transition: transform .25s var(--ease), background-color .25s var(--ease), border-color .25s var(--ease); }
-        .material-card:hover { transform: translateY(-2px); background: var(--paper); border-color: var(--line-strong); }
-        .material-inner { display: flex; align-items: center; gap: 18px; }
-        .material-number { flex: 0 0 auto; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: .76rem; font-weight: 700; }
-        .material-content { flex: 1; min-width: 0; }
-        .material-title { margin-bottom: 5px; font-family: var(--font-display); font-size: 1.08rem; font-weight: 500; color: var(--ink); line-height: 1.4; }
-        .material-meta { font-size: .81rem; color: var(--muted); }
-        .material-arrow { color: var(--faint); font-size: 1.2rem; transition: transform .25s var(--ease), color .25s var(--ease); }
-        .material-card:hover .material-arrow { color: var(--accent); transform: translateX(4px); }
+        .page-description {
+            max-width: 68ch;
+            margin: 0;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--ink-soft);
+        }
 
-        .programs { display: flex; flex-wrap: wrap; gap: 8px; }
-        .program-tag { padding: 7px 11px; border: 1px solid var(--line); border-radius: 20px; font-size: .74rem; color: var(--muted); }
+        .course-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 28px;
+        }
 
-        .control-card { display: flex; align-items: center; gap: 18px; padding: 20px 22px; border: 1px solid var(--line); background: var(--accent-soft); }
-        .control-number { flex: 0 0 auto; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--paper); color: var(--accent); font-size: .76rem; font-weight: 700; }
-        .control-content { min-width: 0; flex: 1; }
-        .control-title { margin-bottom: 4px; font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); }
-        .control-meta { font-size: .8rem; color: var(--muted); }
+        .meta-item {
+            display: inline-flex;
+            align-items: center;
+            min-height: 32px;
+            padding: 6px 11px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            font-size: .72rem;
+            color: var(--muted);
+            letter-spacing: .03em;
+        }
 
-        .page-footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--line); font-size: .82rem; color: var(--faint); }
-        .page-footer a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
-        .page-footer a:hover { color: var(--ink); }
+        .content-section {
+            margin-top: 68px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 14px;
+            margin-bottom: 24px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            color: var(--ink);
+            font-size: .82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .section-count {
+            font-size: .78rem;
+            color: var(--muted);
+        }
+
+        .section-description {
+            margin: -8px 0 24px;
+            max-width: 72ch;
+            font-size: .9rem;
+            color: var(--muted);
+        }
+
+        .topic-label {
+            margin: 38px 0 16px;
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 500;
+            line-height: 1.4;
+            color: var(--ink);
+        }
+
+        .topic-number {
+            color: var(--accent);
+            font-family: var(--font-body);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            margin-right: 8px;
+        }
+
+        .material-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .material-card {
+            position: relative;
+            display: block;
+            padding: 20px 22px;
+            border: 1px solid var(--line);
+            text-decoration: none;
+            background: transparent;
+            transition:
+                transform .25s var(--ease),
+                background-color .25s var(--ease),
+                border-color .25s var(--ease),
+                box-shadow .25s var(--ease);
+        }
+
+        .material-card:hover {
+            transform: translateY(-2px);
+            background: var(--paper);
+            border-color: var(--line-strong);
+        }
+
+        .material-inner {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .material-number {
+            flex: 0 0 auto;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-size: .76rem;
+            font-weight: 700;
+        }
+
+        .material-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .material-title {
+            margin-bottom: 5px;
+            font-family: var(--font-display);
+            font-size: 1.08rem;
+            font-weight: 500;
+            color: var(--ink);
+            line-height: 1.4;
+        }
+
+        .material-meta {
+            font-size: .81rem;
+            color: var(--muted);
+        }
+
+        .material-arrow {
+            color: var(--faint);
+            font-size: 1.2rem;
+            transition:
+                transform .25s var(--ease),
+                color .25s var(--ease);
+        }
+
+        .material-card:hover .material-arrow {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .material-card.completed {
+            border-color: var(--completed-line);
+            background: var(--completed-soft);
+        }
+
+        .material-card.completed:hover {
+            border-color: var(--completed);
+            background: var(--paper);
+            box-shadow: 0 8px 24px rgba(79, 118, 91, .08);
+        }
+
+        .material-card.completed .material-number {
+            background: var(--completed);
+            color: #fff;
+        }
+
+        .material-card.completed .material-title {
+            color: var(--ink);
+        }
+
+        .material-card.completed .material-meta {
+            color: var(--muted);
+        }
+
+        .material-card.completed .material-arrow {
+            color: var(--completed);
+        }
+
+        .completed-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 12px;
+            padding: 4px 9px;
+            border: 1px solid var(--completed-line);
+            border-radius: 20px;
+            color: var(--completed);
+            background: transparent;
+            font-family: var(--font-body);
+            font-size: .66rem;
+            font-weight: 700;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .completed-status::before {
+            content: "✓";
+            font-size: .72rem;
+            font-weight: 700;
+        }
+
+        .material-card.completed .material-number::after {
+            content: "✓";
+            position: absolute;
+            width: 17px;
+            height: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--paper);
+            color: var(--completed);
+            border: 1px solid var(--completed-line);
+            font-size: .62rem;
+            font-weight: 800;
+            transform: translate(14px, -14px);
+        }
+
+        .programs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .program-tag {
+            padding: 7px 11px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            font-size: .74rem;
+            color: var(--muted);
+        }
+
+        .control-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px 22px;
+            border: 1px solid var(--line);
+            background: var(--accent-soft);
+        }
+
+        .control-number {
+            flex: 0 0 auto;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--paper);
+            color: var(--accent);
+            font-size: .76rem;
+            font-weight: 700;
+        }
+
+        .control-content {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .control-title {
+            margin-bottom: 4px;
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            color: var(--ink);
+        }
+
+        .control-meta {
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .page-footer {
+            margin-top: 80px;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+            font-size: .82rem;
+            color: var(--faint);
+        }
+
+        .page-footer a {
+            color: var(--muted);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line-strong);
+        }
+
+        .page-footer a:hover {
+            color: var(--ink);
+        }
 
         @media (max-width: 860px) {
-            .wrapper { flex-direction: column; padding: 48px 20px 90px; }
-            aside { position: relative; top: 0; width: 100%; height: auto; margin-bottom: 52px; }
-            main { margin-left: 0; }
-            .signature-mark { max-width: 320px; }
-            nav { margin-top: 26px; }
-            nav ul { display: flex; flex-wrap: wrap; gap: 10px 18px; }
-            nav li { margin-bottom: 0; }
-            .theme-toggle { margin-top: 28px; align-self: flex-start; }
+            .wrapper {
+                flex-direction: column;
+                padding: 48px 20px 90px;
+            }
+
+            aside {
+                position: relative;
+                top: 0;
+                width: 100%;
+                height: auto;
+                margin-bottom: 52px;
+            }
+
+            main {
+                margin-left: 0;
+            }
+
+            .signature-mark {
+                max-width: 320px;
+            }
+
+            nav {
+                margin-top: 26px;
+            }
+
+            nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px 18px;
+            }
+
+            nav li {
+                margin-bottom: 0;
+            }
+
+            .theme-toggle {
+                margin-top: 28px;
+                align-self: flex-start;
+            }
         }
 
         @media (max-width: 560px) {
-            .material-card { padding: 18px; }
-            .material-inner { align-items: flex-start; gap: 14px; }
-            .material-number { width: 36px; height: 36px; }
-            .material-arrow { display: none; }
-            .control-card { align-items: flex-start; padding: 18px; }
+            .material-card {
+                padding: 18px;
+            }
+
+            .material-inner {
+                align-items: flex-start;
+                gap: 14px;
+            }
+
+            .material-number {
+                width: 36px;
+                height: 36px;
+            }
+
+            .material-card.completed .material-number::after {
+                transform: translate(11px, -11px);
+            }
+
+            .material-arrow {
+                display: none;
+            }
+
+            .completed-status {
+                display: flex;
+                width: fit-content;
+                margin: 9px 0 0;
+            }
+
+            .control-card {
+                align-items: flex-start;
+                padding: 18px;
+            }
         }
 
-        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
     </style>
 </head>
 
@@ -197,145 +677,599 @@
                         <circle cx="90" cy="4" r=".8" />
                         <circle cx="222" cy="9" r=".8" />
                     </g>
-                    <path class="peaks" d="M0,40 L34,22 L52,32 L78,14 L104,36 L128,20 L152,38 L182,16 L206,34 L240,24" />
+
+                    <path
+                        class="peaks"
+                        d="M0,40 L34,22 L52,32 L78,14 L104,36 L128,20 L152,38 L182,16 L206,34 L240,24"
+                    />
                 </svg>
             </div>
 
             <nav>
                 <ul>
-                    <li><a href="../students.html">← Все квалификации</a></li>
+                    <li>
+                        <a href="../students.html">← Все квалификации</a>
+                    </li>
                 </ul>
             </nav>
         </div>
 
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему" aria-pressed="false">
+        <button
+            id="theme-toggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Переключить тему"
+            aria-pressed="false"
+        >
             <span class="theme-icon" aria-hidden="true">☾</span>
             <span class="theme-label">Тёмная тема</span>
         </button>
     </aside>
 
     <main>
+
         <header>
             <div class="page-label">Квалификация</div>
-            <h2 class="page-title">Разработчик веб и мультимедийных приложений</h2>
+
+            <h2 class="page-title">
+                Разработчик веб и мультимедийных приложений[cite: 1]
+            </h2>
 
             <p class="page-description">
-                Материалы по дисциплине «Базы данных» для данной квалификации
-                готовятся к публикации.
+                Разработка и реализация баз данных: проектирование структуры,
+                реляционные модели, работа с СУБД MySQL[cite: 1], запросами SQL[cite: 1].
             </p>
 
             <div class="course-meta">
-                <span class="meta-item">Страница готовится к публикации</span>
-                <span class="meta-item">Материалы в разработке</span>
+                <span class="meta-item">80 часов[cite: 1]</span>
+                <span class="meta-item">6 лекций[cite: 1]</span>
+                <span class="meta-item">10 практических[cite: 1]</span>
+                <span class="meta-item">7 лабораторных[cite: 1]</span>
+                <span class="meta-item">2 рубежных контроля[cite: 1]</span>
+                <span class="meta-item">Промежуточная аттестация[cite: 1]</span>
             </div>
         </header>
 
-        <!-- ==================== Information ==================== -->
-        <section class="content-section">
+        <!-- ==================== Section 1.1 ==================== -->
+
+        <section class="content-section" id="topic-1-1">
+
             <div class="section-heading">
-                <h2>Информация</h2>
-                <span class="section-count">Важно</span>
+                <h2>Раздел 1</h2>
+                <span class="section-count">1.1</span>
             </div>
 
             <p class="section-description">
-                Страница с учебными материалами для квалификации
-                «Разработчик веб и мультимедийных приложений» в настоящее время
-                готовится к публикации.
+                Разработка и проектирование базы данных:
+                понятия, реляционная модель, этапы проектирования[cite: 1].
             </p>
 
-            <p class="section-description">
-                На данный момент лекционные материалы полностью совпадают
-                с материалами, размещёнными для другой квалификации. Поэтому
-                до публикации отдельной страницы вы можете использовать
-                материалы по ссылке ниже.
-            </p>
+            <h3 class="topic-label">
+                <span class="topic-number">ТЕМА 1.1</span>
+                Разработка и проектирование базы данных[cite: 1]
+            </h3>
 
             <div class="material-list">
-                <a href="operators.html" class="material-card">
-                    <div class="material-inner">
-                        <div class="material-number">→</div>
 
+                <a
+                    href="../lectures/operators/lecture-01.html"
+                    class="material-card completed"
+                    data-completed="true"
+                    aria-label="Пройдено: Основные понятия и определения баз данных"
+                >
+                    <div class="material-inner">
+                        <div class="material-number">01</div>
                         <div class="material-content">
                             <div class="material-title">
-                                Перейти к материалам другой квалификации
+                                Основные понятия и определения баз данных[cite: 1]
+                                <span class="completed-status">Пройдено</span>
                             </div>
-
                             <div class="material-meta">
-                                Лекционные материалы полностью совпадают
-                                и могут использоваться для подготовки
+                                Лекция · Предметная область, объекты, атрибуты, ключи · Модели данных: иерархическая, сетевая, реляционная[cite: 1]
                             </div>
                         </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
 
+                <a
+                    href="../lectures/operators/lecture-02.html"
+                    class="material-card completed"
+                    data-completed="true"
+                    aria-label="Пройдено: Реляционная модель данных"
+                >
+                    <div class="material-inner">
+                        <div class="material-number">02</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Реляционная модель данных[cite: 1]
+                                <span class="completed-status">Пройдено</span>
+                            </div>
+                            <div class="material-meta">
+                                Лекция · Реляционные объекты · Индексирование ·
+                                Связи · Ограничения целостности ·
+                                Реляционная алгебра[cite: 1]
+                            </div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a
+                    href="lectures/03.html"
+                    class="material-card"
+                    data-completed="false"
+                >
+                    <div class="material-inner">
+                        <div class="material-number">03</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Проектирование баз данных[cite: 1]
+                            </div>
+                            <div class="material-meta">
+                                Лекция · Концептуальная, логическая и физическая
+                                модели · Модель «сущность-связь» · Функциональные зависимости ·
+                                Нормальные формы[cite: 1]
+                            </div>
+                        </div>
                         <div class="material-arrow" aria-hidden="true">→</div>
                     </div>
                 </a>
             </div>
-        </section>
 
-        <!-- ==================== Publication ==================== -->
-        <section class="content-section">
-            <div class="section-heading">
-                <h2>Публикация материалов</h2>
-                <span class="section-count">В разработке</span>
+            <h3 class="topic-label">
+                <span class="topic-number">ПРАКТИЧЕСКИЕ РАБОТЫ</span>
+                Тема 1.1[cite: 1]
+            </h3>
+
+            <div class="material-list">
+
+                <a href="practices/01.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">01</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Применение операции реляционной алгебры[cite: 1]
+                            </div>
+                            <div class="material-meta">Практическая работа</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="practices/02.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">02</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Описание предметной области. Выделение сущностей. Определение связей между сущностями, выделение атрибутов сущностей, ключей[cite: 1]
+                            </div>
+                            <div class="material-meta">Практическая работа</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="practices/03.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">03</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Построение модели «сущность-связь»[cite: 1]
+                            </div>
+                            <div class="material-meta">Практическая работа</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="practices/04.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">04</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Построение информационной модели базы данных[cite: 1]
+                            </div>
+                            <div class="material-meta">Практическая работа</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="practices/05.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">05</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Установка и нормализация отношений в базе данных[cite: 1]
+                            </div>
+                            <div class="material-meta">Практическая работа</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
             </div>
 
-            <div class="control-card">
-                <div class="control-number">i</div>
+            <h3 class="topic-label">
+                <span class="topic-number">САМОСТОЯТЕЛЬНАЯ РАБОТА</span>
+                Тема 1.1[cite: 1]
+            </h3>
 
-                <div class="control-content">
-                    <div class="control-title">
-                        Страница готовится к публикации
-                    </div>
-
-                    <div class="control-meta">
-                        Отдельные материалы для данной квалификации будут
-                        размещены после завершения подготовки страницы.
+            <div class="material-list">
+                <div class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">СР</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Развитие способов организации данных, Правила Кодда, Операции реляционной алгебры[cite: 1]
+                            </div>
+                            <div class="material-meta">
+                                Систематическая проработка конспектов занятий, учебной и специальной технической литературы. Подготовка к практическим работам[cite: 1].
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </section>
 
-        <footer class="page-footer">
-            <a href="../students.html">← Вернуться ко всем дисциплинам</a>
-        </footer>
+        <!-- ==================== Section 1.2 ==================== -->
+
+        <section class="content-section" id="topic-1-2">
+
+            <div class="section-heading">
+                <h2>Раздел 1</h2>
+                <span class="section-count">1.2</span>
+            </div>
+
+            <p class="section-description">
+                Проектирование структур баз данных:
+                CASE-средства и работа в СУБД MySQL[cite: 1].
+            </p>
+
+            <h3 class="topic-label">
+                <span class="topic-number">ТЕМА 1.2</span>
+                Проектирование структур баз данных[cite: 1]
+            </h3>
+
+            <div class="material-list">
+
+                <a href="lectures/04.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">04</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Автоматизированные средства проектирования баз данных[cite: 1]
+                            </div>
+                            <div class="material-meta">
+                                Лекция · Основные определения · Классификация CASE-технологий · Обзор CASE-систем[cite: 1]
+                            </div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="lectures/05.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">05</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                СУБД MySQL. Базовые понятия СУБД[cite: 1]
+                            </div>
+                            <div class="material-meta">
+                                Лекция · Классификация и сравнительная характеристика СУБД ·
+                                Назначение и основные возможности СУБД MySQL · Элементы экрана ·
+                                Построение баз данных и структура данных СУБД MySQL[cite: 1]
+                            </div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+            </div>
+
+            <h3 class="topic-label">
+                <span class="topic-number">ПРАКТИЧЕСКИЕ РАБОТЫ</span>
+                Тема 1.2[cite: 1]
+            </h3>
+
+            <div class="material-list">
+
+                <a href="practices/06.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">06</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Автоматизированное создание баз данных с использованием case-средств[cite: 1]
+                            </div>
+                            <div class="material-meta">Практическая работа</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="practices/07.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">07</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Создание базы данных и настройка интерфейса в СУБД MySQL. Создание таблиц и настройка связей между таблицами в СУБД MySQL[cite: 1]
+                            </div>
+                            <div class="material-meta">Практическая работа</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+            </div>
+
+            <h3 class="topic-label">
+                <span class="topic-number">САМОСТОЯТЕЛЬНАЯ РАБОТА</span>
+                Тема 1.2[cite: 1]
+            </h3>
+
+            <div class="material-list">
+                <div class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">СР</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Типы данных MySQL. Перспективы развития СУБД[cite: 1]
+                            </div>
+                            <div class="material-meta">
+                                Систематическая проработка конспектов и литературы. Подготовка реферата[cite: 1].
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="topic-label">
+                <span class="topic-number">КОНТРОЛЬ</span>
+                Рубежный контроль знаний №1[cite: 1]
+            </h3>
+
+            <div class="control-card">
+                <div class="control-number">№1</div>
+                <div class="control-content">
+                    <div class="control-title">
+                        Рубежный контроль знаний №1[cite: 1]
+                    </div>
+                    <div class="control-meta">
+                        По итогам темы «Проектирование структур баз данных»[cite: 1]
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ==================== Section 1.3 ==================== -->
+
+        <section class="content-section" id="topic-1-3">
+
+            <div class="section-heading">
+                <h2>Раздел 1</h2>
+                <span class="section-count">1.3</span>
+            </div>
+
+            <p class="section-description">
+                Организация запросов на выборку данных при помощи языка SQL[cite: 1].
+            </p>
+
+            <h3 class="topic-label">
+                <span class="topic-number">ТЕМА 1.3</span>
+                Организация запросов SQL[cite: 1]
+            </h3>
+
+            <div class="material-list">
+
+                <a href="lectures/06.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">06</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Основные понятия языка SQL[cite: 1]
+                            </div>
+                            <div class="material-meta">
+                                Лекция · Создание, модификация и удаление таблиц · Операторы манипулирования данными · Организация запросов на выборку[cite: 1]
+                            </div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+            </div>
+
+            <h3 class="topic-label">
+                <span class="topic-number">ПРАКТИЧЕСКИЕ РАБОТЫ</span>
+                Тема 1.3[cite: 1]
+            </h3>
+
+            <div class="material-list">
+
+                <a href="practices/08.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">08</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Определение данных с помощью операторов SQL[cite: 1]
+                            </div>
+                            <div class="material-meta">Практическая работа</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="practices/09.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">09</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Манипулирование данными (выборка, добавление, редактирование данных)[cite: 1]
+                            </div>
+                            <div class="material-meta">Практическая работа</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="practices/10.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">10</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Создание хранимых процедур в базах данных (различных типов)[cite: 1]
+                            </div>
+                            <div class="material-meta">Практическая работа</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+            </div>
+
+            <h3 class="topic-label">
+                <span class="topic-number">ЛАБОРАТОРНЫЕ РАБОТЫ</span>
+                Тема 1.3[cite: 1]
+            </h3>
+
+            <div class="material-list">
+
+                <a href="labs/01.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">01</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Создание запросов с помощью конструктора запросов в MySQL[cite: 1]
+                            </div>
+                            <div class="material-meta">Лабораторное занятие</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="labs/02.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">02</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Работа с таблицами в SQL. Задание значений и ограничений поля. Проверка введенного в поле значения. Отображение данных числового типа и типа дата[cite: 1]
+                            </div>
+                            <div class="material-meta">Лабораторное занятие</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="labs/03.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">03</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Сортировка записей, перестановка и выбор полей с использованием языка SQL[cite: 1]
+                            </div>
+                            <div class="material-meta">Лабораторное занятие</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="labs/04.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">04</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Условия неточного совпадения и точного несовпадения[cite: 1]
+                            </div>
+                            <div class="material-meta">Лабораторное занятие</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="labs/05.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">05</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Выбор записей по диапазону значений[cite: 1]
+                            </div>
+                            <div class="material-meta">Лабораторное занятие</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="labs/06.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">06</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Многотабличные запросы и запросы с вычислениями[cite: 1]
+                            </div>
+                            <div class="material-meta">Лабораторное занятие</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+                <a href="labs/07.html" class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">07</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Создание триггеров в базах данных (различных типов)[cite: 1]
+                            </div>
+                            <div class="material-meta">Лабораторное занятие</div>
+                        </div>
+                        <div class="material-arrow" aria-hidden="true">→</div>
+                    </div>
+                </a>
+
+            </div>
+
+            <h3 class="topic-label">
+                <span class="topic-number">САМОСТОЯТЕЛЬНАЯ РАБОТА</span>
+                Тема 1.3[cite: 1]
+            </h3>
+
+            <div class="material-list">
+                <div class="material-card">
+                    <div class="material-inner">
+                        <div class="material-number">СР</div>
+                        <div class="material-content">
+                            <div class="material-title">
+                                Агрегатные функции, вложенные запросы, сортировка, группировка, хранимые процедуры и триггеры[cite: 1]
+                            </div>
+                            <div class="material-meta">
+                                Систематическая проработка конспектов и литературы. Подготовка к практическим работам[cite: 1].
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="topic-label">
+                <span class="topic-number">КОНТРОЛЬ</span>
+                Рубежный контроль знаний №2[cite: 1]
+            </h3>
+
+            <div class="control-card">
+                <div class="control-number">№2</div>
+                <div class="control-content">
+                    <div class="control-title">
+                        Рубежный контроль знаний №2[cite: 1]
+                    </div>
+                    <div class="control-meta">
+                        По итогам темы «Организация запросов SQL»[cite: 1]
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
     </main>
+
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const root = document.documentElement;
-    const toggle = document.getElementById('theme-toggle');
-    const icon = toggle?.querySelector('.theme-icon');
-    const label = toggle?.querySelector('.theme-label');
-
-    function applyTheme(theme) {
-        const isDark = theme === 'dark';
-        if (isDark) {
-            root.setAttribute('data-theme', 'dark');
-            if (icon) icon.textContent = '☀';
-            if (label) label.textContent = 'Светлая тема';
-            toggle?.setAttribute('aria-label', 'Переключить на светлую тему');
-            toggle?.setAttribute('aria-pressed', 'true');
-        } else {
-            root.removeAttribute('data-theme');
-            if (icon) icon.textContent = '☾';
-            if (label) label.textContent = 'Тёмная тема';
-            toggle?.setAttribute('aria-label', 'Переключить на тёмную тему');
-            toggle?.setAttribute('aria-pressed', 'false');
-        }
-    }
-
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    applyTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
-
-    toggle?.addEventListener('click', () => {
-        const isDark = root.getAttribute('data-theme') === 'dark';
-        const next = isDark ? 'light' : 'dark';
-        applyTheme(next);
-        localStorage.setItem('theme', next);
-    });
-});
-</script>
 </body>
 </html>
