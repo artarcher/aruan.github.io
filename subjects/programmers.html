@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-          content="Учебные материалы по дисциплине «Базы данных»: проектирование баз данных, реляционная модель, CASE-средства, СУБД MS Access и язык SQL.">
+          content="Учебные материалы по дисциплине «Базы данных». Страница находится в процессе подготовки к публикации.">
 
     <title>Базы данных — Учебные материалы</title>
 
@@ -85,7 +85,7 @@
 
         /* =========================
            SIDEBAR
-        ========================= */
+        ========================== */
 
         .sidebar {
             position: fixed;
@@ -170,7 +170,7 @@
 
         /* =========================
            MAIN
-        ========================= */
+        ========================== */
 
         .main {
             margin-left: var(--sidebar-width);
@@ -208,25 +208,9 @@
             line-height: 1.75;
         }
 
-        .meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 9px;
-            margin-top: 30px;
-        }
-
-        .meta-item {
-            padding: 8px 13px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            color: var(--text-soft);
-            font-size: 12px;
-        }
-
         /* =========================
-           SECTIONS
-        ========================= */
+           CONTENT
+        ========================== */
 
         .content {
             max-width: 1100px;
@@ -234,7 +218,6 @@
 
         .content-section {
             margin-bottom: 75px;
-            scroll-margin-top: 30px;
         }
 
         .section-heading {
@@ -266,147 +249,72 @@
             font-size: 15px;
         }
 
-        .subsection {
-            margin: 35px 0;
-        }
-
-        .subsection-title {
-            margin: 0 0 18px;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
         /* =========================
-           MATERIAL CARDS
-        ========================= */
+           NOTICE
+        ========================== */
 
-        .material-list {
-            display: grid;
-            gap: 12px;
-        }
-
-        .material-card {
-            display: block;
-            padding: 20px 22px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            transition: transform .2s ease,
-                        border-color .2s ease,
-                        box-shadow .2s ease;
-        }
-
-        a.material-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent);
-            box-shadow: var(--shadow);
-        }
-
-        .material-number {
-            margin-bottom: 6px;
-            color: var(--accent);
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .08em;
-        }
-
-        .material-title {
-            margin: 0;
-            font-size: 16px;
-            line-height: 1.45;
-            font-weight: 600;
-        }
-
-        .material-description {
-            margin: 8px 0 0;
-            color: var(--text-soft);
-            font-size: 13px;
-            line-height: 1.65;
-        }
-
-        .material-arrow {
-            float: right;
-            color: var(--accent);
-            font-size: 18px;
-        }
-
-        /* =========================
-           SELF STUDY
-        ========================= */
-
-        .self-study {
-            margin-top: 25px;
-            padding: 25px;
-            background: var(--surface-soft);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-        }
-
-        .self-study-title {
-            margin: 0 0 12px;
-            font-size: 17px;
-            font-weight: 700;
-        }
-
-        .self-study p {
-            margin: 0 0 18px;
-            color: var(--text-soft);
-            font-size: 14px;
-        }
-
-        .self-study-list {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        .self-study-list li {
-            margin-bottom: 9px;
-            color: var(--text);
-            font-size: 14px;
-        }
-
-        /* =========================
-           CONTROL / ATTESTATION
-        ========================= */
-
-        .control-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 18px;
-            padding: 22px;
+        .notice-card {
+            padding: 32px;
             background: var(--surface);
             border: 1px solid var(--border);
             border-left: 4px solid var(--accent);
-            border-radius: 14px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
         }
 
-        .control-icon {
-            flex: 0 0 auto;
-            width: 38px;
-            height: 38px;
+        .notice-icon {
+            width: 46px;
+            height: 46px;
             display: grid;
             place-items: center;
+            margin-bottom: 20px;
             background: var(--surface-soft);
-            border-radius: 10px;
+            border-radius: 12px;
             color: var(--accent);
-            font-size: 17px;
+            font-size: 21px;
         }
 
-        .control-content h3 {
-            margin: 0 0 5px;
-            font-size: 16px;
+        .notice-title {
+            margin: 0 0 12px;
+            font-family: "Lora", serif;
+            font-size: 25px;
+            line-height: 1.3;
+            font-weight: 500;
         }
 
-        .control-content p {
+        .notice-text {
+            max-width: 760px;
             margin: 0;
             color: var(--text-soft);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .notice-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 22px;
+            padding: 11px 16px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--accent);
             font-size: 13px;
+            font-weight: 600;
+            transition: all .2s ease;
+        }
+
+        .notice-link:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-1px);
         }
 
         /* =========================
            FOOTER
-        ========================= */
+        ========================== */
 
         .footer {
             max-width: 1100px;
@@ -422,7 +330,7 @@
 
         /* =========================
            MOBILE
-        ========================= */
+        ========================== */
 
         @media (max-width: 900px) {
             :root {
@@ -478,20 +386,16 @@
                 font-size: 15px;
             }
 
-            .meta {
-                gap: 7px;
+            .notice-card {
+                padding: 23px;
             }
 
-            .meta-item {
-                font-size: 11px;
+            .notice-title {
+                font-size: 22px;
             }
 
-            .material-card {
-                padding: 17px;
-            }
-
-            .control-card {
-                padding: 18px;
+            .notice-text {
+                font-size: 14px;
             }
         }
     </style>
@@ -566,8 +470,6 @@
 
     <main class="main">
 
-        <!-- HEADER -->
-
         <header class="page-header">
 
             <div class="page-label">
@@ -579,789 +481,16 @@
             </h1>
 
             <p class="page-description">
-                Проектирование и разработка баз данных, реляционная модель,
-                CASE-средства, СУБД MS Access и язык SQL.
-                Практическая работа с таблицами, запросами,
-                хранимыми процедурами и базами данных.
+                Учебные материалы по дисциплине находятся
+                в процессе подготовки к публикации.
             </p>
-
-            <div class="meta">
-                <span class="meta-item">94 академических часа</span>
-                <span class="meta-item">3 темы</span>
-                <span class="meta-item">9 практических работ</span>
-                <span class="meta-item">11 лабораторных работ</span>
-                <span class="meta-item">2 рубежных контроля</span>
-                <span class="meta-item">2 ч консультаций</span>
-                <span class="meta-item">Экзамен</span>
-            </div>
 
         </header>
 
 
         <div class="content">
 
-            <!-- =====================================================
-                 ТЕМА 1.1
-            ====================================================== -->
-
-            <section class="content-section" id="topic-1-1">
-
-                <div class="section-heading">
-
-                    <div class="section-count">
-                        1.1
-                    </div>
-
-                    <div>
-                        <h2 class="section-title">
-                            Разработка и проектирование базы данных
-                        </h2>
-
-                        <p class="section-description">
-                            Основные понятия баз данных, реляционная модель,
-                            реляционная алгебра и проектирование структуры базы данных.
-                        </p>
-                    </div>
-
-                </div>
-
-
-                <!-- Содержание -->
-
-                <div class="subsection">
-
-                    <h3 class="subsection-title">
-                        Теоретический материал
-                    </h3>
-
-                    <div class="material-list">
-
-                        <a class="material-card" href="lectures/01.html">
-                            <div class="material-number">
-                                Материал 01
-                            </div>
-
-                            <h4 class="material-title">
-                                Основные понятия и определения баз данных
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                            <p class="material-description">
-                                Предметная область, объекты, атрибуты, ключи.
-                                Иерархическая, сетевая и реляционная модели данных.
-                                Развитие способов организации данных:
-                                постреляционные, многомерные и
-                                объектно-ориентированные модели.
-                            </p>
-                        </a>
-
-
-                        <a class="material-card" href="lectures/02.html">
-                            <div class="material-number">
-                                Материал 02
-                            </div>
-
-                            <h4 class="material-title">
-                                Реляционная модель данных
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                            <p class="material-description">
-                                Реляционные объекты данных, индексирование,
-                                связывание таблиц, ссылочная и другие ограничения
-                                целостности, правила Кодда и реляционная алгебра.
-                            </p>
-                        </a>
-
-
-                        <a class="material-card" href="lectures/03.html">
-                            <div class="material-number">
-                                Материал 03
-                            </div>
-
-                            <h4 class="material-title">
-                                Проектирование баз данных
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                            <p class="material-description">
-                                Основные принципы проектирования.
-                                Концептуальная, логическая и физическая модели.
-                                Модель «сущность–связь», функциональные зависимости
-                                и нормальные формы.
-                            </p>
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Практические -->
-
-                <div class="subsection">
-
-                    <h3 class="subsection-title">
-                        Практические работы
-                    </h3>
-
-                    <div class="material-list">
-
-                        <a class="material-card" href="practices/01.html">
-                            <div class="material-number">Практическая работа 01</div>
-                            <h4 class="material-title">
-                                Применение операций реляционной алгебры
-                                <span class="material-arrow">→</span>
-                            </h4>
-                        </a>
-
-
-                        <a class="material-card" href="practices/02.html">
-                            <div class="material-number">Практическая работа 02</div>
-                            <h4 class="material-title">
-                                Описание предметной области. Выделение сущностей,
-                                связей, атрибутов и ключей
-                                <span class="material-arrow">→</span>
-                            </h4>
-                        </a>
-
-
-                        <a class="material-card" href="practices/03.html">
-                            <div class="material-number">Практическая работа 03</div>
-                            <h4 class="material-title">
-                                Построение модели «сущность–связь»
-                                <span class="material-arrow">→</span>
-                            </h4>
-                        </a>
-
-
-                        <a class="material-card" href="practices/04.html">
-                            <div class="material-number">Практическая работа 04</div>
-                            <h4 class="material-title">
-                                Построение информационной модели базы данных
-                                <span class="material-arrow">→</span>
-                            </h4>
-                        </a>
-
-
-                        <a class="material-card" href="practices/05.html">
-                            <div class="material-number">Практическая работа 05</div>
-                            <h4 class="material-title">
-                                Установка и нормализация отношений
-                                в базе данных
-                                <span class="material-arrow">→</span>
-                            </h4>
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Самостоятельная работа -->
-
-                <div class="self-study">
-
-                    <h3 class="self-study-title">
-                        Самостоятельная работа
-                    </h3>
-
-                    <p>
-                        Систематическая проработка конспектов занятий,
-                        учебной и специальной технической литературы.
-                        Подготовка к практическим и лабораторным работам
-                        с использованием методических рекомендаций преподавателя.
-                    </p>
-
-                    <ol class="self-study-list">
-
-                        <li>
-                            Изучить тему «Развитие способов организации данных:
-                            постреляционные, многомерные и
-                            объектно-ориентированные модели».
-                        </li>
-
-                        <li>
-                            Изучить тему «Правила Кодда».
-                        </li>
-
-                        <li>
-                            Выполнить работу по теме
-                            «Операции реляционной алгебры»
-                            на примере заданных отношений.
-                        </li>
-
-                    </ol>
-
-                </div>
-
-            </section>
-
-
-            <!-- =====================================================
-                 ТЕМА 1.2
-            ====================================================== -->
-
-            <section class="content-section" id="topic-1-2">
-
-                <div class="section-heading">
-
-                    <div class="section-count">
-                        1.2
-                    </div>
-
-                    <div>
-                        <h2 class="section-title">
-                            Проектирование структур баз данных
-                        </h2>
-
-                        <p class="section-description">
-                            CASE-технологии и работа с системой управления
-                            базами данных MS Access.
-                        </p>
-                    </div>
-
-                </div>
-
-
-                <!-- Теоретический материал -->
-
-                <div class="subsection">
-
-                    <h3 class="subsection-title">
-                        Теоретический материал
-                    </h3>
-
-                    <div class="material-list">
-
-                        <a class="material-card" href="lectures/04.html">
-
-                            <div class="material-number">
-                                Материал 04
-                            </div>
-
-                            <h4 class="material-title">
-                                Автоматизированные средства проектирования баз данных
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                            <p class="material-description">
-                                Основные определения, классификация CASE-технологий
-                                и обзор CASE-систем.
-                            </p>
-
-                        </a>
-
-
-                        <a class="material-card" href="lectures/05.html">
-
-                            <div class="material-number">
-                                Материал 05
-                            </div>
-
-                            <h4 class="material-title">
-                                СУБД MS Access
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                            <p class="material-description">
-                                Назначение и возможности СУБД, классификация
-                                систем управления базами данных, элементы интерфейса,
-                                построение баз данных и структура данных MS Access.
-                            </p>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Лабораторные -->
-
-                <div class="subsection">
-
-                    <h3 class="subsection-title">
-                        Лабораторные работы
-                    </h3>
-
-                    <div class="material-list">
-
-                        <a class="material-card" href="labs/01.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 01
-                            </div>
-
-                            <h4 class="material-title">
-                                Создание базы данных и настройка интерфейса
-                                в СУБД MS Access
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                            <p class="material-description">
-                                Создание таблиц и настройка связей
-                                между таблицами.
-                            </p>
-
-                        </a>
-
-
-                        <a class="material-card" href="labs/02.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 02
-                            </div>
-
-                            <h4 class="material-title">
-                                Создание простых форм в MS Access
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-
-                        <a class="material-card" href="labs/03.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 03
-                            </div>
-
-                            <h4 class="material-title">
-                                Создание сложных и подчинённых форм
-                                в MS Access
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-
-                        <a class="material-card" href="labs/04.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 04
-                            </div>
-
-                            <h4 class="material-title">
-                                Создание простых отчётов в MS Access
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-
-                        <a class="material-card" href="labs/05.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 05
-                            </div>
-
-                            <h4 class="material-title">
-                                Создание итоговых отчётов в MS Access
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Самостоятельная -->
-
-                <div class="self-study">
-
-                    <h3 class="self-study-title">
-                        Самостоятельная работа
-                    </h3>
-
-                    <p>
-                        Систематическая проработка конспектов занятий,
-                        учебной и специальной технической литературы.
-                        Подготовка к практическим и лабораторным работам
-                        с использованием методических рекомендаций преподавателя.
-                    </p>
-
-                    <ol class="self-study-list">
-
-                        <li>
-                            Изучить тему «Типы данных MS Access».
-                        </li>
-
-                        <li>
-                            Подготовить реферат на тему
-                            «Перспективы развития СУБД».
-                        </li>
-
-                    </ol>
-
-                </div>
-
-
-                <!-- Рубежный контроль -->
-
-                <div class="subsection">
-
-                    <div class="control-card">
-
-                        <div class="control-icon">
-                            ✓
-                        </div>
-
-                        <div class="control-content">
-
-                            <h3>
-                                Рубежный контроль знаний №1
-                            </h3>
-
-                            <p>
-                                Контроль освоения материала тем 1.1 и 1.2.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =====================================================
-                 ТЕМА 1.3
-            ====================================================== -->
-
-            <section class="content-section" id="topic-1-3">
-
-                <div class="section-heading">
-
-                    <div class="section-count">
-                        1.3
-                    </div>
-
-                    <div>
-                        <h2 class="section-title">
-                            Организация запросов SQL
-                        </h2>
-
-                        <p class="section-description">
-                            Основы языка SQL, создание и изменение таблиц,
-                            манипулирование данными, запросы, агрегатные функции,
-                            вложенные запросы и работа с данными.
-                        </p>
-                    </div>
-
-                </div>
-
-
-                <!-- Теоретический материал -->
-
-                <div class="subsection">
-
-                    <h3 class="subsection-title">
-                        Теоретический материал
-                    </h3>
-
-                    <div class="material-list">
-
-                        <a class="material-card" href="lectures/06.html">
-
-                            <div class="material-number">
-                                Материал 06
-                            </div>
-
-                            <h4 class="material-title">
-                                Основные понятия языка SQL
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                            <p class="material-description">
-                                Синтаксис операторов и типы данных.
-                                Создание, модификация и удаление таблиц.
-                                Операторы манипулирования данными.
-                                Организация запросов на выборку данных
-                                с помощью языка SQL.
-                            </p>
-
-                        </a>
-
-
-                        <div class="material-card">
-
-                            <div class="material-number">
-                                Дополнительный материал
-                            </div>
-
-                            <h4 class="material-title">
-                                Агрегатные функции, вложенные запросы,
-                                сортировка и группировка данных
-                            </h4>
-
-                            <p class="material-description">
-                                Применение агрегатных функций и вложенных запросов
-                                в операторе выбора. Сортировка и группировка
-                                данных в SQL.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Практические -->
-
-                <div class="subsection">
-
-                    <h3 class="subsection-title">
-                        Практические работы
-                    </h3>
-
-                    <div class="material-list">
-
-                        <a class="material-card" href="practices/06.html">
-
-                            <div class="material-number">
-                                Практическая работа 01
-                            </div>
-
-                            <h4 class="material-title">
-                                Определение данных с помощью операторов SQL
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-
-                        <a class="material-card" href="practices/07.html">
-
-                            <div class="material-number">
-                                Практическая работа 02
-                            </div>
-
-                            <h4 class="material-title">
-                                Модификация, переименование и удаление таблиц
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-
-                        <a class="material-card" href="practices/08.html">
-
-                            <div class="material-number">
-                                Практическая работа 03
-                            </div>
-
-                            <h4 class="material-title">
-                                Манипулирование данными:
-                                добавление, удаление и обновление
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-
-                        <a class="material-card" href="practices/09.html">
-
-                            <div class="material-number">
-                                Практическая работа 04
-                            </div>
-
-                            <h4 class="material-title">
-                                Создание хранимых процедур
-                                в базах данных
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                            <p class="material-description">
-                                Создание хранимых процедур различных типов.
-                            </p>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Лабораторные -->
-
-                <div class="subsection">
-
-                    <h3 class="subsection-title">
-                        Лабораторные работы
-                    </h3>
-
-                    <div class="material-list">
-
-                        <a class="material-card" href="labs/06.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 01
-                            </div>
-
-                            <h4 class="material-title">
-                                Создание запросов с помощью конструктора
-                                запросов в MS Access
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-
-                        <a class="material-card" href="labs/07.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 02
-                            </div>
-
-                            <h4 class="material-title">
-                                Работа с таблицами в SQL
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                            <p class="material-description">
-                                Задание значений и ограничений поля,
-                                проверка введённого значения,
-                                отображение числовых данных и данных типа «дата».
-                            </p>
-
-                        </a>
-
-
-                        <a class="material-card" href="labs/08.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 03
-                            </div>
-
-                            <h4 class="material-title">
-                                Сортировка записей, перестановка
-                                и выбор полей с использованием SQL
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-
-                        <a class="material-card" href="labs/09.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 04
-                            </div>
-
-                            <h4 class="material-title">
-                                Условия неточного и точного несовпадения
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-
-                        <a class="material-card" href="labs/10.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 05
-                            </div>
-
-                            <h4 class="material-title">
-                                Выбор записей по диапазону значений
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-
-                        <a class="material-card" href="labs/11.html">
-
-                            <div class="material-number">
-                                Лабораторная работа 06
-                            </div>
-
-                            <h4 class="material-title">
-                                Многотабличные запросы
-                                и запросы с вычислениями
-                                <span class="material-arrow">→</span>
-                            </h4>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Самостоятельная -->
-
-                <div class="self-study">
-
-                    <h3 class="self-study-title">
-                        Самостоятельная работа
-                    </h3>
-
-                    <p>
-                        Систематическая проработка конспектов занятий,
-                        учебной и специальной технической литературы.
-                        Подготовка к практическим и лабораторным работам
-                        с использованием методических рекомендаций преподавателя.
-                    </p>
-
-                    <ol class="self-study-list">
-
-                        <li>
-                            Изучить тему «Применение агрегатных функций
-                            и вложенных запросов в операторе выбора.
-                            Вложенные подзапросы».
-                        </li>
-
-                        <li>
-                            Изучить тему
-                            «Сортировка и группировка данных в SQL».
-                        </li>
-
-                    </ol>
-
-                </div>
-
-
-                <!-- Рубежный контроль -->
-
-                <div class="subsection">
-
-                    <div class="control-card">
-
-                        <div class="control-icon">
-                            ✓
-                        </div>
-
-                        <div class="control-content">
-
-                            <h3>
-                                Рубежный контроль знаний №2
-                            </h3>
-
-                            <p>
-                                Контроль освоения материала темы
-                                «Организация запросов SQL».
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =====================================================
-                 КОНСУЛЬТАЦИЯ
-            ====================================================== -->
-
-            <section class="content-section" id="consultation">
+            <section class="content-section">
 
                 <div class="section-heading">
 
@@ -1371,97 +500,56 @@
 
                     <div>
                         <h2 class="section-title">
-                            Консультации
+                            Страница готовится к публикации
                         </h2>
 
                         <p class="section-description">
-                            Консультационная поддержка по вопросам изучения
-                            дисциплины и подготовки к экзамену.
+                            Материалы по дисциплине будут доступны
+                            после завершения подготовки страницы.
                         </p>
                     </div>
 
                 </div>
 
-                <div class="control-card">
 
-                    <div class="control-icon">
-                        ?
+                <div class="notice-card">
+
+                    <div class="notice-icon">
+                        ◌
                     </div>
 
-                    <div class="control-content">
+                    <h3 class="notice-title">
+                        Материалы скоро появятся
+                    </h3>
 
-                        <h3>
-                            Консультации — 2 академических часа
-                        </h3>
+                    <p class="notice-text">
+                        Страница учебных материалов по дисциплине
+                        <strong>«Базы данных»</strong> в настоящее время
+                        готовится к публикации.
+                    </p>
 
-                        <p>
-                            Подготовка к промежуточной аттестации,
-                            разбор сложных вопросов и консультация
-                            по изученному материалу.
-                        </p>
+                    <p class="notice-text" style="margin-top: 12px;">
+                        На данный момент для изучения материала можно
+                        использовать лекции для квалификации
+                        <strong>«Оператор информационных систем и ресурсов»</strong>,
+                        доступные по ссылке ниже.
+                    </p>
 
-                    </div>
+                    <a class="notice-link" href="#">
+                        Перейти к лекциям
+                        <span>→</span>
+                    </a>
 
                 </div>
 
             </section>
 
-
-            <!-- =====================================================
-                 ЭКЗАМЕН
-            ====================================================== -->
-
-            <section class="content-section" id="exam">
-
-                <div class="section-heading">
-
-                    <div class="section-count">
-                        —
-                    </div>
-
-                    <div>
-                        <h2 class="section-title">
-                            Промежуточная аттестация
-                        </h2>
-
-                        <p class="section-description">
-                            Проверка освоения дисциплины по итогам обучения.
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="control-card">
-
-                    <div class="control-icon">
-                        ★
-                    </div>
-
-                    <div class="control-content">
-
-                        <h3>
-                            Экзамен
-                        </h3>
-
-                        <p>
-                            Промежуточная аттестация проводится
-                            в форме экзамена — 6 академических часов.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- FOOTER -->
 
             <footer class="footer">
 
                 <p>
-                    Дисциплина «Базы данных» ·
-                    Всего по рабочей программе — <strong>94 академических часа</strong>.
+                    Дисциплина «Базы данных».
+                    Страница находится в процессе подготовки.
                 </p>
 
                 <p>
