@@ -1,2852 +1,593 @@
-```html
 <!DOCTYPE html>
-
 <html lang="ru">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="description"
+          content="Учебные материалы по дисциплине «Базы данных». Страница находится в процессе подготовки к публикации.">
 
-    <meta
-        name="description"
-        content="Базы данных — лекции, практические и лабораторные занятия, самостоятельная работа, контроль знаний и промежуточная аттестация."
-    >
+    <title>Базы данных — Учебные материалы</title>
 
-    <title>Базы данных — материалы — aruan</title>
-
-
-    <link
-        rel="icon"
-        type="image/svg+xml"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
-    >
-
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E◉%3C/text%3E%3C/svg%3E">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+          rel="stylesheet">
 
     <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
 
-        (() => {
-
-            const savedTheme =
-                localStorage.getItem('theme');
-
-            const prefersDark =
-                window.matchMedia &&
-                window.matchMedia(
-                    '(prefers-color-scheme: dark)'
-                ).matches;
-
-            if (
-                savedTheme === 'dark' ||
-                (!savedTheme && prefersDark)
-            ) {
-
-                document.documentElement
-                    .setAttribute(
-                        'data-theme',
-                        'dark'
-                    );
-
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
             }
-
         })();
-
     </script>
 
-
     <style>
-
         :root {
-
-            --bg: #faf9f6;
-            --ink: #17181a;
-            --ink-soft: #3b3c3e;
-            --muted: #767671;
-            --faint: #aaa8a1;
-
-            --line: #e6e3dc;
-            --line-strong: #d8d4ca;
-
-            --accent: #a9832f;
-            --accent-soft: rgba(169,131,47,.12);
-
-            --paper: #ffffff;
-
-            --font-display:
-                'Lora',
-                Georgia,
-                serif;
-
-            --font-body:
-                'Inter',
-                sans-serif;
-
-            --ease:
-                cubic-bezier(.16,1,.3,1);
-
-            --content-w: 1000px;
-            --sidebar-w: 260px;
+            --bg: #f7f5f1;
+            --surface: #ffffff;
+            --surface-soft: #f1eee8;
+            --text: #252525;
+            --text-soft: #68645d;
+            --accent: #8d5f42;
+            --accent-dark: #70482f;
+            --border: #e5e0d8;
+            --shadow: 0 12px 35px rgba(46, 37, 29, .08);
+            --sidebar-width: 280px;
         }
 
-
-        [data-theme="dark"] {
-
-            --bg: #131315;
-            --ink: #f1efe8;
-            --ink-soft: #d6d3c9;
-            --muted: #93908a;
-            --faint: #666460;
-
-            --line: #262629;
-            --line-strong: #35353a;
-
-            --accent: #cda253;
-            --accent-soft: rgba(205,162,83,.14);
-
-            --paper: #1b1b1e;
+        html.dark {
+            --bg: #191817;
+            --surface: #242220;
+            --surface-soft: #2c2926;
+            --text: #f1eee8;
+            --text-soft: #aaa39a;
+            --accent: #c79672;
+            --accent-dark: #e0ad86;
+            --border: #3a3632;
+            --shadow: 0 12px 35px rgba(0, 0, 0, .25);
         }
-
 
         * {
             box-sizing: border-box;
         }
 
-
         html {
             scroll-behavior: smooth;
         }
 
-
         body {
-
             margin: 0;
-
-            font-family: var(--font-body);
-
             background: var(--bg);
-            color: var(--ink-soft);
-
+            color: var(--text);
+            font-family: "Inter", sans-serif;
             line-height: 1.65;
-
-            -webkit-font-smoothing: antialiased;
-
-            transition:
-                background-color .35s var(--ease),
-                color .35s var(--ease);
+            transition: background .25s ease, color .25s ease;
         }
-
-
-        ::selection {
-
-            background: var(--accent-soft);
-
-            color: var(--ink);
-        }
-
 
         a {
             color: inherit;
+            text-decoration: none;
         }
 
-
-        :focus-visible {
-
-            outline: 2px solid var(--accent);
-
-            outline-offset: 4px;
+        button {
+            font: inherit;
         }
 
-
-        /* ============================================================
-           Layout
-           ============================================================ */
-
-        .wrapper {
-
-            display: flex;
-
-            width: 100%;
-
-            max-width: var(--content-w);
-
-            margin: 0 auto;
-
-            padding: 72px 24px 120px;
+        .layout {
+            min-height: 100vh;
         }
 
+        /* =========================
+           SIDEBAR
+        ========================== */
 
-        aside {
-
-            width: var(--sidebar-w);
-
+        .sidebar {
             position: fixed;
-
-            top: 72px;
-
-            height: calc(100vh - 140px);
-
+            inset: 0 auto 0 0;
+            width: var(--sidebar-width);
+            padding: 42px 30px 30px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
             display: flex;
-
             flex-direction: column;
-
-            justify-content: space-between;
+            z-index: 20;
         }
 
-
-        main {
-
-            margin-left:
-                calc(var(--sidebar-w) + 60px);
-
-            flex: 1;
-
-            min-width: 0;
+        .brand {
+            margin-bottom: 45px;
         }
 
-
-        /* ============================================================
-           Sidebar
-           ============================================================ */
-
-        .profile-info h1 {
-
-            margin: 0;
-
-            font-family: var(--font-display);
-
-            font-size: 2.1rem;
-
-            font-weight: 600;
-
-            color: var(--ink);
-
+        .brand-name {
+            font-family: "Lora", serif;
+            font-size: 28px;
+            font-weight: 500;
             letter-spacing: -.02em;
         }
 
-
-        .profile-quote {
-
-            margin: 10px 0 0;
-
-            font-family: var(--font-display);
-
-            font-style: italic;
-
-            font-size: 1rem;
-
-            line-height: 1.55;
-        }
-
-
-        .quote-author {
-
-            display: block;
-
-            margin-top: 12px;
-
-            font-family: var(--font-body);
-
-            font-style: normal;
-
-            font-size: .72rem;
-
-            color: var(--faint);
-
+        .brand-caption {
+            margin-top: 5px;
+            color: var(--text-soft);
+            font-size: 12px;
             text-transform: uppercase;
-
-            letter-spacing: .09em;
+            letter-spacing: .12em;
         }
 
-
-        .signature-mark {
-
-            width: 100%;
-
-            height: 46px;
-
-            margin:
-                22px 0 34px;
-
-            opacity: .5;
-
-            color: var(--ink);
-        }
-
-
-        .signature-mark svg {
-
-            width: 100%;
-
-            height: 100%;
-        }
-
-
-        .signature-mark .peaks {
-
-            fill: none;
-
-            stroke: currentColor;
-
-            stroke-width: 1;
-
-            stroke-linejoin: round;
-
-            stroke-linecap: round;
-        }
-
-
-        .signature-mark .stars circle {
-
-            fill: currentColor;
-        }
-
-
-        /* ============================================================
-           Navigation
-           ============================================================ */
-
-        nav {
-            margin-top: 38px;
-        }
-
-
-        nav ul {
-
-            list-style: none;
-
+        .quote {
             margin: 0;
-
-            padding: 0;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-soft);
+            font-family: "Lora", serif;
+            font-size: 14px;
+            line-height: 1.7;
         }
 
-
-        nav li {
-            margin-bottom: 13px;
+        .signature {
+            margin-top: 22px;
+            opacity: .7;
         }
 
-
-        nav a {
-
-            position: relative;
-
-            display: inline-block;
-
-            padding-left: 14px;
-
-            color: var(--muted);
-
-            font-size: .78rem;
-
-            font-weight: 600;
-
-            letter-spacing: .07em;
-
-            text-transform: uppercase;
-
-            text-decoration: none;
+        .sidebar-bottom {
+            margin-top: auto;
         }
 
-
-        nav a::before {
-
-            content: "";
-
-            position: absolute;
-
-            left: 0;
-
-            top: 50%;
-
-            width: 5px;
-
-            height: 1px;
-
-            background: var(--faint);
-
-            transform:
-                translateY(-50%)
-                scaleX(.6);
-
-            transform-origin: left;
-
-            transition: all .25s var(--ease);
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-soft);
+            font-size: 13px;
+            transition: color .2s ease;
         }
 
-
-        nav a:hover {
-            color: var(--ink);
+        .back-link:hover {
+            color: var(--accent);
         }
-
-
-        /* ============================================================
-           Theme
-           ============================================================ */
 
         .theme-toggle {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            border:
-                1px solid var(--line);
-
-            background: transparent;
-
-            color: var(--muted);
-
-            font-family: var(--font-body);
-
-            font-size: .72rem;
-
-            font-weight: 600;
-
-            text-transform: uppercase;
-
-            letter-spacing: .07em;
-
-            padding: 9px 14px;
-
-            border-radius: 20px;
-
+            margin-top: 20px;
+            width: 100%;
+            padding: 11px 14px;
+            background: var(--surface-soft);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             cursor: pointer;
-
-            transition:
-                border-color .3s var(--ease),
-                color .3s var(--ease);
+            transition: all .2s ease;
         }
-
 
         .theme-toggle:hover {
-
-            color: var(--ink);
-
-            border-color:
-                var(--line-strong);
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
+        /* =========================
+           MAIN
+        ========================== */
 
-        /* ============================================================
-           Header
-           ============================================================ */
+        .main {
+            margin-left: var(--sidebar-width);
+            padding: 65px 7vw 70px;
+        }
+
+        .page-header {
+            max-width: 950px;
+            margin-bottom: 65px;
+        }
 
         .page-label {
-
-            font-size: .72rem;
-
-            font-weight: 700;
-
+            margin-bottom: 12px;
             color: var(--accent);
-
+            font-size: 12px;
+            font-weight: 700;
             text-transform: uppercase;
-
-            letter-spacing: .12em;
-
-            margin-bottom: 16px;
+            letter-spacing: .16em;
         }
-
 
         .page-title {
-
-            margin: 0 0 18px;
-
-            font-family: var(--font-display);
-
-            font-size:
-                clamp(
-                    2.4rem,
-                    5vw,
-                    3.6rem
-                );
-
+            margin: 0;
+            font-family: "Lora", serif;
+            font-size: clamp(38px, 5vw, 68px);
+            line-height: 1.05;
             font-weight: 500;
-
-            line-height: 1.12;
-
-            color: var(--ink);
+            letter-spacing: -.035em;
         }
-
 
         .page-description {
-
-            max-width: 68ch;
-
-            margin: 0;
-
-            font-family: var(--font-display);
-
-            font-style: italic;
-
-            font-size: 1.15rem;
-
-            color: var(--ink-soft);
+            max-width: 780px;
+            margin: 25px 0 0;
+            color: var(--text-soft);
+            font-size: 17px;
+            line-height: 1.75;
         }
 
+        /* =========================
+           CONTENT
+        ========================== */
 
-        .course-meta {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 8px;
-
-            margin-top: 28px;
+        .content {
+            max-width: 1100px;
         }
-
-
-        .meta-item {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            min-height: 32px;
-
-            padding:
-                6px
-                11px;
-
-            border:
-                1px solid var(--line);
-
-            border-radius: 20px;
-
-            font-size: .72rem;
-
-            color: var(--muted);
-
-            letter-spacing: .03em;
-        }
-
-
-        /* ============================================================
-           Sections
-           ============================================================ */
 
         .content-section {
-
-            margin-top: 68px;
+            margin-bottom: 75px;
         }
-
 
         .section-heading {
-
-            display: flex;
-
-            align-items: baseline;
-
-            justify-content: space-between;
-
-            gap: 20px;
-
-            border-bottom:
-                1px solid var(--line);
-
-            padding-bottom: 14px;
-
-            margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 25px;
+            align-items: start;
+            margin-bottom: 30px;
         }
-
-
-        .section-heading h2 {
-
-            margin: 0;
-
-            color: var(--ink);
-
-            font-size: .82rem;
-
-            font-weight: 700;
-
-            text-transform: uppercase;
-
-            letter-spacing: .12em;
-        }
-
 
         .section-count {
-
-            font-size: .78rem;
-
-            color: var(--muted);
+            padding-top: 5px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 700;
         }
 
+        .section-title {
+            margin: 0;
+            font-family: "Lora", serif;
+            font-size: clamp(28px, 3vw, 40px);
+            line-height: 1.2;
+            font-weight: 500;
+        }
 
         .section-description {
-
-            margin:
-                -8px 0 24px;
-
-            max-width: 72ch;
-
-            font-size: .9rem;
-
-            color: var(--muted);
+            margin: 10px 0 0;
+            color: var(--text-soft);
+            font-size: 15px;
         }
 
+        /* =========================
+           NOTICE
+        ========================== */
 
-        .topic-label {
-
-            margin:
-                38px 0 16px;
-
-            font-family: var(--font-display);
-
-            font-size: 1.25rem;
-
-            font-weight: 500;
-
-            line-height: 1.4;
-
-            color: var(--ink);
+        .notice-card {
+            padding: 32px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
         }
 
-
-        .topic-number {
-
+        .notice-icon {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 20px;
+            background: var(--surface-soft);
+            border-radius: 12px;
             color: var(--accent);
-
-            font-family: var(--font-body);
-
-            font-size: .72rem;
-
-            font-weight: 700;
-
-            letter-spacing: .08em;
-
-            margin-right: 8px;
+            font-size: 21px;
         }
 
-
-        /* ============================================================
-           Material cards
-           ============================================================ */
-
-        .material-list {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 10px;
-        }
-
-
-        .material-card {
-
-            display: block;
-
-            padding:
-                20px 22px;
-
-            border:
-                1px solid var(--line);
-
-            text-decoration: none;
-
-            transition:
-                transform .25s var(--ease),
-                background-color .25s var(--ease),
-                border-color .25s var(--ease);
-        }
-
-
-        .material-card:hover {
-
-            transform: translateY(-2px);
-
-            background: var(--paper);
-
-            border-color:
-                var(--line-strong);
-        }
-
-
-        .material-inner {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 18px;
-        }
-
-
-        .material-number {
-
-            flex: 0 0 auto;
-
-            width: 42px;
-
-            height: 42px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background:
-                var(--accent-soft);
-
-            color:
-                var(--accent);
-
-            font-size: .76rem;
-
-            font-weight: 700;
-
-            text-align: center;
-        }
-
-
-        .material-content {
-
-            flex: 1;
-
-            min-width: 0;
-        }
-
-
-        .material-title {
-
-            margin-bottom: 5px;
-
-            font-family: var(--font-display);
-
-            font-size: 1.08rem;
-
+        .notice-title {
+            margin: 0 0 12px;
+            font-family: "Lora", serif;
+            font-size: 25px;
+            line-height: 1.3;
             font-weight: 500;
-
-            color: var(--ink);
-
-            line-height: 1.4;
         }
 
-
-        .material-meta {
-
-            font-size: .81rem;
-
-            color: var(--muted);
+        .notice-text {
+            max-width: 760px;
+            margin: 0;
+            color: var(--text-soft);
+            font-size: 15px;
+            line-height: 1.8;
         }
 
-
-        .material-arrow {
-
-            color: var(--faint);
-
-            font-size: 1.2rem;
-
-            transition:
-                transform .25s var(--ease),
-                color .25s var(--ease);
-        }
-
-
-        .material-card:hover .material-arrow {
-
+        .notice-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 22px;
+            padding: 11px 16px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             color: var(--accent);
-
-            transform:
-                translateX(4px);
+            font-size: 13px;
+            font-weight: 600;
+            transition: all .2s ease;
         }
 
-
-        /* ============================================================
-           Control
-           ============================================================ */
-
-        .control-card {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 18px;
-
-            padding:
-                20px 22px;
-
-            border:
-                1px solid var(--line);
-
-            background:
-                var(--accent-soft);
+        .notice-link:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-1px);
         }
 
+        /* =========================
+           FOOTER
+        ========================== */
 
-        .control-number {
-
-            flex: 0 0 auto;
-
-            width: 42px;
-
-            height: 42px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background:
-                var(--paper);
-
-            color:
-                var(--accent);
-
-            font-size: .76rem;
-
-            font-weight: 700;
+        .footer {
+            max-width: 1100px;
+            padding-top: 35px;
+            border-top: 1px solid var(--border);
+            color: var(--text-soft);
+            font-size: 13px;
         }
 
-
-        .control-content {
-
-            min-width: 0;
-
-            flex: 1;
+        .footer a {
+            color: var(--accent);
         }
 
+        /* =========================
+           MOBILE
+        ========================== */
 
-        .control-title {
-
-            margin-bottom: 4px;
-
-            font-family: var(--font-display);
-
-            font-size: 1.05rem;
-
-            color: var(--ink);
-        }
-
-
-        .control-meta {
-
-            font-size: .8rem;
-
-            color: var(--muted);
-        }
-
-
-        /* ============================================================
-           Footer
-           ============================================================ */
-
-        .page-footer {
-
-            margin-top: 80px;
-
-            padding-top: 24px;
-
-            border-top:
-                1px solid var(--line);
-
-            font-size: .82rem;
-
-            color: var(--faint);
-        }
-
-
-        .page-footer a {
-
-            color: var(--muted);
-
-            text-decoration: none;
-
-            border-bottom:
-                1px solid var(--line-strong);
-        }
-
-
-        .page-footer a:hover {
-
-            color: var(--ink);
-        }
-
-
-        /* ============================================================
-           Responsive
-           ============================================================ */
-
-        @media (max-width: 860px) {
-
-            .wrapper {
-
-                flex-direction: column;
-
-                padding:
-                    48px
-                    20px
-                    90px;
+        @media (max-width: 900px) {
+            :root {
+                --sidebar-width: 0px;
             }
 
-
-            aside {
-
+            .sidebar {
                 position: relative;
-
-                top: 0;
-
                 width: 100%;
-
-                height: auto;
-
-                margin-bottom: 52px;
+                min-height: auto;
+                padding: 25px 22px;
+                border-right: 0;
+                border-bottom: 1px solid var(--border);
             }
 
+            .brand {
+                margin-bottom: 25px;
+            }
 
-            main {
+            .quote {
+                max-width: 700px;
+            }
+
+            .sidebar-bottom {
+                margin-top: 25px;
+            }
+
+            .main {
                 margin-left: 0;
+                padding: 45px 22px 55px;
             }
 
-
-            .signature-mark {
-                max-width: 320px;
+            .page-header {
+                margin-bottom: 50px;
             }
 
-
-            nav {
-                margin-top: 26px;
+            .section-heading {
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
 
-
-            nav ul {
-
-                display: flex;
-
-                flex-wrap: wrap;
-
-                gap: 10px 18px;
+            .section-count {
+                padding-top: 0;
             }
-
-
-            nav li {
-                margin-bottom: 0;
-            }
-
-
-            .theme-toggle {
-
-                margin-top: 28px;
-
-                align-self: flex-start;
-            }
-
         }
 
-
-        @media (max-width: 560px) {
-
-            .material-card {
-                padding: 18px;
+        @media (max-width: 600px) {
+            .page-title {
+                font-size: 40px;
             }
 
-
-            .material-inner {
-
-                align-items: flex-start;
-
-                gap: 14px;
+            .page-description {
+                font-size: 15px;
             }
 
-
-            .material-number {
-
-                width: 36px;
-
-                height: 36px;
+            .notice-card {
+                padding: 23px;
             }
 
-
-            .material-arrow {
-                display: none;
+            .notice-title {
+                font-size: 22px;
             }
 
-
-            .control-card {
-
-                align-items: flex-start;
-
-                padding: 18px;
+            .notice-text {
+                font-size: 14px;
             }
-
         }
-
-
-        @media (prefers-reduced-motion: reduce) {
-
-            html {
-                scroll-behavior: auto;
-            }
-
-        }
-
     </style>
-
 </head>
-
 
 <body>
 
-<div class="wrapper">
+<div class="layout">
 
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
 
-    <!-- ========================================================
-         Sidebar
-         ======================================================== -->
+    <aside class="sidebar">
 
-    <aside>
-
-        <div class="profile-info">
-
-            <h1>aruan</h1>
-
-
-            <p class="profile-quote">
-
-                Пока твоё сердце<br>
-                Ещё откликается<br>
-                На звёзды
-
-                <span class="quote-author">
-                    Bazlab — Дружище
-                </span>
-
-            </p>
-
-
-            <div
-                class="signature-mark"
-                aria-hidden="true"
-            >
-
-                <svg
-                    viewBox="0 0 240 46"
-                    preserveAspectRatio="none"
-                >
-
-                    <g class="stars">
-
-                        <circle cx="18" cy="10" r="1" />
-
-                        <circle cx="150" cy="6" r="1" />
-
-                        <circle cx="200" cy="14" r="1" />
-
-                        <circle cx="90" cy="4" r=".8" />
-
-                        <circle cx="222" cy="9" r=".8" />
-
-                    </g>
-
-
-                    <path
-                        class="peaks"
-                        d="M0,40 L34,22 L52,32 L78,14 L104,36 L128,20 L152,38 L182,16 L206,34 L240,24"
-                    />
-
-                </svg>
-
+        <div>
+            <div class="brand">
+                <div class="brand-name">aruan</div>
+                <div class="brand-caption">учебные материалы</div>
             </div>
 
+            <p class="quote">
+                «Хорошая база данных начинается
+                не с таблиц, а с понимания
+                предметной области».
+            </p>
 
-            <nav>
-
-                <ul>
-
-                    <li>
-
-                        <a href="../students.html">
-                            ← Все квалификации
-                        </a>
-
-                    </li>
-
-                </ul>
-
-            </nav>
-
+            <div class="signature">
+                <svg width="150" height="45" viewBox="0 0 150 45"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M5 31
+                           C15 14, 19 15, 18 28
+                           C17 37, 23 37, 28 27
+                           C34 16, 36 18, 34 29
+                           C33 38, 40 36, 46 27
+                           C53 16, 56 18, 54 29
+                           C52 39, 61 35, 67 27
+                           C75 17, 78 20, 76 30
+                           C74 38, 83 37, 90 28
+                           C97 19, 102 19, 100 29
+                           C98 38, 107 35, 114 27
+                           C121 19, 126 20, 123 30
+                           C121 38, 132 34, 142 25"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                        stroke-linecap="round"
+                    />
+                </svg>
+            </div>
         </div>
 
+        <div class="sidebar-bottom">
 
-        <button
-            id="theme-toggle"
-            class="theme-toggle"
-            type="button"
-            aria-label="Переключить тему"
-            aria-pressed="false"
-        >
+            <a class="back-link" href="../students.html">
+                ← К учебным материалам
+            </a>
 
-            <span
-                class="theme-icon"
-                aria-hidden="true"
-            >
-                ☾
-            </span>
+            <button class="theme-toggle" id="themeToggle" type="button">
+                ◐ Переключить тему
+            </button>
 
-            <span class="theme-label">
-                Тёмная тема
-            </span>
-
-        </button>
+        </div>
 
     </aside>
 
 
-    <!-- ========================================================
-         Main
-         ======================================================== -->
+    <!-- =========================
+         MAIN
+    ========================== -->
 
-    <main>
+    <main class="main">
 
-
-        <!-- ====================================================
-             Header
-             ==================================================== -->
-
-        <header>
+        <header class="page-header">
 
             <div class="page-label">
                 Дисциплина
             </div>
 
-
-            <h2 class="page-title">
+            <h1 class="page-title">
                 Базы данных
-            </h2>
-
+            </h1>
 
             <p class="page-description">
-
-                Разработка и реализация баз данных:
-                проектирование структуры, реляционная модель,
-                СУБД MySQL и организация запросов на языке SQL.
-
+                Учебные материалы по дисциплине находятся
+                в процессе подготовки к публикации.
             </p>
-
-
-            <div class="course-meta">
-
-                <span class="meta-item">
-                    80 часов
-                </span>
-
-                <span class="meta-item">
-                    3 темы
-                </span>
-
-                <span class="meta-item">
-                    2 рубежных контроля
-                </span>
-
-                <span class="meta-item">
-                    Консультации · 2 ч.
-                </span>
-
-                <span class="meta-item">
-                    Дифференцированный зачёт · 2 ч.
-                </span>
-
-            </div>
 
         </header>
 
 
-        <!-- ====================================================
-             Section 1.1
-             ==================================================== -->
+        <div class="content">
 
-        <section
-            class="content-section"
-            id="topic-1-1"
-        >
+            <section class="content-section">
 
-            <div class="section-heading">
+                <div class="section-heading">
 
-                <h2>
-                    Раздел 1
-                </h2>
-
-                <span class="section-count">
-                    1.1 · 30 ч.
-                </span>
-
-            </div>
-
-
-            <p class="section-description">
-
-                Разработка и проектирование базы данных.
-
-            </p>
-
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ТЕМА 1.1
-                </span>
-
-                Разработка и проектирование базы данных
-
-            </h3>
-
-
-            <!-- Лекции -->
-
-            <div class="material-list">
-
-
-                <a
-                    href="lectures/01.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            01
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Основные понятия и определения баз данных
-                            </div>
-
-                            <div class="material-meta">
-                                Лекция · Предметная область · Объекты · Атрибуты · Ключи · Модели данных
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
+                    <div class="section-count">
+                        —
                     </div>
 
-                </a>
-
-
-                <a
-                    href="lectures/02.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            02
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Реляционная модель данных
-                            </div>
-
-                            <div class="material-meta">
-                                Лекция · Реляционные объекты · Индексирование · Связывание таблиц · Целостность · Реляционная алгебра
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="lectures/03.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            03
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Проектирование баз данных
-                            </div>
-
-                            <div class="material-meta">
-                                Лекция · Принципы проектирования · Модели данных · ER-модель · Функциональные зависимости · Нормальные формы
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Практические работы -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ПРАКТИЧЕСКИЕ РАБОТЫ
-                </span>
-
-                5 занятий
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <a
-                    href="practices/01.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            01
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Применение операции реляционной алгебры
-                            </div>
-
-                            <div class="material-meta">
-                                Практическая работа
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/02.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            02
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Описание предметной области. Выделение сущностей, определение связей, атрибутов и ключей
-                            </div>
-
-                            <div class="material-meta">
-                                Практическая работа
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/03.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            03
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Построение модели «сущность-связь»
-                            </div>
-
-                            <div class="material-meta">
-                                Практическая работа
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/04.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            04
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Построение информационной модели базы данных
-                            </div>
-
-                            <div class="material-meta">
-                                Практическая работа
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/05.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            05
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Установка и нормализация отношений в базе данных
-                            </div>
-
-                            <div class="material-meta">
-                                Практическая работа · Нормализация
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Самостоятельная работа -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    САМОСТОЯТЕЛЬНАЯ РАБОТА
-                </span>
-
-                Тема 1.1
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <div class="material-card">
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            СР
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Дополнительные темы и подготовка к занятиям
-                            </div>
-
-                            <div class="material-meta">
-                                Проработка конспектов и технической литературы · Подготовка к практическим работам · Подготовка отчётов
-                            </div>
-
-                        </div>
-
+                    <div>
+                        <h2 class="section-title">
+                            Страница готовится к публикации
+                        </h2>
+
+                        <p class="section-description">
+                            Материалы по дисциплине будут доступны
+                            после завершения подготовки страницы.
+                        </p>
                     </div>
 
                 </div>
 
 
-                <div class="material-card">
+                <div class="notice-card">
 
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            01
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Развитие способов организации данных: постреляционные, многомерные и объектно-ориентированные модели
-                            </div>
-
-                            <div class="material-meta">
-                                Самостоятельная работа
-                            </div>
-
-                        </div>
-
+                    <div class="notice-icon">
+                        ◌
                     </div>
+
+                    <h3 class="notice-title">
+                        Материалы скоро появятся
+                    </h3>
+
+                    <p class="notice-text">
+                        Страница учебных материалов по дисциплине
+                        <strong>«Базы данных»</strong> в настоящее время
+                        готовится к публикации.
+                    </p>
+
+                    <p class="notice-text" style="margin-top: 12px;">
+                        На данный момент для изучения материала можно
+                        использовать лекции для квалификации
+                        <strong>«Оператор информационных систем и ресурсов»</strong>,
+                        доступные по ссылке ниже.
+                    </p>
+
+                    <a class="notice-link" href="#">
+                        Перейти к лекциям
+                        <span>→</span>
+                    </a>
 
                 </div>
 
+            </section>
 
-                <div class="material-card">
 
-                    <div class="material-inner">
+            <footer class="footer">
 
-                        <div class="material-number">
-                            02
-                        </div>
+                <p>
+                    Дисциплина «Базы данных».
+                    Страница находится в процессе подготовки.
+                </p>
 
+                <p>
+                    <a href="../students.html">
+                        ← Вернуться к учебным материалам
+                    </a>
+                </p>
 
-                        <div class="material-content">
+            </footer>
 
-                            <div class="material-title">
-                                Правила Кодда
-                            </div>
-
-                            <div class="material-meta">
-                                Самостоятельная работа
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="material-card">
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            03
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Операции реляционной алгебры на примере заданных отношений
-                            </div>
-
-                            <div class="material-meta">
-                                Самостоятельная работа
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- Рубежный контроль №1 -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    КОНТРОЛЬ
-                </span>
-
-                Рубежный контроль знаний №1
-
-            </h3>
-
-
-            <div class="control-card">
-
-                <div class="control-number">
-                    №1
-                </div>
-
-
-                <div class="control-content">
-
-                    <div class="control-title">
-                        Рубежный контроль знаний №1
-                    </div>
-
-                    <div class="control-meta">
-                        По итогам тем 1.1 и 1.2
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             Section 1.2
-             ==================================================== -->
-
-        <section
-            class="content-section"
-            id="topic-1-2"
-        >
-
-            <div class="section-heading">
-
-                <h2>
-                    Раздел 1
-                </h2>
-
-                <span class="section-count">
-                    1.2 · 10 ч.
-                </span>
-
-            </div>
-
-
-            <p class="section-description">
-
-                Проектирование структур баз данных.
-
-            </p>
-
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ТЕМА 1.2
-                </span>
-
-                Проектирование структур баз данных
-
-            </h3>
-
-
-            <!-- Лекции -->
-
-            <div class="material-list">
-
-
-                <a
-                    href="lectures/04.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            04
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Автоматизированные средства проектирования баз данных
-                            </div>
-
-                            <div class="material-meta">
-                                Лекция · CASE-технологии · Классификация · Обзор CASE-систем
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="lectures/05.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            05
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                СУБД MySQL
-                            </div>
-
-                            <div class="material-meta">
-                                Лекция · Назначение СУБД · Классификация · Возможности MySQL · Интерфейс · Построение баз данных · Структура данных
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Практические работы -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ПРАКТИЧЕСКИЕ РАБОТЫ
-                </span>
-
-                2 занятия
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <a
-                    href="practices/06.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            06
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Автоматизированное создание баз данных с использованием CASE-средств
-                            </div>
-
-                            <div class="material-meta">
-                                Практическая работа
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/07.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            07
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Создание базы данных и настройка интерфейса в СУБД MySQL. Создание таблиц и настройка связей между таблицами
-                            </div>
-
-                            <div class="material-meta">
-                                Практическая работа
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Самостоятельная работа -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    САМОСТОЯТЕЛЬНАЯ РАБОТА
-                </span>
-
-                Тема 1.2
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <div class="material-card">
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            СР
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Типы данных MySQL
-                            </div>
-
-                            <div class="material-meta">
-                                Самостоятельная работа
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="material-card">
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            СР
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Реферат «Перспективы развития СУБД»
-                            </div>
-
-                            <div class="material-meta">
-                                Самостоятельная работа
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             Section 1.3
-             ==================================================== -->
-
-        <section
-            class="content-section"
-            id="topic-1-3"
-        >
-
-            <div class="section-heading">
-
-                <h2>
-                    Раздел 1
-                </h2>
-
-                <span class="section-count">
-                    1.3 · 36 ч.
-                </span>
-
-            </div>
-
-
-            <p class="section-description">
-
-                Организация запросов SQL, работа с данными,
-                хранимыми процедурами и триггерами.
-
-            </p>
-
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ТЕМА 1.3
-                </span>
-
-                Организация запросов SQL
-
-            </h3>
-
-
-            <!-- Теоретический материал -->
-
-            <div class="material-list">
-
-
-                <a
-                    href="lectures/06.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            06
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Основы языка SQL
-                            </div>
-
-                            <div class="material-meta">
-                                Лекция · Создание, модификация и удаление таблиц · Операторы манипулирования данными · Запросы на выборку
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Практические работы -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ПРАКТИЧЕСКИЕ РАБОТЫ
-                </span>
-
-                3 занятия
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <a
-                    href="practices/08.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            08
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Определение данных с помощью операторов SQL
-                            </div>
-
-                            <div class="material-meta">
-                                Практическая работа
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/09.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            09
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Манипулирование данными: выборка, добавление и редактирование
-                            </div>
-
-                            <div class="material-meta">
-                                Практическая работа · SQL
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/10.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            10
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Создание хранимых процедур в базах данных
-                            </div>
-
-                            <div class="material-meta">
-                                Практическая работа · Хранимые процедуры
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Лабораторные работы -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ЛАБОРАТОРНЫЕ РАБОТЫ
-                </span>
-
-                7 занятий
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <a
-                    href="labs/01.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            01
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Создание запросов с помощью конструктора запросов в MySQL
-                            </div>
-
-                            <div class="material-meta">
-                                Лабораторная работа
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/02.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            02
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Работа с таблицами в SQL: значения и ограничения полей
-                            </div>
-
-                            <div class="material-meta">
-                                Лабораторная работа · Проверка значений · Числовые и дата-типы
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/03.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            03
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Сортировка записей, перестановка и выбор полей с использованием языка SQL
-                            </div>
-
-                            <div class="material-meta">
-                                Лабораторная работа · SQL · Сортировка · Выбор полей
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/04.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            04
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Условия неточного совпадения и точного несовпадения
-                            </div>
-
-                            <div class="material-meta">
-                                Лабораторная работа · Условия выборки
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/05.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            05
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Выбор записей по диапазону значений
-                            </div>
-
-                            <div class="material-meta">
-                                Лабораторная работа · SQL
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/06.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            06
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Многотабличные запросы и запросы с вычислениями
-                            </div>
-
-                            <div class="material-meta">
-                                Лабораторная работа · SQL · Запросы · Вычисления
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/07.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            07
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Создание триггеров в базах данных
-                            </div>
-
-                            <div class="material-meta">
-                                Лабораторная работа · Триггеры
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Рубежный контроль №2 -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    КОНТРОЛЬ
-                </span>
-
-                Рубежный контроль знаний №2
-
-            </h3>
-
-
-            <div class="control-card">
-
-                <div class="control-number">
-                    №2
-                </div>
-
-
-                <div class="control-content">
-
-                    <div class="control-title">
-                        Рубежный контроль знаний №2
-                    </div>
-
-                    <div class="control-meta">
-                        По итогам темы «Организация запросов SQL»
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- Самостоятельная работа -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    САМОСТОЯТЕЛЬНАЯ РАБОТА
-                </span>
-
-                Тема 1.3
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <div class="material-card">
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            01
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Применение агрегатных функций и вложенных запросов в операторе выбора
-                            </div>
-
-                            <div class="material-meta">
-                                Самостоятельная работа · Вложенные подзапросы
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="material-card">
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            02
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Сортировка и группировка данных в SQL
-                            </div>
-
-                            <div class="material-meta">
-                                Самостоятельная работа
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="material-card">
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            03
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Хранимые процедуры и триггеры
-                            </div>
-
-                            <div class="material-meta">
-                                Самостоятельная работа · Работа с хранимыми процедурами и триггерами
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             Consultations
-             ==================================================== -->
-
-        <section class="content-section">
-
-            <div class="section-heading">
-
-                <h2>
-                    Консультации
-                </h2>
-
-                <span class="section-count">
-                    2 ч.
-                </span>
-
-            </div>
-
-
-            <div class="control-card">
-
-                <div class="control-number">
-                    2 ч.
-                </div>
-
-
-                <div class="control-content">
-
-                    <div class="control-title">
-                        Консультации
-                    </div>
-
-                    <div class="control-meta">
-                        Подготовка к промежуточной аттестации
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             Intermediate certification
-             ==================================================== -->
-
-        <section class="content-section">
-
-            <div class="section-heading">
-
-                <h2>
-                    Аттестация
-                </h2>
-
-                <span class="section-count">
-                    2 ч.
-                </span>
-
-            </div>
-
-
-            <div class="control-card">
-
-                <div class="control-number">
-                    ДЗ
-                </div>
-
-
-                <div class="control-content">
-
-                    <div class="control-title">
-                        Дифференцированный зачёт
-                    </div>
-
-                    <div class="control-meta">
-                        Промежуточная аттестация · 2 академических часа
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             Footer
-             ==================================================== -->
-
-        <footer class="page-footer">
-
-            <a href="../students.html">
-                ← Вернуться ко всем дисциплинам
-            </a>
-
-        </footer>
-
+        </div>
 
     </main>
 
 </div>
 
 
+<!-- =========================
+     THEME SCRIPT
+========================== -->
+
 <script>
+    const themeToggle = document.getElementById('themeToggle');
 
-document.addEventListener('DOMContentLoaded', () => {
+    themeToggle.addEventListener('click', function () {
 
-    const root =
-        document.documentElement;
-
-    const toggle =
-        document.getElementById('theme-toggle');
-
-    const icon =
-        toggle?.querySelector('.theme-icon');
-
-    const label =
-        toggle?.querySelector('.theme-label');
-
-
-    function applyTheme(theme) {
+        document.documentElement.classList.toggle('dark');
 
         const isDark =
-            theme === 'dark';
+            document.documentElement.classList.contains('dark');
 
+        localStorage.setItem(
+            'theme',
+            isDark ? 'dark' : 'light'
+        );
 
-        if (isDark) {
-
-            root.setAttribute(
-                'data-theme',
-                'dark'
-            );
-
-
-            if (icon)
-                icon.textContent = '☀';
-
-
-            if (label)
-                label.textContent =
-                    'Светлая тема';
-
-
-            toggle?.setAttribute(
-                'aria-label',
-                'Переключить на светлую тему'
-            );
-
-
-            toggle?.setAttribute(
-                'aria-pressed',
-                'true'
-            );
-
-        } else {
-
-            root.removeAttribute('data-theme');
-
-
-            if (icon)
-                icon.textContent = '☾';
-
-
-            if (label)
-                label.textContent =
-                    'Тёмная тема';
-
-
-            toggle?.setAttribute(
-                'aria-label',
-                'Переключить на тёмную тему'
-            );
-
-
-            toggle?.setAttribute(
-                'aria-pressed',
-                'false'
-            );
-
-        }
-
-    }
-
-
-    const savedTheme =
-        localStorage.getItem('theme');
-
-
-    const systemPrefersDark =
-        window.matchMedia &&
-        window.matchMedia(
-            '(prefers-color-scheme: dark)'
-        ).matches;
-
-
-    applyTheme(
-        savedTheme ||
-        (
-            systemPrefersDark
-                ? 'dark'
-                : 'light'
-        )
-    );
-
-
-    toggle?.addEventListener(
-        'click',
-        () => {
-
-            const isDark =
-                root.getAttribute('data-theme')
-                === 'dark';
-
-
-            const next =
-                isDark
-                    ? 'light'
-                    : 'dark';
-
-
-            applyTheme(next);
-
-
-            localStorage.setItem(
-                'theme',
-                next
-            );
-
-        }
-    );
-
-});
-
+    });
 </script>
 
-
 </body>
-
 </html>
-```
