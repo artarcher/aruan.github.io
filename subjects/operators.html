@@ -13,7 +13,7 @@
 
     <meta
         name="description"
-        content="Базы данных — лекции, практические занятия, конспекты и учебные материалы."
+        content="Базы данных — рабочая программа, лекции, практические занятия, самостоятельная работа и учебные материалы."
     >
 
     <title>Базы данных — материалы — aruan</title>
@@ -27,7 +27,12 @@
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
 
     <link
@@ -53,11 +58,13 @@
                 savedTheme === 'dark' ||
                 (!savedTheme && prefersDark)
             ) {
+
                 document.documentElement
                     .setAttribute(
                         'data-theme',
                         'dark'
                     );
+
             }
 
         })();
@@ -150,6 +157,7 @@
         ::selection {
 
             background: var(--accent-soft);
+
             color: var(--ink);
         }
 
@@ -162,6 +170,7 @@
         :focus-visible {
 
             outline: 2px solid var(--accent);
+
             outline-offset: 4px;
         }
 
@@ -175,6 +184,7 @@
             display: flex;
 
             width: 100%;
+
             max-width: var(--content-w);
 
             margin: 0 auto;
@@ -269,6 +279,7 @@
         .signature-mark {
 
             width: 100%;
+
             height: 46px;
 
             margin:
@@ -283,6 +294,7 @@
         .signature-mark svg {
 
             width: 100%;
+
             height: 100%;
         }
 
@@ -296,6 +308,7 @@
             stroke-width: 1;
 
             stroke-linejoin: round;
+
             stroke-linecap: round;
         }
 
@@ -320,6 +333,7 @@
             list-style: none;
 
             margin: 0;
+
             padding: 0;
         }
 
@@ -358,9 +372,11 @@
             position: absolute;
 
             left: 0;
+
             top: 50%;
 
             width: 5px;
+
             height: 1px;
 
             background: var(--faint);
@@ -578,6 +594,56 @@
 
 
         /* ============================================================
+           Section description
+           ============================================================ */
+
+        .section-description {
+
+            margin:
+                -8px 0 24px;
+
+            max-width: 72ch;
+
+            font-size: .9rem;
+
+            color: var(--muted);
+        }
+
+
+        .topic-label {
+
+            margin:
+                38px 0 16px;
+
+            font-family: var(--font-display);
+
+            font-size: 1.25rem;
+
+            font-weight: 500;
+
+            line-height: 1.4;
+
+            color: var(--ink);
+        }
+
+
+        .topic-number {
+
+            color: var(--accent);
+
+            font-family: var(--font-body);
+
+            font-size: .72rem;
+
+            font-weight: 700;
+
+            letter-spacing: .08em;
+
+            margin-right: 8px;
+        }
+
+
+        /* ============================================================
            Material cards
            ============================================================ */
 
@@ -636,11 +702,13 @@
             flex: 0 0 auto;
 
             width: 42px;
+
             height: 42px;
 
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
             border-radius: 50%;
@@ -705,7 +773,8 @@
 
             color: var(--accent);
 
-            transform: translateX(4px);
+            transform:
+                translateX(4px);
         }
 
 
@@ -734,6 +803,85 @@
             border-radius: 20px;
 
             font-size: .74rem;
+
+            color: var(--muted);
+        }
+
+
+        /* ============================================================
+           Control / Exam
+           ============================================================ */
+
+        .control-card {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            padding:
+                20px 22px;
+
+            border:
+                1px solid var(--line);
+
+            background:
+                var(--accent-soft);
+        }
+
+
+        .control-number {
+
+            flex: 0 0 auto;
+
+            width: 42px;
+
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                var(--paper);
+
+            color:
+                var(--accent);
+
+            font-size: .76rem;
+
+            font-weight: 700;
+        }
+
+
+        .control-content {
+
+            min-width: 0;
+
+            flex: 1;
+        }
+
+
+        .control-title {
+
+            margin-bottom: 4px;
+
+            font-family: var(--font-display);
+
+            font-size: 1.05rem;
+
+            color: var(--ink);
+        }
+
+
+        .control-meta {
+
+            font-size: .8rem;
 
             color: var(--muted);
         }
@@ -842,6 +990,7 @@
 
                 align-self: flex-start;
             }
+
         }
 
 
@@ -863,6 +1012,7 @@
             .material-number {
 
                 width: 36px;
+
                 height: 36px;
             }
 
@@ -870,6 +1020,15 @@
             .material-arrow {
                 display: none;
             }
+
+
+            .control-card {
+
+                align-items: flex-start;
+
+                padding: 18px;
+            }
+
         }
 
 
@@ -878,6 +1037,7 @@
             html {
                 scroll-behavior: auto;
             }
+
         }
 
     </style>
@@ -927,9 +1087,13 @@
                     <g class="stars">
 
                         <circle cx="18" cy="10" r="1" />
+
                         <circle cx="150" cy="6" r="1" />
+
                         <circle cx="200" cy="14" r="1" />
+
                         <circle cx="90" cy="4" r=".8" />
+
                         <circle cx="222" cy="9" r=".8" />
 
                     </g>
@@ -952,7 +1116,7 @@
                     <li>
 
                         <a href="../students.html">
-                            ← Все квалификации
+                            ← Все дисциплины
                         </a>
 
                     </li>
@@ -1002,20 +1166,21 @@
         <header>
 
             <div class="page-label">
-                Квалификация
+                Дисциплина
             </div>
 
 
             <h2 class="page-title">
-                Оператор информационных систем и ресурсов
+                Базы данных
             </h2>
 
 
             <p class="page-description">
 
-                Лекции, конспекты, практические занятия
-                и дополнительные материалы по основам
-                работы с базами данных.
+                Разработка и реализация баз данных:
+                проектирование структуры, реляционные модели,
+                работа с СУБД MS Access, запросами,
+                формами и отчётами.
 
             </p>
 
@@ -1023,27 +1188,32 @@
             <div class="course-meta">
 
                 <span class="meta-item">
-                    2 лекции
+                    48 часов
                 </span>
 
                 <span class="meta-item">
-                    2 практических занятия
+                    5 лекций
                 </span>
 
                 <span class="meta-item">
-                    Конспекты
+                    12 практических
                 </span>
 
                 <span class="meta-item">
-                    Задания
+                    2 рубежных контроля
+                </span>
+
+                <span class="meta-item">
+                    Дифференцированный зачёт
                 </span>
 
             </div>
 
         </header>
 
+
         <!-- ====================================================
-             Lectures
+             Programs
              ==================================================== -->
 
         <section class="content-section">
@@ -1051,21 +1221,80 @@
             <div class="section-heading">
 
                 <h2>
-                    Лекции
+                    Программы
                 </h2>
 
                 <span class="section-count">
-                    2
+                    3
                 </span>
 
             </div>
+
+
+            <div class="programs">
+
+                <span class="program-tag">
+                    Оператор информационных систем и ресурсов
+                </span>
+
+                <span class="program-tag">
+                    Разработчик веб и мультимедийных приложений
+                </span>
+
+                <span class="program-tag">
+                    Программист
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================================
+             Section 1.1
+             ==================================================== -->
+
+        <section
+            class="content-section"
+            id="topic-1-1"
+        >
+
+            <div class="section-heading">
+
+                <h2>
+                    Раздел 1
+                </h2>
+
+                <span class="section-count">
+                    1.1
+                </span>
+
+            </div>
+
+
+            <p class="section-description">
+
+                Разработка и реализация баз данных.
+
+            </p>
+
+
+            <h3 class="topic-label">
+
+                <span class="topic-number">
+                    ТЕМА 1.1
+                </span>
+
+                Разработка и проектирование базы данных
+
+            </h3>
 
 
             <div class="material-list">
 
 
                 <a
-                    href="../lectures/database/01.html"
+                    href="lectures/01.html"
                     class="material-card"
                 >
 
@@ -1083,7 +1312,7 @@
                             </div>
 
                             <div class="material-meta">
-                                Лекция · Конспект · Практические задания
+                                Лекция · 12 часов раздела
                             </div>
 
                         </div>
@@ -1102,7 +1331,7 @@
 
 
                 <a
-                    href="../lectures/database/02.html"
+                    href="lectures/02.html"
                     class="material-card"
                 >
 
@@ -1120,7 +1349,44 @@
                             </div>
 
                             <div class="material-meta">
-                                Лекция · Конспект · Практические задания
+                                Лекция · Реляционные объекты · Индексирование · Связи · Целостность · Реляционная алгебра
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="lectures/03.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            03
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Проектирование баз данных
+                            </div>
+
+                            <div class="material-meta">
+                                Лекция · Модели данных · ER-модель · Функциональные зависимости · Нормальные формы
                             </div>
 
                         </div>
@@ -1139,33 +1405,23 @@
 
             </div>
 
-        </section>
 
+            <h3 class="topic-label">
 
-        <!-- ====================================================
-             Practice
-             ==================================================== -->
-
-        <section class="content-section">
-
-            <div class="section-heading">
-
-                <h2>
-                    Практические занятия
-                </h2>
-
-                <span class="section-count">
-                    2
+                <span class="topic-number">
+                    ПРАКТИЧЕСКИЕ РАБОТЫ
                 </span>
 
-            </div>
+                Тема 1.1
+
+            </h3>
 
 
             <div class="material-list">
 
 
                 <a
-                    href="../materials/database/practical-01.html"
+                    href="practices/01.html"
                     class="material-card"
                 >
 
@@ -1179,11 +1435,11 @@
                         <div class="material-content">
 
                             <div class="material-title">
-                                Работа с базами данных
+                                Применение операций реляционной алгебры
                             </div>
 
                             <div class="material-meta">
-                                Практическое занятие · Задание · Файлы
+                                Практическая работа
                             </div>
 
                         </div>
@@ -1202,7 +1458,7 @@
 
 
                 <a
-                    href="../materials/database/practical-02.html"
+                    href="practices/02.html"
                     class="material-card"
                 >
 
@@ -1216,11 +1472,11 @@
                         <div class="material-content">
 
                             <div class="material-title">
-                                Создание и изменение таблиц
+                                Описание предметной области. Выделение сущностей и определение связей
                             </div>
 
                             <div class="material-meta">
-                                Практическое занятие · Задание · Файлы
+                                Практическая работа · Атрибуты · Ключи · Связи
                             </div>
 
                         </div>
@@ -1236,6 +1492,712 @@
                     </div>
 
                 </a>
+
+
+                <a
+                    href="practices/03.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            03
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Построение модели «сущность-связь»
+                            </div>
+
+                            <div class="material-meta">
+                                Практическая работа · ER-модель
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="practices/04.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            04
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Построение информационной модели базы данных
+                            </div>
+
+                            <div class="material-meta">
+                                Практическая работа
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="practices/05.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            05
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Установление и нормализация отношений в базе данных
+                            </div>
+
+                            <div class="material-meta">
+                                Практическая работа · Нормализация
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Самостоятельная работа -->
+
+            <h3 class="topic-label">
+
+                <span class="topic-number">
+                    САМОСТОЯТЕЛЬНАЯ РАБОТА
+                </span>
+
+                Тема 1.1
+
+            </h3>
+
+
+            <div class="material-list">
+
+                <div class="material-card">
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            СР
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Подготовка конспекта «Описание бизнес-процессов для заданной предметной области»
+                            </div>
+
+                            <div class="material-meta">
+                                Проработка конспектов и литературы · Подготовка отчётов по практическим работам
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Рубежный контроль №1 -->
+
+            <h3 class="topic-label">
+
+                <span class="topic-number">
+                    КОНТРОЛЬ
+                </span>
+
+                Рубежный контроль знаний №1
+
+            </h3>
+
+
+            <div class="control-card">
+
+                <div class="control-number">
+                    №1
+                </div>
+
+
+                <div class="control-content">
+
+                    <div class="control-title">
+                        Рубежный контроль знаний №1
+                    </div>
+
+                    <div class="control-meta">
+                        По итогам темы «Разработка и проектирование базы данных»
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================================
+             Section 1.2
+             ==================================================== -->
+
+        <section
+            class="content-section"
+            id="topic-1-2"
+        >
+
+            <div class="section-heading">
+
+                <h2>
+                    Раздел 1
+                </h2>
+
+                <span class="section-count">
+                    1.2
+                </span>
+
+            </div>
+
+
+            <p class="section-description">
+
+                Проектирование структур баз данных.
+
+            </p>
+
+
+            <h3 class="topic-label">
+
+                <span class="topic-number">
+                    ТЕМА 1.2
+                </span>
+
+                Проектирование структур баз данных
+
+            </h3>
+
+
+            <div class="material-list">
+
+
+                <a
+                    href="lectures/04.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            04
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Автоматизированные средства проектирования баз данных
+                            </div>
+
+                            <div class="material-meta">
+                                Лекция · CASE-технологии · Классификация · Обзор CASE-систем
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="lectures/05.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            05
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                СУБД MS Access
+                            </div>
+
+                            <div class="material-meta">
+                                Лекция · Основы СУБД · Возможности MS Access · Таблицы · Структура данных
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <h3 class="topic-label">
+
+                <span class="topic-number">
+                    ПРАКТИЧЕСКИЕ РАБОТЫ
+                </span>
+
+                Тема 1.2
+
+            </h3>
+
+
+            <div class="material-list">
+
+
+                <a
+                    href="practices/06.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            06
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Создание базы данных и настройка интерфейса в СУБД MS Access
+                            </div>
+
+                            <div class="material-meta">
+                                Практическая работа · Создание таблиц · Настройка связей
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="practices/07.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            07
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Создание простых, сложных и подчинённых форм в MS Access
+                            </div>
+
+                            <div class="material-meta">
+                                Практическая работа · Формы
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="practices/08.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            08
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Создание простых и итоговых отчётов в MS Access
+                            </div>
+
+                            <div class="material-meta">
+                                Практическая работа · Отчёты
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="practices/09.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            09
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Создание запросов с помощью конструктора запросов в MS Access
+                            </div>
+
+                            <div class="material-meta">
+                                Практическая работа · Запросы
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="practices/10.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            10
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Сортировка записей, перестановка и выбор полей с использованием языка SQL
+                            </div>
+
+                            <div class="material-meta">
+                                Практическая работа · SQL · Сортировка · Выбор полей
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="practices/11.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            11
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Условия неточного и точного совпадения. Выбор записей по диапазону значений
+                            </div>
+
+                            <div class="material-meta">
+                                Практическая работа · Условия выборки · Диапазоны
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="practices/12.html"
+                    class="material-card"
+                >
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            12
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Многотабличные запросы и запросы с вычислениями
+                            </div>
+
+                            <div class="material-meta">
+                                Практическая работа · Запросы · Вычисления
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="material-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Самостоятельная работа -->
+
+            <h3 class="topic-label">
+
+                <span class="topic-number">
+                    САМОСТОЯТЕЛЬНАЯ РАБОТА
+                </span>
+
+                Тема 1.2
+
+            </h3>
+
+
+            <div class="material-list">
+
+                <div class="material-card">
+
+                    <div class="material-inner">
+
+                        <div class="material-number">
+                            СР
+                        </div>
+
+
+                        <div class="material-content">
+
+                            <div class="material-title">
+                                Проработка учебной и специальной технической литературы
+                            </div>
+
+                            <div class="material-meta">
+                                Систематическая работа с конспектами · Подготовка отчётов по практическим работам
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Рубежный контроль №2 -->
+
+            <h3 class="topic-label">
+
+                <span class="topic-number">
+                    КОНТРОЛЬ
+                </span>
+
+                Рубежный контроль знаний №2
+
+            </h3>
+
+
+            <div class="control-card">
+
+                <div class="control-number">
+                    №2
+                </div>
+
+
+                <div class="control-content">
+
+                    <div class="control-title">
+                        Рубежный контроль знаний №2
+                    </div>
+
+                    <div class="control-meta">
+                        По итогам темы «Проектирование структур баз данных»
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================================
+             Intermediate certification
+             ==================================================== -->
+
+        <section class="content-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Аттестация
+                </h2>
+
+                <span class="section-count">
+                    1
+                </span>
+
+            </div>
+
+
+            <div class="control-card">
+
+                <div class="control-number">
+                    ДЗ
+                </div>
+
+
+                <div class="control-content">
+
+                    <div class="control-title">
+                        Дифференцированный зачёт
+                    </div>
+
+                    <div class="control-meta">
+                        Промежуточная аттестация по дисциплине
+                    </div>
+
+                </div>
 
             </div>
 
@@ -1290,16 +2252,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 'dark'
             );
 
+
             if (icon)
                 icon.textContent = '☀';
 
+
             if (label)
-                label.textContent = 'Светлая тема';
+                label.textContent =
+                    'Светлая тема';
+
 
             toggle?.setAttribute(
                 'aria-label',
                 'Переключить на светлую тему'
             );
+
 
             toggle?.setAttribute(
                 'aria-pressed',
@@ -1310,27 +2277,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             root.removeAttribute('data-theme');
 
+
             if (icon)
                 icon.textContent = '☾';
 
+
             if (label)
-                label.textContent = 'Тёмная тема';
+                label.textContent =
+                    'Тёмная тема';
+
 
             toggle?.setAttribute(
                 'aria-label',
                 'Переключить на тёмную тему'
             );
 
+
             toggle?.setAttribute(
                 'aria-pressed',
                 'false'
             );
+
         }
+
     }
 
 
     const savedTheme =
         localStorage.getItem('theme');
+
 
     const systemPrefersDark =
         window.matchMedia &&
@@ -1341,9 +2316,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     applyTheme(
         savedTheme ||
-        (systemPrefersDark
-            ? 'dark'
-            : 'light')
+        (
+            systemPrefersDark
+                ? 'dark'
+                : 'light'
+        )
     );
 
 
@@ -1355,17 +2332,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 root.getAttribute('data-theme')
                 === 'dark';
 
+
             const next =
                 isDark
                     ? 'light'
                     : 'dark';
 
+
             applyTheme(next);
+
 
             localStorage.setItem(
                 'theme',
                 next
             );
+
         }
     );
 
