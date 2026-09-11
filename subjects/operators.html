@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 
 <head>
@@ -13,7 +12,7 @@
 
     <meta
         name="description"
-        content="Базы данных — рабочая программа, лекции, практические занятия, самостоятельная работа и учебные материалы."
+        content="Базы данных — лекции, практические занятия, самостоятельная работа и контроль знаний."
     >
 
     <title>Базы данных — материалы — aruan</title>
@@ -593,10 +592,6 @@
         }
 
 
-        /* ============================================================
-           Section description
-           ============================================================ */
-
         .section-description {
 
             margin:
@@ -779,37 +774,7 @@
 
 
         /* ============================================================
-           Programs
-           ============================================================ */
-
-        .programs {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 8px;
-        }
-
-
-        .program-tag {
-
-            padding:
-                7px 11px;
-
-            border:
-                1px solid var(--line);
-
-            border-radius: 20px;
-
-            font-size: .74rem;
-
-            color: var(--muted);
-        }
-
-
-        /* ============================================================
-           Control / Exam
+           Control
            ============================================================ */
 
         .control-card {
@@ -1166,21 +1131,20 @@
         <header>
 
             <div class="page-label">
-                Квалификация
+                Дисциплина
             </div>
 
 
             <h2 class="page-title">
-                Оператор информационных систем и ресурсов
+                Базы данных
             </h2>
 
 
             <p class="page-description">
 
-                Разработка и реализация баз данных:
-                проектирование структуры, реляционные модели,
-                работа с СУБД MS Access, запросами,
-                формами и отчётами.
+                Основы проектирования и разработки баз данных:
+                реляционная модель, проектирование структуры,
+                СУБД MS Access, таблицы, формы, отчёты и запросы.
 
             </p>
 
@@ -1210,31 +1174,6 @@
             </div>
 
         </header>
-
-
-        <!-- ====================================================
-             Programs
-             ==================================================== -->
-
-        <section class="content-section">
-
-            <div class="programs">
-
-                <span class="program-tag">
-                    Оператор информационных систем и ресурсов
-                </span>
-
-                <span class="program-tag">
-                    Разработчик веб и мультимедийных приложений
-                </span>
-
-                <span class="program-tag">
-                    Программист
-                </span>
-
-            </div>
-
-        </section>
 
 
         <!-- ====================================================
@@ -1277,6 +1216,8 @@
             </h3>
 
 
+            <!-- Лекции -->
+
             <div class="material-list">
 
 
@@ -1299,7 +1240,7 @@
                             </div>
 
                             <div class="material-meta">
-                                Лекция · 12 часов раздела
+                                Лекция · Предметная область · Объекты · Атрибуты · Ключи · Модели данных
                             </div>
 
                         </div>
@@ -1336,7 +1277,7 @@
                             </div>
 
                             <div class="material-meta">
-                                Лекция · Реляционные объекты · Индексирование · Связи · Целостность · Реляционная алгебра
+                                Лекция · Реляционные объекты · Индексирование · Связи · Целостность · Правила Кодда · Реляционная алгебра
                             </div>
 
                         </div>
@@ -1393,6 +1334,8 @@
             </div>
 
 
+            <!-- Практические работы -->
+
             <h3 class="topic-label">
 
                 <span class="topic-number">
@@ -1422,7 +1365,7 @@
                         <div class="material-content">
 
                             <div class="material-title">
-                                Применение операций реляционной алгебры
+                                Применение операции реляционной алгебры
                             </div>
 
                             <div class="material-meta">
@@ -1432,10 +1375,7 @@
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1459,20 +1399,17 @@
                         <div class="material-content">
 
                             <div class="material-title">
-                                Описание предметной области. Выделение сущностей и определение связей
+                                Описание предметной области. Выделение сущностей и определение связей между сущностями, атрибутов и ключей
                             </div>
 
                             <div class="material-meta">
-                                Практическая работа · Атрибуты · Ключи · Связи
+                                Практическая работа
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1500,16 +1437,13 @@
                             </div>
 
                             <div class="material-meta">
-                                Практическая работа · ER-модель
+                                Практическая работа
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1543,10 +1477,7 @@
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1570,7 +1501,7 @@
                         <div class="material-content">
 
                             <div class="material-title">
-                                Установление и нормализация отношений в базе данных
+                                Установка и нормализация отношений в базе данных
                             </div>
 
                             <div class="material-meta">
@@ -1580,10 +1511,7 @@
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1621,11 +1549,11 @@
                         <div class="material-content">
 
                             <div class="material-title">
-                                Подготовка конспекта «Описание бизнес-процессов для заданной предметной области»
+                                Описание бизнес-процессов для заданной предметной области
                             </div>
 
                             <div class="material-meta">
-                                Проработка конспектов и литературы · Подготовка отчётов по практическим работам
+                                Подготовка конспекта · Проработка учебной и специальной технической литературы · Подготовка отчётов по практическим работам
                             </div>
 
                         </div>
@@ -1714,6 +1642,8 @@
             </h3>
 
 
+            <!-- Лекции -->
+
             <div class="material-list">
 
 
@@ -1736,16 +1666,13 @@
                             </div>
 
                             <div class="material-meta">
-                                Лекция · CASE-технологии · Классификация · Обзор CASE-систем
+                                Лекция · Основные определения · CASE-технологии · Классификация · Обзор CASE-систем
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1773,16 +1700,13 @@
                             </div>
 
                             <div class="material-meta">
-                                Лекция · Основы СУБД · Возможности MS Access · Таблицы · Структура данных
+                                Лекция · Назначение СУБД · Классификация · Возможности MS Access · Интерфейс · Структура данных
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1792,6 +1716,8 @@
 
             </div>
 
+
+            <!-- Практические работы -->
 
             <h3 class="topic-label">
 
@@ -1822,20 +1748,17 @@
                         <div class="material-content">
 
                             <div class="material-title">
-                                Создание базы данных и настройка интерфейса в СУБД MS Access
+                                Создание базы данных и настройка интерфейса в СУБД MS Access. Создание таблиц и настройка связей между таблицами
                             </div>
 
                             <div class="material-meta">
-                                Практическая работа · Создание таблиц · Настройка связей
+                                Практическая работа
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1863,16 +1786,13 @@
                             </div>
 
                             <div class="material-meta">
-                                Практическая работа · Формы
+                                Практическая работа
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1900,16 +1820,13 @@
                             </div>
 
                             <div class="material-meta">
-                                Практическая работа · Отчёты
+                                Практическая работа
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1937,16 +1854,13 @@
                             </div>
 
                             <div class="material-meta">
-                                Практическая работа · Запросы
+                                Практическая работа
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -1974,16 +1888,13 @@
                             </div>
 
                             <div class="material-meta">
-                                Практическая работа · SQL · Сортировка · Выбор полей
+                                Практическая работа
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -2007,20 +1918,17 @@
                         <div class="material-content">
 
                             <div class="material-title">
-                                Условия неточного и точного совпадения. Выбор записей по диапазону значений
+                                Условия неточного совпадения и точного несовпадения. Выбор записей по диапазону значений
                             </div>
 
                             <div class="material-meta">
-                                Практическая работа · Условия выборки · Диапазоны
+                                Практическая работа
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
@@ -2048,16 +1956,13 @@
                             </div>
 
                             <div class="material-meta">
-                                Практическая работа · Запросы · Вычисления
+                                Практическая работа
                             </div>
 
                         </div>
 
 
-                        <div
-                            class="material-arrow"
-                            aria-hidden="true"
-                        >
+                        <div class="material-arrow" aria-hidden="true">
                             →
                         </div>
 
