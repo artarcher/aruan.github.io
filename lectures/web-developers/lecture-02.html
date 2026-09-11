@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-
-<html lang="ru">
+<html lang="ru" data-theme="light">
 
 <head>
     <meta charset="utf-8" />
@@ -21,8 +20,81 @@
             --red: #dc2626;
             --border: #e2e8f0;
             --code-bg: #0f172a;
+            --code-text: #e2e8f0;
             --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
             --radius: 16px;
+
+            /* Динамические подложки блоков для светлой темы */
+            --intro-bg: linear-gradient(135deg, #eff6ff, #eef2ff);
+            --intro-border: #bfdbfe;
+            --goal-card-bg: #ffffff;
+            --goal-card-border: #dbeafe;
+            
+            --callout-info-bg: #eff6ff;
+            --callout-success-bg: #ecfdf5;
+            --callout-warning-bg: #fff7ed;
+            --callout-danger-bg: #fef2f2;
+            --callout-purple-bg: #f5f3ff;
+            
+            --definition-bg: #f8fafc;
+            --table-header-bg: #eff6ff;
+            --table-header-text: #1e3a8a;
+            --table-even-bg: #fafcff;
+            --error-cell-bg: #fee2e2;
+            --error-cell-text: #991b1b;
+            --inline-code-bg: #eef2ff;
+            --inline-code-text: #4338ca;
+            --homework-bg: linear-gradient(135deg, #312e81, #1e3a8a);
+            --header-bg: linear-gradient(135deg, #0f172a, #1e3a8a);
+            
+            --toggle-bg: rgba(255, 255, 255, 0.15);
+            --toggle-border: rgba(255, 255, 255, 0.25);
+            --toggle-text: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-alt: #334155;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --purple: #a78bfa;
+            --green: #34d399;
+            --orange: #fb923c;
+            --red: #f87171;
+            --border: #334155;
+            --code-bg: #020617;
+            --code-text: #f1f5f9;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+            /* Динамические подложки блоков для тёмной темы */
+            --intro-bg: linear-gradient(135deg, #1e293b, #1e3a8a);
+            --intro-border: #3b82f6;
+            --goal-card-bg: #0f172a;
+            --goal-card-border: #1e3a8a;
+            
+            --callout-info-bg: rgba(37, 99, 235, 0.15);
+            --callout-success-bg: rgba(5, 150, 105, 0.15);
+            --callout-warning-bg: rgba(234, 88, 12, 0.15);
+            --callout-danger-bg: rgba(220, 38, 38, 0.15);
+            --callout-purple-bg: rgba(124, 58, 237, 0.15);
+            
+            --definition-bg: #0f172a;
+            --table-header-bg: #0f172a;
+            --table-header-text: #93c5fd;
+            --table-even-bg: #0f172a;
+            --error-cell-bg: #7f1d1d;
+            --error-cell-text: #fca5a5;
+            --inline-code-bg: #312e81;
+            --inline-code-text: #c7d2fe;
+            --homework-bg: linear-gradient(135deg, #020617, #1e1b4b);
+            --header-bg: linear-gradient(135deg, #020617, #0f172a);
+            
+            --toggle-bg: rgba(255, 255, 255, 0.1);
+            --toggle-border: rgba(255, 255, 255, 0.2);
+            --toggle-text: #f8fafc;
         }
 
         * {
@@ -40,6 +112,7 @@
             background: var(--bg);
             color: var(--text);
             line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         a {
@@ -54,9 +127,10 @@
         /* ================= HEADER ================= */
 
         .page-header {
-            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            background: var(--header-bg);
             color: white;
             padding: 28px 20px 48px;
+            position: relative;
         }
 
         .header-inner {
@@ -64,14 +138,42 @@
             margin: 0 auto;
         }
 
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
         .breadcrumbs {
             font-size: 14px;
             opacity: 0.8;
-            margin-bottom: 30px;
         }
 
         .breadcrumbs a {
             color: #bfdbfe;
+        }
+
+        /* TOGGLE THEME BUTTON */
+        .theme-toggle {
+            background: var(--toggle-bg);
+            border: 1px solid var(--toggle-border);
+            color: var(--toggle-text);
+            padding: 8px 16px;
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
         }
 
         .lecture-label {
@@ -90,13 +192,15 @@
             font-size: clamp(32px, 5vw, 52px);
             line-height: 1.15;
             max-width: 900px;
-            margin-bottom: 20px;
+            margin: 0 0 20px;
+            color: white;
         }
 
         .page-header p {
             max-width: 800px;
             font-size: 18px;
             color: #dbeafe;
+            margin: 0;
         }
 
         .lecture-meta {
@@ -135,6 +239,7 @@
             padding: 20px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .sidebar h3 {
@@ -159,7 +264,7 @@
         }
 
         .sidebar a:hover {
-            background: #eff6ff;
+            background: var(--surface-alt);
             text-decoration: none;
             color: var(--primary);
         }
@@ -170,53 +275,54 @@
             min-width: 0;
         }
 
-        section {
+        .content section, section {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 32px;
             margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
-        section h2 {
+        .content section h2, section h2 {
             font-size: 28px;
             line-height: 1.25;
-            margin-bottom: 20px;
+            margin: 0 0 20px;
         }
 
-        section h3 {
+        .content section h3, section h3 {
             font-size: 21px;
             margin: 28px 0 12px;
         }
 
-        section h4 {
+        .content section h4, section h4 {
             margin: 22px 0 10px;
             font-size: 17px;
         }
 
-        p {
+        .content section p, p {
             margin-bottom: 14px;
         }
 
-        ul,
-        ol {
+        .content section ul,
+        .content section ol, ul, ol {
             padding-left: 24px;
             margin-bottom: 18px;
         }
 
-        li {
+        .content section li, li {
             margin-bottom: 7px;
         }
 
         /* ================= CARDS ================= */
 
         .intro-card {
-            background: linear-gradient(135deg, #eff6ff, #eef2ff);
-            border: 1px solid #bfdbfe;
+            background: var(--intro-bg) !important;
+            border-color: var(--intro-border) !important;
         }
 
-        .goals {
+        .goals, .goal-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 14px;
@@ -224,10 +330,11 @@
         }
 
         .goal-card {
-            background: white;
-            border: 1px solid #dbeafe;
+            background: var(--goal-card-bg);
+            border: 1px solid var(--goal-card-border);
             border-radius: 12px;
             padding: 18px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .goal-card strong {
@@ -243,30 +350,31 @@
             border-radius: 12px;
             margin: 20px 0;
             border-left: 5px solid;
+            transition: background-color 0.3s ease;
         }
 
         .callout.info {
-            background: #eff6ff;
+            background: var(--callout-info-bg);
             border-color: var(--primary);
         }
 
         .callout.success {
-            background: #ecfdf5;
+            background: var(--callout-success-bg);
             border-color: var(--green);
         }
 
         .callout.warning {
-            background: #fff7ed;
+            background: var(--callout-warning-bg);
             border-color: var(--orange);
         }
 
         .callout.danger {
-            background: #fef2f2;
+            background: var(--callout-danger-bg);
             border-color: var(--red);
         }
 
         .callout.purple {
-            background: #f5f3ff;
+            background: var(--callout-purple-bg);
             border-color: var(--purple);
         }
 
@@ -278,17 +386,19 @@
         /* ================= DEFINITION ================= */
 
         .definition {
-            background: #f8fafc;
+            background: var(--definition-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 18px;
             margin: 14px 0;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .definition-term {
             color: var(--primary);
             font-weight: 700;
             font-size: 18px;
+            margin-bottom: 5px;
         }
 
         /* ================= TABLE ================= */
@@ -298,40 +408,41 @@
             margin: 20px 0;
         }
 
-        table {
+        .content table, table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
+            margin: 20px 0;
         }
 
-        th {
-            background: #eff6ff;
-            color: #1e3a8a;
+        .content th, th {
+            background: var(--table-header-bg);
+            color: var(--table-header-text);
             text-align: left;
         }
 
-        th,
-        td {
+        .content th,
+        .content td, th, td {
             padding: 12px 14px;
             border: 1px solid var(--border);
             vertical-align: top;
         }
 
-        tr:nth-child(even) td {
-            background: #fafcff;
+        .content tr:nth-child(even) td, tr:nth-child(even) td {
+            background: var(--table-even-bg);
         }
 
         .error-cell {
-            background: #fee2e2 !important;
-            color: #991b1b;
+            background: var(--error-cell-bg) !important;
+            color: var(--error-cell-text);
             font-weight: 600;
         }
 
         /* ================= CODE / SCHEME ================= */
 
-        pre {
+        .content pre, pre {
             background: var(--code-bg);
-            color: #e2e8f0;
+            color: var(--code-text);
             padding: 20px;
             border-radius: 12px;
             overflow-x: auto;
@@ -339,17 +450,18 @@
             font-family: "Courier New", monospace;
             font-size: 14px;
             line-height: 1.5;
+            border: 1px solid var(--border);
         }
 
-        code {
-            background: #eef2ff;
-            color: #4338ca;
+        .content code, code {
+            background: var(--inline-code-bg);
+            color: var(--inline-code-text);
             padding: 2px 6px;
             border-radius: 5px;
             font-size: 0.9em;
         }
 
-        pre code {
+        .content pre code, pre code {
             background: transparent;
             color: inherit;
             padding: 0;
@@ -362,9 +474,10 @@
             padding: 22px;
             font-size: 24px;
             font-weight: 700;
-            background: #f8fafc;
+            background: var(--definition-bg);
             border-radius: 12px;
             margin: 20px 0;
+            border: 1px solid var(--border);
         }
 
         .formula span {
@@ -385,7 +498,7 @@
             top: 8px;
             bottom: 8px;
             width: 2px;
-            background: #cbd5e1;
+            background: var(--border);
         }
 
         .timeline-item {
@@ -411,6 +524,7 @@
             border-radius: 12px;
             padding: 18px;
             margin: 14px 0;
+            background: var(--surface);
         }
 
         .question summary {
@@ -421,14 +535,15 @@
         .answer {
             margin-top: 12px;
             padding: 12px;
-            background: #ecfdf5;
+            background: var(--callout-success-bg);
             border-radius: 8px;
+            border-left: 3px solid var(--green);
         }
 
         /* ================= HOMEWORK ================= */
 
         .homework {
-            background: linear-gradient(135deg, #312e81, #1e3a8a);
+            background: var(--homework-bg);
             color: white;
         }
 
@@ -457,7 +572,7 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 16px;
-            background: #fafcff;
+            background: var(--surface);
         }
 
         .glossary-item strong {
@@ -468,7 +583,9 @@
 
         /* ================= FOOTER ================= */
 
-        footer {
+        .page-footer, footer {
+            max-width: 1200px;
+            margin: 0 auto;
             text-align: center;
             color: var(--muted);
             font-size: 14px;
@@ -497,322 +614,21 @@
                 padding-bottom: 40px;
             }
 
-            .layout {
-                padding: 0 12px 40px;
-            }
-
-            section {
-                padding: 22px 18px;
-            }
-
-            section h2 {
-                font-size: 24px;
-            }
-
-            .formula {
-                font-size: 18px;
-            }
-        }
-
-
-
-        .page-header h1 {
-            font-size: clamp(32px, 5vw, 52px);
-            line-height: 1.15;
-            max-width: 900px;
-            margin: 0 0 20px;
-            color: white;
-        }
-
-        .lecture-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 14px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 100px;
-            font-size: 14px;
-            margin-bottom: 18px;
-        }
-
-        .page-header p {
-            max-width: 800px;
-            font-size: 18px;
-            color: #dbeafe;
-            margin: 0;
-        }
-
-        .lecture-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 28px;
-        }
-
-        .meta-item {
-            padding: 9px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            font-size: 14px;
-        }
-
-        .content section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 32px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
-        }
-
-        .content section h2 {
-            font-size: 28px;
-            line-height: 1.25;
-            margin: 0 0 20px;
-        }
-
-        .content section h3 {
-            font-size: 21px;
-            margin: 28px 0 12px;
-        }
-
-        .content section h4 {
-            margin: 22px 0 10px;
-            font-size: 17px;
-        }
-
-        .content section p {
-            margin-bottom: 14px;
-        }
-
-        .content section ul,
-        .content section ol {
-            padding-left: 24px;
-            margin-bottom: 18px;
-        }
-
-        .content section li {
-            margin-bottom: 7px;
-        }
-
-        .content table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            margin: 20px 0;
-        }
-
-        .content th {
-            background: #eff6ff;
-            color: #1e3a8a;
-            text-align: left;
-        }
-
-        .content th,
-        .content td {
-            padding: 12px 14px;
-            border: 1px solid var(--border);
-            vertical-align: top;
-        }
-
-        .content tr:nth-child(even) td {
-            background: #fafcff;
-        }
-
-        .content pre {
-            background: var(--code-bg);
-            color: #e2e8f0;
-            padding: 20px;
-            border-radius: 12px;
-            overflow-x: auto;
-            margin: 18px 0;
-            font-family: "Courier New", monospace;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .content code {
-            background: #eef2ff;
-            color: #4338ca;
-            padding: 2px 6px;
-            border-radius: 5px;
-            font-size: 0.9em;
-        }
-
-        .content pre code {
-            background: transparent;
-            color: inherit;
-            padding: 0;
-        }
-
-        .intro-card {
-            background: linear-gradient(135deg, #eff6ff, #eef2ff) !important;
-            border-color: #bfdbfe !important;
-        }
-
-        .goal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 14px;
-            margin-top: 20px;
-        }
-
-        .goal-card {
-            background: white;
-            border: 1px solid #dbeafe;
-            border-radius: 12px;
-            padding: 18px;
-        }
-
-        .goal-card strong {
-            display: block;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .callout {
-            padding: 18px 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border-left: 5px solid;
-        }
-
-        .callout.info {
-            background: #eff6ff;
-            border-color: var(--primary);
-        }
-
-        .callout.success {
-            background: #ecfdf5;
-            border-color: var(--green);
-        }
-
-        .callout.warning {
-            background: #fff7ed;
-            border-color: var(--orange);
-        }
-
-        .callout.danger {
-            background: #fef2f2;
-            border-color: var(--red);
-        }
-
-        .callout.purple {
-            background: #f5f3ff;
-            border-color: var(--purple);
-        }
-
-        .callout-title {
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
-
-        .definition {
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 18px;
-            margin: 14px 0;
-        }
-
-        .definition-term {
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        .formula {
-            text-align: center;
-            padding: 22px;
-            font-size: 24px;
-            font-weight: 700;
-            background: #f8fafc;
-            border-radius: 12px;
-            margin: 20px 0;
-        }
-
-        .formula span {
-            color: var(--primary);
-        }
-
-        .glossary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 14px;
-        }
-
-        .glossary-item {
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            background: #fafcff;
-        }
-
-        .glossary-item strong {
-            color: var(--primary);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .question {
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 18px;
-            margin: 14px 0;
-        }
-
-        .question summary {
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .answer {
-            margin-top: 12px;
-            padding: 12px;
-            background: #ecfdf5;
-            border-radius: 8px;
-        }
-
-        .page-footer {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            color: var(--muted);
-            font-size: 14px;
-            padding: 20px;
-        }
-
-        @media (max-width: 900px) {
-            .layout {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                position: static;
-            }
-
-            .sidebar nav {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-        }
-
-        @media (max-width: 600px) {
-            .page-header {
-                padding-bottom: 40px;
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
             }
 
             .layout {
                 padding: 0 12px 40px;
             }
 
-            .content section {
+            .content section, section {
                 padding: 22px 18px;
             }
 
-            .content section h2 {
+            .content section h2, section h2 {
                 font-size: 24px;
             }
 
@@ -826,10 +642,16 @@
 <body>
     <header class="page-header">
         <div class="header-inner">
-            <div class="breadcrumbs">
-                <a href="db-basics.html">Базы данных</a>
-                <span> / </span>
-                <span>Лекция 2</span>
+            <div class="header-top">
+                <div class="breadcrumbs">
+                    <a href="db-basics.html">Базы данных</a>
+                    <span> / </span>
+                    <span>Лекция 2</span>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+                    <span id="themeIcon">🌙</span>
+                    <span id="themeText">Тёмная тема</span>
+                </button>
             </div>
             <div class="lecture-label">📘 Лекция №2</div>
             <h1>Реляционная модель данных</h1>
@@ -2214,6 +2036,37 @@ SQL</code></pre>
     <footer class="page-footer">
         <p>Базы данных · Лекция №2 · Реляционная модель данных</p>
     </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const htmlElement = document.documentElement;
+
+        // Определяем начальную тему с учетом localStorage и системных настроек
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+        applyTheme(currentTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            applyTheme(currentTheme);
+            localStorage.setItem('theme', currentTheme);
+        });
+
+        function applyTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Светлая тема';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Тёмная тема';
+            }
+        }
+    </script>
 </body>
 
 </html>
