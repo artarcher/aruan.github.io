@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,11 @@
 
     <style>
         :root {
+            --radius: 16px;
+        }
+
+        /* Светлая тема (по умолчанию) */
+        [data-theme="light"] {
             --bg: #f6f8fc;
             --surface: #ffffff;
             --surface-alt: #f0f4f8;
@@ -22,7 +27,118 @@
             --border: #e2e8f0;
             --code-bg: #0f172a;
             --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-            --radius: 16px;
+
+            /* Специфичные фоны элементов для светлой темы */
+            --header-bg: linear-gradient(135deg, #0f172a, #1e3a8a);
+            --header-text: #ffffff;
+            --header-subtext: #dbeafe;
+            --intro-card-bg: linear-gradient(135deg, #eff6ff, #eef2ff);
+            --intro-card-border: #bfdbfe;
+            --goal-card-bg: #ffffff;
+            --goal-card-border: #dbeafe;
+            --callout-info-bg: #eff6ff;
+            --callout-success-bg: #ecfdf5;
+            --callout-warning-bg: #fff7ed;
+            --callout-danger-bg: #fef2f2;
+            --callout-purple-bg: #f5f3ff;
+            --def-bg: #f8fafc;
+            --table-th-bg: #eff6ff;
+            --table-th-text: #1e3a8a;
+            --table-tr-even-bg: #fafcff;
+            --inline-code-bg: #eef2ff;
+            --inline-code-text: #4338ca;
+            --formula-bg: #f8fafc;
+            --glossary-bg: #fafcff;
+            --timeline-line: #cbd5e1;
+            --error-cell-bg: #fee2e2;
+            --error-cell-text: #991b1b;
+        }
+
+        /* Тёмная тема */
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-alt: #334155;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --primary: #3b82f6;
+            --primary-dark: #60a5fa;
+            --purple: #a78bfa;
+            --green: #10b981;
+            --orange: #f97316;
+            --red: #ef4444;
+            --border: #334155;
+            --code-bg: #020617;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+            /* Специфичные фоны элементов для тёмной темы */
+            --header-bg: linear-gradient(135deg, #020617, #0f172a);
+            --header-text: #f8fafc;
+            --header-subtext: #94a3b8;
+            --intro-card-bg: linear-gradient(135deg, #1e293b, #0f172a);
+            --intro-card-border: #334155;
+            --goal-card-bg: #0f172a;
+            --goal-card-border: #334155;
+            --callout-info-bg: rgba(37, 99, 235, 0.15);
+            --callout-success-bg: rgba(5, 150, 105, 0.15);
+            --callout-warning-bg: rgba(234, 88, 12, 0.15);
+            --callout-danger-bg: rgba(220, 38, 38, 0.15);
+            --callout-purple-bg: rgba(124, 58, 237, 0.15);
+            --def-bg: #0f172a;
+            --table-th-bg: #0f172a;
+            --table-th-text: #60a5fa;
+            --table-tr-even-bg: #111827;
+            --inline-code-bg: #0f172a;
+            --inline-code-text: #93c5fd;
+            --formula-bg: #0f172a;
+            --glossary-bg: #0f172a;
+            --timeline-line: #475569;
+            --error-cell-bg: #7f1d1d;
+            --error-cell-text: #fecaca;
+        }
+
+        /* Автоопределение предпочтений ОС */
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0f172a;
+                --surface: #1e293b;
+                --surface-alt: #334155;
+                --text: #f8fafc;
+                --muted: #94a3b8;
+                --primary: #3b82f6;
+                --primary-dark: #60a5fa;
+                --purple: #a78bfa;
+                --green: #10b981;
+                --orange: #f97316;
+                --red: #ef4444;
+                --border: #334155;
+                --code-bg: #020617;
+                --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+                --header-bg: linear-gradient(135deg, #020617, #0f172a);
+                --header-text: #f8fafc;
+                --header-subtext: #94a3b8;
+                --intro-card-bg: linear-gradient(135deg, #1e293b, #0f172a);
+                --intro-card-border: #334155;
+                --goal-card-bg: #0f172a;
+                --goal-card-border: #334155;
+                --callout-info-bg: rgba(37, 99, 235, 0.15);
+                --callout-success-bg: rgba(5, 150, 105, 0.15);
+                --callout-warning-bg: rgba(234, 88, 12, 0.15);
+                --callout-danger-bg: rgba(220, 38, 38, 0.15);
+                --callout-purple-bg: rgba(124, 58, 237, 0.15);
+                --def-bg: #0f172a;
+                --table-th-bg: #0f172a;
+                --table-th-text: #60a5fa;
+                --table-tr-even-bg: #111827;
+                --inline-code-bg: #0f172a;
+                --inline-code-text: #93c5fd;
+                --formula-bg: #0f172a;
+                --glossary-bg: #0f172a;
+                --timeline-line: #475569;
+                --error-cell-bg: #7f1d1d;
+                --error-cell-text: #fecaca;
+            }
         }
 
         * {
@@ -40,6 +156,7 @@
             background: var(--bg);
             color: var(--text);
             line-height: 1.7;
+            transition: background 0.3s, color 0.3s;
         }
 
         a {
@@ -51,11 +168,37 @@
             text-decoration: underline;
         }
 
+        /* Кнопка переключения темы */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 10px 16px;
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
         /* ================= HEADER ================= */
 
         .page-header {
-            background: linear-gradient(135deg, #0f172a, #1e3a8a);
-            color: white;
+            background: var(--header-bg);
+            color: var(--header-text);
             padding: 28px 20px 48px;
         }
 
@@ -96,7 +239,7 @@
         .page-header p {
             max-width: 800px;
             font-size: 18px;
-            color: #dbeafe;
+            color: var(--header-subtext);
         }
 
         .lecture-meta {
@@ -159,7 +302,7 @@
         }
 
         .sidebar a:hover {
-            background: #eff6ff;
+            background: var(--surface-alt);
             text-decoration: none;
             color: var(--primary);
         }
@@ -176,7 +319,7 @@
             border-radius: var(--radius);
             padding: 32px;
             margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+            box-shadow: var(--shadow);
         }
 
         section h2 {
@@ -211,8 +354,8 @@
         /* ================= CARDS ================= */
 
         .intro-card {
-            background: linear-gradient(135deg, #eff6ff, #eef2ff);
-            border: 1px solid #bfdbfe;
+            background: var(--intro-card-bg);
+            border: 1px solid var(--intro-card-border);
         }
 
         .goals {
@@ -223,8 +366,8 @@
         }
 
         .goal-card {
-            background: white;
-            border: 1px solid #dbeafe;
+            background: var(--goal-card-bg);
+            border: 1px solid var(--goal-card-border);
             border-radius: 12px;
             padding: 18px;
         }
@@ -245,27 +388,27 @@
         }
 
         .callout.info {
-            background: #eff6ff;
+            background: var(--callout-info-bg);
             border-color: var(--primary);
         }
 
         .callout.success {
-            background: #ecfdf5;
+            background: var(--callout-success-bg);
             border-color: var(--green);
         }
 
         .callout.warning {
-            background: #fff7ed;
+            background: var(--callout-warning-bg);
             border-color: var(--orange);
         }
 
         .callout.danger {
-            background: #fef2f2;
+            background: var(--callout-danger-bg);
             border-color: var(--red);
         }
 
         .callout.purple {
-            background: #f5f3ff;
+            background: var(--callout-purple-bg);
             border-color: var(--purple);
         }
 
@@ -277,7 +420,7 @@
         /* ================= DEFINITION ================= */
 
         .definition {
-            background: #f8fafc;
+            background: var(--def-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 18px;
@@ -304,8 +447,8 @@
         }
 
         th {
-            background: #eff6ff;
-            color: #1e3a8a;
+            background: var(--table-th-bg);
+            color: var(--table-th-text);
             text-align: left;
         }
 
@@ -316,12 +459,12 @@
         }
 
         tr:nth-child(even) td {
-            background: #fafcff;
+            background: var(--table-tr-even-bg);
         }
 
         .error-cell {
-            background: #fee2e2 !important;
-            color: #991b1b;
+            background: var(--error-cell-bg) !important;
+            color: var(--error-cell-text);
             font-weight: 600;
         }
 
@@ -340,8 +483,8 @@
         }
 
         code {
-            background: #eef2ff;
-            color: #4338ca;
+            background: var(--inline-code-bg);
+            color: var(--inline-code-text);
             padding: 2px 6px;
             border-radius: 5px;
             font-size: 0.9em;
@@ -360,7 +503,7 @@
             padding: 22px;
             font-size: 24px;
             font-weight: 700;
-            background: #f8fafc;
+            background: var(--formula-bg);
             border-radius: 12px;
             margin: 20px 0;
         }
@@ -383,7 +526,7 @@
             top: 8px;
             bottom: 8px;
             width: 2px;
-            background: #cbd5e1;
+            background: var(--timeline-line);
         }
 
         .timeline-item {
@@ -419,7 +562,7 @@
         .answer {
             margin-top: 12px;
             padding: 12px;
-            background: #ecfdf5;
+            background: var(--callout-success-bg);
             border-radius: 8px;
         }
 
@@ -455,7 +598,7 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 16px;
-            background: #fafcff;
+            background: var(--glossary-bg);
         }
 
         .glossary-item strong {
@@ -488,6 +631,13 @@
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
+
+            .theme-toggle-btn {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
         }
 
         @media (max-width: 600px) {
@@ -515,6 +665,10 @@
 </head>
 
 <body>
+
+<button class="theme-toggle-btn" id="themeToggle" aria-label="Переключить тему">
+    <span id="themeIcon">🌙</span> <span id="themeText">Тёмная тема</span>
+</button>
 
 <header class="page-header">
     <div class="header-inner">
@@ -2232,6 +2386,43 @@ M:M
         Базы данных · Лекция №1 · Основные понятия и определения
     </p>
 </footer>
+
+<script>
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    function getCurrentTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            return savedTheme;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+            themeIcon.textContent = '☀️';
+            themeText.textContent = 'Светлая тема';
+        } else {
+            themeIcon.textContent = '🌙';
+            themeText.textContent = 'Тёмная тема';
+        }
+    }
+
+    // Инициализация темы при загрузке
+    const initialTheme = getCurrentTheme();
+    applyTheme(initialTheme);
+
+    // Обработчик клика
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        applyTheme(newTheme);
+    });
+</script>
 
 </body>
 </html>
