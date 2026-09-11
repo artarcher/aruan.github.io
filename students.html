@@ -3,631 +3,908 @@
 <html lang="ru">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<meta name="description"
-    content="Учебные материалы, лекции, конспекты и практические задания для студентов.">
-
-<title>Материалы для студентов — aruan</title>
-
-<link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-
-<style>
-
-    /* ============================================================
-       Tokens
-       ============================================================ */
-
-    :root {
-        --bg: #faf9f6;
-        --ink: #17181a;
-        --ink-soft: #3b3c3e;
-        --muted: #767671;
-        --faint: #aaa8a1;
-        --line: #e6e3dc;
-        --line-strong: #d8d4ca;
-        --accent: #a9832f;
-        --accent-soft: rgba(169, 131, 47, 0.12);
-        --paper: #ffffff;
-
-        --font-display: 'Lora', Georgia, 'Times New Roman', serif;
-        --font-body: 'Inter', -apple-system, BlinkMacSystemFont,
-            'Segoe UI', Roboto, sans-serif;
-
-        --ease: cubic-bezier(.16, 1, .3, 1);
-
-        --content-w: 1000px;
-        --sidebar-w: 260px;
-    }
-
-    /* ============================================================
-       Dark theme
-       ============================================================ */
-
-    [data-theme="dark"] {
-        --bg: #131315;
-        --ink: #f1efe8;
-        --ink-soft: #d6d3c9;
-        --muted: #93908a;
-        --faint: #666460;
-        --line: #262629;
-        --line-strong: #35353a;
-        --accent: #cda253;
-        --accent-soft: rgba(205, 162, 83, 0.14);
-        --paper: #1b1b1e;
-    }
-
-    body,
-    .lecture-card,
-    .theme-toggle {
-        transition:
-            background-color 0.35s var(--ease),
-            color 0.35s var(--ease),
-            border-color 0.35s var(--ease);
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        margin: 0;
-        font-family: var(--font-body);
-        background: var(--bg);
-        color: var(--ink-soft);
-        line-height: 1.65;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    ::selection {
-        background: var(--accent-soft);
-        color: var(--ink);
-    }
-
-    a {
-        color: inherit;
-    }
-
-    :focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 4px;
-    }
-
-    /* ============================================================
-       Layout
-       ============================================================ */
-
-    .wrapper {
-        display: flex;
-        width: 100%;
-        max-width: var(--content-w);
-        margin: 0 auto;
-        padding: 72px 24px 120px;
-    }
-
-    aside {
-        width: var(--sidebar-w);
-        position: fixed;
-        top: 72px;
-        height: calc(100vh - 140px);
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    main {
-        margin-left: calc(var(--sidebar-w) + 60px);
-        flex: 1;
-        min-width: 0;
-    }
-
-    /* ============================================================
-       Sidebar
-       ============================================================ */
-
-    .profile-info h1 {
-        font-family: var(--font-display);
-        font-size: 2.1rem;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-        margin: 0;
-        color: var(--ink);
-    }
-
-    .profile-quote {
-        font-family: var(--font-display);
-        font-style: italic;
-        font-size: 1rem;
-        color: var(--ink-soft);
-        margin: 10px 0 0;
-        line-height: 1.55;
-    }
-
-    .quote-author {
-        display: block;
-        font-family: var(--font-body);
-        font-style: normal;
-        font-size: 0.72rem;
-        color: var(--faint);
-        margin-top: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.09em;
-    }
-
-    /* ============================================================
-       Signature
-       ============================================================ */
-
-    .signature-mark {
-        width: 100%;
-        height: 46px;
-        margin: 22px 0 34px;
-        color: var(--ink);
-        opacity: 0.5;
-    }
-
-    .signature-mark svg {
-        width: 100%;
-        height: 100%;
-        overflow: visible;
-    }
-
-    .signature-mark .peaks {
-        fill: none;
-        stroke: currentColor;
-        stroke-width: 1;
-        stroke-linejoin: round;
-        stroke-linecap: round;
-    }
-
-    .signature-mark .stars circle {
-        fill: currentColor;
-    }
-
-    /* ============================================================
-       Navigation
-       ============================================================ */
-
-    nav {
-        margin-top: 38px;
-    }
-
-    nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    nav li {
-        margin-bottom: 13px;
-    }
-
-    nav a {
-        position: relative;
-
-        color: var(--muted);
-        text-decoration: none;
-
-        font-size: 0.78rem;
-        font-weight: 600;
-        letter-spacing: 0.07em;
-        text-transform: uppercase;
-
-        padding-left: 14px;
-
-        transition: color 0.25s var(--ease);
-    }
-
-    nav a::before {
-        content: "";
-
-        position: absolute;
-        left: 0;
-        top: 50%;
-
-        width: 5px;
-        height: 1px;
-
-        background: var(--faint);
-
-        transform:
-            translateY(-50%)
-            scaleX(0.6);
-
-        transform-origin: left;
-
-        transition: all 0.25s var(--ease);
-    }
-
-    nav a:hover {
-        color: var(--ink);
-    }
-
-    nav li.active a {
-        color: var(--ink);
-    }
-
-    nav li.active a::before {
-        background: var(--accent);
-        width: 18px;
-
-        transform:
-            translateY(-50%)
-            scaleX(1);
-    }
-
-    /* ============================================================
-       Theme toggle
-       ============================================================ */
-
-    .theme-toggle {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-
-        border: 1px solid var(--line);
-        background: transparent;
-        color: var(--muted);
-
-        font-family: var(--font-body);
-        font-size: 0.72rem;
-        font-weight: 600;
-
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-
-        padding: 9px 14px;
-
-        border-radius: 20px;
-
-        cursor: pointer;
-    }
-
-    .theme-toggle:hover {
-        color: var(--ink);
-        border-color: var(--line-strong);
-    }
-
-    .theme-icon {
-        font-size: 0.9rem;
-    }
-
-    /* ============================================================
-       Page header
-       ============================================================ */
-
-    .page-header {
-        margin-bottom: 56px;
-    }
-
-    .page-label {
-        font-size: 0.72rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--accent);
-
-        margin-bottom: 16px;
-    }
-
-    .page-title {
-        font-family: var(--font-display);
-        font-size: clamp(2.2rem, 5vw, 3.4rem);
-        font-weight: 500;
-        line-height: 1.15;
-
-        color: var(--ink);
-
-        margin: 0 0 20px;
-    }
-
-    .page-description {
-        font-family: var(--font-display);
-        font-size: 1.15rem;
-        font-style: italic;
-
-        max-width: 62ch;
-
-        color: var(--ink-soft);
-
-        margin: 0;
-    }
-
-    /* ============================================================
-       Section
-       ============================================================ */
-
-    .section-heading {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 20px;
-
-        border-bottom: 1px solid var(--line);
-
-        padding-bottom: 14px;
-        margin-bottom: 28px;
-    }
-
-    .section-heading h2 {
-        margin: 0;
-
-        font-size: 0.82rem;
-        font-weight: 700;
-
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-
-        color: var(--ink);
-    }
-
-    .section-count {
-        font-size: 0.78rem;
-        color: var(--muted);
-    }
-
-    /* ============================================================
-       Course
-       ============================================================ */
-
-    .course {
-        margin-bottom: 64px;
-    }
-
-    .course-title {
-        font-family: var(--font-display);
-        font-size: 1.55rem;
-        font-weight: 500;
-
-        color: var(--ink);
-
-        margin: 0 0 8px;
-    }
-
-    .course-description {
-        color: var(--muted);
-        font-size: 0.9rem;
-
-        margin: 0 0 24px;
-    }
-
-    /* ============================================================
-       Lecture cards
-       ============================================================ */
-
-    .lecture-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .lecture-card {
-        display: block;
-
-        text-decoration: none;
-
-        border: 1px solid var(--line);
-        background: transparent;
-
-        padding: 22px 24px;
-
-        transition:
-            transform 0.25s var(--ease),
-            border-color 0.25s var(--ease),
-            background-color 0.25s var(--ease);
-    }
-
-    .lecture-card:hover {
-        transform: translateY(-2px);
-        border-color: var(--line-strong);
-        background: var(--paper);
-    }
-
-    .lecture-card-inner {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .lecture-number {
-        flex: 0 0 auto;
-
-        width: 42px;
-        height: 42px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 50%;
-
-        background: var(--accent-soft);
-        color: var(--accent);
-
-        font-size: 0.78rem;
-        font-weight: 700;
-    }
-
-    .lecture-content {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .lecture-title {
-        font-family: var(--font-display);
-        font-size: 1.12rem;
-        font-weight: 500;
-
-        color: var(--ink);
-
-        line-height: 1.4;
-
-        margin-bottom: 5px;
-    }
-
-    .lecture-meta {
-        font-size: 0.84rem;
-        color: var(--muted);
-    }
-
-    .lecture-arrow {
-        flex: 0 0 auto;
-
-        color: var(--faint);
-        font-size: 1.2rem;
-
-        transition:
-            transform 0.25s var(--ease),
-            color 0.25s var(--ease);
-    }
-
-    .lecture-card:hover .lecture-arrow {
-        color: var(--accent);
-        transform: translateX(4px);
-    }
-
-    /* ============================================================
-       Coming soon
-       ============================================================ */
-
-    .coming-soon {
-        border-top: 1px solid var(--line);
-
-        padding-top: 24px;
-        margin-top: 18px;
-
-        font-size: 0.88rem;
-        color: var(--faint);
-    }
-
-    /* ============================================================
-       Footer note
-       ============================================================ */
-
-    .page-footer {
-        margin-top: 80px;
-        padding-top: 24px;
-
-        border-top: 1px solid var(--line);
-
-        font-size: 0.82rem;
-        color: var(--faint);
-    }
-
-    .page-footer a {
-        color: var(--muted);
-        text-decoration: none;
-
-        border-bottom: 1px solid var(--line-strong);
-    }
-
-    .page-footer a:hover {
-        color: var(--ink);
-    }
-
-    /* ============================================================
-       Responsive
-       ============================================================ */
-
-    @media (max-width: 860px) {
+    <meta
+        name="description"
+        content="Учебные материалы, лекции, практические занятия и задания для студентов."
+    >
+
+    <title>Материалы для студентов — aruan</title>
+
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <script>
+        (() => {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark =
+                window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (
+                savedTheme === 'dark' ||
+                (!savedTheme && prefersDark)
+            ) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+
+
+    <style>
+
+        /* ============================================================
+           Tokens
+           ============================================================ */
+
+        :root {
+
+            --bg: #faf9f6;
+            --ink: #17181a;
+            --ink-soft: #3b3c3e;
+            --muted: #767671;
+            --faint: #aaa8a1;
+
+            --line: #e6e3dc;
+            --line-strong: #d8d4ca;
+
+            --accent: #a9832f;
+            --accent-soft: rgba(169, 131, 47, 0.12);
+
+            --paper: #ffffff;
+
+            --font-display:
+                'Lora',
+                Georgia,
+                'Times New Roman',
+                serif;
+
+            --font-body:
+                'Inter',
+                -apple-system,
+                BlinkMacSystemFont,
+                'Segoe UI',
+                Roboto,
+                sans-serif;
+
+            --ease: cubic-bezier(.16, 1, .3, 1);
+
+            --content-w: 1000px;
+            --sidebar-w: 260px;
+        }
+
+
+        [data-theme="dark"] {
+
+            --bg: #131315;
+            --ink: #f1efe8;
+            --ink-soft: #d6d3c9;
+            --muted: #93908a;
+            --faint: #666460;
+
+            --line: #262629;
+            --line-strong: #35353a;
+
+            --accent: #cda253;
+            --accent-soft: rgba(205, 162, 83, .14);
+
+            --paper: #1b1b1e;
+        }
+
+
+        /* ============================================================
+           Base
+           ============================================================ */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: var(--font-body);
+
+            background: var(--bg);
+            color: var(--ink-soft);
+
+            line-height: 1.65;
+
+            -webkit-font-smoothing: antialiased;
+
+            transition:
+                background-color .35s var(--ease),
+                color .35s var(--ease);
+        }
+
+
+        ::selection {
+
+            background: var(--accent-soft);
+            color: var(--ink);
+        }
+
+
+        a {
+            color: inherit;
+        }
+
+
+        :focus-visible {
+
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+
+        /* ============================================================
+           Layout
+           ============================================================ */
 
         .wrapper {
-            flex-direction: column;
-            padding: 48px 20px 90px;
-        }
 
-        aside {
-            position: relative;
-            top: 0;
+            display: flex;
 
             width: 100%;
-            height: auto;
+            max-width: var(--content-w);
 
-            margin-bottom: 52px;
+            margin: 0 auto;
+
+            padding: 72px 24px 120px;
         }
+
+
+        aside {
+
+            width: var(--sidebar-w);
+
+            position: fixed;
+
+            top: 72px;
+
+            height: calc(100vh - 140px);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
 
         main {
-            margin-left: 0;
+
+            margin-left: calc(var(--sidebar-w) + 60px);
+
+            flex: 1;
+            min-width: 0;
         }
+
+
+        /* ============================================================
+           Sidebar
+           ============================================================ */
+
+        .profile-info h1 {
+
+            font-family: var(--font-display);
+
+            font-size: 2.1rem;
+            font-weight: 600;
+
+            letter-spacing: -.02em;
+
+            margin: 0;
+
+            color: var(--ink);
+        }
+
+
+        .profile-quote {
+
+            font-family: var(--font-display);
+
+            font-style: italic;
+
+            font-size: 1rem;
+
+            color: var(--ink-soft);
+
+            margin: 10px 0 0;
+
+            line-height: 1.55;
+        }
+
+
+        .quote-author {
+
+            display: block;
+
+            font-family: var(--font-body);
+
+            font-style: normal;
+
+            font-size: .72rem;
+
+            color: var(--faint);
+
+            margin-top: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .09em;
+        }
+
+
+        /* ============================================================
+           Signature
+           ============================================================ */
 
         .signature-mark {
-            max-width: 320px;
+
+            width: 100%;
+            height: 46px;
+
+            margin: 22px 0 34px;
+
+            color: var(--ink);
+
+            opacity: .5;
         }
+
+
+        .signature-mark svg {
+
+            width: 100%;
+            height: 100%;
+
+            overflow: visible;
+        }
+
+
+        .signature-mark .peaks {
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1;
+
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+
+        .signature-mark .stars circle {
+
+            fill: currentColor;
+        }
+
+
+        /* ============================================================
+           Navigation
+           ============================================================ */
 
         nav {
-            margin-top: 26px;
+            margin-top: 38px;
         }
+
 
         nav ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 18px;
+
+            list-style: none;
+
+            padding: 0;
+            margin: 0;
         }
+
 
         nav li {
-            margin-bottom: 0;
+
+            margin-bottom: 13px;
         }
+
+
+        nav a {
+
+            position: relative;
+
+            display: inline-block;
+
+            color: var(--muted);
+
+            text-decoration: none;
+
+            font-size: .78rem;
+            font-weight: 600;
+
+            letter-spacing: .07em;
+            text-transform: uppercase;
+
+            padding-left: 14px;
+
+            transition: color .25s var(--ease);
+        }
+
+
+        nav a::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 50%;
+
+            width: 5px;
+            height: 1px;
+
+            background: var(--faint);
+
+            transform:
+                translateY(-50%)
+                scaleX(.6);
+
+            transform-origin: left;
+
+            transition: all .25s var(--ease);
+        }
+
+
+        nav a:hover {
+            color: var(--ink);
+        }
+
+
+        nav li.active a {
+            color: var(--ink);
+        }
+
+
+        nav li.active a::before {
+
+            background: var(--accent);
+
+            width: 18px;
+
+            transform:
+                translateY(-50%)
+                scaleX(1);
+        }
+
+
+        /* ============================================================
+           Theme
+           ============================================================ */
 
         .theme-toggle {
-            margin-top: 28px;
-            align-self: flex-start;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            border: 1px solid var(--line);
+
+            background: transparent;
+
+            color: var(--muted);
+
+            font-family: var(--font-body);
+
+            font-size: .72rem;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: .07em;
+
+            padding: 9px 14px;
+
+            border-radius: 20px;
+
+            cursor: pointer;
+
+            transition:
+                background-color .35s var(--ease),
+                color .35s var(--ease),
+                border-color .35s var(--ease);
         }
+
+
+        .theme-toggle:hover {
+
+            color: var(--ink);
+
+            border-color: var(--line-strong);
+        }
+
+
+        .theme-icon {
+            font-size: .9rem;
+        }
+
+
+        /* ============================================================
+           Header
+           ============================================================ */
 
         .page-header {
-            margin-bottom: 46px;
-        }
-    }
-
-    @media (max-width: 560px) {
-
-        .lecture-card {
-            padding: 18px;
+            margin-bottom: 58px;
         }
 
-        .lecture-card-inner {
-            align-items: flex-start;
-            gap: 14px;
+
+        .page-label {
+
+            font-size: .72rem;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .12em;
+
+            color: var(--accent);
+
+            margin-bottom: 16px;
         }
 
-        .lecture-number {
-            width: 36px;
-            height: 36px;
-            font-size: 0.7rem;
-        }
-
-        .lecture-arrow {
-            display: none;
-        }
 
         .page-title {
-            font-size: 2.3rem;
-        }
-    }
 
-</style>
-```
+            font-family: var(--font-display);
+
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+
+            font-weight: 500;
+
+            line-height: 1.15;
+
+            color: var(--ink);
+
+            margin: 0 0 20px;
+        }
+
+
+        .page-description {
+
+            font-family: var(--font-display);
+
+            font-size: 1.15rem;
+
+            font-style: italic;
+
+            max-width: 62ch;
+
+            color: var(--ink-soft);
+
+            margin: 0;
+        }
+
+
+        /* ============================================================
+           Catalog section
+           ============================================================ */
+
+        .catalog-section {
+            margin-bottom: 68px;
+        }
+
+
+        .section-heading {
+
+            display: flex;
+
+            align-items: baseline;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            border-bottom: 1px solid var(--line);
+
+            padding-bottom: 14px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .section-heading h2 {
+
+            margin: 0;
+
+            font-size: .82rem;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .12em;
+
+            color: var(--ink);
+        }
+
+
+        .section-count {
+
+            font-size: .78rem;
+
+            color: var(--muted);
+
+            white-space: nowrap;
+        }
+
+
+        /* ============================================================
+           Education program
+           ============================================================ */
+
+        .program {
+
+            margin-bottom: 42px;
+        }
+
+
+        .program-header {
+
+            margin-bottom: 18px;
+        }
+
+
+        .program-title {
+
+            font-family: var(--font-display);
+
+            font-size: 1.45rem;
+
+            font-weight: 500;
+
+            line-height: 1.35;
+
+            color: var(--ink);
+
+            margin: 0 0 8px;
+        }
+
+
+        .program-description {
+
+            margin: 0;
+
+            font-size: .9rem;
+
+            color: var(--muted);
+
+            max-width: 68ch;
+        }
+
+
+        /* ============================================================
+           Subject cards
+           ============================================================ */
+
+        .subject-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .subject-card {
+
+            display: block;
+
+            text-decoration: none;
+
+            border: 1px solid var(--line);
+
+            background: transparent;
+
+            padding: 22px 24px;
+
+            transition:
+                transform .25s var(--ease),
+                border-color .25s var(--ease),
+                background-color .25s var(--ease);
+        }
+
+
+        .subject-card:hover {
+
+            transform: translateY(-2px);
+
+            border-color: var(--line-strong);
+
+            background: var(--paper);
+        }
+
+
+        .subject-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .subject-number {
+
+            flex: 0 0 auto;
+
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: var(--accent-soft);
+
+            color: var(--accent);
+
+            font-size: .76rem;
+
+            font-weight: 700;
+        }
+
+
+        .subject-content {
+
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .subject-title {
+
+            font-family: var(--font-display);
+
+            font-size: 1.1rem;
+
+            font-weight: 500;
+
+            line-height: 1.4;
+
+            color: var(--ink);
+
+            margin-bottom: 5px;
+        }
+
+
+        .subject-meta {
+
+            font-size: .82rem;
+
+            color: var(--muted);
+        }
+
+
+        .subject-arrow {
+
+            flex: 0 0 auto;
+
+            color: var(--faint);
+
+            font-size: 1.2rem;
+
+            transition:
+                transform .25s var(--ease),
+                color .25s var(--ease);
+        }
+
+
+        .subject-card:hover .subject-arrow {
+
+            color: var(--accent);
+
+            transform: translateX(4px);
+        }
+
+
+        /* ============================================================
+           Empty / future
+           ============================================================ */
+
+        .future {
+
+            border-top: 1px solid var(--line);
+
+            margin-top: 18px;
+
+            padding-top: 24px;
+
+            color: var(--faint);
+
+            font-size: .86rem;
+        }
+
+
+        /* ============================================================
+           Footer
+           ============================================================ */
+
+        .page-footer {
+
+            margin-top: 80px;
+
+            padding-top: 24px;
+
+            border-top: 1px solid var(--line);
+
+            font-size: .82rem;
+
+            color: var(--faint);
+        }
+
+
+        .page-footer a {
+
+            color: var(--muted);
+
+            text-decoration: none;
+
+            border-bottom: 1px solid var(--line-strong);
+        }
+
+
+        .page-footer a:hover {
+            color: var(--ink);
+        }
+
+
+        /* ============================================================
+           Responsive
+           ============================================================ */
+
+        @media (max-width: 860px) {
+
+            .wrapper {
+
+                flex-direction: column;
+
+                padding:
+                    48px
+                    20px
+                    90px;
+            }
+
+
+            aside {
+
+                position: relative;
+
+                top: 0;
+
+                width: 100%;
+
+                height: auto;
+
+                margin-bottom: 52px;
+            }
+
+
+            main {
+                margin-left: 0;
+            }
+
+
+            .signature-mark {
+                max-width: 320px;
+            }
+
+
+            nav {
+                margin-top: 26px;
+            }
+
+
+            nav ul {
+
+                display: flex;
+
+                flex-wrap: wrap;
+
+                gap: 10px 18px;
+            }
+
+
+            nav li {
+                margin-bottom: 0;
+            }
+
+
+            .theme-toggle {
+
+                margin-top: 28px;
+
+                align-self: flex-start;
+            }
+        }
+
+
+        @media (max-width: 560px) {
+
+            .subject-card {
+                padding: 18px;
+            }
+
+
+            .subject-inner {
+
+                align-items: flex-start;
+
+                gap: 14px;
+            }
+
+
+            .subject-number {
+
+                width: 36px;
+                height: 36px;
+
+                font-size: .7rem;
+            }
+
+
+            .subject-arrow {
+                display: none;
+            }
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: .01ms !important;
+                animation-duration: .01ms !important;
+            }
+        }
+
+    </style>
 
 </head>
 
+
 <body>
 
-```
 <div class="wrapper">
+
 
     <!-- ========================================================
          Sidebar
@@ -640,6 +917,7 @@
             <h1>aruan</h1>
 
             <p class="profile-quote">
+
                 Пока твоё сердце<br>
                 Ещё откликается<br>
                 На звёзды
@@ -647,20 +925,30 @@
                 <span class="quote-author">
                     Bazlab — Дружище
                 </span>
+
             </p>
 
 
-            <div class="signature-mark" aria-hidden="true">
+            <div
+                class="signature-mark"
+                aria-hidden="true"
+            >
 
-                <svg viewBox="0 0 240 46" preserveAspectRatio="none">
+                <svg
+                    viewBox="0 0 240 46"
+                    preserveAspectRatio="none"
+                >
 
                     <g class="stars">
+
                         <circle cx="18" cy="10" r="1" />
                         <circle cx="150" cy="6" r="1" />
                         <circle cx="200" cy="14" r="1" />
-                        <circle cx="90" cy="4" r="0.8" />
-                        <circle cx="222" cy="9" r="0.8" />
+                        <circle cx="90" cy="4" r=".8" />
+                        <circle cx="222" cy="9" r=".8" />
+
                     </g>
+
 
                     <path
                         class="peaks"
@@ -677,15 +965,23 @@
                 <ul>
 
                     <li>
+
                         <a href="index.html">
                             ← На главную
                         </a>
+
                     </li>
 
+
                     <li class="active">
-                        <a href="students.html">
+
+                        <a
+                            href="students.html"
+                            aria-current="page"
+                        >
                             Материалы
                         </a>
+
                     </li>
 
                 </ul>
@@ -700,9 +996,15 @@
             class="theme-toggle"
             type="button"
             aria-label="Переключить тему"
+            aria-pressed="false"
         >
 
-            <span class="theme-icon">☾</span>
+            <span
+                class="theme-icon"
+                aria-hidden="true"
+            >
+                ☾
+            </span>
 
             <span class="theme-label">
                 Тёмная тема
@@ -728,165 +1030,255 @@
                 Учебные материалы
             </div>
 
-            <h1 class="page-title">
+
+            <h2 class="page-title">
+
                 Материалы<br>
                 для студентов
-            </h1>
+
+            </h2>
+
 
             <p class="page-description">
-                Лекции, конспекты и практические задания по информатике.
-                Всё собрано здесь, чтобы не искать нужные материалы среди сообщений и файлов.
+
+                Лекции, конспекты, практические занятия и задания
+                по дисциплинам. Каждая дисциплина живёт на своей странице,
+                поэтому материалы можно постепенно расширять, не превращая
+                этот раздел в бесконечный список.
+
             </p>
 
         </header>
 
 
         <!-- ====================================================
-             Lectures
+             Programs
              ==================================================== -->
 
-        <section class="course">
-
+        <section class="catalog-section">
 
             <div class="section-heading">
 
                 <h2>
-                    Базы данных
+                    Образовательные программы
                 </h2>
 
                 <span class="section-count">
-                    1 лекция
+                    3 программы
                 </span>
 
             </div>
 
 
-            <h3 class="course-title">
-                Основы баз данных
-            </h3>
+            <!-- ==================================================
+                 Оператор ИС и ресурсов
+                 ================================================== -->
 
-            <p class="course-description">
-                Введение в основные понятия, структуру и принципы организации баз данных.
-            </p>
+            <article class="program">
 
+                <div class="program-header">
 
-            <div class="lecture-list">
+                    <h3 class="program-title">
+                        Оператор информационных систем и ресурсов
+                    </h3>
 
+                    <p class="program-description">
 
-                <!-- Лекция 1 -->
+                        Дисциплины и учебные материалы,
+                        используемые в рамках программы.
 
-                <a
-                    href="db-basics.html"
-                    class="lecture-card"
-                >
+                    </p>
 
-                    <div class="lecture-card-inner">
-
-                        <div class="lecture-number">
-                            01
-                        </div>
+                </div>
 
 
-                        <div class="lecture-content">
+                <div class="subject-list">
 
-                            <div class="lecture-title">
-                                Основные понятия и определения баз данных
+
+                    <a
+                        href="subjects/database.html"
+                        class="subject-card"
+                    >
+
+                        <div class="subject-inner">
+
+                            <div class="subject-number">
+                                01
                             </div>
 
-                            <div class="lecture-meta">
-                                Лекция · Конспект · Практические задания
+
+                            <div class="subject-content">
+
+                                <div class="subject-title">
+                                    Базы данных
+                                </div>
+
+                                <div class="subject-meta">
+                                    2 лекции · 2 практических занятия
+                                </div>
+
                             </div>
 
-                        </div>
 
-
-                        <div class="lecture-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <!--
-                ====================================================
-                Шаблон для следующей лекции:
-
-                <a href="lecture-2.html" class="lecture-card">
-
-                    <div class="lecture-card-inner">
-
-                        <div class="lecture-number">
-                            02
-                        </div>
-
-                        <div class="lecture-content">
-
-                            <div class="lecture-title">
-                                Название второй лекции
-                            </div>
-
-                            <div class="lecture-meta">
-                                Лекция · Конспект · Практические задания
+                            <div
+                                class="subject-arrow"
+                                aria-hidden="true"
+                            >
+                                →
                             </div>
 
                         </div>
 
-                        <div class="lecture-arrow">
-                            →
+                    </a>
+
+
+                </div>
+
+            </article>
+
+
+            <!-- ==================================================
+                 Разработчик веб и мультимедийных приложений
+                 ================================================== -->
+
+            <article class="program">
+
+                <div class="program-header">
+
+                    <h3 class="program-title">
+                        Разработчик веб и мультимедийных приложений
+                    </h3>
+
+                    <p class="program-description">
+
+                        Дисциплины и учебные материалы
+                        по программе подготовки разработчиков.
+
+                    </p>
+
+                </div>
+
+
+                <div class="subject-list">
+
+
+                    <a
+                        href="subjects/database.html"
+                        class="subject-card"
+                    >
+
+                        <div class="subject-inner">
+
+                            <div class="subject-number">
+                                01
+                            </div>
+
+
+                            <div class="subject-content">
+
+                                <div class="subject-title">
+                                    Базы данных
+                                </div>
+
+                                <div class="subject-meta">
+                                    2 лекции · 2 практических занятия
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="subject-arrow"
+                                aria-hidden="true"
+                            >
+                                →
+                            </div>
+
                         </div>
 
-                    </div>
+                    </a>
 
-                </a>
-                ====================================================
-                -->
 
+                </div>
+
+            </article>
+
+
+            <!-- ==================================================
+                 Программист
+                 ================================================== -->
+
+            <article class="program">
+
+                <div class="program-header">
+
+                    <h3 class="program-title">
+                        Программист
+                    </h3>
+
+                    <p class="program-description">
+
+                        Дисциплины и учебные материалы
+                        для подготовки программистов.
+
+                    </p>
+
+                </div>
+
+
+                <div class="subject-list">
+
+
+                    <a
+                        href="subjects/database.html"
+                        class="subject-card"
+                    >
+
+                        <div class="subject-inner">
+
+                            <div class="subject-number">
+                                01
+                            </div>
+
+
+                            <div class="subject-content">
+
+                                <div class="subject-title">
+                                    Базы данных
+                                </div>
+
+                                <div class="subject-meta">
+                                    2 лекции · 2 практических занятия
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="subject-arrow"
+                                aria-hidden="true"
+                            >
+                                →
+                            </div>
+
+                        </div>
+
+                    </a>
+
+
+                </div>
+
+            </article>
+
+
+            <div class="future">
+
+                По мере появления новых дисциплин они будут добавляться
+                сюда отдельными страницами.
 
             </div>
-
-
-            <div class="coming-soon">
-                Новые материалы будут появляться здесь по мере прохождения курса.
-            </div>
-
 
         </section>
-
-
-
-        <!-- ====================================================
-             Future course example
-             ==================================================== -->
-
-        <!--
-
-        <section class="course">
-
-            <div class="section-heading">
-
-                <h2>
-                    Алгоритмы
-                </h2>
-
-                <span class="section-count">
-                    0 лекций
-                </span>
-
-            </div>
-
-            <h3 class="course-title">
-                Основы алгоритмизации
-            </h3>
-
-            <p class="course-description">
-                Основные алгоритмические конструкции и принципы решения задач.
-            </p>
-
-        </section>
-
-        -->
 
 
         <!-- Footer -->
@@ -905,100 +1297,119 @@
 </div>
 
 
-<!-- ============================================================
-     Theme script
-     ============================================================ -->
-
 <script>
 
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-        const root = document.documentElement;
+    const root =
+        document.documentElement;
 
-        const toggle = document.getElementById('theme-toggle');
+    const toggle =
+        document.getElementById('theme-toggle');
 
-        const toggleIcon =
-            toggle?.querySelector('.theme-icon');
+    const icon =
+        toggle?.querySelector('.theme-icon');
 
-        const toggleLabel =
-            toggle?.querySelector('.theme-label');
+    const label =
+        toggle?.querySelector('.theme-label');
 
 
-        function applyTheme(theme) {
+    function applyTheme(theme) {
 
-            if (theme === 'dark') {
+        const isDark =
+            theme === 'dark';
 
-                root.setAttribute(
-                    'data-theme',
-                    'dark'
-                );
 
-                if (toggleIcon)
-                    toggleIcon.textContent = '☀';
+        if (isDark) {
 
-                if (toggleLabel)
-                    toggleLabel.textContent = 'Светлая тема';
+            root.setAttribute(
+                'data-theme',
+                'dark'
+            );
 
-            } else {
+            if (icon)
+                icon.textContent = '☀';
 
-                root.removeAttribute('data-theme');
+            if (label)
+                label.textContent = 'Светлая тема';
 
-                if (toggleIcon)
-                    toggleIcon.textContent = '☾';
+            toggle?.setAttribute(
+                'aria-label',
+                'Переключить на светлую тему'
+            );
 
-                if (toggleLabel)
-                    toggleLabel.textContent = 'Тёмная тема';
+            toggle?.setAttribute(
+                'aria-pressed',
+                'true'
+            );
 
-            }
+        } else {
 
+            root.removeAttribute('data-theme');
+
+            if (icon)
+                icon.textContent = '☾';
+
+            if (label)
+                label.textContent = 'Тёмная тема';
+
+            toggle?.setAttribute(
+                'aria-label',
+                'Переключить на тёмную тему'
+            );
+
+            toggle?.setAttribute(
+                'aria-pressed',
+                'false'
+            );
         }
+    }
 
 
-        const savedTheme =
-            localStorage.getItem('theme');
+    const savedTheme =
+        localStorage.getItem('theme');
+
+    const systemPrefersDark =
+        window.matchMedia &&
+        window.matchMedia(
+            '(prefers-color-scheme: dark)'
+        ).matches;
 
 
-        const systemPrefersDark =
-            window.matchMedia &&
-            window.matchMedia(
-                '(prefers-color-scheme: dark)'
-            ).matches;
+    applyTheme(
+        savedTheme ||
+        (systemPrefersDark
+            ? 'dark'
+            : 'light')
+    );
 
 
-        applyTheme(
-            savedTheme ||
-            (systemPrefersDark ? 'dark' : 'light')
-        );
+    toggle?.addEventListener(
+        'click',
+        () => {
 
+            const isDark =
+                root.getAttribute('data-theme')
+                === 'dark';
 
-        if (toggle) {
+            const next =
+                isDark
+                    ? 'light'
+                    : 'dark';
 
-            toggle.addEventListener('click', () => {
+            applyTheme(next);
 
-                const isDark =
-                    root.getAttribute('data-theme') === 'dark';
-
-
-                const next =
-                    isDark ? 'light' : 'dark';
-
-
-                applyTheme(next);
-
-
-                localStorage.setItem(
-                    'theme',
-                    next
-                );
-
-            });
-
+            localStorage.setItem(
+                'theme',
+                next
+            );
         }
+    );
 
-    });
+});
 
 </script>
-```
+
 
 </body>
 
