@@ -1,3149 +1,1505 @@
 <!DOCTYPE html>
-
 <html lang="ru">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="description"
+          content="Учебные материалы по дисциплине «Базы данных»: проектирование баз данных, реляционная модель, CASE-средства, СУБД MS Access и язык SQL.">
 
-    <meta
-        name="description"
-        content="Базы данных — лекции, практические и лабораторные работы, самостоятельная работа и учебные материалы."
-    >
+    <title>Базы данных — Учебные материалы</title>
 
-    <title>Базы данных — материалы — aruan</title>
-
-
-    <link
-        rel="icon"
-        type="image/svg+xml"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317181a'/%3E%3Ccircle cx='16' cy='14' r='2' fill='%23a9832f'/%3E%3Ccircle cx='46' cy='10' r='1.6' fill='%23a9832f'/%3E%3Cpath d='M8 46 L22 30 L30 38 L40 22 L56 40' fill='none' stroke='%23faf9f6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
-    >
-
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E◉%3C/text%3E%3C/svg%3E">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+          rel="stylesheet">
 
     <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
 
-        (() => {
-
-            const savedTheme =
-                localStorage.getItem('theme');
-
-            const prefersDark =
-                window.matchMedia &&
-                window.matchMedia(
-                    '(prefers-color-scheme: dark)'
-                ).matches;
-
-            if (
-                savedTheme === 'dark' ||
-                (!savedTheme && prefersDark)
-            ) {
-
-                document.documentElement
-                    .setAttribute(
-                        'data-theme',
-                        'dark'
-                    );
-
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
             }
-
         })();
-
     </script>
 
-
     <style>
-
         :root {
-
-            --bg: #faf9f6;
-            --ink: #17181a;
-            --ink-soft: #3b3c3e;
-            --muted: #767671;
-            --faint: #aaa8a1;
-
-            --line: #e6e3dc;
-            --line-strong: #d8d4ca;
-
-            --accent: #a9832f;
-            --accent-soft: rgba(169,131,47,.12);
-
-            --paper: #ffffff;
-
-            --font-display:
-                'Lora',
-                Georgia,
-                serif;
-
-            --font-body:
-                'Inter',
-                sans-serif;
-
-            --ease:
-                cubic-bezier(.16,1,.3,1);
-
-            --content-w: 1000px;
-            --sidebar-w: 260px;
+            --bg: #f7f5f1;
+            --surface: #ffffff;
+            --surface-soft: #f1eee8;
+            --text: #252525;
+            --text-soft: #68645d;
+            --accent: #8d5f42;
+            --accent-dark: #70482f;
+            --border: #e5e0d8;
+            --shadow: 0 12px 35px rgba(46, 37, 29, .08);
+            --sidebar-width: 280px;
         }
 
-
-        [data-theme="dark"] {
-
-            --bg: #131315;
-            --ink: #f1efe8;
-            --ink-soft: #d6d3c9;
-            --muted: #93908a;
-            --faint: #666460;
-
-            --line: #262629;
-            --line-strong: #35353a;
-
-            --accent: #cda253;
-            --accent-soft: rgba(205,162,83,.14);
-
-            --paper: #1b1b1e;
+        html.dark {
+            --bg: #191817;
+            --surface: #242220;
+            --surface-soft: #2c2926;
+            --text: #f1eee8;
+            --text-soft: #aaa39a;
+            --accent: #c79672;
+            --accent-dark: #e0ad86;
+            --border: #3a3632;
+            --shadow: 0 12px 35px rgba(0, 0, 0, .25);
         }
-
 
         * {
             box-sizing: border-box;
         }
 
-
         html {
             scroll-behavior: smooth;
         }
 
-
         body {
-
             margin: 0;
-
-            font-family: var(--font-body);
-
             background: var(--bg);
-            color: var(--ink-soft);
-
+            color: var(--text);
+            font-family: "Inter", sans-serif;
             line-height: 1.65;
-
-            -webkit-font-smoothing: antialiased;
-
-            transition:
-                background-color .35s var(--ease),
-                color .35s var(--ease);
+            transition: background .25s ease, color .25s ease;
         }
-
-
-        ::selection {
-
-            background: var(--accent-soft);
-
-            color: var(--ink);
-        }
-
 
         a {
             color: inherit;
+            text-decoration: none;
         }
 
-
-        :focus-visible {
-
-            outline: 2px solid var(--accent);
-
-            outline-offset: 4px;
+        button {
+            font: inherit;
         }
 
-
-        /* ============================================================
-           Layout
-           ============================================================ */
-
-        .wrapper {
-
-            display: flex;
-
-            width: 100%;
-
-            max-width: var(--content-w);
-
-            margin: 0 auto;
-
-            padding: 72px 24px 120px;
+        .layout {
+            min-height: 100vh;
         }
 
+        /* =========================
+           SIDEBAR
+        ========================= */
 
-        aside {
-
-            width: var(--sidebar-w);
-
+        .sidebar {
             position: fixed;
-
-            top: 72px;
-
-            height: calc(100vh - 140px);
-
+            inset: 0 auto 0 0;
+            width: var(--sidebar-width);
+            padding: 42px 30px 30px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
             display: flex;
-
             flex-direction: column;
-
-            justify-content: space-between;
+            z-index: 20;
         }
 
-
-        main {
-
-            margin-left:
-                calc(var(--sidebar-w) + 60px);
-
-            flex: 1;
-
-            min-width: 0;
+        .brand {
+            margin-bottom: 45px;
         }
 
-
-        /* ============================================================
-           Sidebar
-           ============================================================ */
-
-        .profile-info h1 {
-
-            margin: 0;
-
-            font-family: var(--font-display);
-
-            font-size: 2.1rem;
-
-            font-weight: 600;
-
-            color: var(--ink);
-
+        .brand-name {
+            font-family: "Lora", serif;
+            font-size: 28px;
+            font-weight: 500;
             letter-spacing: -.02em;
         }
 
-
-        .profile-quote {
-
-            margin: 10px 0 0;
-
-            font-family: var(--font-display);
-
-            font-style: italic;
-
-            font-size: 1rem;
-
-            line-height: 1.55;
-        }
-
-
-        .quote-author {
-
-            display: block;
-
-            margin-top: 12px;
-
-            font-family: var(--font-body);
-
-            font-style: normal;
-
-            font-size: .72rem;
-
-            color: var(--faint);
-
+        .brand-caption {
+            margin-top: 5px;
+            color: var(--text-soft);
+            font-size: 12px;
             text-transform: uppercase;
-
-            letter-spacing: .09em;
+            letter-spacing: .12em;
         }
 
-
-        .signature-mark {
-
-            width: 100%;
-
-            height: 46px;
-
-            margin:
-                22px 0 34px;
-
-            opacity: .5;
-
-            color: var(--ink);
-        }
-
-
-        .signature-mark svg {
-
-            width: 100%;
-
-            height: 100%;
-        }
-
-
-        .signature-mark .peaks {
-
-            fill: none;
-
-            stroke: currentColor;
-
-            stroke-width: 1;
-
-            stroke-linejoin: round;
-
-            stroke-linecap: round;
-        }
-
-
-        .signature-mark .stars circle {
-
-            fill: currentColor;
-        }
-
-
-        /* ============================================================
-           Navigation
-           ============================================================ */
-
-        nav {
-            margin-top: 38px;
-        }
-
-
-        nav ul {
-
-            list-style: none;
-
+        .quote {
             margin: 0;
-
-            padding: 0;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-soft);
+            font-family: "Lora", serif;
+            font-size: 14px;
+            line-height: 1.7;
         }
 
-
-        nav li {
-            margin-bottom: 13px;
+        .signature {
+            margin-top: 22px;
+            opacity: .7;
         }
 
-
-        nav a {
-
-            position: relative;
-
-            display: inline-block;
-
-            padding-left: 14px;
-
-            color: var(--muted);
-
-            font-size: .78rem;
-
-            font-weight: 600;
-
-            letter-spacing: .07em;
-
-            text-transform: uppercase;
-
-            text-decoration: none;
+        .sidebar-bottom {
+            margin-top: auto;
         }
 
-
-        nav a::before {
-
-            content: "";
-
-            position: absolute;
-
-            left: 0;
-
-            top: 50%;
-
-            width: 5px;
-
-            height: 1px;
-
-            background: var(--faint);
-
-            transform:
-                translateY(-50%)
-                scaleX(.6);
-
-            transform-origin: left;
-
-            transition: all .25s var(--ease);
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-soft);
+            font-size: 13px;
+            transition: color .2s ease;
         }
 
-
-        nav a:hover {
-            color: var(--ink);
+        .back-link:hover {
+            color: var(--accent);
         }
-
-
-        /* ============================================================
-           Theme
-           ============================================================ */
 
         .theme-toggle {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            border:
-                1px solid var(--line);
-
-            background: transparent;
-
-            color: var(--muted);
-
-            font-family: var(--font-body);
-
-            font-size: .72rem;
-
-            font-weight: 600;
-
-            text-transform: uppercase;
-
-            letter-spacing: .07em;
-
-            padding: 9px 14px;
-
-            border-radius: 20px;
-
+            margin-top: 20px;
+            width: 100%;
+            padding: 11px 14px;
+            background: var(--surface-soft);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             cursor: pointer;
-
-            transition:
-                border-color .3s var(--ease),
-                color .3s var(--ease);
+            transition: all .2s ease;
         }
-
 
         .theme-toggle:hover {
-
-            color: var(--ink);
-
-            border-color:
-                var(--line-strong);
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
+        /* =========================
+           MAIN
+        ========================= */
 
-        /* ============================================================
-           Header
-           ============================================================ */
+        .main {
+            margin-left: var(--sidebar-width);
+            padding: 65px 7vw 70px;
+        }
+
+        .page-header {
+            max-width: 950px;
+            margin-bottom: 65px;
+        }
 
         .page-label {
-
-            font-size: .72rem;
-
-            font-weight: 700;
-
+            margin-bottom: 12px;
             color: var(--accent);
-
+            font-size: 12px;
+            font-weight: 700;
             text-transform: uppercase;
-
-            letter-spacing: .12em;
-
-            margin-bottom: 16px;
+            letter-spacing: .16em;
         }
-
 
         .page-title {
-
-            margin: 0 0 18px;
-
-            font-family: var(--font-display);
-
-            font-size:
-                clamp(
-                    2.4rem,
-                    5vw,
-                    3.6rem
-                );
-
+            margin: 0;
+            font-family: "Lora", serif;
+            font-size: clamp(38px, 5vw, 68px);
+            line-height: 1.05;
             font-weight: 500;
-
-            line-height: 1.12;
-
-            color: var(--ink);
+            letter-spacing: -.035em;
         }
-
 
         .page-description {
-
-            max-width: 68ch;
-
-            margin: 0;
-
-            font-family: var(--font-display);
-
-            font-style: italic;
-
-            font-size: 1.15rem;
-
-            color: var(--ink-soft);
+            max-width: 780px;
+            margin: 25px 0 0;
+            color: var(--text-soft);
+            font-size: 17px;
+            line-height: 1.75;
         }
 
-
-        .course-meta {
-
+        .meta {
             display: flex;
-
             flex-wrap: wrap;
-
-            gap: 8px;
-
-            margin-top: 28px;
+            gap: 9px;
+            margin-top: 30px;
         }
-
 
         .meta-item {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            min-height: 32px;
-
-            padding:
-                6px
-                11px;
-
-            border:
-                1px solid var(--line);
-
-            border-radius: 20px;
-
-            font-size: .72rem;
-
-            color: var(--muted);
-
-            letter-spacing: .03em;
+            padding: 8px 13px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--text-soft);
+            font-size: 12px;
         }
 
+        /* =========================
+           SECTIONS
+        ========================= */
 
-        /* ============================================================
-           Sections
-           ============================================================ */
+        .content {
+            max-width: 1100px;
+        }
 
         .content-section {
-
-            margin-top: 68px;
+            margin-bottom: 75px;
+            scroll-margin-top: 30px;
         }
-
 
         .section-heading {
-
-            display: flex;
-
-            align-items: baseline;
-
-            justify-content: space-between;
-
-            gap: 20px;
-
-            border-bottom:
-                1px solid var(--line);
-
-            padding-bottom: 14px;
-
-            margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 25px;
+            align-items: start;
+            margin-bottom: 30px;
         }
-
-
-        .section-heading h2 {
-
-            margin: 0;
-
-            color: var(--ink);
-
-            font-size: .82rem;
-
-            font-weight: 700;
-
-            text-transform: uppercase;
-
-            letter-spacing: .12em;
-        }
-
 
         .section-count {
-
-            font-size: .78rem;
-
-            color: var(--muted);
+            padding-top: 5px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 700;
         }
 
+        .section-title {
+            margin: 0;
+            font-family: "Lora", serif;
+            font-size: clamp(28px, 3vw, 40px);
+            line-height: 1.2;
+            font-weight: 500;
+        }
 
         .section-description {
-
-            margin:
-                -8px 0 24px;
-
-            max-width: 72ch;
-
-            font-size: .9rem;
-
-            color: var(--muted);
+            margin: 10px 0 0;
+            color: var(--text-soft);
+            font-size: 15px;
         }
 
-
-        .topic-label {
-
-            margin:
-                40px 0 16px;
-
-            font-family: var(--font-display);
-
-            font-size: 1.25rem;
-
-            font-weight: 500;
-
-            line-height: 1.4;
-
-            color: var(--ink);
+        .subsection {
+            margin: 35px 0;
         }
 
-
-        .topic-number {
-
-            color: var(--accent);
-
-            font-family: var(--font-body);
-
-            font-size: .72rem;
-
+        .subsection-title {
+            margin: 0 0 18px;
+            font-size: 18px;
             font-weight: 700;
-
-            letter-spacing: .08em;
-
-            margin-right: 8px;
         }
 
-
-        /* ============================================================
-           Material cards
-           ============================================================ */
+        /* =========================
+           MATERIAL CARDS
+        ========================= */
 
         .material-list {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 10px;
+            display: grid;
+            gap: 12px;
         }
-
 
         .material-card {
-
             display: block;
-
-            padding:
-                20px 22px;
-
-            border:
-                1px solid var(--line);
-
-            text-decoration: none;
-
-            transition:
-                transform .25s var(--ease),
-                background-color .25s var(--ease),
-                border-color .25s var(--ease);
+            padding: 20px 22px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            transition: transform .2s ease,
+                        border-color .2s ease,
+                        box-shadow .2s ease;
         }
 
-
-        .material-card:hover {
-
+        a.material-card:hover {
             transform: translateY(-2px);
-
-            background: var(--paper);
-
-            border-color:
-                var(--line-strong);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
         }
-
-
-        .material-inner {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 18px;
-        }
-
 
         .material-number {
-
-            flex: 0 0 auto;
-
-            width: 42px;
-
-            height: 42px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background:
-                var(--accent-soft);
-
-            color:
-                var(--accent);
-
-            font-size: .76rem;
-
+            margin-bottom: 6px;
+            color: var(--accent);
+            font-size: 12px;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
         }
-
-
-        .material-content {
-
-            flex: 1;
-
-            min-width: 0;
-        }
-
 
         .material-title {
-
-            margin-bottom: 5px;
-
-            font-family: var(--font-display);
-
-            font-size: 1.08rem;
-
-            font-weight: 500;
-
-            color: var(--ink);
-
-            line-height: 1.4;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.45;
+            font-weight: 600;
         }
 
-
-        .material-meta {
-
-            font-size: .81rem;
-
-            color: var(--muted);
+        .material-description {
+            margin: 8px 0 0;
+            color: var(--text-soft);
+            font-size: 13px;
+            line-height: 1.65;
         }
-
 
         .material-arrow {
-
-            color: var(--faint);
-
-            font-size: 1.2rem;
-
-            transition:
-                transform .25s var(--ease),
-                color .25s var(--ease);
-        }
-
-
-        .material-card:hover .material-arrow {
-
+            float: right;
             color: var(--accent);
-
-            transform:
-                translateX(4px);
+            font-size: 18px;
         }
 
+        /* =========================
+           SELF STUDY
+        ========================= */
 
-        /* ============================================================
-           Programs
-           ============================================================ */
-
-        .programs {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 8px;
+        .self-study {
+            margin-top: 25px;
+            padding: 25px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: 16px;
         }
 
-
-        .program-tag {
-
-            padding:
-                7px 11px;
-
-            border:
-                1px solid var(--line);
-
-            border-radius: 20px;
-
-            font-size: .74rem;
-
-            color: var(--muted);
-        }
-
-
-        /* ============================================================
-           Work type
-           ============================================================ */
-
-        .work-type {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            margin-right: 8px;
-
-            padding:
-                3px 7px;
-
-            border:
-                1px solid var(--line);
-
-            border-radius: 10px;
-
-            font-size: .65rem;
-
+        .self-study-title {
+            margin: 0 0 12px;
+            font-size: 17px;
             font-weight: 700;
-
-            text-transform: uppercase;
-
-            letter-spacing: .06em;
-
-            color: var(--accent);
         }
 
-
-        /* ============================================================
-           Self study
-           ============================================================ */
-
-        .study-card {
-
-            padding:
-                22px;
-
-            border:
-                1px solid var(--line);
-
-            background: transparent;
-        }
-
-
-        .study-title {
-
-            margin-bottom: 12px;
-
-            font-family: var(--font-display);
-
-            font-size: 1.05rem;
-
-            color: var(--ink);
-        }
-
-
-        .study-text {
-
+        .self-study p {
             margin: 0 0 18px;
-
-            font-size: .86rem;
-
-            color: var(--muted);
+            color: var(--text-soft);
+            font-size: 14px;
         }
 
-
-        .study-list {
-
+        .self-study-list {
             margin: 0;
-
             padding-left: 20px;
-
-            color: var(--ink-soft);
-
-            font-size: .86rem;
         }
 
-
-        .study-list li {
-
-            margin-bottom: 8px;
+        .self-study-list li {
+            margin-bottom: 9px;
+            color: var(--text);
+            font-size: 14px;
         }
 
-
-        /* ============================================================
-           Competencies
-           ============================================================ */
-
-        .competencies {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 7px;
-
-            margin-top: 14px;
-        }
-
-
-        .competency {
-
-            padding:
-                5px 9px;
-
-            border:
-                1px solid var(--line);
-
-            border-radius: 14px;
-
-            font-size: .68rem;
-
-            font-weight: 600;
-
-            color: var(--muted);
-        }
-
-
-        /* ============================================================
-           Control
-           ============================================================ */
+        /* =========================
+           CONTROL / ATTESTATION
+        ========================= */
 
         .control-card {
-
             display: flex;
-
-            align-items: center;
-
+            align-items: flex-start;
             gap: 18px;
-
-            padding:
-                20px 22px;
-
-            border:
-                1px solid var(--line);
-
-            background:
-                var(--accent-soft);
+            padding: 22px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 14px;
         }
 
-
-        .control-number {
-
+        .control-icon {
             flex: 0 0 auto;
-
-            width: 42px;
-
-            height: 42px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background:
-                var(--paper);
-
-            color:
-                var(--accent);
-
-            font-size: .72rem;
-
-            font-weight: 700;
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            background: var(--surface-soft);
+            border-radius: 10px;
+            color: var(--accent);
+            font-size: 17px;
         }
 
-
-        .control-content {
-
-            min-width: 0;
-
-            flex: 1;
+        .control-content h3 {
+            margin: 0 0 5px;
+            font-size: 16px;
         }
 
-
-        .control-title {
-
-            margin-bottom: 4px;
-
-            font-family: var(--font-display);
-
-            font-size: 1.05rem;
-
-            color: var(--ink);
+        .control-content p {
+            margin: 0;
+            color: var(--text-soft);
+            font-size: 13px;
         }
 
+        /* =========================
+           FOOTER
+        ========================= */
 
-        .control-meta {
-
-            font-size: .8rem;
-
-            color: var(--muted);
+        .footer {
+            max-width: 1100px;
+            padding-top: 35px;
+            border-top: 1px solid var(--border);
+            color: var(--text-soft);
+            font-size: 13px;
         }
 
-
-        /* ============================================================
-           Footer
-           ============================================================ */
-
-        .page-footer {
-
-            margin-top: 80px;
-
-            padding-top: 24px;
-
-            border-top:
-                1px solid var(--line);
-
-            font-size: .82rem;
-
-            color: var(--faint);
+        .footer a {
+            color: var(--accent);
         }
 
+        /* =========================
+           MOBILE
+        ========================= */
 
-        .page-footer a {
-
-            color: var(--muted);
-
-            text-decoration: none;
-
-            border-bottom:
-                1px solid var(--line-strong);
-        }
-
-
-        .page-footer a:hover {
-
-            color: var(--ink);
-        }
-
-
-        /* ============================================================
-           Responsive
-           ============================================================ */
-
-        @media (max-width: 860px) {
-
-            .wrapper {
-
-                flex-direction: column;
-
-                padding:
-                    48px
-                    20px
-                    90px;
+        @media (max-width: 900px) {
+            :root {
+                --sidebar-width: 0px;
             }
 
-
-            aside {
-
+            .sidebar {
                 position: relative;
-
-                top: 0;
-
                 width: 100%;
-
-                height: auto;
-
-                margin-bottom: 52px;
+                min-height: auto;
+                padding: 25px 22px;
+                border-right: 0;
+                border-bottom: 1px solid var(--border);
             }
 
+            .brand {
+                margin-bottom: 25px;
+            }
 
-            main {
+            .quote {
+                max-width: 700px;
+            }
+
+            .sidebar-bottom {
+                margin-top: 25px;
+            }
+
+            .main {
                 margin-left: 0;
+                padding: 45px 22px 55px;
             }
 
-
-            .signature-mark {
-                max-width: 320px;
+            .page-header {
+                margin-bottom: 50px;
             }
 
-
-            nav {
-                margin-top: 26px;
+            .section-heading {
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
 
-
-            nav ul {
-
-                display: flex;
-
-                flex-wrap: wrap;
-
-                gap: 10px 18px;
+            .section-count {
+                padding-top: 0;
             }
-
-
-            nav li {
-                margin-bottom: 0;
-            }
-
-
-            .theme-toggle {
-
-                margin-top: 28px;
-
-                align-self: flex-start;
-            }
-
         }
 
+        @media (max-width: 600px) {
+            .page-title {
+                font-size: 40px;
+            }
 
-        @media (max-width: 560px) {
+            .page-description {
+                font-size: 15px;
+            }
+
+            .meta {
+                gap: 7px;
+            }
+
+            .meta-item {
+                font-size: 11px;
+            }
 
             .material-card {
-                padding: 18px;
+                padding: 17px;
             }
-
-
-            .material-inner {
-
-                align-items: flex-start;
-
-                gap: 14px;
-            }
-
-
-            .material-number {
-
-                width: 36px;
-
-                height: 36px;
-
-                font-size: .68rem;
-            }
-
-
-            .material-arrow {
-                display: none;
-            }
-
 
             .control-card {
-
-                align-items: flex-start;
-
                 padding: 18px;
             }
-
-
-            .study-card {
-                padding: 18px;
-            }
-
         }
-
-
-        @media (prefers-reduced-motion: reduce) {
-
-            html {
-                scroll-behavior: auto;
-            }
-
-        }
-
     </style>
-
 </head>
-
 
 <body>
 
-<div class="wrapper">
+<div class="layout">
 
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
 
-    <!-- ========================================================
-         Sidebar
-         ======================================================== -->
+    <aside class="sidebar">
 
-    <aside>
-
-        <div class="profile-info">
-
-            <h1>aruan</h1>
-
-
-            <p class="profile-quote">
-
-                Пока твоё сердце<br>
-                Ещё откликается<br>
-                На звёзды
-
-                <span class="quote-author">
-                    Bazlab — Дружище
-                </span>
-
-            </p>
-
-
-            <div
-                class="signature-mark"
-                aria-hidden="true"
-            >
-
-                <svg
-                    viewBox="0 0 240 46"
-                    preserveAspectRatio="none"
-                >
-
-                    <g class="stars">
-
-                        <circle cx="18" cy="10" r="1" />
-
-                        <circle cx="150" cy="6" r="1" />
-
-                        <circle cx="200" cy="14" r="1" />
-
-                        <circle cx="90" cy="4" r=".8" />
-
-                        <circle cx="222" cy="9" r=".8" />
-
-                    </g>
-
-
-                    <path
-                        class="peaks"
-                        d="M0,40 L34,22 L52,32 L78,14 L104,36 L128,20 L152,38 L182,16 L206,34 L240,24"
-                    />
-
-                </svg>
-
+        <div>
+            <div class="brand">
+                <div class="brand-name">aruan</div>
+                <div class="brand-caption">учебные материалы</div>
             </div>
 
+            <p class="quote">
+                «Хорошая база данных начинается
+                не с таблиц, а с понимания
+                предметной области».
+            </p>
 
-            <nav>
-
-                <ul>
-
-                    <li>
-
-                        <a href="../students.html">
-                            ← Все квалификации
-                        </a>
-
-                    </li>
-
-                </ul>
-
-            </nav>
-
+            <div class="signature">
+                <svg width="150" height="45" viewBox="0 0 150 45"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M5 31
+                           C15 14, 19 15, 18 28
+                           C17 37, 23 37, 28 27
+                           C34 16, 36 18, 34 29
+                           C33 38, 40 36, 46 27
+                           C53 16, 56 18, 54 29
+                           C52 39, 61 35, 67 27
+                           C75 17, 78 20, 76 30
+                           C74 38, 83 37, 90 28
+                           C97 19, 102 19, 100 29
+                           C98 38, 107 35, 114 27
+                           C121 19, 126 20, 123 30
+                           C121 38, 132 34, 142 25"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                        stroke-linecap="round"
+                    />
+                </svg>
+            </div>
         </div>
 
+        <div class="sidebar-bottom">
 
-        <button
-            id="theme-toggle"
-            class="theme-toggle"
-            type="button"
-            aria-label="Переключить тему"
-            aria-pressed="false"
-        >
+            <a class="back-link" href="../students.html">
+                ← К учебным материалам
+            </a>
 
-            <span
-                class="theme-icon"
-                aria-hidden="true"
-            >
-                ☾
-            </span>
+            <button class="theme-toggle" id="themeToggle" type="button">
+                ◐ Переключить тему
+            </button>
 
-            <span class="theme-label">
-                Тёмная тема
-            </span>
-
-        </button>
+        </div>
 
     </aside>
 
 
-    <!-- ========================================================
-         Main
-         ======================================================== -->
+    <!-- =========================
+         MAIN
+    ========================== -->
 
-    <main>
+    <main class="main">
 
+        <!-- HEADER -->
 
-        <!-- ====================================================
-             Header
-             ==================================================== -->
-
-        <header>
+        <header class="page-header">
 
             <div class="page-label">
-                Квалификация
+                Дисциплина
             </div>
 
-
-            <h2 class="page-title">
-                Программист
-            </h2>
-
+            <h1 class="page-title">
+                Базы данных
+            </h1>
 
             <p class="page-description">
-
-                Разработка и реализация баз данных:
-                проектирование, создание структур,
-                работа с СУБД MS Access и организация
-                запросов на языке SQL.
-
+                Проектирование и разработка баз данных, реляционная модель,
+                CASE-средства, СУБД MS Access и язык SQL.
+                Практическая работа с таблицами, запросами,
+                хранимыми процедурами и базами данных.
             </p>
 
-
-            <div class="course-meta">
-
-                <span class="meta-item">
-                    94 акад. ч.
-                </span>
-
-                <span class="meta-item">
-                    9 лекций
-                </span>
-
-                <span class="meta-item">
-                    9 практических
-                </span>
-
-                <span class="meta-item">
-                    11 лабораторных
-                </span>
-
-                <span class="meta-item">
-                    2 рубежных контроля
-                </span>
-
-                <span class="meta-item">
-                    Экзамен
-                </span>
-
+            <div class="meta">
+                <span class="meta-item">94 академических часа</span>
+                <span class="meta-item">3 темы</span>
+                <span class="meta-item">9 практических работ</span>
+                <span class="meta-item">11 лабораторных работ</span>
+                <span class="meta-item">2 рубежных контроля</span>
+                <span class="meta-item">2 ч консультаций</span>
+                <span class="meta-item">Экзамен</span>
             </div>
 
         </header>
 
 
-        <!-- ====================================================
-             Programs
-             ==================================================== -->
+        <div class="content">
 
-        <section class="content-section">
+            <!-- =====================================================
+                 ТЕМА 1.1
+            ====================================================== -->
 
-            <div class="section-heading">
+            <section class="content-section" id="topic-1-1">
 
-                <h2>
-                    Программы
-                </h2>
+                <div class="section-heading">
 
-                <span class="section-count">
-                    3
-                </span>
+                    <div class="section-count">
+                        1.1
+                    </div>
 
-            </div>
+                    <div>
+                        <h2 class="section-title">
+                            Разработка и проектирование базы данных
+                        </h2>
 
+                        <p class="section-description">
+                            Основные понятия баз данных, реляционная модель,
+                            реляционная алгебра и проектирование структуры базы данных.
+                        </p>
+                    </div>
 
-            <div class="programs">
-
-                <span class="program-tag">
-                    Оператор информационных систем и ресурсов
-                </span>
-
-                <span class="program-tag">
-                    Разработчик веб и мультимедийных приложений
-                </span>
-
-                <span class="program-tag">
-                    Программист
-                </span>
-
-            </div>
-
-        </section>
+                </div>
 
 
-        <!-- ====================================================
-             Topic 1.1
-             ==================================================== -->
+                <!-- Содержание -->
 
-        <section
-            class="content-section"
-            id="topic-1-1"
-        >
+                <div class="subsection">
 
-            <div class="section-heading">
+                    <h3 class="subsection-title">
+                        Теоретический материал
+                    </h3>
 
-                <h2>
-                    Тема 1.1
-                </h2>
+                    <div class="material-list">
 
-                <span class="section-count">
-                    1.1
-                </span>
+                        <a class="material-card" href="lectures/01.html">
+                            <div class="material-number">
+                                Материал 01
+                            </div>
 
-            </div>
-
-
-            <p class="section-description">
-
-                Разработка и проектирование базы данных.
-
-            </p>
-
-
-            <!-- Lectures -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ЛЕКЦИИ
-                </span>
-
-                Содержание учебного материала
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <a
-                    href="lectures/01.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            01
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
+                            <h4 class="material-title">
                                 Основные понятия и определения баз данных
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                            <p class="material-description">
+                                Предметная область, объекты, атрибуты, ключи.
+                                Иерархическая, сетевая и реляционная модели данных.
+                                Развитие способов организации данных:
+                                постреляционные, многомерные и
+                                объектно-ориентированные модели.
+                            </p>
+                        </a>
+
+
+                        <a class="material-card" href="lectures/02.html">
+                            <div class="material-number">
+                                Материал 02
                             </div>
 
-                            <div class="material-meta">
-                                Лекция · Предметная область · Объекты · Атрибуты · Ключи · Модели данных
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="lectures/02.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            02
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
+                            <h4 class="material-title">
                                 Реляционная модель данных
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                            <p class="material-description">
+                                Реляционные объекты данных, индексирование,
+                                связывание таблиц, ссылочная и другие ограничения
+                                целостности, правила Кодда и реляционная алгебра.
+                            </p>
+                        </a>
+
+
+                        <a class="material-card" href="lectures/03.html">
+                            <div class="material-number">
+                                Материал 03
                             </div>
 
-                            <div class="material-meta">
-                                Лекция · Индексирование · Связывание таблиц · Ссылочная целостность · Правила Кодда
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="lectures/03.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            03
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
+                            <h4 class="material-title">
                                 Проектирование баз данных
-                            </div>
+                                <span class="material-arrow">→</span>
+                            </h4>
 
-                            <div class="material-meta">
-                                Лекция · Концептуальная, логическая и физическая модели · ER-модель · Нормальные формы
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
+                            <p class="material-description">
+                                Основные принципы проектирования.
+                                Концептуальная, логическая и физическая модели.
+                                Модель «сущность–связь», функциональные зависимости
+                                и нормальные формы.
+                            </p>
+                        </a>
 
                     </div>
 
-                </a>
-
-            </div>
+                </div>
 
 
-            <!-- Practices -->
+                <!-- Практические -->
 
-            <h3 class="topic-label">
+                <div class="subsection">
 
-                <span class="topic-number">
-                    ПРАКТИКА
-                </span>
+                    <h3 class="subsection-title">
+                        Практические работы
+                    </h3>
 
-                Практические работы
+                    <div class="material-list">
 
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <a
-                    href="practices/01.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            01
-                        </div>
+                        <a class="material-card" href="practices/01.html">
+                            <div class="material-number">Практическая работа 01</div>
+                            <h4 class="material-title">
+                                Применение операций реляционной алгебры
+                                <span class="material-arrow">→</span>
+                            </h4>
+                        </a>
 
 
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Применение операции реляционной алгебры
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Практика</span>
-                                Реляционная алгебра
-                            </div>
-
-                        </div>
+                        <a class="material-card" href="practices/02.html">
+                            <div class="material-number">Практическая работа 02</div>
+                            <h4 class="material-title">
+                                Описание предметной области. Выделение сущностей,
+                                связей, атрибутов и ключей
+                                <span class="material-arrow">→</span>
+                            </h4>
+                        </a>
 
 
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/02.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            02
-                        </div>
+                        <a class="material-card" href="practices/03.html">
+                            <div class="material-number">Практическая работа 03</div>
+                            <h4 class="material-title">
+                                Построение модели «сущность–связь»
+                                <span class="material-arrow">→</span>
+                            </h4>
+                        </a>
 
 
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Описание предметной области. Выделение сущностей и определение связей
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Практика</span>
-                                Атрибуты · Ключи · Связи
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/03.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            03
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Построение модели «сущность-связь»
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Практика</span>
-                                ER-модель
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/04.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            04
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
+                        <a class="material-card" href="practices/04.html">
+                            <div class="material-number">Практическая работа 04</div>
+                            <h4 class="material-title">
                                 Построение информационной модели базы данных
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Практика</span>
-                                Информационная модель
-                            </div>
-
-                        </div>
+                                <span class="material-arrow">→</span>
+                            </h4>
+                        </a>
 
 
-                        <div class="material-arrow">
-                            →
-                        </div>
+                        <a class="material-card" href="practices/05.html">
+                            <div class="material-number">Практическая работа 05</div>
+                            <h4 class="material-title">
+                                Установка и нормализация отношений
+                                в базе данных
+                                <span class="material-arrow">→</span>
+                            </h4>
+                        </a>
 
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/05.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            05
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Установление и нормализация отношений в базе данных
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Практика</span>
-                                Нормализация отношений
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Self study -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    САМОСТОЯТЕЛЬНО
-                </span>
-
-                Самостоятельная работа
-
-            </h3>
-
-
-            <div class="study-card">
-
-                <div class="study-title">
-                    Самостоятельная работа по теме 1.1
-                </div>
-
-
-                <p class="study-text">
-
-                    Систематическая проработка конспектов занятий,
-                    учебной и специальной технической литературы.
-                    Подготовка к практическим и лабораторным работам
-                    с использованием методических рекомендаций преподавателя.
-
-                </p>
-
-
-                <ol class="study-list">
-
-                    <li>
-                        Изучить тему «Развитие способов организации данных:
-                        постреляционные, многомерные и объектно-ориентированные модели».
-                    </li>
-
-                    <li>
-                        Изучить тему «Правила Кодда».
-                    </li>
-
-                    <li>
-                        Выполнить работу по теме
-                        «Операции реляционной алгебры»
-                        на примере заданных отношений.
-                    </li>
-
-                </ol>
-
-            </div>
-
-
-            <!-- Competencies -->
-
-            <div class="competencies">
-
-                <span class="competency">ОК 01</span>
-                <span class="competency">ОК 02</span>
-                <span class="competency">ОК 04</span>
-                <span class="competency">ОК 05</span>
-                <span class="competency">ОК 09</span>
-
-                <span class="competency">ПК 11.1</span>
-                <span class="competency">ПК 11.2</span>
-                <span class="competency">ПК 11.3</span>
-                <span class="competency">ПК 11.4</span>
-                <span class="competency">ПК 11.5</span>
-                <span class="competency">ПК 11.6</span>
-
-            </div>
-
-
-            <!-- Control -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    КОНТРОЛЬ
-                </span>
-
-                Рубежный контроль знаний №1
-
-            </h3>
-
-
-            <div class="control-card">
-
-                <div class="control-number">
-                    №1
-                </div>
-
-
-                <div class="control-content">
-
-                    <div class="control-title">
-                        Рубежный контроль знаний №1
-                    </div>
-
-                    <div class="control-meta">
-                        По материалам темы 1.1
                     </div>
 
                 </div>
 
-            </div>
 
-        </section>
+                <!-- Самостоятельная работа -->
 
+                <div class="self-study">
 
-        <!-- ====================================================
-             Topic 1.2
-             ==================================================== -->
+                    <h3 class="self-study-title">
+                        Самостоятельная работа
+                    </h3>
 
-        <section
-            class="content-section"
-            id="topic-1-2"
-        >
+                    <p>
+                        Систематическая проработка конспектов занятий,
+                        учебной и специальной технической литературы.
+                        Подготовка к практическим и лабораторным работам
+                        с использованием методических рекомендаций преподавателя.
+                    </p>
 
-            <div class="section-heading">
+                    <ol class="self-study-list">
 
-                <h2>
-                    Тема 1.2
-                </h2>
+                        <li>
+                            Изучить тему «Развитие способов организации данных:
+                            постреляционные, многомерные и
+                            объектно-ориентированные модели».
+                        </li>
 
-                <span class="section-count">
-                    1.2
-                </span>
+                        <li>
+                            Изучить тему «Правила Кодда».
+                        </li>
 
-            </div>
+                        <li>
+                            Выполнить работу по теме
+                            «Операции реляционной алгебры»
+                            на примере заданных отношений.
+                        </li>
 
+                    </ol>
 
-            <p class="section-description">
+                </div>
 
-                Проектирование структур баз данных.
-
-            </p>
-
-
-            <!-- Lectures -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ЛЕКЦИИ
-                </span>
-
-                Содержание учебного материала
-
-            </h3>
+            </section>
 
 
-            <div class="material-list">
+            <!-- =====================================================
+                 ТЕМА 1.2
+            ====================================================== -->
+
+            <section class="content-section" id="topic-1-2">
+
+                <div class="section-heading">
+
+                    <div class="section-count">
+                        1.2
+                    </div>
+
+                    <div>
+                        <h2 class="section-title">
+                            Проектирование структур баз данных
+                        </h2>
+
+                        <p class="section-description">
+                            CASE-технологии и работа с системой управления
+                            базами данных MS Access.
+                        </p>
+                    </div>
+
+                </div>
 
 
-                <a
-                    href="lectures/04.html"
-                    class="material-card"
-                >
+                <!-- Теоретический материал -->
 
-                    <div class="material-inner">
+                <div class="subsection">
 
-                        <div class="material-number">
-                            04
-                        </div>
+                    <h3 class="subsection-title">
+                        Теоретический материал
+                    </h3>
 
+                    <div class="material-list">
 
-                        <div class="material-content">
+                        <a class="material-card" href="lectures/04.html">
 
-                            <div class="material-title">
+                            <div class="material-number">
+                                Материал 04
+                            </div>
+
+                            <h4 class="material-title">
                                 Автоматизированные средства проектирования баз данных
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                            <p class="material-description">
+                                Основные определения, классификация CASE-технологий
+                                и обзор CASE-систем.
+                            </p>
+
+                        </a>
+
+
+                        <a class="material-card" href="lectures/05.html">
+
+                            <div class="material-number">
+                                Материал 05
                             </div>
 
-                            <div class="material-meta">
-                                Лекция · CASE-технологии · Классификация · Обзор CASE-систем
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="lectures/05.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            05
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
+                            <h4 class="material-title">
                                 СУБД MS Access
-                            </div>
+                                <span class="material-arrow">→</span>
+                            </h4>
 
-                            <div class="material-meta">
-                                Лекция · Основные понятия СУБД · Таблицы · Связи · Структура данных
-                            </div>
+                            <p class="material-description">
+                                Назначение и возможности СУБД, классификация
+                                систем управления базами данных, элементы интерфейса,
+                                построение баз данных и структура данных MS Access.
+                            </p>
 
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
+                        </a>
 
                     </div>
 
-                </a>
-
-            </div>
+                </div>
 
 
-            <!-- Labs -->
+                <!-- Лабораторные -->
 
-            <h3 class="topic-label">
+                <div class="subsection">
 
-                <span class="topic-number">
-                    ЛАБОРАТОРНЫЕ
-                </span>
+                    <h3 class="subsection-title">
+                        Лабораторные работы
+                    </h3>
 
-                Лабораторные работы
+                    <div class="material-list">
 
-            </h3>
+                        <a class="material-card" href="labs/01.html">
 
-
-            <div class="material-list">
-
-
-                <a
-                    href="labs/01.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            01
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Создание базы данных и настройка интерфейса в СУБД MS Access
+                            <div class="material-number">
+                                Лабораторная работа 01
                             </div>
 
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Таблицы · Связи между таблицами
+                            <h4 class="material-title">
+                                Создание базы данных и настройка интерфейса
+                                в СУБД MS Access
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                            <p class="material-description">
+                                Создание таблиц и настройка связей
+                                между таблицами.
+                            </p>
+
+                        </a>
+
+
+                        <a class="material-card" href="labs/02.html">
+
+                            <div class="material-number">
+                                Лабораторная работа 02
                             </div>
 
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/02.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            02
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
+                            <h4 class="material-title">
                                 Создание простых форм в MS Access
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+
+                        <a class="material-card" href="labs/03.html">
+
+                            <div class="material-number">
+                                Лабораторная работа 03
                             </div>
 
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Формы
+                            <h4 class="material-title">
+                                Создание сложных и подчинённых форм
+                                в MS Access
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+
+                        <a class="material-card" href="labs/04.html">
+
+                            <div class="material-number">
+                                Лабораторная работа 04
                             </div>
 
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/03.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            03
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Создание сложных и подчинённых форм в MS Access
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Сложные формы · Подчинённые формы
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/04.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            04
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
+                            <h4 class="material-title">
                                 Создание простых отчётов в MS Access
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+
+                        <a class="material-card" href="labs/05.html">
+
+                            <div class="material-number">
+                                Лабораторная работа 05
                             </div>
 
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Отчёты
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/05.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            05
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
+                            <h4 class="material-title">
                                 Создание итоговых отчётов в MS Access
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Самостоятельная -->
+
+                <div class="self-study">
+
+                    <h3 class="self-study-title">
+                        Самостоятельная работа
+                    </h3>
+
+                    <p>
+                        Систематическая проработка конспектов занятий,
+                        учебной и специальной технической литературы.
+                        Подготовка к практическим и лабораторным работам
+                        с использованием методических рекомендаций преподавателя.
+                    </p>
+
+                    <ol class="self-study-list">
+
+                        <li>
+                            Изучить тему «Типы данных MS Access».
+                        </li>
+
+                        <li>
+                            Подготовить реферат на тему
+                            «Перспективы развития СУБД».
+                        </li>
+
+                    </ol>
+
+                </div>
+
+
+                <!-- Рубежный контроль -->
+
+                <div class="subsection">
+
+                    <div class="control-card">
+
+                        <div class="control-icon">
+                            ✓
+                        </div>
+
+                        <div class="control-content">
+
+                            <h3>
+                                Рубежный контроль знаний №1
+                            </h3>
+
+                            <p>
+                                Контроль освоения материала тем 1.1 и 1.2.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================================
+                 ТЕМА 1.3
+            ====================================================== -->
+
+            <section class="content-section" id="topic-1-3">
+
+                <div class="section-heading">
+
+                    <div class="section-count">
+                        1.3
+                    </div>
+
+                    <div>
+                        <h2 class="section-title">
+                            Организация запросов SQL
+                        </h2>
+
+                        <p class="section-description">
+                            Основы языка SQL, создание и изменение таблиц,
+                            манипулирование данными, запросы, агрегатные функции,
+                            вложенные запросы и работа с данными.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- Теоретический материал -->
+
+                <div class="subsection">
+
+                    <h3 class="subsection-title">
+                        Теоретический материал
+                    </h3>
+
+                    <div class="material-list">
+
+                        <a class="material-card" href="lectures/06.html">
+
+                            <div class="material-number">
+                                Материал 06
                             </div>
 
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Итоговые отчёты
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Self study -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    САМОСТОЯТЕЛЬНО
-                </span>
-
-                Самостоятельная работа
-
-            </h3>
-
-
-            <div class="study-card">
-
-                <div class="study-title">
-                    Самостоятельная работа по теме 1.2
-                </div>
-
-
-                <p class="study-text">
-
-                    Систематическая проработка конспектов занятий,
-                    учебной и специальной технической литературы.
-                    Подготовка к практическим и лабораторным работам
-                    с использованием методических рекомендаций преподавателя.
-
-                </p>
-
-
-                <ol class="study-list">
-
-                    <li>
-                        Изучить тему «Типы данных MS Access».
-                    </li>
-
-                    <li>
-                        Подготовить реферат на тему
-                        «Перспективы развития СУБД».
-                    </li>
-
-                </ol>
-
-            </div>
-
-
-            <div class="competencies">
-
-                <span class="competency">ОК 01</span>
-                <span class="competency">ОК 02</span>
-                <span class="competency">ОК 04</span>
-                <span class="competency">ОК 05</span>
-                <span class="competency">ОК 09</span>
-
-                <span class="competency">ПК 11.1</span>
-                <span class="competency">ПК 11.2</span>
-                <span class="competency">ПК 11.3</span>
-                <span class="competency">ПК 11.4</span>
-                <span class="competency">ПК 11.5</span>
-                <span class="competency">ПК 11.6</span>
-
-            </div>
-
-
-            <!-- Control -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    КОНТРОЛЬ
-                </span>
-
-                Рубежный контроль знаний №2
-
-            </h3>
-
-
-            <div class="control-card">
-
-                <div class="control-number">
-                    №2
-                </div>
-
-
-                <div class="control-content">
-
-                    <div class="control-title">
-                        Рубежный контроль знаний №2
-                    </div>
-
-                    <div class="control-meta">
-                        По материалам темы 1.2
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             Topic 1.3
-             ==================================================== -->
-
-        <section
-            class="content-section"
-            id="topic-1-3"
-        >
-
-            <div class="section-heading">
-
-                <h2>
-                    Тема 1.3
-                </h2>
-
-                <span class="section-count">
-                    1.3
-                </span>
-
-            </div>
-
-
-            <p class="section-description">
-
-                Организация запросов SQL.
-
-            </p>
-
-
-            <!-- Lectures -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ЛЕКЦИИ
-                </span>
-
-                Содержание учебного материала
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <a
-                    href="lectures/06.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            06
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
+                            <h4 class="material-title">
                                 Основные понятия языка SQL
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                            <p class="material-description">
+                                Синтаксис операторов и типы данных.
+                                Создание, модификация и удаление таблиц.
+                                Операторы манипулирования данными.
+                                Организация запросов на выборку данных
+                                с помощью языка SQL.
+                            </p>
+
+                        </a>
+
+
+                        <div class="material-card">
+
+                            <div class="material-number">
+                                Дополнительный материал
                             </div>
 
-                            <div class="material-meta">
-                                Лекция · Синтаксис операторов · Типы данных
-                            </div>
+                            <h4 class="material-title">
+                                Агрегатные функции, вложенные запросы,
+                                сортировка и группировка данных
+                            </h4>
 
-                        </div>
+                            <p class="material-description">
+                                Применение агрегатных функций и вложенных запросов
+                                в операторе выбора. Сортировка и группировка
+                                данных в SQL.
+                            </p>
 
-
-                        <div class="material-arrow">
-                            →
                         </div>
 
                     </div>
 
-                </a>
-
-
-                <a
-                    href="lectures/07.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            07
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Создание, модификация и удаление таблиц
-                            </div>
-
-                            <div class="material-meta">
-                                Лекция · Операторы манипулирования данными
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="lectures/08.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            08
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Запросы на выборку данных при помощи языка SQL
-                            </div>
-
-                            <div class="material-meta">
-                                Лекция · Выборка данных · SQL-запросы
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="lectures/09.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            09
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Агрегатные функции и вложенные запросы
-                            </div>
-
-                            <div class="material-meta">
-                                Лекция · Вложенные подзапросы · Сортировка · Группировка данных
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Practices -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ПРАКТИКА
-                </span>
-
-                Практические работы
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <a
-                    href="practices/06.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            06
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Определение данных с помощью операторов SQL
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Практика</span>
-                                Операторы SQL
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/07.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            07
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Модификация, переименование и удаление таблиц
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Практика</span>
-                                Работа с таблицами
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/08.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            08
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Манипулирование данными
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Практика</span>
-                                Добавление · Удаление · Обновление данных
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="practices/09.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            09
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Создание хранимых процедур в базах данных
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Практика</span>
-                                Хранимые процедуры
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Labs -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    ЛАБОРАТОРНЫЕ
-                </span>
-
-                Лабораторные работы
-
-            </h3>
-
-
-            <div class="material-list">
-
-
-                <a
-                    href="labs/06.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            06
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Создание запросов с помощью конструктора запросов в MS Access
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Конструктор запросов
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/07.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            07
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Работа с таблицами в SQL
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Значения и ограничения поля · Проверка данных · Числовые и дата-типы
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/08.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            08
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Сортировка записей, перестановка и выбор полей с использованием SQL
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Сортировка · Выбор полей
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/09.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            09
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Условия неточного и точного несовпадения
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Условия выборки
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/10.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            10
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Выбор записей по диапазону значений
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Диапазоны значений
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="labs/11.html"
-                    class="material-card"
-                >
-
-                    <div class="material-inner">
-
-                        <div class="material-number">
-                            11
-                        </div>
-
-
-                        <div class="material-content">
-
-                            <div class="material-title">
-                                Многотабличные запросы и запросы с вычислениями
-                            </div>
-
-                            <div class="material-meta">
-                                <span class="work-type">Лабораторная</span>
-                                Многотабличные запросы · Вычисления
-                            </div>
-
-                        </div>
-
-
-                        <div class="material-arrow">
-                            →
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- Self study -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    САМОСТОЯТЕЛЬНО
-                </span>
-
-                Самостоятельная работа
-
-            </h3>
-
-
-            <div class="study-card">
-
-                <div class="study-title">
-                    Самостоятельная работа по теме 1.3
                 </div>
 
 
-                <p class="study-text">
+                <!-- Практические -->
 
-                    Систематическая проработка конспектов занятий,
-                    учебной и специальной технической литературы.
-                    Подготовка к практическим и лабораторным работам
-                    с использованием методических рекомендаций преподавателя.
+                <div class="subsection">
 
+                    <h3 class="subsection-title">
+                        Практические работы
+                    </h3>
+
+                    <div class="material-list">
+
+                        <a class="material-card" href="practices/06.html">
+
+                            <div class="material-number">
+                                Практическая работа 01
+                            </div>
+
+                            <h4 class="material-title">
+                                Определение данных с помощью операторов SQL
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+
+                        <a class="material-card" href="practices/07.html">
+
+                            <div class="material-number">
+                                Практическая работа 02
+                            </div>
+
+                            <h4 class="material-title">
+                                Модификация, переименование и удаление таблиц
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+
+                        <a class="material-card" href="practices/08.html">
+
+                            <div class="material-number">
+                                Практическая работа 03
+                            </div>
+
+                            <h4 class="material-title">
+                                Манипулирование данными:
+                                добавление, удаление и обновление
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+
+                        <a class="material-card" href="practices/09.html">
+
+                            <div class="material-number">
+                                Практическая работа 04
+                            </div>
+
+                            <h4 class="material-title">
+                                Создание хранимых процедур
+                                в базах данных
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                            <p class="material-description">
+                                Создание хранимых процедур различных типов.
+                            </p>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Лабораторные -->
+
+                <div class="subsection">
+
+                    <h3 class="subsection-title">
+                        Лабораторные работы
+                    </h3>
+
+                    <div class="material-list">
+
+                        <a class="material-card" href="labs/06.html">
+
+                            <div class="material-number">
+                                Лабораторная работа 01
+                            </div>
+
+                            <h4 class="material-title">
+                                Создание запросов с помощью конструктора
+                                запросов в MS Access
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+
+                        <a class="material-card" href="labs/07.html">
+
+                            <div class="material-number">
+                                Лабораторная работа 02
+                            </div>
+
+                            <h4 class="material-title">
+                                Работа с таблицами в SQL
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                            <p class="material-description">
+                                Задание значений и ограничений поля,
+                                проверка введённого значения,
+                                отображение числовых данных и данных типа «дата».
+                            </p>
+
+                        </a>
+
+
+                        <a class="material-card" href="labs/08.html">
+
+                            <div class="material-number">
+                                Лабораторная работа 03
+                            </div>
+
+                            <h4 class="material-title">
+                                Сортировка записей, перестановка
+                                и выбор полей с использованием SQL
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+
+                        <a class="material-card" href="labs/09.html">
+
+                            <div class="material-number">
+                                Лабораторная работа 04
+                            </div>
+
+                            <h4 class="material-title">
+                                Условия неточного и точного несовпадения
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+
+                        <a class="material-card" href="labs/10.html">
+
+                            <div class="material-number">
+                                Лабораторная работа 05
+                            </div>
+
+                            <h4 class="material-title">
+                                Выбор записей по диапазону значений
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+
+                        <a class="material-card" href="labs/11.html">
+
+                            <div class="material-number">
+                                Лабораторная работа 06
+                            </div>
+
+                            <h4 class="material-title">
+                                Многотабличные запросы
+                                и запросы с вычислениями
+                                <span class="material-arrow">→</span>
+                            </h4>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Самостоятельная -->
+
+                <div class="self-study">
+
+                    <h3 class="self-study-title">
+                        Самостоятельная работа
+                    </h3>
+
+                    <p>
+                        Систематическая проработка конспектов занятий,
+                        учебной и специальной технической литературы.
+                        Подготовка к практическим и лабораторным работам
+                        с использованием методических рекомендаций преподавателя.
+                    </p>
+
+                    <ol class="self-study-list">
+
+                        <li>
+                            Изучить тему «Применение агрегатных функций
+                            и вложенных запросов в операторе выбора.
+                            Вложенные подзапросы».
+                        </li>
+
+                        <li>
+                            Изучить тему
+                            «Сортировка и группировка данных в SQL».
+                        </li>
+
+                    </ol>
+
+                </div>
+
+
+                <!-- Рубежный контроль -->
+
+                <div class="subsection">
+
+                    <div class="control-card">
+
+                        <div class="control-icon">
+                            ✓
+                        </div>
+
+                        <div class="control-content">
+
+                            <h3>
+                                Рубежный контроль знаний №2
+                            </h3>
+
+                            <p>
+                                Контроль освоения материала темы
+                                «Организация запросов SQL».
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================================
+                 КОНСУЛЬТАЦИЯ
+            ====================================================== -->
+
+            <section class="content-section" id="consultation">
+
+                <div class="section-heading">
+
+                    <div class="section-count">
+                        —
+                    </div>
+
+                    <div>
+                        <h2 class="section-title">
+                            Консультации
+                        </h2>
+
+                        <p class="section-description">
+                            Консультационная поддержка по вопросам изучения
+                            дисциплины и подготовки к экзамену.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="control-card">
+
+                    <div class="control-icon">
+                        ?
+                    </div>
+
+                    <div class="control-content">
+
+                        <h3>
+                            Консультации — 2 академических часа
+                        </h3>
+
+                        <p>
+                            Подготовка к промежуточной аттестации,
+                            разбор сложных вопросов и консультация
+                            по изученному материалу.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================================
+                 ЭКЗАМЕН
+            ====================================================== -->
+
+            <section class="content-section" id="exam">
+
+                <div class="section-heading">
+
+                    <div class="section-count">
+                        —
+                    </div>
+
+                    <div>
+                        <h2 class="section-title">
+                            Промежуточная аттестация
+                        </h2>
+
+                        <p class="section-description">
+                            Проверка освоения дисциплины по итогам обучения.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="control-card">
+
+                    <div class="control-icon">
+                        ★
+                    </div>
+
+                    <div class="control-content">
+
+                        <h3>
+                            Экзамен
+                        </h3>
+
+                        <p>
+                            Промежуточная аттестация проводится
+                            в форме экзамена — 6 академических часов.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+
+            <footer class="footer">
+
+                <p>
+                    Дисциплина «Базы данных» ·
+                    Всего по рабочей программе — <strong>94 академических часа</strong>.
                 </p>
 
+                <p>
+                    <a href="../students.html">
+                        ← Вернуться к учебным материалам
+                    </a>
+                </p>
 
-                <ol class="study-list">
+            </footer>
 
-                    <li>
-                        Изучить тему «Применение агрегатных функций
-                        и вложенных запросов в операторе выбора.
-                        Вложенные подзапросы».
-                    </li>
-
-                    <li>
-                        Изучить тему
-                        «Сортировка и группировка данных в SQL».
-                    </li>
-
-                </ol>
-
-            </div>
-
-
-            <div class="competencies">
-
-                <span class="competency">ОК 01</span>
-                <span class="competency">ОК 02</span>
-                <span class="competency">ОК 04</span>
-                <span class="competency">ОК 05</span>
-                <span class="competency">ОК 09</span>
-
-                <span class="competency">ПК 11.1</span>
-                <span class="competency">ПК 11.2</span>
-                <span class="competency">ПК 11.3</span>
-                <span class="competency">ПК 11.4</span>
-                <span class="competency">ПК 11.5</span>
-                <span class="competency">ПК 11.6</span>
-
-            </div>
-
-
-            <!-- Consultation -->
-
-            <h3 class="topic-label">
-
-                <span class="topic-number">
-                    КОНСУЛЬТАЦИЯ
-                </span>
-
-                Консультации
-
-            </h3>
-
-
-            <div class="control-card">
-
-                <div class="control-number">
-                    02
-                </div>
-
-
-                <div class="control-content">
-
-                    <div class="control-title">
-                        Консультации по дисциплине
-                    </div>
-
-                    <div class="control-meta">
-                        Объём по рабочей программе — 2 академических часа
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             Exam
-             ==================================================== -->
-
-        <section class="content-section">
-
-            <div class="section-heading">
-
-                <h2>
-                    Аттестация
-                </h2>
-
-                <span class="section-count">
-                    1
-                </span>
-
-            </div>
-
-
-            <div class="control-card">
-
-                <div class="control-number">
-                    Э
-                </div>
-
-
-                <div class="control-content">
-
-                    <div class="control-title">
-                        Экзамен
-                    </div>
-
-                    <div class="control-meta">
-                        Промежуточная аттестация · 6 академических часов
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             Competencies
-             ==================================================== -->
-
-        <section class="content-section">
-
-            <div class="section-heading">
-
-                <h2>
-                    Компетенции
-                </h2>
-
-                <span class="section-count">
-                    16
-                </span>
-
-            </div>
-
-
-            <div class="competencies">
-
-                <span class="competency">ОК 01</span>
-                <span class="competency">ОК 02</span>
-                <span class="competency">ОК 04</span>
-                <span class="competency">ОК 05</span>
-                <span class="competency">ОК 09</span>
-
-                <span class="competency">ПК 11.1</span>
-                <span class="competency">ПК 11.2</span>
-                <span class="competency">ПК 11.3</span>
-                <span class="competency">ПК 11.4</span>
-                <span class="competency">ПК 11.5</span>
-                <span class="competency">ПК 11.6</span>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             Footer
-             ==================================================== -->
-
-        <footer class="page-footer">
-
-            <a href="../students.html">
-                ← Вернуться ко всем дисциплинам
-            </a>
-
-        </footer>
-
+        </div>
 
     </main>
 
 </div>
 
 
+<!-- =========================
+     THEME SCRIPT
+========================== -->
+
 <script>
+    const themeToggle = document.getElementById('themeToggle');
 
-document.addEventListener('DOMContentLoaded', () => {
+    themeToggle.addEventListener('click', function () {
 
-    const root =
-        document.documentElement;
-
-    const toggle =
-        document.getElementById('theme-toggle');
-
-    const icon =
-        toggle?.querySelector('.theme-icon');
-
-    const label =
-        toggle?.querySelector('.theme-label');
-
-
-    function applyTheme(theme) {
+        document.documentElement.classList.toggle('dark');
 
         const isDark =
-            theme === 'dark';
+            document.documentElement.classList.contains('dark');
 
+        localStorage.setItem(
+            'theme',
+            isDark ? 'dark' : 'light'
+        );
 
-        if (isDark) {
-
-            root.setAttribute(
-                'data-theme',
-                'dark'
-            );
-
-
-            if (icon)
-                icon.textContent = '☀';
-
-
-            if (label)
-                label.textContent =
-                    'Светлая тема';
-
-
-            toggle?.setAttribute(
-                'aria-label',
-                'Переключить на светлую тему'
-            );
-
-
-            toggle?.setAttribute(
-                'aria-pressed',
-                'true'
-            );
-
-        } else {
-
-            root.removeAttribute('data-theme');
-
-
-            if (icon)
-                icon.textContent = '☾';
-
-
-            if (label)
-                label.textContent =
-                    'Тёмная тема';
-
-
-            toggle?.setAttribute(
-                'aria-label',
-                'Переключить на тёмную тему'
-            );
-
-
-            toggle?.setAttribute(
-                'aria-pressed',
-                'false'
-            );
-
-        }
-
-    }
-
-
-    const savedTheme =
-        localStorage.getItem('theme');
-
-
-    const systemPrefersDark =
-        window.matchMedia &&
-        window.matchMedia(
-            '(prefers-color-scheme: dark)'
-        ).matches;
-
-
-    applyTheme(
-        savedTheme ||
-        (
-            systemPrefersDark
-                ? 'dark'
-                : 'light'
-        )
-    );
-
-
-    toggle?.addEventListener(
-        'click',
-        () => {
-
-            const isDark =
-                root.getAttribute('data-theme')
-                === 'dark';
-
-
-            const next =
-                isDark
-                    ? 'light'
-                    : 'dark';
-
-
-            applyTheme(next);
-
-
-            localStorage.setItem(
-                'theme',
-                next
-            );
-
-        }
-    );
-
-});
-
+    });
 </script>
 
-
 </body>
-
 </html>
