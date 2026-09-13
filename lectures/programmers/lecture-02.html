@@ -9,6 +9,11 @@
 </head>
 
 <body>
+
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="Переключить тему">
+        <span id="themeIcon">🌙</span> <span id="themeText">Тёмная тема</span>
+    </button>
+
     <header class="page-header">
         <div class="header-inner">
             <div class="header-top">
@@ -17,10 +22,6 @@
                     <span> / </span>
                     <span>Лекция 2</span>
                 </div>
-                <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
-                    <span id="themeIcon">🌙</span>
-                    <span id="themeText">Тёмная тема</span>
-                </button>
             </div>
             <div class="lecture-label">📘 Лекция №2</div>
             <h1>Реляционная модель данных</h1>
@@ -1415,7 +1416,7 @@ SQL</code></pre>
         // Определяем начальную тему с учетом localStorage и системных настроек
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
+
         let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
         applyTheme(currentTheme);
 
