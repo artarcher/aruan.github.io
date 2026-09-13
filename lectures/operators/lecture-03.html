@@ -1,1 +1,901 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
 
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Лекция 3 — Проектирование баз данных[cite: 2]</title>
+    <style>
+        :root {
+            --bg: #f6f8fc;
+            --surface: #ffffff;
+            --surface-alt: #f0f4f8;
+            --text: #1e293b;
+            --muted: #64748b;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --purple: #7c3aed;
+            --green: #059669;
+            --orange: #ea580c;
+            --red: #dc2626;
+            --border: #e2e8f0;
+            --code-bg: #0f172a;
+            --code-text: #e2e8f0;
+            --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            --radius: 16px;
+
+            /* Динамические подложки блоков для светлой темы */
+            --intro-bg: linear-gradient(135deg, #eff6ff, #eef2ff);
+            --intro-border: #bfdbfe;
+            --goal-card-bg: #ffffff;
+            --goal-card-border: #dbeafe;
+            
+            --callout-info-bg: #eff6ff;
+            --callout-success-bg: #ecfdf5;
+            --callout-warning-bg: #fff7ed;
+            --callout-danger-bg: #fef2f2;
+            --callout-purple-bg: #f5f3ff;
+            
+            --definition-bg: #f8fafc;
+            --table-header-bg: #eff6ff;
+            --table-header-text: #1e3a8a;
+            --table-even-bg: #fafcff;
+            --error-cell-bg: #fee2e2;
+            --error-cell-text: #991b1b;
+            --inline-code-bg: #eef2ff;
+            --inline-code-text: #4338ca;
+            --homework-bg: linear-gradient(135deg, #312e81, #1e3a8a);
+            --header-bg: linear-gradient(135deg, #0f172a, #1e3a8a);
+            
+            --toggle-bg: rgba(255, 255, 255, 0.15);
+            --toggle-border: rgba(255, 255, 255, 0.25);
+            --toggle-text: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-alt: #334155;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --purple: #a78bfa;
+            --green: #34d399;
+            --orange: #fb923c;
+            --red: #f87171;
+            --border: #334155;
+            --code-bg: #020617;
+            --code-text: #f1f5f9;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+            /* Динамические подложки блоков для тёмной темы */
+            --intro-bg: linear-gradient(135deg, #1e293b, #1e3a8a);
+            --intro-border: #3b82f6;
+            --goal-card-bg: #0f172a;
+            --goal-card-border: #1e3a8a;
+            
+            --callout-info-bg: rgba(37, 99, 235, 0.15);
+            --callout-success-bg: rgba(5, 150, 105, 0.15);
+            --callout-warning-bg: rgba(234, 88, 12, 0.15);
+            --callout-danger-bg: rgba(220, 38, 38, 0.15);
+            --callout-purple-bg: rgba(124, 58, 237, 0.15);
+            
+            --definition-bg: #0f172a;
+            --table-header-bg: #0f172a;
+            --table-header-text: #93c5fd;
+            --table-even-bg: #0f172a;
+            --error-cell-bg: #7f1d1d;
+            --error-cell-text: #fca5a5;
+            --inline-code-bg: #312e81;
+            --inline-code-text: #c7d2fe;
+            --homework-bg: linear-gradient(135deg, #020617, #1e1b4b);
+            --header-bg: linear-gradient(135deg, #020617, #0f172a);
+            
+            --toggle-bg: rgba(255, 255, 255, 0.1);
+            --toggle-border: rgba(255, 255, 255, 0.2);
+            --toggle-text: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= HEADER ================= */
+
+        .page-header {
+            background: var(--header-bg);
+            color: white;
+            padding: 28px 20px 48px;
+            position: relative;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .breadcrumbs {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .breadcrumbs a {
+            color: #bfdbfe;
+        }
+
+        /* TOGGLE THEME BUTTON */
+        .theme-toggle {
+            background: var(--toggle-bg);
+            border: 1px solid var(--toggle-border);
+            color: var(--toggle-text);
+            padding: 8px 16px;
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .lecture-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 100px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.15;
+            max-width: 900px;
+            margin: 0 0 20px;
+            color: white;
+        }
+
+        .page-header p {
+            max-width: 800px;
+            font-size: 18px;
+            color: #dbeafe;
+            margin: 0;
+        }
+
+        .lecture-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .meta-item {
+            padding: 9px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        /* ================= LAYOUT ================= */
+
+        .layout {
+            max-width: 1200px;
+            margin: -25px auto 0;
+            padding: 0 20px 60px;
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .sidebar h3 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sidebar a {
+            padding: 8px 10px;
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            background: var(--surface-alt);
+            text-decoration: none;
+            color: var(--primary);
+        }
+
+        /* ================= CONTENT ================= */
+
+        .content {
+            min-width: 0;
+        }
+
+        .content section, section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .content section h2, section h2 {
+            font-size: 28px;
+            line-height: 1.25;
+            margin: 0 0 20px;
+        }
+
+        .content section h3, section h3 {
+            font-size: 21px;
+            margin: 28px 0 12px;
+        }
+
+        .content section h4, section h4 {
+            margin: 22px 0 10px;
+            font-size: 17px;
+        }
+
+        .content section p, p {
+            margin-bottom: 14px;
+        }
+
+        .content section ul,
+        .content section ol, ul, ol {
+            padding-left: 24px;
+            margin-bottom: 18px;
+        }
+
+        .content section li, li {
+            margin-bottom: 7px;
+        }
+
+        /* ================= CARDS ================= */
+
+        .intro-card {
+            background: var(--intro-bg) !important;
+            border-color: var(--intro-border) !important;
+        }
+
+        .goals, .goal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .goal-card {
+            background: var(--goal-card-bg);
+            border: 1px solid var(--goal-card-border);
+            border-radius: 12px;
+            padding: 18px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .goal-card strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        /* ================= CALLOUTS ================= */
+
+        .callout {
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid;
+            transition: background-color 0.3s ease;
+        }
+
+        .callout.info {
+            background: var(--callout-info-bg);
+            border-color: var(--primary);
+        }
+
+        .callout.success {
+            background: var(--callout-success-bg);
+            border-color: var(--green);
+        }
+
+        .callout.warning {
+            background: var(--callout-warning-bg);
+            border-color: var(--orange);
+        }
+
+        .callout.danger {
+            background: var(--callout-danger-bg);
+            border-color: var(--red);
+        }
+
+        .callout.purple {
+            background: var(--callout-purple-bg);
+            border-color: var(--purple);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        /* ================= DEFINITION ================= */
+
+        .definition {
+            background: var(--definition-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .definition-term {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .content table, table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin: 20px 0;
+        }
+
+        .content th, th {
+            background: var(--table-header-bg);
+            color: var(--table-header-text);
+            text-align: left;
+        }
+
+        .content th,
+        .content td, th, td {
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .content tr:nth-child(even) td, tr:nth-child(even) td {
+            background: var(--table-even-bg);
+        }
+
+        .error-cell {
+            background: var(--error-cell-bg) !important;
+            color: var(--error-cell-text);
+            font-weight: 600;
+        }
+
+        /* ================= CODE / SCHEME ================= */
+
+        .content pre, pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 18px 0;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            border: 1px solid var(--border);
+        }
+
+        .content code, code {
+            background: var(--inline-code-bg);
+            color: var(--inline-code-text);
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .content pre code, pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* ================= GLOSSARY ================= */
+
+        .glossary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        .glossary-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            background: var(--surface);
+        }
+
+        .glossary-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .page-footer, footer {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            padding: 20px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .sidebar nav {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page-header {
+                padding-bottom: 40px;
+            }
+
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .layout {
+                padding: 0 12px 40px;
+            }
+
+            .content section, section {
+                padding: 22px 18px;
+            }
+
+            .content section h2, section h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="page-header">
+        <div class="header-inner">
+            <div class="header-top">
+                <div class="breadcrumbs">
+                    <a href="db-basics.html">Базы данных</a>[cite: 1]
+                    <span> / </span>
+                    <span>Лекция 3</span>[cite: 2]
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+                    <span id="themeIcon">🌙</span>
+                    <span id="themeText">Тёмная тема</span>
+                </button>
+            </div>
+            <div class="lecture-label">📘 Лекция №3</div>
+            <h1>Проектирование баз данных[cite: 2]</h1>
+            <p>Улучшенный полный сценарий для преподавателя · только доска · 2 пары по 90 минут[cite: 2]</p>
+            <div class="lecture-meta">
+                <div class="meta-item">⏱ 2 пары по 90 минут[cite: 2]</div>
+                <div class="meta-item">📚 Дисциплина: Базы данных[cite: 2]</div>
+                <div class="meta-item">🏫 Сквозной пример: «Колледж»[cite: 2]</div>
+            </div>
+        </div>
+    </header>
+    <div class="layout">
+        <aside class="sidebar">
+            <h3>Содержание</h3>
+            <nav>
+                <a href="#intro">Введение</a>
+                <a href="#section-1">1. Что преподаватель должен понимать до лекции</a>
+                <a href="#section-2">2. Организация доски и времени</a>
+                <a href="#section-3">3. ПАРА 1. От требований к концептуальной модели</a>
+            </nav>
+        </aside>
+        <main class="content">
+            <section class="intro-card" id="intro">
+                <h2>🎯 Параметры лекции[cite: 2]</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Параметр</th>
+                                <th>Значение</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Место в курсе[cite: 2]</td>
+                                <td>Лекция 3. Продолжает лекции 1 и 2[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>Сквозной пример[cite: 2]</td>
+                                <td>«Колледж»: студенты, группы, дисциплины, преподаватели, успеваемость[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>Уровень группы[cite: 2]</td>
+                                <td>Слабая начальная группа; преподаватель ведёт курс впервые[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>Оборудование[cite: 2]</td>
+                                <td>Только доска и маркеры/мел. Презентация не требуется[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>Главный результат[cite: 2]</td>
+                                <td>Студент понимает путь от требований к схеме, читает ER-модель, объясняет простые ФЗ и смысл 1НФ–3НФ[cite: 2]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section id="section-1">
+                <h2>1. Что преподаватель должен понимать до лекции[cite: 2]</h2>
+                <h3>1.1. Связь с лекциями 1 и 2[cite: 2]</h3>
+                <p>Уже изучено: на лекции 1 — данные, информация, БД, СУБД, предметная область, сущность, атрибут, домен, ключи, модели данных. На лекции 2 — реляционная модель, отношение, кортеж, PK/FK, связи 1:1/1:M/M:N, ссылочная целостность, ограничения, индексы, правила Кодда, реляционная алгебра.[cite: 2]</p>
+                <p>Задача лекции 3: не повторять две лекции целиком, а собрать знакомые понятия в процесс проектирования: от слов заказчика — к концептуальной модели, затем к логической схеме и только потом к физической реализации. Новые темы — уровни проектирования, системное применение ER-модели, функциональные зависимости и вводная нормализация.[cite: 2]</p>
+                
+                <h3>1.2. Система допущений сквозного примера «Колледж»[cite: 2]</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>№[cite: 2]</th>
+                                <th>Принятое учебное правило[cite: 2]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1[cite: 2]</td>
+                                <td>Каждый студент в текущий момент состоит ровно в одной учебной группе.[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>2[cite: 2]</td>
+                                <td>В одной группе может быть ноль, один или много студентов.[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>3[cite: 2]</td>
+                                <td>У каждой группы не более одного текущего куратора; для основной схемы считаем, что куратор обязателен.[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>4[cite: 2]</td>
+                                <td>Один преподаватель может быть куратором нескольких групп.[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>5[cite: 2]</td>
+                                <td>Студент изучает много дисциплин; одну дисциплину изучают многие студенты.[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>6[cite: 2]</td>
+                                <td>Для простого примера хранится одна итоговая оценка студента по дисциплине.[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>7[cite: 2]</td>
+                                <td>История переводов между группами, смены кураторов и пересдач в основной схеме не хранится.[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>8[cite: 2]</td>
+                                <td>Если понадобится история, для неё создаются отдельные сущности с датами начала и окончания.[cite: 2]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout warning">
+                    <div class="callout-title">Критически важно[cite: 2]</div>
+                    GroupID → CuratorID верно только в рамках правила «у группы один текущий куратор» и только если в строке ГРУППА хранится текущее состояние.[cite: 2]
+                </div>
+            </section>
+
+            <section id="section-2">
+                <h2>2. Организация доски и времени[cite: 2]</h2>
+                <h3>2.1. Разметка доски до начала занятия[cite: 2]</h3>
+                <p>Сделайте до звонка: разделите доску вертикальными линиями на три зоны.[cite: 2]</p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Левая зона (≈25%)[cite: 2]</th>
+                                <th>Центр (≈45%)[cite: 2]</th>
+                                <th>Правая зона (≈30%)[cite: 2]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Тема, план, определения и бизнес-правила. Цвет 1: обычный текст.[cite: 2]</td>
+                                <td>ER-модель «Колледж». Не стирать до конца пары. Цвет 2: PK подчёркиваем.[cite: 2]</td>
+                                <td>Таблицы, PK/FK, ФЗ и нормализация. Цвет 3: FK и стрелки зависимостей.[cite: 2]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>2.2. Условные обозначения на доске[cite: 2]</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Обозначение[cite: 2]</th>
+                                <th>Значение[cite: 2]</th>
+                                <th>Как произносить[cite: 2]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PK[cite: 2]</td>
+                                <td>первичный ключ[cite: 2]</td>
+                                <td>«идентификатор строки»[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>FK[cite: 2]</td>
+                                <td>внешний ключ[cite: 2]</td>
+                                <td>«ссылка на строку другой таблицы»[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>1:M[cite: 2]</td>
+                                <td>один ко многим[cite: 2]</td>
+                                <td>«одному объекту A соответствует много B»[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>M:N[cite: 2]</td>
+                                <td>многие ко многим[cite: 2]</td>
+                                <td>«многим A соответствует много B»[cite: 2]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="section-3">
+                <h2>ПАРА 1. От требований к концептуальной модели — 90 минут[cite: 2]</h2>
+                
+                <h3>Блок 1. Вход и восстановление основы[cite: 2]</h3>
+                <p><strong>Опорная мысль:</strong> студентам уже знакомы основные термины, но слабая группа могла запомнить их как отдельные определения. Задача — связать их в цепочку: предметная область содержит сущности; сущности имеют атрибуты; экземпляры различаются ключами; между сущностями есть связи.[cite: 2]</p>
+                
+                <div class="callout info">
+                    <div class="callout-title">Что должно быть на доске[cite: 2]</div>
+                    <pre><code>ЛЕКЦИЯ 3. ПРОЕКТИРОВАНИЕ БАЗ ДАННЫХ
+Маршрут:
+ТРЕБОВАНИЯ → КОНЦЕПТУАЛЬНАЯ МОДЕЛЬ → ЛОГИЧЕСКАЯ МОДЕЛЬ →
+→ ПРОВЕРКА ЗАВИСИМОСТЕЙ → ФИЗИЧЕСКАЯ МОДЕЛЬ
+
+Сквозной пример: КОЛЛЕДЖ</code></pre>[cite: 2]
+                </div>
+
+                <h3>Блок 2. Требования и бизнес-правила[cite: 2]</h3>
+                <div class="definition">
+                    <div class="definition-term">Требование[cite: 2]</div>
+                    <p>зафиксированная потребность или условие, которому должна соответствовать система[cite: 2]</p>
+                </div>
+                <div class="definition">
+                    <div class="definition-term">Бизнес-правило[cite: 2]</div>
+                    <p>утверждение предметной области, ограничивающее допустимые данные или связи между ними[cite: 2]</p>
+                </div>
+                <div class="definition">
+                    <div class="definition-term">Допущение[cite: 2]</div>
+                    <p>временно принятое условие, используемое при недостатке информации; должно быть явно записано[cite: 2]</p>
+                </div>
+                
+                <p><strong>Проблемная таблица</strong>[cite: 2]</p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>StudentID[cite: 2]</th>
+                                <th>StudentName[cite: 2]</th>
+                                <th>GroupID[cite: 2]</th>
+                                <th>GroupName[cite: 2]</th>
+                                <th>CuratorID[cite: 2]</th>
+                                <th>CuratorName[cite: 2]</th>
+                                <th>SubjectID[cite: 2]</th>
+                                <th>SubjectName[cite: 2]</th>
+                                <th>Grade[cite: 2]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101[cite: 2]</td>
+                                <td>Иванов И.[cite: 2]</td>
+                                <td>10[cite: 2]</td>
+                                <td>ИСП-21[cite: 2]</td>
+                                <td>17[cite: 2]</td>
+                                <td>Смирнова Е.[cite: 2]</td>
+                                <td>501[cite: 2]</td>
+                                <td>Базы данных[cite: 2]</td>
+                                <td>5[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>101[cite: 2]</td>
+                                <td>Иванов И.[cite: 2]</td>
+                                <td>10[cite: 2]</td>
+                                <td>ИСП-21[cite: 2]</td>
+                                <td>17[cite: 2]</td>
+                                <td>Смирнова Е.[cite: 2]</td>
+                                <td>502[cite: 2]</td>
+                                <td>Сети[cite: 2]</td>
+                                <td>4[cite: 2]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Блок 3. Принципы и этапы проектирования[cite: 2]</h3>
+                <div class="definition">
+                    <div class="definition-term">Проектирование БД[cite: 2]</div>
+                    <p>процесс определения состава, структуры, связей и ограничений данных до реализации в СУБД[cite: 2]</p>
+                </div>
+                
+                <h4>Этапы проектирования[cite: 2]</h4>
+                <ol>
+                    <li>Сбор требований и бизнес-правил[cite: 2]</li>
+                    <li>Концептуальное проектирование[cite: 2]</li>
+                    <li>Логическое проектирование[cite: 2]</li>
+                    <li>Проверка зависимостей и нормализация[cite: 2]</li>
+                    <li>Физическое проектирование[cite: 2]</li>
+                    <li>Реализация, проверка и сопровождение[cite: 2]</li>
+                </ol>
+
+                <h3>Блок 4. Три уровня модели данных[cite: 2]</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Пример[cite: 2]</th>
+                                <th>Уровень и объяснение[cite: 2]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ER-схема ГРУППА—СТУДЕНТ[cite: 2]</td>
+                                <td>концептуальный: показывает смысловые объекты и связь[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>STUDENT(StudentID PK, GroupID FK)[cite: 2]</td>
+                                <td>логический: показывает таблицу и ключи[cite: 2]</td>
+                            </tr>
+                            <tr>
+                                <td>GroupID BIGINT NOT NULL[cite: 2]</td>
+                                <td>физический: конкретный тип и ограничение[cite: 2]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Блок 5. ER-модель: сущность, экземпляр, атрибут, идентификатор[cite: 2]</h3>
+                <div class="definition">
+                    <div class="definition-term">ER-модель[cite: 2]</div>
+                    <p>концептуальная модель, представляющая предметную область через сущности, их атрибуты и связи[cite: 2]</p>
+                </div>
+                <div class="callout success">
+                    <div class="callout-title">Начало ER-схемы на доске[cite: 2]</div>
+                    <pre><code>STUDY_GROUP                         STUDENT
+  PK GroupID                          PK StudentID
+  GroupName                           StudentCardNo
+  CuratorID                           LastName
+                                       FirstName
+                                       BirthDate
+                                       FK GroupID</code></pre>[cite: 2]
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer class="page-footer">
+        <p>Базы данных · Лекция №3 · Проектирование баз данных[cite: 2]</p>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const htmlElement = document.documentElement;
+
+        // Определяем начальную тему с учетом localStorage и системных настроек
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+        applyTheme(currentTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            applyTheme(currentTheme);
+            localStorage.setItem('theme', currentTheme);
+        });
+
+        function applyTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Светлая тема';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Тёмная тема';
+            }
+        }
+    </script>
+</body>
+
+</html>
